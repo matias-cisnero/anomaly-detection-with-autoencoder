@@ -1,0 +1,5 @@
+{
+    "lr": 0.001,
+    "hidden_size": 12,
+    "latent_size": 6
+}
