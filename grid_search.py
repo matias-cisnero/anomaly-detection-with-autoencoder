@@ -1,14 +1,13 @@
 import pandas as pd
 import torch
 import time
-from model import Autoencoder, entrenar_autoencoder
+from utils import Autoencoder, entrenar_autoencoder, crear_datasets_proporcionales
 import numpy as np
 import json
 
 # --- Carga de datos y configuración del dispositivo ---
-df = pd.read_csv("data/diabetes_binary_health_indicators_BRFSS2015.csv")
-atributos = df.drop(columns=["Diabetes_binary"])
-x = atributos.to_numpy().astype("float32")
+conjuntos, _ = crear_datasets_proporcionales("data/diabetes_binary_health_indicators_BRFSS2015.csv", "Diabetes_binary")
+x = conjuntos[0] # <--- Tomo el conjunto de x que tiene 0% de personas con diabetes
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Dispositivo usado: {device}")
@@ -16,7 +15,7 @@ if device.type == "cuda":
     print(f"Nombre GPU: {torch.cuda.get_device_name(0)}")
 
 # --- Definición del Grid Search y variables de seguimiento ---
-tasas_de_aprendizaje = [0.001, 0.0001, 0.00001]
+tasas_de_aprendizaje =  [0.001] #[0.001, 0.0001, 0.00001]
 tamanos_oculta = [16, 12, 8]
 tamanos_latente = [2, 4, 6]
 
@@ -44,7 +43,7 @@ for lr in tasas_de_aprendizaje:
                 device=device,
                 lr=lr,
                 batch_size=512,
-                epocas=100,
+                epocas=200,
                 verbose=False
             )
             
