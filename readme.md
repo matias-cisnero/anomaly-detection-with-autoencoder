@@ -8,16 +8,10 @@ Este proyecto implementa un autoencoder utilizando PyTorch para detectar anomal�
 - **Detecta anomalías** al identificar instancias con altos errores de reconstrucción.
 - **Utiliza PyTorch**, una biblioteca popular para el aprendizaje automático y redes neuronales profundas.
 
-## 📊 Conjuntos de Datos Utilizados
-
-- **[Breast Cancer Dataset](https://www.kaggle.com/datasets/yasserh/breast-cancer-dataset)**  
-  Información sobre características de tumores mamarios, útil para clasificar entre benignos y malignos.
+## 📊 Conjunto de Datos Utilizados
 
 - **[Diabetes Health Indicators Dataset](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset)**  
   Contiene indicadores de salud relacionados con la diabetes, como niveles de glucosa y presión arterial.
-
-- **[Cancer Data](https://www.kaggle.com/datasets/erdemtaha/cancer-data)**  
-  Datos sobre diferentes tipos de cáncer, incluyendo características clínicas y demográficas.
 
 ## ⚙️ Tecnologías Utilizadas
 

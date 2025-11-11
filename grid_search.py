@@ -1,13 +1,22 @@
 import pandas as pd
 import torch
 import time
-from utils import Autoencoder, entrenar_autoencoder, crear_datasets_proporcionales
+from utils_legacy import Autoencoder, entrenar_autoencoder, crear_datasets_proporcionales
 import numpy as np
 import json
 
 # --- Carga de datos y configuración del dispositivo ---
-conjuntos, _ = crear_datasets_proporcionales("data/diabetes_binary_health_indicators_BRFSS2015.csv", "Diabetes_binary")
-x = conjuntos[0] # <--- Tomo el conjunto de x que tiene 0% de personas con diabetes
+#df = pd.read_csv("data/diabetes_binary_health_indicators_BRFSS2015.csv")
+df = pd.read_csv("data/diabetes_012_health_indicators_BRFSS2015.csv")
+
+# Estandarizamos las columnas no binarias
+cols = ["BMI", "MentHlth", "PhysHlth", "Age", "Education", "Income"]
+df[cols] = (df[cols] - df[cols].mean()) / df[cols].std()
+
+# Creamos los conjuntos para el entrenamiento
+#list_x_train, list_y_train, list_x_test, list_y_test, resumen_df = crear_datasets_proporcionales(df, "Diabetes_binary")
+list_x_train, list_y_train, list_x_test, list_y_test, resumen_df = crear_datasets_proporcionales(df, "Diabetes_012")
+x = list_x_train[0] # <--- Tomo el conjunto de x que tiene 0% de personas con diabetes
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Dispositivo usado: {device}")
@@ -43,7 +52,7 @@ for lr in tasas_de_aprendizaje:
                 device=device,
                 lr=lr,
                 batch_size=512,
-                epocas=200,
+                epocas=100,
                 verbose=False
             )
             
