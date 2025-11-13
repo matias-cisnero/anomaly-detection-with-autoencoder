@@ -32,6 +32,18 @@ class Autoencoder(nn.Module):
         with torch.no_grad():
             t = torch.tensor(x, dtype=torch.float32).to(device)
             return self.forward(t).cpu().numpy()
+    
+    def encode(self, x: np.ndarray, device="cpu") -> np.ndarray:
+        self.eval()
+        with torch.no_grad():
+            t = torch.tensor(x, dtype=torch.float32).to(device)
+            return self.encoder(t).cpu().numpy()
+
+    def decode(self, x: np.ndarray, device="cpu") -> np.ndarray:
+        self.eval()
+        with torch.no_grad():
+            t = torch.tensor(x, dtype=torch.float32).to(device)
+            return self.decoder(t).cpu().numpy()
         
     def fit(self, x_data: np.ndarray, device, lr: float, batch_size: int, epocas: int, verbose=1):
         dataset = TensorDataset(torch.tensor(x_data, dtype=torch.float32))
@@ -59,7 +71,9 @@ class Autoencoder(nn.Module):
             errores.append(epoca_loss)
 
             if verbose in (1, 2) and (epoca + 1) % 25 == 0:
-                print(f"    Época {epoca+1}/{epocas}, Error medio: {epoca_loss:.6f}")
+                delta = epoca_loss - errores[-2] if len(errores) > 1 else 0
+                signo = "↓" if delta < 0 else "↑"
+                print(f"Época {epoca+1:>3}/{epocas:<3} │ Error: {epoca_loss:.6f} {signo}")
 
         if verbose == 2:
             plt.plot(errores)
@@ -81,5 +95,36 @@ class Autoencoder(nn.Module):
         modelo = torch.load(path, map_location=device)
         modelo.to(device)
         modelo.eval()
-        print(f"\nModelo cargado correctamente en '{path}'")
+        print(f"\nModelo cargado correctamente de '{path}'")
         return modelo
+    
+    def summary(self):
+        caps_encoder, caps_decoder = [], []
+
+        for i in range(0, len(self.encoder), 2):
+            caps_encoder.append(str(self.encoder[i].in_features))
+        latent_dim = self.encoder[-1].out_features
+
+        for i in range(0, len(self.decoder), 2):
+            caps_decoder.append(str(self.decoder[i].out_features))
+
+        print(f"<Autoencoder: In {' → '.join(caps_encoder)} → [{latent_dim}] → {' → '.join(caps_decoder)} Out>")
+    
+    def __repr__(self):
+        lines = ["\nResumen del Autoencoder", "-" * 60, "Codificador:"]
+        for i in range(0, len(self.encoder), 2):
+            capa = self.encoder[i]
+            act = self.encoder[i + 1] if i + 1 < len(self.encoder) else None
+            nombre_act = act.__class__.__name__ if act else "—"
+            lines.append(f"  {capa.in_features:>3} → {capa.out_features:<3}  ({nombre_act})")
+
+        lines.append("Decodificador:")
+        for i in range(0, len(self.decoder), 2):
+            capa = self.decoder[i]
+            act = self.decoder[i + 1] if i + 1 < len(self.decoder) else None
+            nombre_act = act.__class__.__name__ if act else "—"
+            lines.append(f"  {capa.in_features:>3} → {capa.out_features:<3}  ({nombre_act})")
+
+        lines.append("-" * 60)
+        return "\n".join(lines)
+    
