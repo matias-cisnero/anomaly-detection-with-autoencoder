@@ -14,6 +14,7 @@ class Autoencoder(nn.Module):
         for i in range(len(capas) - 1):
             encoder_layers.append(nn.Linear(capas[i], capas[i + 1]))
             if i < len(capas) - 2:
+                #encoder_layers.append(nn.BatchNorm1d(capas[i + 1]))
                 encoder_layers.append(activacion())
         self.encoder = nn.Sequential(*encoder_layers)
 
@@ -21,6 +22,7 @@ class Autoencoder(nn.Module):
         for i in range(len(capas) - 1, 0, -1):
             decoder_layers.append(nn.Linear(capas[i], capas[i - 1]))
             if i > 1:
+                #decoder_layers.append(nn.BatchNorm1d(capas[i - 1]))
                 decoder_layers.append(activacion())
         self.decoder = nn.Sequential(*decoder_layers)
 
@@ -84,9 +86,9 @@ class Autoencoder(nn.Module):
 
         return errores
     
-    def save(self, path: str, i: int = -1):
+    def save(self, path: str, i: int = -1, lr: float = -1):
         fecha = datetime.now().strftime("%H-%M_%d-%m-%y")
-        final_path = f"{path}_{fecha}_{i}.pth"
+        final_path = f"{path}_fecha_{fecha}_lr_{lr}_conjunto_{i}.pth"
         torch.save(self, final_path)
         print(f"\nModelo guardado correctamente en '{final_path}'")
 

@@ -12,9 +12,28 @@ def get_device():
     print(f"Dispositivo usado: {device}{f' ({torch.cuda.get_device_name(0)})' if device.type == 'cuda' else ''}\n")
     return device
 
-def estandarizar_columnas(df: pd.DataFrame, cols_estandarizar: List[str]) -> pd.DataFrame:
+def estandarizar_columnas_no_binarias(df: pd.DataFrame, mostrar_cols: bool = False) -> pd.DataFrame:
+    cols_estandarizar = [col for col in df.columns if df[col].nunique() > 2]
+    if mostrar_cols: print("Columnas estandarizadas:", cols_estandarizar)
+
     df[cols_estandarizar] = (df[cols_estandarizar] - df[cols_estandarizar].mean()) / df[cols_estandarizar].std()
     return df
+
+def estandarizar_columnas2(df: pd.DataFrame, cols_estandarizar: List[str]) -> pd.DataFrame:
+    df[cols_estandarizar] = (df[cols_estandarizar] - df[cols_estandarizar].mean()) / df[cols_estandarizar].std()
+    return df
+
+def separar_columnas_binarias(array: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+    idx_bin = []
+    idx_no_bin = []
+
+    for i in range(array.shape[1]):
+        if np.unique(array[:, i]).size <= 2:
+            idx_bin.append(i)
+        else:
+            idx_no_bin.append(i)
+
+    return np.array(idx_bin), np.array(idx_no_bin)
 
 def crear_datasets_proporcionales(
     df: pd.DataFrame,
