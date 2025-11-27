@@ -1,0 +1,369 @@
+\documentclass[a4paper,10pt]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+%\usepackage[spanish]{babel}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{incgraph,tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsfonts}
+\usepackage{babel}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usepackage{natbib}
+\usepackage{subcaption}
+\usepackage{cleveref}
+\usepackage{xcolor}
+\usepackage{titlepic}
+
+\usepackage{listings}
+\lstset{ %
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=none,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=10pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,           % adds a frame around the code
+tabsize=4,          % sets default tabsize to 2 spaces
+captionpos=b,           % sets the caption-position to bottom
+breaklines=true,        % sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\%*}{*)}          % if you want to add a comment within your code
+}
+
+\usetikzlibrary{arrows}
+
+\captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
+
+\renewcommand{\contentsname}{\'Indice General}
+\renewcommand{\listfigurename}{\'Indice de Figuras}
+\renewcommand{\listtablename}{\'Indice de Tablas}
+\renewcommand{\lstlistingname}{Salida}
+\renewcommand\tablename{Tabla}
+\renewcommand{\figurename}{Figura}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+\renewcommand{\baselinestretch}{1.2} 
+
+\makeatletter
+\def\verbatim{\small\@verbatim \frenchspacing\@vobeyspaces \@xverbatim}
+\makeatother
+
+\pagestyle{fancy}
+
+\restylefloat{table}
+
+\title{Detección de Anomalías Utilizando Autocodificadores}
+\author{Autor: Matías Cisnero\\ Tutor: Dra. M. Juliana Gambini}
+\date{Diciembre 2025 \\ Universidad Nacional de Hurlingham}
+\titlepic{\vspace{12cm}\includegraphics[width=0.15\textwidth]{logo.png}}
+
+\begin{document}
+
+\maketitle
+
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter*{Resumen}
+
+El presente \underline{trabajo (o informe)} aborda el problema de la detección de anomalías en conjuntos de datos de salud, enfocándose en el diagnóstico temprano y la prevención de enfermedades como la diabetes. Se emplea la arquitectura de Autocodificadores (\textit{Autoencoders}), una clase de red neuronal no supervisada, para aprender una representación compacta y eficiente de los patrones de datos normales. El modelo se entrena utilizando el conjunto de datos \textbf{Diabetes Health Indicators Dataset}, donde se considera anómalo cualquier patrón que se desvía significativamente de la reconstrucción esperada. La implementación se realiza mediante la biblioteca PyTorch. Los resultados de esta investigación muestran ***. Se presenta un análisis exploratorio de los datos inicial, incluyendo la matriz de correlación y ***.
+
+\chapter{Introducción}
+
+\textbf{Describir el problema que se desea resolver}\\
+
+La detección de anomalías es un campo fundamental dentro del análisis de datos, cuyo objetivo principal es la identificación de patrones que no se ajustan a un comportamiento \underline{esperado (o normal)}. En el contexto de los datos de salud, una anomalía puede representar un error de medición, o una indicación temprana de una condición médica patológica, como la diabetes. Este trabajo se centra en desarrollar un sistema robusto para la detección automática de tales desviaciones. Se busca resolver la limitación de los métodos estadísticos tradicionales, los cuales a menudo no logran capturar las complejas interrelaciones no lineales presentes en conjuntos de datos de alta dimensionalidad. El problema específico que se aborda es cómo entrenar un modelo para que aprenda exclusivamente el perfil de pacientes \underline{'normales' o 'típicos' (o sanos)} a partir de un conjunto de datos con \underline{distintos balance de clases (quiero representar lo de varios porcentajes)}, y cómo utilizar su error de reconstrucción para señalar con precisión qué registros se consideran anómalos.
+
+\section{Motivación}
+
+\textbf{Explicar porqué estudiamos este problema, para qué sirve, cuál es el impacto y en qué áreas.}\\
+
+El diagnóstico temprano de enfermedades como la diabetes es una tarea prioritaria en la medicina moderna.  
+Muchas veces, los datos de salud contienen información sutil que puede pasar desapercibida mediante métodos tradicionales de análisis.  
+El uso de redes neuronales, y en particular de autocodificadores, permite automatizar este proceso y detectar posibles irregularidades en grandes volúmenes de datos de manera eficiente.
+
+Este tipo de sistemas podría integrarse en plataformas de monitoreo de salud, ayudando a profesionales médicos a detectar patrones atípicos o pacientes en riesgo antes de que aparezcan síntomas clínicos evidentes.
+
+\section{Estado del Arte}
+
+\textbf{En esta sección se realiza una descripción de algunos de los métodos más importantes existentes en la bibliografía describiendo el problema y el método utilizado por cada autor. Se cita la bibliografía.}\\
+
+\begin{itemize}
+	\item \textbf{Bouman, R., \& Heskes, T.} (2025). Autoencoders for Anomaly Detection Are Unreliable. \textit{arXiv preprint arXiv:2501.13864}.
+	
+	\item \textbf{Neloy, A. A., \& Turgeon, M.} (2024). A comprehensive study of auto-encoders for anomaly detection: Efficiency and trade-offs. \textit{Machine Learning with Applications}, \textit{17}, 100572.
+	
+	\item \textbf{Walczyna, T. et al.} (2025). Enhancing Anomaly Detection Through Latent Space Manipulation in Autoencoders: A Comparative Analysis. \textit{Appl. Sci.}, \textit{15}(1), 286.
+\end{itemize}
+
+\section{Conjuntos de datos Utilizados}
+
+\textbf{Se describen los datos utilizados y de donde fueron extraídos, si corresponde. En caso de que los datos sean propios, describir como fueron tomados}\\
+
+Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Diabetes Health Indicators Dataset}, el cual se extrajo de la plataforma Kaggle (disponible en: \url{https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset}).
+
+El conjunto de datos contiene una amplia variedad de indicadores de salud, incluyendo hábitos de vida, datos demográficos y resultados de exámenes médicos, todos orientados a predecir la probabilidad de padecer diabetes.
+
+El conjunto de datos utilizado cuenta con \textbf{253680} registros y \textbf{22} atributos, todos númericos.
+
+\subsection*{Atributos del conjunto de datos}
+
+A continuación, se listan los 22 atributos clasificados según su naturaleza:
+
+\subsubsection*{Variables binarias (0 o 1)}
+
+\begin{itemize}
+	\item \textbf{Diabetes\_012:} Variable objetivo. Toma el valor 1 si la persona tiene diagnóstico de diabetes, 0 en caso contrario.
+	\item \textbf{HighBP:} Indica si la persona presenta presión arterial alta (1 = sí, 0 = no).
+	\item \textbf{HighChol:} Indica si la persona tiene colesterol alto (1 = sí, 0 = no).
+	\item \textbf{CholCheck:} Indica si la persona se ha realizado un chequeo de colesterol en los últimos cinco años (1 = sí, 0 = no).
+	\item \textbf{Smoker:} Indica si la persona ha fumado al menos 100 cigarrillos en su vida (1 = sí, 0 = no).
+	\item \textbf{Stroke:} Indica si la persona ha sufrido un accidente cerebrovascular (ACV) (1 = sí, 0 = no).
+	\item \textbf{HeartDiseaseorAttack:} Indica si la persona tuvo alguna enfermedad coronaria o ataque cardíaco (1 = sí, 0 = no).
+	\item \textbf{PhysActivity:} Indica si la persona realizó actividad física en los últimos 30 días (1 = sí, 0 = no).
+	\item \textbf{Fruits:} Indica si la persona consume frutas al menos una vez al día (1 = sí, 0 = no).
+	\item \textbf{Veggies:} Indica si la persona consume vegetales al menos una vez al día (1 = sí, 0 = no).
+	\item \textbf{HvyAlcoholConsump:} Indica si la persona tiene un consumo elevado de alcohol (1 = sí, 0 = no).
+	\item \textbf{AnyHealthcare:} Indica si la persona tiene algún tipo de cobertura médica (1 = sí, 0 = no).
+	\item \textbf{NoDocbcCost:} Indica si la persona no pudo consultar a un médico por motivos de costo en los últimos 12 meses (1 = sí, 0 = no).
+	\item \textbf{DiffWalk:} Indica si la persona tiene dificultad para caminar o subir escaleras (1 = sí, 0 = no).
+	\item \textbf{Sex:} Género del participante (0 = femenino, 1 = masculino).
+\end{itemize}
+
+\subsubsection*{Variables no binarias}
+
+\begin{itemize}
+	\item \textbf{BMI:} Índice de masa corporal (Continua).
+	\item \textbf{GenHlth:} Autoevaluación del estado general de salud en una escala del 1 (excelente) al 5 (malo) (Discreta, Ordinal).
+	\item \textbf{MentHlth:} Número de días en los últimos 30 en los que la salud mental no fue buena (Discreta, Conteo).
+	\item \textbf{PhysHlth:} Número de días en los últimos 30 en los que la salud física no fue buena (Discreta, Conteo).
+	\item \textbf{Age:} Grupo etario codificado en rangos de 5 años (del 1 al 13, donde el valor 1 representa 18 a 24 años y el valor 13 representa 80 años o más) (Discreta, Ordinal).
+	\item \textbf{Education:} Nivel educativo, codificado del 1 (sin educación formal o solo jardín de infantes) al 6 (graduado universitario) (Discreta, Ordinal).
+	\item \textbf{Income:} Nivel de ingresos, codificado del 1 (menos de \$10.000 anuales) al 8 (más de \$75.000 anuales) (Discreta, Ordinal).
+\end{itemize}
+
+\subsection{Análisis exploratorio de datos y preprocesamiento}
+
+Previo al entrenamiento del modelo, realicé un \textbf{análisis exploratorio de datos (EDA)}. Este proceso incluye la limpieza de datos, el manejo de valores faltantes (si los hay), la visualización de la distribución de las variables y, fundamentalmente, el cálculo y la visualización de la matriz de correlación entre todos los atributos.
+
+Se aplicó una \textbf{estandarización} a los atributos no binarios para asegurar que todas las entradas del modelo tienen una escala comparable.
+
+La matriz de correlación resulta crucial porque permite identificar las \textbf{dependencias lineales} entre las variables y guía las decisiones sobre el preprocesamiento de los datos, confirmando la necesidad de un modelo capaz de capturar relaciones más complejas, como el autocodificador.
+
+\subsubsection{Distribución de la variable objetivo}
+
+La variable objetivo, $\textit{Diabetes\_012}$, presenta la siguiente distribución, lo que evidencia un problema de \textbf{desbalance de clases} que debe ser abordado por el modelo:
+
+\begin{table}[h!]
+	\centering
+	\caption{Distribución de la variable objetivo \textit{Diabetes\_012}}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\ \hline
+		0.0 (\textit{Sin diabetes}) & 84.24 & 213\,703 \\ \hline
+		2.0 (\textit{Con diabetes}) & 13.93 & 35\,346 \\ \hline
+		1.0 (\textit{Prediabetes}) & 1.83 & 4\,631 \\ \hline
+	\end{tabular}
+	\label{tab:diabetes_012}
+\end{table}
+
+Para el caso de este trabajo, se quitaron los registros correspondientes a pacientes con prediabetes, resultando en la siguiente distribución:
+
+\begin{table}[h!]
+	\centering
+	\caption{Distribución de la variable objetivo \textit{Diabetes\_012} posterior al filtrado}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\ \hline
+		0.0 (\textit{Sin diabetes}) & 85.81 & 213\,703 \\ \hline
+		1.0 (\textit{Con diabetes}) & 14.19 & 35\,346 \\ \hline
+	\end{tabular}
+	\label{tab:diabetes_012_filtrado}
+\end{table}
+
+\subsubsection{Estandarización de atributos no binarios}
+
+El conjunto de datos contiene atributos con diferentes rangos de valores; por ejemplo, el \textbf{BMI} es continuo, mientras que \textbf{Age}, \textbf{Education} e \textbf{Income} son escalas ordinales. Esta diferencia de escalas puede afectar el rendimiento de los algoritmos de optimización (como el Descenso de Gradiente) en el autocodificador, ya que las características con rangos más grandes dominarían la función de pérdida.
+
+Para mitigar esto, apliqué una estandarizacióna a todos los atributos no binarios. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Se realiza de la siguiente manera:
+
+\[
+z = \frac{x - \mu}{\sigma}
+\]
+donde $x$ es el valor original del atributo, $\mu$ es su media y $\sigma$ es su desviación estándar.
+
+\subsubsection{Cálculo de la matriz de correlación}
+
+Calculo la matriz de correlación ($\rho$), la cual mide el grado de asociación lineal entre cada par de atributos del conjunto de datos. Se calcula de la siguiente manera:
+
+\[
+\rho(X, Y) = \frac{Cov(X, Y)}{s_x s_y}
+\]
+
+Donde $Cov(X, Y)$ representa la covarianza entre $X$ e $Y$, y $s_x$, $s_y$ son sus desviaciones estándar. La covarianza se define como:
+
+\[
+Cov(X, Y) = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})
+\]
+
+A continuación se muestra la matriz de correlación calculada para los principales indicadores de salud del dataset:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{corr_matrix.png}
+	\caption{Matriz de correlación entre los atributos del conjunto de datos.}
+	\label{fig:corr_matrix}
+\end{figure}
+
+
+\chapter{Descripción de los Métodos Utilizados}
+
+\textbf{Describir los métodos utilizados, si corresponde.}\\
+
+%prueba \cite{santos2025}
+
+El método empleado en este proyecto es el \textbf{Autocodificador (\textit{Autoencoder})}. Un autocodificador es un tipo de red neuronal artificial diseñada para aprender una representación codificada de un conjunto de datos de manera no supervisada. La arquitectura se compone de dos partes principales: el \textbf{Codificador (\textit{Encoder})} y el \textbf{Decodificador (\textit{Decoder})}.
+
+\section{Arquitectura y principio de funcionamiento}
+
+Un autocodificador es un tipo de perceptrón multicapa, con la particularidad de ser simétrico respecto a su \textbf{capa latente}. La dimensión de la entrada ($d$) coincide con la dimensión de la salida, y el aprendizaje es no supervisado, ya que la salida esperada ($Y$) es la propia entrada ($X$).
+
+\subsection{Componentes clave}
+
+El codificador comprime la entrada en una representación en la capa latente. La capa latente es la capa oculta central, usualmente con una dimensión $k$ que es menor que la dimensión de la entrada ($k < d$). Esta capa contiene la representación comprimida de los datos. El decodificador, la segunda mitad de la red, reconstruye la salida $Y$ a partir de la representación latente.
+
+incluir gráfico
+
+\subsection{Función de activación (GeLU)}
+
+Se emplea la función \textbf{GeLU (\textit{Gaussian Error Linear Unit})} para introducir la no linealidad necesaria en las capas ocultas. Esta función es elegida sobre otras alternativas como la ReLU (Rectified Linear Unit), buscando mayor estabilidad y mejor rendimiento en modelos profundos.
+
+\section{Uso para la detección de anomalías}
+
+La aplicación del autocodificador para este caso es la \textbf{detección de datos atípicos}, explotando la diferencia en la capacidad de la red para reconstruir datos conocidos.
+
+\subsection{Criterio de detección}
+
+El modelo se entrena inicialmente con la clase que representa el comportamiento \textbf{normal}, es decir, los pacientes sin diabetes. Al presentar un dato $t$ que sigue la misma distribución, se espera que el error de reconstrucción sea pequeño.
+
+Sin embargo, si se presenta un dato atípico ($t^*$), el modelo no es capaz de reconstruirlo fielmente, lo que resulta en un error de reconstrucción significativamente alto. Un dato $t^*$ se considera anómalo si su error de reconstrucción excede un umbral predefinido ($\epsilon$).
+
+\[
+||t^{*}-t^{\prime*}|| \gg \epsilon
+\]
+donde $t^{\prime*}$ es el dato reconstruido por la red.
+
+\subsection{Resistencia a anomalías}
+
+Siguiendo el criterio anterior, se entrenó al modelo con distintas proporciones de datos atípicos, con el fin de evaluar su robustez ante estos. Cada conjunto de entrenamiento mantuvo un \textbf{total de 70\,692 registros}.
+
+\begin{table}[h!]
+	\centering
+	\caption{Conjuntos de datos creados para evaluar la resistencia a anomalías}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{ID} & \textbf{Proporción Anómalos} & \textbf{Proporción Normales} & \textbf{Registros Anómalos} & \textbf{Registros Normales} \\
+		& (\% Total) & (\% Total) & (Positivos) & (Negativos) \\ \hline
+		0 & 0\% & 100\% & 0 & 70\,692 \\ \hline
+		1 & 10\% & 90\% & 7\,069 & 63\,623 \\ \hline
+		2 & 25\% & 75\% & 17\,673 & 53\,019 \\ \hline
+		3 & 50\% & 50\% & 35\,346 & 35\,346 \\ \hline
+	\end{tabular}
+	\label{tab:resistencia_anomalias}
+\end{table}
+
+Estos conjuntos representan la proporción de contaminación introducida en el dataset de entrenamiento para simular escenarios donde la pureza de los datos normales no está garantizada.
+
+\section{Determinación del umbral y métricas de evaluación}
+
+La Detección de Anomalías utilizando un Autocodificador es una tarea de clasificación binaria, donde se compara el error de reconstrucción de un registro con un umbral predefinido $\epsilon$.
+
+\subsection{Clasificación de resultados}
+
+Para evaluar el rendimiento del modelo, se definen los siguientes criterios de clasificación en función del error de reconstrucción ($||t' - t||$) y el umbral $\epsilon$:
+
+\begin{itemize}
+	\item \textbf{Verdaderos Positivos (TP)}: Casos anómalos (Con diabetes) con un error de reconstrucción $||t' - t||> \epsilon$.
+	\item \textbf{Falsos Negativos (FN)}: Casos anómalos (Con diabetes) con un error de reconstrucción $||t' - t|| \le \epsilon$.
+	\item \textbf{Verdaderos Negativos (TN)}: Casos normales (Sin diabetes) con un error de reconstrucción $||t' - t|| \le \epsilon$.
+	\item \textbf{Falsos Positivos (FP)}: Casos normales (Sin diabetes) con un error de reconstrucción $||t' - t|| > \epsilon$.
+\end{itemize}
+
+\subsection{Elección de umbral $\epsilon$}
+
+El umbral $\epsilon$ es un hiperparámetro crítico que determina la sensibilidad del modelo a la hora de identificar una anomalía. Se evaluaron las siguientes estrategias para su cálculo, basadas en la distribución de los errores de reconstrucción ($||t' - t|$) sobre el conjunto de datos de la clase normal (Sin diabetes):
+
+incluir fórmulas de elección (max, media, etc)
+
+Donde $t_i$ es el $i$-ésimo registro original de la clase normal, $t'_i$ es su reconstrucción, \textbf{mean} denota el promedio y \textbf{std} denota la desviación estándar del error de reconstrucción.
+
+\subsection{Métricas de evaluación del modelo}
+
+Para cuantificar el rendimiento del modelo autocodificador en la tarea de clasificación, se emplean diversas métricas derivadas de la matriz de confusión:
+
+incluir fórmulas de métricas (acc, recall, precision, etc)
+
+En el contexto de la detección de anomalías, resultan de especial interés la métrica \textbf{Precision} y \textbf{Recall}.
+
+\chapter{Resultados}
+
+\textbf{Mostrar los resultados obtenidos utilizando gráficos, tablas, figuras, etc}
+
+\section{Métricas de Rendimiento del Modelo}
+
+\begin{table}[h!]
+	\centering
+	\caption{Métricas de rendimiento del modelo evaluado en diferentes proporciones de datos anómalos en el entrenamiento}
+	\begin{tabular}{|l|c|c|c|c|}
+		\hline
+		\textbf{Métrica} & \textbf{Conjunto 0} & \textbf{Conjunto 1} & \textbf{Conjunto 2} & \textbf{Conjunto 3} \\
+		& (0\% Anómalos) & (10\% Anómalos) & (25\% Anómalos) & (50\% Anómalos) \\ \hline
+		\textit{Accuracy} & 0.5362 & - & - & - \\ \hline
+		\textit{Precision} & 0.2638 & - & - & - \\ \hline
+		\textit{Recall} & 0.7484 & - & - & - \\ \hline
+		\textit{Specificity} & 0.4838 & - & - & - \\ \hline
+		\textit{Balanced Accuracy} & 0.6161 & - & - & - \\ \hline
+		\textit{F1\_Score} & 0.3901 & - & - & - \\ \hline
+	\end{tabular}
+	\label{tab:metricas_resistencia_anomalias}
+\end{table}
+
+\section{Matriz de Confusión}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{matriz_conf_abs.png}
+	\caption{Matriz de confusión en valores absolutos.}
+	\label{fig:matriz_conf_abs}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{matriz_conf_pct.png}
+	\caption{Matriz de confusión en valores porcentuales.}
+	\label{fig:matriz_conf_pct}
+\end{figure}
+
+
+\chapter{Conclusiones}
+
+\textbf{Explicar que aprendimos con la realización de este trabajo. Qué nos muestran los resultados.}
+
+\bibliographystyle{plain}
+\bibliography{References}
+
+\end{document}

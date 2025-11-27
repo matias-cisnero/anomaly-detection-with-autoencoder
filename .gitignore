@@ -2,9 +2,8 @@ anotaciones.md
 \pytorch-env
 \anomaly-env
 \pruebas
-\docs
-\data
 \models
 \legacy
+\results
 \__pycache__
 pruebas0.py

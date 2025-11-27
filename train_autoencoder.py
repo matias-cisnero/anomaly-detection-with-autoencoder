@@ -15,7 +15,7 @@ list_x_train, list_y_train, list_x_test, list_y_test, resumen_df = crear_dataset
 device = get_device()
 
 EPOCAS = 1000
-LR = 0.001 # 0.0001
+LR = 0.01 # 0.0001
 
 x = list_x_train[0] # <--- Tomo el conjunto de x que tiene 0% de personas con diabetes
 modelo = Autoencoder([x.shape[1], 32, 16, 8, 4, 2]).to(device) 

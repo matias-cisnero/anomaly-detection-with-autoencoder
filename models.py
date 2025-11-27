@@ -205,3 +205,9 @@ class HybridLossAutoencoder(BaseAutoencoder):
         w_mse = 1.0 / x_cont.size(1)
 
         return w_bce * bce_loss + w_mse * mse_loss
+    
+# DAE (Denoising Autoencoder)
+
+# CAE (Contractive Autoencoder)
+
+# SAE (Sparse Autoencoder)

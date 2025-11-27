@@ -6,6 +6,10 @@ from torch.utils.data import DataLoader, TensorDataset
 import matplotlib.pyplot as plt
 from typing import List, Tuple, Dict
 import pandas as pd
+import os
+import json
+from datetime import datetime
+from sklearn.metrics import ConfusionMatrixDisplay
 
 def get_device():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -98,61 +102,118 @@ def crear_datasets_proporcionales(
     resumen_df = pd.DataFrame(resumen_frecuencias)
     return list_x_train, list_y_train, list_x_test, list_y_test, resumen_df
 
-def evaluar_reconstruccion(modelo, original, device, redondear=True):
+def evaluar_reconstruccion(modelo, original, device, idx_cols_binarias = None):
     reconstruccion = modelo.predict(x=original, device=device)
 
-    if redondear:
-        reconstruccion = np.round(np.abs(reconstruccion))
+    if idx_cols_binarias is not None:
+        reconstruccion = reconstruccion.copy()
+        reconstruccion[:, idx_cols_binarias] = np.round(np.abs(reconstruccion[:, idx_cols_binarias]))
     
     diferencias = np.linalg.norm(original - reconstruccion, axis=1)
     return original, reconstruccion, diferencias
 
-def evaluar_anomalias(modelo, x, y, device, tipo_epsilon=1, redondear=True):
-    """
-    Calcula FP, FN, TP y TN evaluando la reconstrucción del autoencoder.
-    tipo_epsilon:
-        0 → max(diferencias normales)
-        1 → media(diferencias normales)
-        2 → media + 2*std (por defecto)
-    """
-    x_norm = x[y == 0]
-    x_anom = x[y == 1]
-
-    _, _, dif_norm = evaluar_reconstruccion(modelo, x_norm, device, redondear)
-    _, _, dif_anom = evaluar_reconstruccion(modelo, x_anom, device, redondear)
-
+def obtener_epsilon(dif_norm, tipo_epsilon=1):
+    # 0: Máximo (umbral más permisivo)
     if tipo_epsilon == 0:
-        epsilon = np.max(dif_norm)
-    elif tipo_epsilon == 1:
-        epsilon = np.mean(dif_norm)
-    else:
-        epsilon = np.mean(dif_norm) + 2 * np.std(dif_norm)
+        return np.max(dif_norm)
 
+    # 1: Media
+    elif tipo_epsilon == 1:
+        return np.mean(dif_norm)
+
+    # 2: Media + 2*STD
+    elif tipo_epsilon == 2:
+        return np.mean(dif_norm) + 2 * np.std(dif_norm)
+
+    # 3: Percentil 95
+    elif tipo_epsilon == 3:
+        return np.percentile(dif_norm, 95)
+
+    # 4: Mediana + IQR
+    elif tipo_epsilon == 4:
+        q1 = np.percentile(dif_norm, 25)
+        q3 = np.percentile(dif_norm, 75)
+        iqr = q3 - q1
+        return q3 + 1.5 * iqr
+
+    # 5: Mediana + MAD
+    elif tipo_epsilon == 5:
+        med = np.median(dif_norm)
+        mad = np.median(np.abs(dif_norm - med))
+        return med + 3 * mad
+
+    # 6: Media + 3*STD
+    elif tipo_epsilon == 6:
+        return np.mean(dif_norm) + 3 * np.std(dif_norm)
+
+    else:
+        return 0
+
+
+def obtener_matriz_confusion(dif_norm, dif_anom, epsilon):
+    # Normales
     FP = np.sum(dif_norm > epsilon)
     TN = np.sum(dif_norm <= epsilon)
 
+    # Anómalas
     TP = np.sum(dif_anom > epsilon)
     FN = np.sum(dif_anom <= epsilon)
 
-    return {"TP": int(TP), "FN": int(FN), "TN": int(TN), "FP": int(FP)}
+    return int(TP), int(FN), int(TN), int(FP)
 
 def obtener_metricas(TP: int, FN: int, TN: int, FP: int):
 
     total = TP + TN + FP + FN
-    matriz_confusion = np.array([[TN, FP],
-                                 [FN, TP]], dtype=float)
-    matriz_confusion_pct = np.round(100 * matriz_confusion / total, 2)
 
-    accuracy = (TP + TN) / (TP + TN + FP + FN)
-    precision = TP / (TP + FP )
-    recall = TP / (TP + FN)
-    f1 = 2 * precision * recall / (precision + recall)
+    accuracy = (TP + TN) / total
+    precision = TP / (TP + FP) if (TP + FP) > 0 else 0
+    recall = TP / (TP + FN) if (TP + FN) > 0 else 0
+    specificity = TN / (TN + FP) if (TN + FP) > 0 else 0
+    balanced_accuracy = (recall + specificity) / 2
+    f1_score = (2 * TP) / (2 * TP + FP + FN) if (2 * TP + FP + FN) > 0 else 0
 
     return {
-        "matriz_confusion": matriz_confusion.astype(int),
-        "matriz_confusion_pct": matriz_confusion_pct,
         "accuracy": round(float(accuracy), 4),
         "precision": round(float(precision), 4),
         "recall": round(float(recall), 4),
-        "f1_score": round(float(f1), 4)
+        "specificity": round(float(specificity), 4),
+        "balanced_accuracy": round(float(balanced_accuracy), 4),
+        "f1_score": round(float(f1_score), 4)
     }
+
+def graficar_matriz_confusion(TP, FN, FP, TN):
+    matriz = np.array([
+        [TP, FN],
+        [FP, TN]
+    ])
+
+    total = matriz.sum()
+    matriz_pct = np.round(100 * matriz / total, 2)
+
+    etiquetas = ["Anómalo", "Normal"]
+    display_labels = ["Anómalo", "Normal"]
+
+    fig1, ax1 = plt.subplots()
+    disp1 = ConfusionMatrixDisplay(
+        confusion_matrix=matriz,
+        display_labels=display_labels
+    )
+    disp1.plot(ax=ax1, cmap="Blues", colorbar=True)
+
+    fig2, ax2 = plt.subplots()
+    disp2 = ConfusionMatrixDisplay(
+        confusion_matrix=matriz_pct,
+        display_labels=display_labels
+    )
+    disp2.plot(ax=ax2, cmap="Blues", colorbar=True)
+
+    plt.show()
+
+def save_grid_search_results(data, folder="results", verbose=False):
+    fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")
+    path = os.path.join(folder, f"grid_search_results_{fecha}.json")
+
+    with open(path, "w") as f:
+        json.dump(data, f, indent=4, separators=(',', ': '))
+
+    if verbose: print(f"Resultados de grid search guardados en: {path}")

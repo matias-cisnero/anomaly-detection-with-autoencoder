@@ -2,8 +2,10 @@ import pandas as pd
 import time
 import numpy as np
 import json
+import os
+from datetime import datetime
 from models import Autoencoder
-from utils import estandarizar_columnas_no_binarias, crear_datasets_proporcionales, get_device
+from utils import estandarizar_columnas_no_binarias, crear_datasets_proporcionales, get_device, save_grid_search_results
 
 # =================== CARGA Y PREPROCESAMIENTO ===================
 df = pd.read_csv("data/diabetes_012_health_indicators_BRFSS2015.csv")
@@ -20,7 +22,7 @@ device = get_device()
 x = list_x_train[0] # <--- Tomo el conjunto de x que tiene 0% de personas con diabetes
 
 # =================== HIPERPARÁMETROS ===================
-tasas_de_aprendizaje = [0.001]
+tasas_de_aprendizaje = [0.01]
 capas_posibles = [
     [x.shape[1], 32, 16, 8, 4],
     [x.shape[1], 32, 16, 8, 4, 3],
@@ -68,8 +70,7 @@ print(f"    Error: {mejor['error']:.6f}")
 print(f"    Tiempo: {mejor['tiempo']:.2f}s")
 
 # =================== GUARDADO ===================
-with open("grid_search_results.json", "w") as f:
-    json.dump(historial, f, indent=4, separators=(',', ': '))
 
-print("\nResultados guardados en 'grid_search_results.json'")
+save_grid_search_results(historial, verbose=True)
+
 print("Grid Search finalizado con éxito")
