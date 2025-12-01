@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  10 NOV 2025 17:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  30 NOV 2025 22:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -970,7 +970,11 @@ Chapter 3.
 Chapter 4.
 (EjemploTesis.bbl [17] [18
 
-])
+]
+
+Package natbib Warning: Empty `thebibliography' environment on input line 3.
+
+)
 
 Package caption Warning: Unused \captionsetup[sub] on input line 23.
 See the caption package documentation for explanation.
@@ -986,10 +990,10 @@ L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 28238 strings out of 474485
- 538772 string characters out of 5742789
+ 28230 strings out of 474485
+ 538657 string characters out of 5742789
  1928542 words of memory out of 5000000
- 50060 multiletter control sequences out of 15000+600000
+ 50053 multiletter control sequences out of 15000+600000
  572942 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,11n,94p,534b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1002,9 +1006,9 @@ ur/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts
 eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Matías\AppData\Lo
 cal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\Matías\Ap
 pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk>
-Output written on EjemploTesis.pdf (19 pages, 101831 bytes).
+Output written on EjemploTesis.pdf (19 pages, 99693 bytes).
 PDF statistics:
- 381 PDF objects out of 1000 (max. 8388607)
- 33 named destinations out of 1000 (max. 500000)
+ 373 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
  74 words of extra memory for PDF output out of 10000 (max. 10000000)
 

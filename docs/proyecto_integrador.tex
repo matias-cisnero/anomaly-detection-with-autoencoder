@@ -11,6 +11,7 @@
 \usepackage{incgraph,tikz}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{amsmath} % agregado
 \usepackage{amsfonts}
 \usepackage{babel}
 \usepackage{color}
@@ -21,6 +22,7 @@
 \usepackage{natbib}
 \usepackage{subcaption}
 \usepackage{cleveref}
+\usepackage{colortbl} % agregado 
 \usepackage{xcolor}
 \usepackage{titlepic}
 
@@ -69,6 +71,8 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 \date{Diciembre 2025 \\ Universidad Nacional de Hurlingham}
 \titlepic{\vspace{12cm}\includegraphics[width=0.15\textwidth]{logo.png}}
 
+\newcommand{\comentario}[1]{\textbf{\textcolor{red}{#1}}}
+
 \begin{document}
 
 \maketitle
@@ -84,41 +88,62 @@ El presente \underline{trabajo (o informe)} aborda el problema de la detección 
 
 \chapter{Introducción}
 
-\textbf{Describir el problema que se desea resolver}\\
+\comentario{Describir el problema que se desea resolver}\\
 
-La detección de anomalías es un campo fundamental dentro del análisis de datos, cuyo objetivo principal es la identificación de patrones que no se ajustan a un comportamiento \underline{esperado (o normal)}. En el contexto de los datos de salud, una anomalía puede representar un error de medición, o una indicación temprana de una condición médica patológica, como la diabetes. Este trabajo se centra en desarrollar un sistema robusto para la detección automática de tales desviaciones. Se busca resolver la limitación de los métodos estadísticos tradicionales, los cuales a menudo no logran capturar las complejas interrelaciones no lineales presentes en conjuntos de datos de alta dimensionalidad. El problema específico que se aborda es cómo entrenar un modelo para que aprenda exclusivamente el perfil de pacientes \underline{'normales' o 'típicos' (o sanos)} a partir de un conjunto de datos con \underline{distintos balance de clases (quiero representar lo de varios porcentajes)}, y cómo utilizar su error de reconstrucción para señalar con precisión qué registros se consideran anómalos.
+La detección de anomalías es un campo fundamental dentro del análisis de datos, cuyo objetivo principal es la identificación de patrones que no se ajustan a un comportamiento que coincide con el de la mayoría de los registros. En el contexto de los datos de salud, una anomalía puede representar un error de medición, o una indicación temprana de una condición médica patológica, como la diabetes. Este trabajo se centra en desarrollar un sistema robusto para la detección automática de tales desviaciones. Se busca resolver la limitación de los métodos estadísticos tradicionales, los cuales a menudo no logran capturar las complejas interrelaciones no lineales presentes en conjuntos de datos de alta dimensionalidad. El problema específico que se aborda es cómo entrenar un \textbf{autocodificador} para que aprenda exclusivamente el perfil de pacientes normales o sanos a partir de un conjunto de datos que solamente incluya pacientes sanos y otro con pacientes sanos y enfermos, y cómo utilizar su error de reconstrucción para señalar con precisión qué registros se consideran anómalos.
 
 \section{Motivación}
 
-\textbf{Explicar porqué estudiamos este problema, para qué sirve, cuál es el impacto y en qué áreas.}\\
+\comentario{Explicar porqué estudiamos este problema, para qué sirve, cuál es el impacto y en qué áreas.}\\
 
-El diagnóstico temprano de enfermedades como la diabetes es una tarea prioritaria en la medicina moderna.  
-Muchas veces, los datos de salud contienen información sutil que puede pasar desapercibida mediante métodos tradicionales de análisis.  
-El uso de redes neuronales, y en particular de autocodificadores, permite automatizar este proceso y detectar posibles irregularidades en grandes volúmenes de datos de manera eficiente.
+El diagnóstico temprano de enfermedades como la diabetes es una tarea prioritaria en la medicina moderna. En muchos casos, los datos clínicos contienen patrones sutiles que pueden pasar desapercibidos a través de métodos tradicionales de análisis. Por este motivo, resulta fundamental el desarrollo de herramientas automáticas capaces de detectar irregularidades de manera precisa y rápida.
 
-Este tipo de sistemas podría integrarse en plataformas de monitoreo de salud, ayudando a profesionales médicos a detectar patrones atípicos o pacientes en riesgo antes de que aparezcan síntomas clínicos evidentes.
+Las redes neuronales, y en particular los autocodificadores, ofrecen un enfoque adecuado para esta tarea. Un autocodificador es un tipo de red neuronal diseñado para aprender una representación comprimida de los datos, capturando sus características más relevantes. Esta capacidad lo convierte en un candidato natural para identificar desviaciones respecto del comportamiento considerado normal.
+
+La incorporación de este tipo de modelos en sistemas de monitoreo podría asistir a profesionales de la salud en la detección temprana de pacientes en riesgo, incluso antes de la manifestación de síntomas clínicos evidentes. Por ello, en este proyecto se emplea un autocodificador como herramienta para analizar registros de pacientes y explorar su utilidad como detector de posibles anomalías asociadas a la diabetes.
+
 
 \section{Estado del Arte}
 
-\textbf{En esta sección se realiza una descripción de algunos de los métodos más importantes existentes en la bibliografía describiendo el problema y el método utilizado por cada autor. Se cita la bibliografía.}\\
+\comentario{En esta sección se realiza una descripción de algunos de los métodos más importantes existentes en la bibliografía describiendo el problema y el método utilizado por cada autor. Se cita la bibliografía.}\\
 
-\begin{itemize}
-	\item \textbf{Bouman, R., \& Heskes, T.} (2025). Autoencoders for Anomaly Detection Are Unreliable. \textit{arXiv preprint arXiv:2501.13864}.
-	
-	\item \textbf{Neloy, A. A., \& Turgeon, M.} (2024). A comprehensive study of auto-encoders for anomaly detection: Efficiency and trade-offs. \textit{Machine Learning with Applications}, \textit{17}, 100572.
-	
-	\item \textbf{Walczyna, T. et al.} (2025). Enhancing Anomaly Detection Through Latent Space Manipulation in Autoencoders: A Comparative Analysis. \textit{Appl. Sci.}, \textit{15}(1), 286.
-\end{itemize}
+\subsection{Autoencoders for Anomaly Detection Are Unreliable}
 
-\section{Conjuntos de datos Utilizados}
+Bouman y Heskes (2025) \cite{bouman2025unreliable} analizan críticamente el uso de autoencoders clásicos como detectores de anomalías. El trabajo sostiene que, bajo ciertas condiciones, los autoencoders pueden reconstruir correctamente ejemplos anómalos, lo cual conduce a falsos negativos incluso en casos evidentes.
 
-\textbf{Se describen los datos utilizados y de donde fueron extraídos, si corresponde. En caso de que los datos sean propios, describir como fueron tomados}\\
+\textbf{Metodología.}  
 
-Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Diabetes Health Indicators Dataset}, el cual se extrajo de la plataforma Kaggle (disponible en: \url{https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset}).
+\textbf{Resultados principales.}  
 
-El conjunto de datos contiene una amplia variedad de indicadores de salud, incluyendo hábitos de vida, datos demográficos y resultados de exámenes médicos, todos orientados a predecir la probabilidad de padecer diabetes.
+\textbf{Limitaciones.}  
 
-El conjunto de datos utilizado cuenta con \textbf{253680} registros y \textbf{22} atributos, todos númericos.
+\textbf{Relevancia.}  
+
+\subsection{A comprehensive study of auto-encoders for anomaly detection}
+
+Neloy y Turgeon (2024) \cite{neloy2024study}
+
+\subsection{Enhancing Anomaly Detection Through Latent Space Manipulation}
+
+Walczyna et al. (2025) \cite{walczyna2025latent}
+
+\subsection{Ensemble of Autoencoders for Anomaly Detection in Biomedical Data}
+
+\url{https://ieeexplore.ieee.org/abstract/document/10418130}
+
+\chapter{Materiales y Métodos}
+
+\comentario{Describir los métodos utilizados, si corresponde.}\\
+
+%prueba \cite{santos2025}
+
+El método empleado en este proyecto es el \textbf{Autocodificador (\textit{Autoencoder})}. Un autocodificador es un tipo de red neuronal artificial diseñada para aprender una representación codificada de un conjunto de datos de manera no supervisada. La arquitectura se compone de dos partes principales: el \textbf{Codificador (\textit{Encoder})} y el \textbf{Decodificador (\textit{Decoder})}.
+
+\section{Conjunto de datos y análisis exploratorio}
+
+\comentario{Se describen los datos utilizados y de donde fueron extraídos, si corresponde. En caso de que los datos sean propios, describir como fueron tomados}\\
+
+Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Diabetes Health Indicators Dataset}, el cual se extrajo de la plataforma Kaggle (disponible en: \url{https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset}). El conjunto de datos contiene 253\,680 registros y 22 atributos numéricos relacionados con indicadores de salud, hábitos de vida y características demográficas de los participantes.
 
 \subsection*{Atributos del conjunto de datos}
 
@@ -168,7 +193,7 @@ La matriz de correlación resulta crucial porque permite identificar las \textbf
 
 La variable objetivo, $\textit{Diabetes\_012}$, presenta la siguiente distribución, lo que evidencia un problema de \textbf{desbalance de clases} que debe ser abordado por el modelo:
 
-\begin{table}[h!]
+\begin{table}[H]
 	\centering
 	\caption{Distribución de la variable objetivo \textit{Diabetes\_012}}
 	\begin{tabular}{|c|c|c|}
@@ -183,7 +208,7 @@ La variable objetivo, $\textit{Diabetes\_012}$, presenta la siguiente distribuci
 
 Para el caso de este trabajo, se quitaron los registros correspondientes a pacientes con prediabetes, resultando en la siguiente distribución:
 
-\begin{table}[h!]
+\begin{table}[H]
 	\centering
 	\caption{Distribución de la variable objetivo \textit{Diabetes\_012} posterior al filtrado}
 	\begin{tabular}{|c|c|c|}
@@ -195,8 +220,6 @@ Para el caso de este trabajo, se quitaron los registros correspondientes a pacie
 	\label{tab:diabetes_012_filtrado}
 \end{table}
 
-\subsubsection{Estandarización de atributos no binarios}
-
 El conjunto de datos contiene atributos con diferentes rangos de valores; por ejemplo, el \textbf{BMI} es continuo, mientras que \textbf{Age}, \textbf{Education} e \textbf{Income} son escalas ordinales. Esta diferencia de escalas puede afectar el rendimiento de los algoritmos de optimización (como el Descenso de Gradiente) en el autocodificador, ya que las características con rangos más grandes dominarían la función de pérdida.
 
 Para mitigar esto, apliqué una estandarizacióna a todos los atributos no binarios. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Se realiza de la siguiente manera:
@@ -204,9 +227,10 @@ Para mitigar esto, apliqué una estandarizacióna a todos los atributos no binar
 \[
 z = \frac{x - \mu}{\sigma}
 \]
+
 donde $x$ es el valor original del atributo, $\mu$ es su media y $\sigma$ es su desviación estándar.
 
-\subsubsection{Cálculo de la matriz de correlación}
+
 
 Calculo la matriz de correlación ($\rho$), la cual mide el grado de asociación lineal entre cada par de atributos del conjunto de datos. Se calcula de la siguiente manera:
 
@@ -222,110 +246,168 @@ Cov(X, Y) = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})
 
 A continuación se muestra la matriz de correlación calculada para los principales indicadores de salud del dataset:
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{corr_matrix.png}
 	\caption{Matriz de correlación entre los atributos del conjunto de datos.}
 	\label{fig:corr_matrix}
 \end{figure}
 
+Para realizar el entrenamiento del autocodificador usé 4 conjuntos, los cuales poseen distintas proporciones de datos atípicos, esto lo realizo con el fin de evaluar la robustez del modelo ante estos. Cada conjunto de entrenamiento mantuvo un \textbf{total de 70\,692 registros}.
 
-\chapter{Descripción de los Métodos Utilizados}
-
-\textbf{Describir los métodos utilizados, si corresponde.}\\
-
-%prueba \cite{santos2025}
-
-El método empleado en este proyecto es el \textbf{Autocodificador (\textit{Autoencoder})}. Un autocodificador es un tipo de red neuronal artificial diseñada para aprender una representación codificada de un conjunto de datos de manera no supervisada. La arquitectura se compone de dos partes principales: el \textbf{Codificador (\textit{Encoder})} y el \textbf{Decodificador (\textit{Decoder})}.
-
-\section{Arquitectura y principio de funcionamiento}
-
-Un autocodificador es un tipo de perceptrón multicapa, con la particularidad de ser simétrico respecto a su \textbf{capa latente}. La dimensión de la entrada ($d$) coincide con la dimensión de la salida, y el aprendizaje es no supervisado, ya que la salida esperada ($Y$) es la propia entrada ($X$).
-
-\subsection{Componentes clave}
-
-El codificador comprime la entrada en una representación en la capa latente. La capa latente es la capa oculta central, usualmente con una dimensión $k$ que es menor que la dimensión de la entrada ($k < d$). Esta capa contiene la representación comprimida de los datos. El decodificador, la segunda mitad de la red, reconstruye la salida $Y$ a partir de la representación latente.
-
-incluir gráfico
-
-\subsection{Función de activación (GeLU)}
-
-Se emplea la función \textbf{GeLU (\textit{Gaussian Error Linear Unit})} para introducir la no linealidad necesaria en las capas ocultas. Esta función es elegida sobre otras alternativas como la ReLU (Rectified Linear Unit), buscando mayor estabilidad y mejor rendimiento en modelos profundos.
-
-\section{Uso para la detección de anomalías}
-
-La aplicación del autocodificador para este caso es la \textbf{detección de datos atípicos}, explotando la diferencia en la capacidad de la red para reconstruir datos conocidos.
-
-\subsection{Criterio de detección}
-
-El modelo se entrena inicialmente con la clase que representa el comportamiento \textbf{normal}, es decir, los pacientes sin diabetes. Al presentar un dato $t$ que sigue la misma distribución, se espera que el error de reconstrucción sea pequeño.
-
-Sin embargo, si se presenta un dato atípico ($t^*$), el modelo no es capaz de reconstruirlo fielmente, lo que resulta en un error de reconstrucción significativamente alto. Un dato $t^*$ se considera anómalo si su error de reconstrucción excede un umbral predefinido ($\epsilon$).
-
-\[
-||t^{*}-t^{\prime*}|| \gg \epsilon
-\]
-donde $t^{\prime*}$ es el dato reconstruido por la red.
-
-\subsection{Resistencia a anomalías}
-
-Siguiendo el criterio anterior, se entrenó al modelo con distintas proporciones de datos atípicos, con el fin de evaluar su robustez ante estos. Cada conjunto de entrenamiento mantuvo un \textbf{total de 70\,692 registros}.
-
-\begin{table}[h!]
+\begin{table}[H]
 	\centering
 	\caption{Conjuntos de datos creados para evaluar la resistencia a anomalías}
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
 		\textbf{ID} & \textbf{Proporción Anómalos} & \textbf{Proporción Normales} & \textbf{Registros Anómalos} & \textbf{Registros Normales} \\
 		& (\% Total) & (\% Total) & (Positivos) & (Negativos) \\ \hline
-		0 & 0\% & 100\% & 0 & 70\,692 \\ \hline
-		1 & 10\% & 90\% & 7\,069 & 63\,623 \\ \hline
-		2 & 25\% & 75\% & 17\,673 & 53\,019 \\ \hline
-		3 & 50\% & 50\% & 35\,346 & 35\,346 \\ \hline
+		A & 0\% & 100\% & 0 & 70\,692 \\ \hline
+		B & 10\% & 90\% & 7\,069 & 63\,623 \\ \hline
+		C & 25\% & 75\% & 17\,673 & 53\,019 \\ \hline
+		D & 50\% & 50\% & 35\,346 & 35\,346 \\ \hline
 	\end{tabular}
 	\label{tab:resistencia_anomalias}
 \end{table}
 
 Estos conjuntos representan la proporción de contaminación introducida en el dataset de entrenamiento para simular escenarios donde la pureza de los datos normales no está garantizada.
 
-\section{Determinación del umbral y métricas de evaluación}
+Para cada conjunto realicé una división en entrenamiento y prueba, manteniendo la proporción de normales y anomalías correspondiente a cada caso. El conjunto de entrenamiento se obtuvo tomando el 80\% de las muestras del conjunto original, mientras que el 20\% restante se utilizó como conjunto de prueba. De esta manera, tanto la distribución de clases como las diferentes proporciones de contaminación se mantienen consistentes en ambos subconjuntos, permitiendo evaluar el desempeño del modelo bajo escenarios comparables.
 
-La Detección de Anomalías utilizando un Autocodificador es una tarea de clasificación binaria, donde se compara el error de reconstrucción de un registro con un umbral predefinido $\epsilon$.
+\section{Descripción de los métodos}
 
-\subsection{Clasificación de resultados}
+Él método empleado en este proyecto es un autocodificador, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por tener la misma dimensión en la entrada ($d$) y en la salida. Aunque suele decirse que el aprendizaje en este modelo es no supervisado, en realidad sí es supervisado, ya que la salida esperada ($Y$) es la propia entrada ($X$).
 
-Para evaluar el rendimiento del modelo, se definen los siguientes criterios de clasificación en función del error de reconstrucción ($||t' - t||$) y el umbral $\epsilon$:
+En esta arquitectura, el \textbf{codificador} comprime la entrada en una representación ubicada en la \textbf{capa latente}, que es la capa oculta central y cuya dimensión ($k$) suele ser menor que la de la entrada ($k < d$). Esta capa contiene la representación comprimida de los datos. Luego, el \textbf{decodificador}, que constituye la segunda mitad de la red, reconstruye la salida a partir de esa representación latente.
 
-\begin{itemize}
-	\item \textbf{Verdaderos Positivos (TP)}: Casos anómalos (Con diabetes) con un error de reconstrucción $||t' - t||> \epsilon$.
-	\item \textbf{Falsos Negativos (FN)}: Casos anómalos (Con diabetes) con un error de reconstrucción $||t' - t|| \le \epsilon$.
-	\item \textbf{Verdaderos Negativos (TN)}: Casos normales (Sin diabetes) con un error de reconstrucción $||t' - t|| \le \epsilon$.
-	\item \textbf{Falsos Positivos (FP)}: Casos normales (Sin diabetes) con un error de reconstrucción $||t' - t|| > \epsilon$.
-\end{itemize}
+La arquitectura general de un autocodificador puede representarse de manera esquemática como se muestra en la Figura~\ref{fig:arquitectura}. En ella se observa las distintas capas del modelo, desde la entrada hasta la salida.
 
-\subsection{Elección de umbral $\epsilon$}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{arquitectura}
+	\caption{Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $Y$.}
+	\label{fig:arquitectura}
+\end{figure}
 
-El umbral $\epsilon$ es un hiperparámetro crítico que determina la sensibilidad del modelo a la hora de identificar una anomalía. Se evaluaron las siguientes estrategias para su cálculo, basadas en la distribución de los errores de reconstrucción ($||t' - t|$) sobre el conjunto de datos de la clase normal (Sin diabetes):
+Como función de activación en mi autocodificador utilizo \text{GELU} debido a sus ventajas frente a la comúnmente empleada \text{ReLU}. Entre ellas se destacan: una superficie de pérdida más suave que facilita un entrenamiento más estable y rápido, la ausencia del problema de "neuronas muertas" propio de ReLU, y una mayor capacidad de modelar relaciones no lineales gracias a su naturaleza probabilística basada en la distribución normal.
 
-incluir fórmulas de elección (max, media, etc)
+La función GELU(x) está definida por:
+\[
+\text{GELU}(x) = 0.5\,x\left(1 + \tanh\!\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715x^{3}\right)\right)\right)
+\]
 
-Donde $t_i$ es el $i$-ésimo registro original de la clase normal, $t'_i$ es su reconstrucción, \textbf{mean} denota el promedio y \textbf{std} denota la desviación estándar del error de reconstrucción.
+La función ReLU(x) se define como:
+\[
+\text{ReLU}(x) = \max(0, x)
+\]
+
+Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se puede apreciar la suavidad de \text{GELU} al aproximarse a 0, en contraste con el comportamiento abrupto de \text{ReLU}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{relu_gelu}
+	\caption{Comparación entre las funciones de activación ReLU y GELU. Se observa que GELU presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}
+	\label{fig:relugelu}
+\end{figure}
+
+A partir de esta arquitectura, el autocodificador puede emplearse como un método de \textbf{detección de anomalías}. Para ello, el modelo se entrena exclusivamente con la clase que representa el comportamiento normal, es decir, pacientes sin diabetes. Debido a que aprende a reconstruir adecuadamente este tipo de patrones, cuando recibe un dato $t$ perteneciente a la misma distribución, se espera que el error de reconstrucción $||t' - t||$ sea pequeño.
+
+En contraste, si se presenta un dato atípico $t^{*}$, correspondiente a un paciente con diabetes el modelo no logra reconstruirlo con la misma fidelidad, generando así un error significativamente mayor. Este comportamiento permite establecer un criterio simple y efectivo para la detección de anomalías: un dato se clasifica como anómalo si su error de reconstrucción supera un umbral $\epsilon$ predefinido. Formalmente:
+
+\[
+||t^{*} - t^{\prime *}|| > \epsilon
+\]
+
+donde $t^{\prime *}$ es la reconstrucción producida por la red a partir del dato $t^{*}$. Si la desigualdad se cumple, el dato se considera \emph{anómalo}; de lo contrario, se clasifica como \emph{normal}.
+
+El valor del umbral $\epsilon$ se determinó de manera empírica a partir del conjunto de datos normales utilizado durante el entrenamiento. En particular, se calculó como la \textbf{media del error de reconstrucción}:
+
+\[
+\epsilon = \text{media}\!\left( \lVert t'_i - t_i \rVert \right)
+\]
+
+donde $t_i$ corresponde a cada muestra normal y $t'_i$ a su respectiva reconstrucción generada por el modelo. Este valor promedio proporciona un límite representativo del comportamiento esperado en datos no anómalos, permitiendo distinguir de forma efectiva aquellos casos cuyo error excede significativamente lo aprendido por la red.
 
 \subsection{Métricas de evaluación del modelo}
 
-Para cuantificar el rendimiento del modelo autocodificador en la tarea de clasificación, se emplean diversas métricas derivadas de la matriz de confusión:
+Para evaluar el rendimiento del autocodificador en la tarea de detección de anomalías, se recurre a la \textbf{matriz de confusión}, la cual resume la relación entre las predicciones del modelo y las etiquetas reales. En este contexto, cada instancia se clasifica como \emph{normal} o \emph{anómala} según su error de reconstrucción $||t' - t||$ comparado con un umbral $\epsilon$.
 
-incluir fórmulas de métricas (acc, recall, precision, etc)
+A partir de este criterio, se definen los siguientes casos:
 
-En el contexto de la detección de anomalías, resultan de especial interés la métrica \textbf{Precision} y \textbf{Recall}.
+\begin{itemize}
+	\item \textbf{Verdaderos Positivos (TP)}: Casos \emph{anómalos} (personas con diabetes) cuyo error de reconstrucción satisface $||t' - t|| > \epsilon$.
+	
+	\item \textbf{Falsos Negativos (FN)}: Casos \emph{anómalos} (con diabetes) pero cuyo error cumple $||t' - t|| \le \epsilon$, es decir, el modelo no detectó la anomalía.
+	
+	\item \textbf{Verdaderos Negativos (TN)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||t' - t|| \le \epsilon$.
+	
+	\item \textbf{Falsos Positivos (FP)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||t' - t|| > \epsilon$, siendo incorrectamente clasificados como anómalos.
+\end{itemize}
+
+Luego, con estos casos, se construye la siguiente matriz de confusión:
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.8}
+	\begin{tabular}{c|c|c|}
+		\multicolumn{1}{c}{} &
+		\multicolumn{2}{c}{\textbf{Predicción}} \\
+		\multicolumn{1}{c}{} &
+		\textbf{Anómalo} & \textbf{Normal} \\ \hline
+		\textbf{Real: Anómalo} &
+		\cellcolor{green!25}\textbf{Verdadero Positivo (TP)} &
+		\cellcolor{red!25}\textbf{Falso Negativo (FN)} \\ \hline
+		\textbf{Real: Normal} &
+		\cellcolor{red!25}\textbf{Falso Positivo (FP)} &
+		\cellcolor{green!25}\textbf{Verdadero Negativo (TN)} \\ \hline
+	\end{tabular}
+	\caption{Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}
+\end{table}
+
+A partir de la matriz de confusión, las métricas empleadas para cuantificar el rendimiento del modelo se definen como:
+
+\[
+\text{Accuracy} =
+\frac{\text{TP} + \text{TN}}
+{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
+\]
+
+\[
+\text{Precision} =
+\frac{\text{TP}}
+{\text{TP} + \text{FP}}
+\]
+
+\[
+\text{Recall} =
+\frac{\text{TP}}
+{\text{TP} + \text{FN}}
+\]
+
+\[
+\text{Specificity} =
+\frac{\text{TN}}
+{\text{TN} + \text{FP}}
+\]
+
+\[
+\text{Balanced Accuracy} =
+\frac{\text{Recall} + \text{Specificity}}{2}
+\]
+
+\[
+\text{F1\_Score} =
+\frac{2\,\text{TP}}
+{2\,\text{TP} + \text{FP} + \text{FN}}
+\]
+
+En mí caso, resulta especialmente importante maximizar las métricas de \textbf{Recall} y \textbf{Precision}. Un alto \textit{Recall} asegura que la mayoría de los casos anómalos sean detectados (minimizando falsos negativos), mientras que una alta \textit{Precision} garantiza que las instancias señaladas como anómalas realmente lo sean (reduciendo falsos positivos).
 
 \chapter{Resultados}
 
-\textbf{Mostrar los resultados obtenidos utilizando gráficos, tablas, figuras, etc}
+\comentario{Mostrar los resultados obtenidos utilizando gráficos, tablas, figuras, etc}
 
-\section{Métricas de Rendimiento del Modelo}
-
-\begin{table}[h!]
+\begin{table}[H]
 	\centering
 	\caption{Métricas de rendimiento del modelo evaluado en diferentes proporciones de datos anómalos en el entrenamiento}
 	\begin{tabular}{|l|c|c|c|c|}
@@ -342,16 +424,14 @@ En el contexto de la detección de anomalías, resultan de especial interés la 
 	\label{tab:metricas_resistencia_anomalias}
 \end{table}
 
-\section{Matriz de Confusión}
-
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{matriz_conf_abs.png}
 	\caption{Matriz de confusión en valores absolutos.}
 	\label{fig:matriz_conf_abs}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{matriz_conf_pct.png}
 	\caption{Matriz de confusión en valores porcentuales.}
@@ -361,7 +441,7 @@ En el contexto de la detección de anomalías, resultan de especial interés la 
 
 \chapter{Conclusiones}
 
-\textbf{Explicar que aprendimos con la realización de este trabajo. Qué nos muestran los resultados.}
+\comentario{Explicar que aprendimos con la realización de este trabajo. Qué nos muestran los resultados.}
 
 \bibliographystyle{plain}
 \bibliography{References}

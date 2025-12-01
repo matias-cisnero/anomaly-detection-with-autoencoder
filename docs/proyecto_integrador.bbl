@@ -1,9 +1,19 @@
 \begin{thebibliography}{1}
 
-\bibitem{santos2025}
-Juan~Miguel Santos.
-\newblock Fundamentos de redes neuronales artificiales: Auto codificadores.
-\newblock Material interno del curso, may 2025.
-\newblock Material de cátedra adaptado por el Lic. Emiliano Damián Churruca.
+\bibitem{bouman2025unreliable}
+R~Bouman and T~Heskes.
+\newblock Autoencoders for anomaly detection are unreliable.
+\newblock {\em arXiv preprint arXiv:2501.13864}, 2025.
+
+\bibitem{neloy2024study}
+A~A Neloy and M~Turgeon.
+\newblock A comprehensive study of auto-encoders for anomaly detection:
+  Efficiency and trade-offs.
+\newblock {\em Machine Learning with Applications}, 17:100572, 2024.
+
+\bibitem{walczyna2025latent}
+T~Walczyna et~al.
+\newblock Enhancing anomaly detection through latent space manipulation.
+\newblock {\em Applied Sciences}, 15(1):286, 2025.
 
 \end{thebibliography}
