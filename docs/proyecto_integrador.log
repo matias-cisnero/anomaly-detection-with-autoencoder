@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  30 NOV 2025 22:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  2 DEC 2025 16:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -843,6 +843,26 @@ Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
 Package: titlepic 2017/03/14 1.2 Package to display a picture on the title page
 
 )
+(C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen300
+\lightrulewidth=\dimen301
+\cmidrulewidth=\dimen302
+\belowrulesep=\dimen303
+\belowbottomsep=\dimen304
+\aboverulesep=\dimen305
+\abovetopsep=\dimen306
+\cmidrulesep=\dimen307
+\cmidrulekern=\dimen308
+\defaultaddspace=\dimen309
+\@cmidla=\count332
+\@cmidlb=\count333
+\@aboverulesep=\dimen310
+\@belowrulesep=\dimen311
+\@thisruleclass=\count334
+\@lastruleclass=\count335
+\@thisrulewidth=\dimen312
+)
 (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/t
 ikz/libraries\tikzlibraryarrows.code.tex
 File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -850,50 +870,50 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgfli
 braryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen300
+\arrowsize=\dimen313
 ))
 \@float@every@table=\toks46
 
 (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-p
 dftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count332
+\l__color_backend_stack_int=\count336
 \l__pdf_internal_box=\box73
 ) (proyecto_integrador.aux)
 \openout1 = `proyecto_integrador.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
 
 (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
 mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count333
-\scratchdimen=\dimen301
+\scratchcounter=\count337
+\scratchdimen=\dimen314
 \scratchbox=\box74
-\nofMPsegments=\count334
-\nofMParguments=\count335
+\nofMPsegments=\count338
+\nofMParguments=\count339
 \everyMPshowfont=\toks47
-\MPscratchCnt=\count336
-\MPscratchDim=\dimen302
-\MPnumerator=\count337
-\makeMPintoPDFobject=\count338
+\MPscratchCnt=\count340
+\MPscratchDim=\dimen315
+\MPnumerator=\count341
+\makeMPintoPDFobject=\count342
 \everyMPtoPDFconversion=\toks48
 )
 (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
@@ -940,18 +960,18 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 76.
+Package hyperref Info: Link coloring OFF on input line 80.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count339
-LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
+\c@lstlisting=\count343
+LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
 
 (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
 
 
 (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -960,7 +980,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <logo.png, id=6, 76.285pt x 65.24374pt>
 File: logo.png Graphic file (type png)
 <use logo.png>
-Package pdftex.def Info: logo.png  used on input line 78.
+Package pdftex.def Info: logo.png  used on input line 82.
 (pdftex.def)             Requested size: 67.94241pt x 58.11053pt.
 
 [1
@@ -1012,7 +1032,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [8
 
 ]
-Overfull \hbox (10.71518pt too wide) in paragraph at lines 87--88
+Overfull \hbox (10.71518pt too wide) in paragraph at lines 91--92
 \T1/cmr/m/n/10 anómalo cualquier patrón que se desvía significativamente de la 
 reconstrucción esperada. La implementación
  []
@@ -1030,29 +1050,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
 
  []
 
 
-Overfull \hbox (2.33759pt too wide) in paragraph at lines 93--94
+Overfull \hbox (2.33759pt too wide) in paragraph at lines 97--98
 \T1/cmr/m/n/10 problema específico que se aborda es cómo entrenar un \T1/cmr/bx
 /n/10 autocodificador \T1/cmr/m/n/10 para que aprenda exclusivamente
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 [11]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
-32.
+36.
  (C:\Users\MatÃ­as\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
@@ -1066,24 +1086,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [12]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--145
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
 
  []
 
 
-Overfull \hbox (3.50536pt too wide) in paragraph at lines 146--147
+Overfull \hbox (3.50536pt too wide) in paragraph at lines 150--151
 \T1/cmr/bx/n/10 Dataset\T1/cmr/m/n/10 , el cual se extrajo de la plataforma Kag
 gle (disponible en: []$\T1/cmtt/m/n/10 https : / / www . kaggle . com / dataset
 s /
  []
 
 
-Overfull \hbox (13.39044pt too wide) in paragraph at lines 146--147
+Overfull \hbox (13.39044pt too wide) in paragraph at lines 150--151
 \T1/cmr/m/n/10 y 22 atributos numéricos relacionados con indicadores de salud, 
 hábitos de vida y características demográficas
  []
@@ -1099,14 +1119,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [14]
-<corr_matrix.png, id=152, 1147.6476pt x 802.9197pt>
+<corr_matrix.png, id=156, 1147.6476pt x 802.9197pt>
 File: corr_matrix.png Graphic file (type png)
 <use corr_matrix.png>
-Package pdftex.def Info: corr_matrix.png  used on input line 251.
+Package pdftex.def Info: corr_matrix.png  used on input line 261.
 (pdftex.def)             Requested size: 362.37569pt x 253.52136pt.
-
-Underfull \vbox (badness 1158) has occurred while \output is active []
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1116,24 +1133,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [15]
-Overfull \hbox (16.25452pt too wide) in paragraph at lines 256--257
+Overfull \hbox (16.25452pt too wide) in paragraph at lines 266--267
 []\T1/cmr/m/n/10 Para realizar el entrenamiento del autocodificador usé 4 conju
 ntos, los cuales poseen distintas proporciones
  []
 
 
-Overfull \hbox (37.85245pt too wide) in paragraph at lines 261--271
+Overfull \hbox (35.45248pt too wide) in paragraph at lines 271--283
  [][] 
  []
 
 
-Overfull \hbox (3.341pt too wide) in paragraph at lines 273--274
+Overfull \hbox (3.341pt too wide) in paragraph at lines 285--286
 []\T1/cmr/m/n/10 Estos conjuntos representan la proporción de contaminación int
 roducida en el dataset de entrenamiento
  []
 
 
-Overfull \hbox (1.1712pt too wide) in paragraph at lines 279--280
+Overfull \hbox (1.1712pt too wide) in paragraph at lines 291--292
 \T1/cmr/m/n/10 Él método empleado en este proyecto es un autocodificador, un ti
 po de perceptrón multicapa caracterizado
  []
@@ -1146,15 +1163,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [16 <./corr_matrix.png>]
-<arquitectura.png, id=169, 667.49374pt x 400.49625pt>
+<arquitectura.png, id=176, 667.49374pt x 400.49625pt>
 File: arquitectura.png Graphic file (type png)
 <use arquitectura.png>
-Package pdftex.def Info: arquitectura.png  used on input line 287.
+Package pdftex.def Info: arquitectura.png  used on input line 299.
 (pdftex.def)             Requested size: 271.7835pt x 163.07397pt.
-<relu_gelu.png, id=171, 489.9906pt x 323.7696pt>
+<relu_gelu.png, id=178, 489.9906pt x 323.7696pt>
 File: relu_gelu.png Graphic file (type png)
 <use relu_gelu.png>
-Package pdftex.def Info: relu_gelu.png  used on input line 308.
+Package pdftex.def Info: relu_gelu.png  used on input line 325.
 (pdftex.def)             Requested size: 271.7835pt x 179.5905pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1168,13 +1185,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [17 <./arquitectura.png>]
-Overfull \hbox (9.51547pt too wide) in paragraph at lines 323--324
+Overfull \hbox (9.51547pt too wide) in paragraph at lines 341--342
 \T1/cmr/m/n/10 utilizado durante el entrenamiento. En particular, se calculó co
 mo la \T1/cmr/bx/n/10 media del error de reconstrucción\T1/cmr/m/n/10 : 
  []
 
 
-Overfull \hbox (2.96022pt too wide) in paragraph at lines 338--339
+Overfull \hbox (2.96022pt too wide) in paragraph at lines 357--358
 []\T1/cmr/bx/n/10 Verdaderos Positivos (TP)\T1/cmr/m/n/10 : Casos \T1/cmr/m/it/
 10 anómalos \T1/cmr/m/n/10 (personas con diabetes) cuyo error de reconstrucción
 
@@ -1203,27 +1220,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[20
-
-]
+[20]
 Chapter 3.
-<matriz_conf_abs.png, id=192, 416.9979pt x 312.2064pt>
+<matriz_conf_abs.png, id=215, 416.9979pt x 312.2064pt>
 File: matriz_conf_abs.png Graphic file (type png)
 <use matriz_conf_abs.png>
-Package pdftex.def Info: matriz_conf_abs.png  used on input line 429.
+Package pdftex.def Info: matriz_conf_abs.png  used on input line 472.
 (pdftex.def)             Requested size: 317.07614pt x 237.40796pt.
-<matriz_conf_pct.png, id=193, 397.485pt x 312.2064pt>
+<matriz_conf_pct.png, id=216, 397.485pt x 312.2064pt>
 File: matriz_conf_pct.png Graphic file (type png)
 <use matriz_conf_pct.png>
-Package pdftex.def Info: matriz_conf_pct.png  used on input line 436.
+Package pdftex.def Info: matriz_conf_pct.png  used on input line 479.
 (pdftex.def)             Requested size: 317.07614pt x 249.05565pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5022) has occurred while \output is active []
 
- [21 <./matriz_conf_abs.png>] [22 <./matriz_conf_pct.png>]
+ [21
+
+ <./matriz_conf_abs.png>] [22 <./matriz_conf_pct.png>]
 Chapter 4.
 
-Overfull \hbox (1.08142pt too wide) in paragraph at lines 444--445
+Overfull \hbox (1.08142pt too wide) in paragraph at lines 487--488
 []\T1/cmr/bx/n/10 Explicar que aprendimos con la realización de este trabajo. Q
 ué nos muestran los resultados.[] 
  []
@@ -1238,7 +1255,7 @@ Package caption Warning: Unused \captionsetup[sub] on input line 24.
 See the caption package documentation for explanation.
 
 
-Package caption Warning: Unused \captionsetup[subfigure] on input line 50.
+Package caption Warning: Unused \captionsetup[subfigure] on input line 51.
 See the caption package documentation for explanation.
 
 [25] (proyecto_integrador.aux)
@@ -1248,13 +1265,13 @@ L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 29176 strings out of 474485
- 553016 string characters out of 5742789
- 1938542 words of memory out of 5000000
- 50934 multiletter control sequences out of 15000+600000
+ 29284 strings out of 474485
+ 554838 string characters out of 5742789
+ 1940542 words of memory out of 5000000
+ 51025 multiletter control sequences out of 15000+600000
  578661 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,11n,94p,1171b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,12n,94p,1171b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\MatÃ­as\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
 rm1000.pk> <C:\Users\MatÃ­as\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
 pi600\ecbi1000.pk> <C:\Users\MatÃ­as\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
@@ -1278,9 +1295,9 @@ MatÃ­as/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><
 C:/Users/MatÃ­as/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Users/MatÃ­as/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/cm/cmsy7.pfb>
-Output written on proyecto_integrador.pdf (25 pages, 667067 bytes).
+Output written on proyecto_integrador.pdf (25 pages, 671595 bytes).
 PDF statistics:
- 769 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
+ 796 PDF objects out of 1000 (max. 8388607)
+ 75 named destinations out of 1000 (max. 500000)
  155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

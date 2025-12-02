@@ -25,6 +25,7 @@
 \usepackage{colortbl} % agregado 
 \usepackage{xcolor}
 \usepackage{titlepic}
+\usepackage{booktabs} % para bottom, mid y top rule
 
 \usepackage{listings}
 \lstset{ %
@@ -73,6 +74,9 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 
 \newcommand{\comentario}[1]{\textbf{\textcolor{red}{#1}}}
 
+%\setlength{\parindent}{0pt} % para sacar sangría
+%\setlength{\parskip}{6pt} % para el espacio entre párrafos
+
 \begin{document}
 
 \maketitle
@@ -96,9 +100,9 @@ La detección de anomalías es un campo fundamental dentro del análisis de dato
 
 \comentario{Explicar porqué estudiamos este problema, para qué sirve, cuál es el impacto y en qué áreas.}\\
 
-El diagnóstico temprano de enfermedades como la diabetes es una tarea prioritaria en la medicina moderna. En muchos casos, los datos clínicos contienen patrones sutiles que pueden pasar desapercibidos a través de métodos tradicionales de análisis. Por este motivo, resulta fundamental el desarrollo de herramientas automáticas capaces de detectar irregularidades de manera precisa y rápida.
-
-Las redes neuronales, y en particular los autocodificadores, ofrecen un enfoque adecuado para esta tarea. Un autocodificador es un tipo de red neuronal diseñado para aprender una representación comprimida de los datos, capturando sus características más relevantes. Esta capacidad lo convierte en un candidato natural para identificar desviaciones respecto del comportamiento considerado normal.
+El diagnóstico temprano de enfermedades como la diabetes es una tarea prioritaria en la medicina moderna. En muchos casos, los datos clínicos contienen patrones sutiles que pueden pasar desapercibidos a través de métodos tradicionales de análisis. Por este motivo, resulta fundamental el desarrollo de herramientas automáticas capaces de detectar irregularidades de manera precisa y rápida. 
+ 
+Las redes neuronales, y en particular los autocodificadores, ofrecen un enfoque adecuado para esta tarea. Un autocodificador es un tipo de red neuronal diseñado para aprender una representación comprimida de los datos, capturando sus características más relevantes. Esta capacidad lo convierte en un candidato natural para identificar desviaciones respecto del comportamiento considerado normal.  
 
 La incorporación de este tipo de modelos en sistemas de monitoreo podría asistir a profesionales de la salud en la detección temprana de pacientes en riesgo, incluso antes de la manifestación de síntomas clínicos evidentes. Por ello, en este proyecto se emplea un autocodificador como herramienta para analizar registros de pacientes y explorar su utilidad como detector de posibles anomalías asociadas a la diabetes.
 
@@ -109,7 +113,7 @@ La incorporación de este tipo de modelos en sistemas de monitoreo podría asist
 
 \subsection{Autoencoders for Anomaly Detection Are Unreliable}
 
-Bouman y Heskes (2025) \cite{bouman2025unreliable} analizan críticamente el uso de autoencoders clásicos como detectores de anomalías. El trabajo sostiene que, bajo ciertas condiciones, los autoencoders pueden reconstruir correctamente ejemplos anómalos, lo cual conduce a falsos negativos incluso en casos evidentes.
+Bouman y Heskes (2025) \cite{bouman2025unreliable} analizan críticamente el uso de autocodificadores clásicos como detectores de anomalías. El trabajo sostiene que, bajo ciertas condiciones, los autocodificadores pueden reconstruir correctamente ejemplos anómalos, lo cual conduce a falsos negativos incluso en casos evidentes.
 
 \textbf{Metodología.}  
 
@@ -196,12 +200,14 @@ La variable objetivo, $\textit{Diabetes\_012}$, presenta la siguiente distribuci
 \begin{table}[H]
 	\centering
 	\caption{Distribución de la variable objetivo \textit{Diabetes\_012}}
-	\begin{tabular}{|c|c|c|}
-		\hline
-		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\ \hline
-		0.0 (\textit{Sin diabetes}) & 84.24 & 213\,703 \\ \hline
-		2.0 (\textit{Con diabetes}) & 13.93 & 35\,346 \\ \hline
-		1.0 (\textit{Prediabetes}) & 1.83 & 4\,631 \\ \hline
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\
+		\midrule
+		0.0 (\textit{Sin diabetes}) & 84.24 & 213\,703 \\
+		2.0 (\textit{Con diabetes}) & 13.93 & 35\,346 \\
+		1.0 (\textit{Prediabetes})  & 1.83  & 4\,631 \\
+		\bottomrule
 	\end{tabular}
 	\label{tab:diabetes_012}
 \end{table}
@@ -211,40 +217,44 @@ Para el caso de este trabajo, se quitaron los registros correspondientes a pacie
 \begin{table}[H]
 	\centering
 	\caption{Distribución de la variable objetivo \textit{Diabetes\_012} posterior al filtrado}
-	\begin{tabular}{|c|c|c|}
-		\hline
-		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\ \hline
-		0.0 (\textit{Sin diabetes}) & 85.81 & 213\,703 \\ \hline
-		1.0 (\textit{Con diabetes}) & 14.19 & 35\,346 \\ \hline
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\
+		\midrule
+		0.0 (\textit{Sin diabetes}) & 85.81 & 213\,703 \\
+		1.0 (\textit{Con diabetes}) & 14.19 & 35\,346 \\
+		\bottomrule
 	\end{tabular}
 	\label{tab:diabetes_012_filtrado}
 \end{table}
 
+
 El conjunto de datos contiene atributos con diferentes rangos de valores; por ejemplo, el \textbf{BMI} es continuo, mientras que \textbf{Age}, \textbf{Education} e \textbf{Income} son escalas ordinales. Esta diferencia de escalas puede afectar el rendimiento de los algoritmos de optimización (como el Descenso de Gradiente) en el autocodificador, ya que las características con rangos más grandes dominarían la función de pérdida.
 
-Para mitigar esto, apliqué una estandarizacióna a todos los atributos no binarios. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Se realiza de la siguiente manera:
+Para mitigar esto, apliqué una estandarizacióna a todos los atributos no binarios. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Este proceso se define formalmente en la ecuación~\ref{eq:estandarizacion}.
 
-\[
-z = \frac{x - \mu}{\sigma}
-\]
+\begin{equation}
+	z = \frac{x - \mu}{\sigma}
+	\label{eq:estandarizacion}
+\end{equation}
 
 donde $x$ es el valor original del atributo, $\mu$ es su media y $\sigma$ es su desviación estándar.
 
+Calculo la matriz de correlación ($\rho$), la cual mide el grado de asociación lineal entre cada par de atributos del conjunto de datos. Su definición matemática se muestra en la ecuación~\ref{eq:correlacion}.
 
+\begin{equation}
+	\rho(X, Y) = \frac{Cov(X, Y)}{s_x s_y}
+	\label{eq:correlacion}
+\end{equation}
 
-Calculo la matriz de correlación ($\rho$), la cual mide el grado de asociación lineal entre cada par de atributos del conjunto de datos. Se calcula de la siguiente manera:
+Donde $Cov(X, Y)$ representa la covarianza entre $X$ e $Y$, y $s_x$, $s_y$ son sus desviaciones estándar. Finalmente, la covarianza utilizada en ese cálculo se expresa en la ecuación~\ref{eq:covarianza}.
 
-\[
-\rho(X, Y) = \frac{Cov(X, Y)}{s_x s_y}
-\]
+\begin{equation}
+	Cov(X, Y) = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})
+	\label{eq:covarianza}
+\end{equation}
 
-Donde $Cov(X, Y)$ representa la covarianza entre $X$ e $Y$, y $s_x$, $s_y$ son sus desviaciones estándar. La covarianza se define como:
-
-\[
-Cov(X, Y) = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})
-\]
-
-A continuación se muestra la matriz de correlación calculada para los principales indicadores de salud del dataset:
+La matriz de correlación correspondiente a los principales indicadores de salud del conjunto de datos se presenta en la figura~\ref{fig:corr_matrix}, donde pueden observarse las relaciones lineales entre los distintos atributos.
 
 \begin{figure}[H]
 	\centering
@@ -258,14 +268,16 @@ Para realizar el entrenamiento del autocodificador usé 4 conjuntos, los cuales 
 \begin{table}[H]
 	\centering
 	\caption{Conjuntos de datos creados para evaluar la resistencia a anomalías}
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
+	\begin{tabular}{ccccc}
+		\toprule
 		\textbf{ID} & \textbf{Proporción Anómalos} & \textbf{Proporción Normales} & \textbf{Registros Anómalos} & \textbf{Registros Normales} \\
-		& (\% Total) & (\% Total) & (Positivos) & (Negativos) \\ \hline
-		A & 0\% & 100\% & 0 & 70\,692 \\ \hline
-		B & 10\% & 90\% & 7\,069 & 63\,623 \\ \hline
-		C & 25\% & 75\% & 17\,673 & 53\,019 \\ \hline
-		D & 50\% & 50\% & 35\,346 & 35\,346 \\ \hline
+		& (\% Total) & (\% Total) & (Positivos) & (Negativos) \\
+		\midrule
+		A & 0\%  & 100\% & 0      & 70\,692 \\
+		B & 10\% & 90\%  & 7\,069  & 63\,623 \\
+		C & 25\% & 75\%  & 17\,673 & 53\,019 \\
+		D & 50\% & 50\%  & 35\,346 & 35\,346 \\
+		\bottomrule
 	\end{tabular}
 	\label{tab:resistencia_anomalias}
 \end{table}
@@ -280,7 +292,7 @@ Para cada conjunto realicé una división en entrenamiento y prueba, manteniendo
 
 En esta arquitectura, el \textbf{codificador} comprime la entrada en una representación ubicada en la \textbf{capa latente}, que es la capa oculta central y cuya dimensión ($k$) suele ser menor que la de la entrada ($k < d$). Esta capa contiene la representación comprimida de los datos. Luego, el \textbf{decodificador}, que constituye la segunda mitad de la red, reconstruye la salida a partir de esa representación latente.
 
-La arquitectura general de un autocodificador puede representarse de manera esquemática como se muestra en la Figura~\ref{fig:arquitectura}. En ella se observa las distintas capas del modelo, desde la entrada hasta la salida.
+La arquitectura general de un autocodificador puede representarse de manera esquemática como se muestra en la figura~\ref{fig:arquitectura}. En ella se observa las distintas capas del modelo, desde la entrada hasta la salida.
 
 \begin{figure}[H]
 	\centering
@@ -292,14 +304,19 @@ La arquitectura general de un autocodificador puede representarse de manera esqu
 Como función de activación en mi autocodificador utilizo \text{GELU} debido a sus ventajas frente a la comúnmente empleada \text{ReLU}. Entre ellas se destacan: una superficie de pérdida más suave que facilita un entrenamiento más estable y rápido, la ausencia del problema de "neuronas muertas" propio de ReLU, y una mayor capacidad de modelar relaciones no lineales gracias a su naturaleza probabilística basada en la distribución normal.
 
 La función GELU(x) está definida por:
-\[
-\text{GELU}(x) = 0.5\,x\left(1 + \tanh\!\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715x^{3}\right)\right)\right)
-\]
+
+\begin{equation}
+	\text{GELU}(x) =
+	0.5\,x\left(1 + \tanh\!\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715x^{3}\right)\right)\right)
+	\label{eq:gelu}
+\end{equation}
 
 La función ReLU(x) se define como:
-\[
-\text{ReLU}(x) = \max(0, x)
-\]
+
+\begin{equation}
+	\text{ReLU}(x) = \max(0, x)
+	\label{eq:relu}
+\end{equation}
 
 Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se puede apreciar la suavidad de \text{GELU} al aproximarse a 0, en contraste con el comportamiento abrupto de \text{ReLU}.
 
@@ -314,17 +331,19 @@ A partir de esta arquitectura, el autocodificador puede emplearse como un métod
 
 En contraste, si se presenta un dato atípico $t^{*}$, correspondiente a un paciente con diabetes el modelo no logra reconstruirlo con la misma fidelidad, generando así un error significativamente mayor. Este comportamiento permite establecer un criterio simple y efectivo para la detección de anomalías: un dato se clasifica como anómalo si su error de reconstrucción supera un umbral $\epsilon$ predefinido. Formalmente:
 
-\[
-||t^{*} - t^{\prime *}|| > \epsilon
-\]
+\begin{equation}
+	\lVert t^{*} - t^{\prime *} \rVert > \epsilon
+	\label{eq:dif_reconstruccion}
+\end{equation}
 
 donde $t^{\prime *}$ es la reconstrucción producida por la red a partir del dato $t^{*}$. Si la desigualdad se cumple, el dato se considera \emph{anómalo}; de lo contrario, se clasifica como \emph{normal}.
 
 El valor del umbral $\epsilon$ se determinó de manera empírica a partir del conjunto de datos normales utilizado durante el entrenamiento. En particular, se calculó como la \textbf{media del error de reconstrucción}:
 
-\[
-\epsilon = \text{media}\!\left( \lVert t'_i - t_i \rVert \right)
-\]
+\begin{equation}
+	\epsilon = \text{media}\!\left( \lVert t'_i - t_i \rVert \right)
+	\label{eq:epsilon}
+\end{equation}
 
 donde $t_i$ corresponde a cada muestra normal y $t'_i$ a su respectiva reconstrucción generada por el modelo. Este valor promedio proporciona un límite representativo del comportamiento esperado en datos no anómalos, permitiendo distinguir de forma efectiva aquellos casos cuyo error excede significativamente lo aprendido por la red.
 
@@ -364,44 +383,65 @@ Luego, con estos casos, se construye la siguiente matriz de confusión:
 	\caption{Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}
 \end{table}
 
-A partir de la matriz de confusión, las métricas empleadas para cuantificar el rendimiento del modelo se definen como:
+Luego de definir los cuatro posibles resultados derivados del criterio basado en el umbral $\epsilon$, es posible cuantificar el rendimiento del modelo mediante diversas métricas. Cada una de ellas resume un aspecto distinto de la calidad de las predicciones y se deriva directamente de los valores presentes en la matriz de confusión. A continuación, se presentan las métricas utilizadas en este trabajo, junto con sus expresiones formales.
 
-\[
-\text{Accuracy} =
-\frac{\text{TP} + \text{TN}}
-{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
-\]
+La exactitud (accuracy) cuantifica la proporción total de predicciones correctas realizadas por el modelo según la ecuación~\ref{eq:accuracy}.
 
-\[
-\text{Precision} =
-\frac{\text{TP}}
-{\text{TP} + \text{FP}}
-\]
+\begin{equation}
+	\text{Accuracy} =
+	\frac{\text{TP} + \text{TN}}
+	{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
+	\label{eq:accuracy}
+\end{equation}
 
-\[
-\text{Recall} =
-\frac{\text{TP}}
-{\text{TP} + \text{FN}}
-\]
+La precisión (precision) indica qué proporción de las predicciones positivas corresponde realmente a casos positivos, tal como se define en la ecuación~\ref{eq:precision}.
 
-\[
-\text{Specificity} =
-\frac{\text{TN}}
-{\text{TN} + \text{FP}}
-\]
+\begin{equation}
+	\text{Precision} =
+	\frac{\text{TP}}
+	{\text{TP} + \text{FP}}
+	\label{eq:precision}
+\end{equation}
 
-\[
-\text{Balanced Accuracy} =
-\frac{\text{Recall} + \text{Specificity}}{2}
-\]
+La sensibilidad (recall) mide la capacidad del modelo para identificar correctamente los casos positivos presentes en el conjunto de datos, de acuerdo con la ecuación~\ref{eq:recall}.
 
-\[
-\text{F1\_Score} =
-\frac{2\,\text{TP}}
-{2\,\text{TP} + \text{FP} + \text{FN}}
-\]
+\begin{equation}
+	\text{Recall} =
+	\frac{\text{TP}}
+	{\text{TP} + \text{FN}}
+	\label{eq:recall}
+\end{equation}
 
-En mí caso, resulta especialmente importante maximizar las métricas de \textbf{Recall} y \textbf{Precision}. Un alto \textit{Recall} asegura que la mayoría de los casos anómalos sean detectados (minimizando falsos negativos), mientras que una alta \textit{Precision} garantiza que las instancias señaladas como anómalas realmente lo sean (reduciendo falsos positivos).
+La especificidad (specificity) evalúa la proporción de casos negativos correctamente clasificados, definida en la ecuación~\ref{eq:specificity}.
+
+\begin{equation}
+	\text{Specificity} =
+	\frac{\text{TN}}
+	{\text{TN} + \text{FP}}
+	\label{eq:specificity}
+\end{equation}
+
+La exactitud balanceada (balanced accuracy), mostrada en la ecuación~\ref{eq:balanced-accuracy}, combina sensibilidad y especificidad para obtener una medida equilibrada del rendimiento.
+
+\begin{equation}
+	\text{Balanced Accuracy} =
+	\frac{\text{Recall} + \text{Specificity}}{2}
+	\label{eq:balanced-accuracy}
+\end{equation}
+
+El F1-Score combina las medidas de precisión y sensibilidad para ofrecer una métrica más general de la calidad del modelo, tal como se expresa en la ecuación~\ref{eq:f1-score}.
+
+\begin{equation}
+	\text{F1\_Score} =
+	\frac{2 \cdot \text{Precision} \cdot \text{Recall}}
+	{\text{Precision} + \text{Recall}}
+	=
+	\frac{2\,\text{TP}}
+	{2\,\text{TP} + \text{FP} + \text{FN}}
+	\label{eq:f1-score}
+\end{equation}
+
+En mi caso, resulta especialmente importante maximizar las métricas de \textbf{Recall} y \textbf{Precision}. Un alto \textit{Recall} garantiza que la mayoría de los casos anómalos sean identificados, minimizando los falsos negativos, mientras que una alta \textit{Precision} asegura que las instancias marcadas como anómalas realmente lo sean, reduciendo los falsos positivos. Dado que el \textbf{F1\_Score} combina ambas métricas en una sola medida equilibrada del rendimiento del modelo, maximizar esta métrica resulta especialmente relevante para esta tarea.
 
 \chapter{Resultados}
 
@@ -410,19 +450,22 @@ En mí caso, resulta especialmente importante maximizar las métricas de \textbf
 \begin{table}[H]
 	\centering
 	\caption{Métricas de rendimiento del modelo evaluado en diferentes proporciones de datos anómalos en el entrenamiento}
-	\begin{tabular}{|l|c|c|c|c|}
-		\hline
+	\begin{tabular}{lcccc}
+		\toprule
 		\textbf{Métrica} & \textbf{Conjunto 0} & \textbf{Conjunto 1} & \textbf{Conjunto 2} & \textbf{Conjunto 3} \\
-		& (0\% Anómalos) & (10\% Anómalos) & (25\% Anómalos) & (50\% Anómalos) \\ \hline
-		\textit{Accuracy} & 0.5362 & - & - & - \\ \hline
-		\textit{Precision} & 0.2638 & - & - & - \\ \hline
-		\textit{Recall} & 0.7484 & - & - & - \\ \hline
-		\textit{Specificity} & 0.4838 & - & - & - \\ \hline
-		\textit{Balanced Accuracy} & 0.6161 & - & - & - \\ \hline
-		\textit{F1\_Score} & 0.3901 & - & - & - \\ \hline
+		& (0\% Anómalos) & (10\% Anómalos) & (25\% Anómalos) & (50\% Anómalos) \\
+		\midrule
+		\textit{Accuracy} & 0.5362 & -- & -- & -- \\
+		\textit{Precision} & 0.2638 & -- & -- & -- \\
+		\textit{Recall} & 0.7484 & -- & -- & -- \\
+		\textit{Specificity} & 0.4838 & -- & -- & -- \\
+		\textit{Balanced Accuracy} & 0.6161 & -- & -- & -- \\
+		\textit{F1\_Score} & 0.3901 & -- & -- & -- \\
+		\bottomrule
 	\end{tabular}
 	\label{tab:metricas_resistencia_anomalias}
 \end{table}
+
 
 \begin{figure}[H]
 	\centering
