@@ -1,10 +1,11 @@
 \babel@toc {nil}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Matriz de correlación entre los atributos del conjunto de datos.}}{16}{figure.caption.9}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $Y$.}}{17}{figure.caption.10}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Comparación entre las funciones de activación ReLU y GELU. Se observa que GELU presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}}{18}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Matriz de correlación entre los atributos del conjunto de datos.}}{15}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $Y$.}}{16}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Comparación entre las funciones de activación ReLU y GELU. Se observa que GELU presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}}{17}{figure.caption.7}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Matriz de confusión en valores absolutos.}}{21}{figure.caption.12}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Matriz de confusión en valores porcentuales.}}{22}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces \relax }}{21}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Matriz de confusión en valores absolutos.}}{22}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Matriz de confusión en valores porcentuales.}}{22}{figure.caption.10}%
 \addvspace {10\p@ }

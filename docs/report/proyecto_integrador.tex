@@ -147,43 +147,42 @@ El método empleado en este proyecto es el \textbf{Autocodificador (\textit{Auto
 
 \comentario{Se describen los datos utilizados y de donde fueron extraídos, si corresponde. En caso de que los datos sean propios, describir como fueron tomados}\\
 
-Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Diabetes Health Indicators Dataset}, el cual se extrajo de la plataforma Kaggle (disponible en: \url{https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset}). El conjunto de datos contiene 253\,680 registros y 22 atributos numéricos relacionados con indicadores de salud, hábitos de vida y características demográficas de los participantes.
+Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual se extrajo de la plataforma Kaggle (disponible en: \url{https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data}). 
 
-\subsection*{Atributos del conjunto de datos}
+El conjunto de datos contiene 569 registros de muestras citológicas y 32 atributos, de los cuales 30 son características numéricas calculadas a partir de la digitalización de una imagen de aspirado con aguja fina (FNA) de una masa mamaria, más un número de identificación y el diagnóstico.
 
-A continuación, se listan los 22 atributos clasificados según su naturaleza:
+Los 30 atributos numéricos se derivan de diez características computadas para cada núcleo celular, las cuales son:
 
-\subsubsection*{Variables binarias (0 o 1)}
+\begin{table}[H]
+	\centering
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{c c l}
+			\toprule
+			\textbf{No.} & \textbf{Característica} & \textbf{Descripción} \\
+			\midrule
+			1 & \textbf{Radio} (\textit{radius}) & Media de las distancias del centro a los puntos del perímetro. \\
+			2 & \textbf{Textura} (\textit{texture}) & Desviación estándar de los valores de la escala de grises. \\
+			3 & \textbf{Perímetro} (\textit{perimeter}) & Medida del contorno del núcleo. \\
+			4 & \textbf{Área} (\textit{area}) & Superficie cubierta por el núcleo. \\
+			5 & \textbf{Suavidad} (\textit{smoothness}) & Variación local en las longitudes del radio. \\
+			6 & \textbf{...} (\textit{compactness}) & $\text{Périmetro}^2 / \text{area} -1.0$. \\
+			7 & \textbf{Concavidad} (\textit{concavity}) & Severidad de las porciones cóncavas del contorno. \\
+			8 & \textbf{Puntos Cóncavos} (\textit{concave points}) & Número de porciones cóncavas del contorno. \\
+			9 & \textbf{Simetría} (\textit{symmetry}) & Nivel de simetría del núcleo celular. \\
+			10 & \textbf{Dimensión Fractal} (\textit{fractal dimension}) & Aproximación a la "línea de costa" menos 1. \\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\caption{Descripción de las Diez Características Base del \textit{Dataset}}
+	\label{tab:caracteristicas_base}
+\end{table}
 
-\begin{itemize}
-	\item \textbf{Diabetes\_012:} Variable objetivo. Toma el valor 1 si la persona tiene diagnóstico de diabetes, 0 en caso contrario.
-	\item \textbf{HighBP:} Indica si la persona presenta presión arterial alta (1 = sí, 0 = no).
-	\item \textbf{HighChol:} Indica si la persona tiene colesterol alto (1 = sí, 0 = no).
-	\item \textbf{CholCheck:} Indica si la persona se ha realizado un chequeo de colesterol en los últimos cinco años (1 = sí, 0 = no).
-	\item \textbf{Smoker:} Indica si la persona ha fumado al menos 100 cigarrillos en su vida (1 = sí, 0 = no).
-	\item \textbf{Stroke:} Indica si la persona ha sufrido un accidente cerebrovascular (ACV) (1 = sí, 0 = no).
-	\item \textbf{HeartDiseaseorAttack:} Indica si la persona tuvo alguna enfermedad coronaria o ataque cardíaco (1 = sí, 0 = no).
-	\item \textbf{PhysActivity:} Indica si la persona realizó actividad física en los últimos 30 días (1 = sí, 0 = no).
-	\item \textbf{Fruits:} Indica si la persona consume frutas al menos una vez al día (1 = sí, 0 = no).
-	\item \textbf{Veggies:} Indica si la persona consume vegetales al menos una vez al día (1 = sí, 0 = no).
-	\item \textbf{HvyAlcoholConsump:} Indica si la persona tiene un consumo elevado de alcohol (1 = sí, 0 = no).
-	\item \textbf{AnyHealthcare:} Indica si la persona tiene algún tipo de cobertura médica (1 = sí, 0 = no).
-	\item \textbf{NoDocbcCost:} Indica si la persona no pudo consultar a un médico por motivos de costo en los últimos 12 meses (1 = sí, 0 = no).
-	\item \textbf{DiffWalk:} Indica si la persona tiene dificultad para caminar o subir escaleras (1 = sí, 0 = no).
-	\item \textbf{Sex:} Género del participante (0 = femenino, 1 = masculino).
-\end{itemize}
-
-\subsubsection*{Variables no binarias}
-
-\begin{itemize}
-	\item \textbf{BMI:} Índice de masa corporal (Continua).
-	\item \textbf{GenHlth:} Autoevaluación del estado general de salud en una escala del 1 (excelente) al 5 (malo) (Discreta, Ordinal).
-	\item \textbf{MentHlth:} Número de días en los últimos 30 en los que la salud mental no fue buena (Discreta, Conteo).
-	\item \textbf{PhysHlth:} Número de días en los últimos 30 en los que la salud física no fue buena (Discreta, Conteo).
-	\item \textbf{Age:} Grupo etario codificado en rangos de 5 años (del 1 al 13, donde el valor 1 representa 18 a 24 años y el valor 13 representa 80 años o más) (Discreta, Ordinal).
-	\item \textbf{Education:} Nivel educativo, codificado del 1 (sin educación formal o solo jardín de infantes) al 6 (graduado universitario) (Discreta, Ordinal).
-	\item \textbf{Income:} Nivel de ingresos, codificado del 1 (menos de \$10.000 anuales) al 8 (más de \$75.000 anuales) (Discreta, Ordinal).
-\end{itemize}
+Para cada una de estas diez características base, se calculan tres medidas distintas, lo que resulta en un total de 30 atributos finales en el conjunto de datos:
+\begin{enumerate}
+	\item La \textbf{media} de la característica.
+	\item El \textbf{error estándar} (\textit{Standard Error}, SE) de la característica.
+	\item El \textbf{'peor'} valor o más grande, el cual se calcula como la media de los tres valores más grandes de la característica.
+\end{enumerate}
 
 \subsection{Análisis exploratorio de datos y preprocesamiento}
 
@@ -193,45 +192,25 @@ Se aplicó una \textbf{estandarización} a los atributos no binarios para asegur
 
 La matriz de correlación resulta crucial porque permite identificar las \textbf{dependencias lineales} entre las variables y guía las decisiones sobre el preprocesamiento de los datos, confirmando la necesidad de un modelo capaz de capturar relaciones más complejas, como el autocodificador.
 
-\subsubsection{Distribución de la variable objetivo}
-
-La variable objetivo, $\textit{Diabetes\_012}$, presenta la siguiente distribución, lo que evidencia un problema de \textbf{desbalance de clases} que debe ser abordado por el modelo:
+La variable objetivo, $\textit{diagnosis}$, presenta la siguiente distribución:
 
 \begin{table}[H]
 	\centering
-	\caption{Distribución de la variable objetivo \textit{Diabetes\_012}}
+	\caption{Distribución de la variable objetivo \textit{diagnosis}}
 	\begin{tabular}{lcc}
 		\toprule
 		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\
 		\midrule
-		0.0 (\textit{Sin diabetes}) & 84.24 & 213\,703 \\
-		2.0 (\textit{Con diabetes}) & 13.93 & 35\,346 \\
-		1.0 (\textit{Prediabetes})  & 1.83  & 4\,631 \\
+		B (\textit{Benigno}) & 62.74 & 357 \\
+		M (\textit{Maligno}) & 37.26 & 212 \\
 		\bottomrule
 	\end{tabular}
 	\label{tab:diabetes_012}
 \end{table}
 
-Para el caso de este trabajo, se quitaron los registros correspondientes a pacientes con prediabetes, resultando en la siguiente distribución:
+Explicar por qué estandaricé...
 
-\begin{table}[H]
-	\centering
-	\caption{Distribución de la variable objetivo \textit{Diabetes\_012} posterior al filtrado}
-	\begin{tabular}{lcc}
-		\toprule
-		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\
-		\midrule
-		0.0 (\textit{Sin diabetes}) & 85.81 & 213\,703 \\
-		1.0 (\textit{Con diabetes}) & 14.19 & 35\,346 \\
-		\bottomrule
-	\end{tabular}
-	\label{tab:diabetes_012_filtrado}
-\end{table}
-
-
-El conjunto de datos contiene atributos con diferentes rangos de valores; por ejemplo, el \textbf{BMI} es continuo, mientras que \textbf{Age}, \textbf{Education} e \textbf{Income} son escalas ordinales. Esta diferencia de escalas puede afectar el rendimiento de los algoritmos de optimización (como el Descenso de Gradiente) en el autocodificador, ya que las características con rangos más grandes dominarían la función de pérdida.
-
-Para mitigar esto, apliqué una estandarizacióna a todos los atributos no binarios. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Este proceso se define formalmente en la ecuación~\ref{eq:estandarizacion}.
+Apliqué una estandarización a todos los atributos. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Este proceso se define formalmente en la ecuación~\ref{eq:estandarizacion}.
 
 \begin{equation}
 	z = \frac{x - \mu}{\sigma}
@@ -258,12 +237,12 @@ La matriz de correlación correspondiente a los principales indicadores de salud
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../figures/corr_matrix.png}
+	\includegraphics[width=0.8\textwidth]{../figures/matriz_corr.png}
 	\caption{Matriz de correlación entre los atributos del conjunto de datos.}
 	\label{fig:corr_matrix}
 \end{figure}
 
-Para realizar el entrenamiento del autocodificador usé 4 conjuntos, los cuales poseen distintas proporciones de datos atípicos, esto lo realizo con el fin de evaluar la robustez del modelo ante estos. Cada conjunto de entrenamiento mantuvo un \textbf{total de 70\,692 registros}.
+Para realizar el entrenamiento del autocodificador usé 4 conjuntos, los cuales poseen distintas proporciones de datos atípicos, esto lo realizo con el fin de evaluar la robustez del modelo ante estos. Cada conjunto de entrenamiento mantuvo un \textbf{total de 170 registros}.
 
 \begin{table}[H]
 	\centering
@@ -273,10 +252,10 @@ Para realizar el entrenamiento del autocodificador usé 4 conjuntos, los cuales 
 		\textbf{ID} & \textbf{Proporción Anómalos} & \textbf{Proporción Normales} & \textbf{Registros Anómalos} & \textbf{Registros Normales} \\
 		& (\% Total) & (\% Total) & (Positivos) & (Negativos) \\
 		\midrule
-		A & 0\%  & 100\% & 0      & 70\,692 \\
-		B & 10\% & 90\%  & 7\,069  & 63\,623 \\
-		C & 25\% & 75\%  & 17\,673 & 53\,019 \\
-		D & 50\% & 50\%  & 35\,346 & 35\,346 \\
+		A & 0\%  & 100\% & 0  & 170 \\
+		B & 10\% & 90\%  & 17 & 153 \\
+		C & 25\% & 75\%  & 42 & 128 \\
+		D & 50\% & 50\%  & 85 & 85  \\
 		\bottomrule
 	\end{tabular}
 	\label{tab:resistencia_anomalias}
@@ -284,7 +263,7 @@ Para realizar el entrenamiento del autocodificador usé 4 conjuntos, los cuales 
 
 Estos conjuntos representan la proporción de contaminación introducida en el dataset de entrenamiento para simular escenarios donde la pureza de los datos normales no está garantizada.
 
-Para cada conjunto realicé una división en entrenamiento y prueba, manteniendo la proporción de normales y anomalías correspondiente a cada caso. El conjunto de entrenamiento se obtuvo tomando el 80\% de las muestras del conjunto original, mientras que el 20\% restante se utilizó como conjunto de prueba. De esta manera, tanto la distribución de clases como las diferentes proporciones de contaminación se mantienen consistentes en ambos subconjuntos, permitiendo evaluar el desempeño del modelo bajo escenarios comparables.
+Para cada conjunto realicé una división en entrenamiento y prueba. El conjunto de entrenamiento se obtuvo tomando el 80\% de las muestras y manteniendo la proporción de anomalías correspondiente a su conjunto del conjunto original, mientras que el 20\% restante se utilizó como conjunto de prueba, el cual es el mismo para los conjuntos A, B, C y D. De esta manera, tanto la distribución de clases como las diferentes proporciones de contaminación se mantienen consistentes en ambos subconjuntos, permitiendo evaluar el desempeño del modelo bajo escenarios comparables.
 
 \section{Descripción de los métodos}
 
@@ -447,6 +426,20 @@ En mi caso, resulta especialmente importante maximizar las métricas de \textbf{
 
 \comentario{Mostrar los resultados obtenidos utilizando gráficos, tablas, figuras, etc}
 
+Para entrenar el autocodificador se utilizó la siguiente configuración:
+
+Insertar gráfico:
+<Autoencoder: In 30 → 128 → 64 → 32 → 16 → 8 → 4 → [2] → 4 → 8 → 16 → 32 → 64 → 128 → 30 Out>
+
+Graficando los histogramas de los errores de reconstrucción:
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\linewidth]{../figures/histograma_error_reconstruccion}
+	\caption{}
+	\label{fig:histogramaerrorreconstruccion}
+\end{figure}
+
 \begin{table}[H]
 	\centering
 	\caption{Métricas de rendimiento del modelo evaluado en diferentes proporciones de datos anómalos en el entrenamiento}
@@ -455,12 +448,12 @@ En mi caso, resulta especialmente importante maximizar las métricas de \textbf{
 		\textbf{Métrica} & \textbf{Conjunto 0} & \textbf{Conjunto 1} & \textbf{Conjunto 2} & \textbf{Conjunto 3} \\
 		& (0\% Anómalos) & (10\% Anómalos) & (25\% Anómalos) & (50\% Anómalos) \\
 		\midrule
-		\textit{Accuracy} & 0.5362 & -- & -- & -- \\
-		\textit{Precision} & 0.2638 & -- & -- & -- \\
-		\textit{Recall} & 0.7484 & -- & -- & -- \\
-		\textit{Specificity} & 0.4838 & -- & -- & -- \\
-		\textit{Balanced Accuracy} & 0.6161 & -- & -- & -- \\
-		\textit{F1\_Score} & 0.3901 & -- & -- & -- \\
+		\textit{Accuracy} & 0.7193 & -- & -- & -- \\
+		\textit{Precision} & 0.5735 & -- & -- & -- \\
+		\textit{Recall} & 0.9286 & -- & -- & -- \\
+		\textit{Specificity} & 0.5972 & -- & -- & -- \\
+		\textit{Balanced Accuracy} & 0.7629 & -- & -- & -- \\
+		\textit{F1\_Score} & 0.7091 & -- & -- & -- \\
 		\bottomrule
 	\end{tabular}
 	\label{tab:metricas_resistencia_anomalias}

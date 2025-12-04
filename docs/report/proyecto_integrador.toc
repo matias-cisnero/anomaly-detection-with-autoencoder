@@ -9,8 +9,7 @@
 \contentsline {chapter}{\numberline {2}Materiales y Métodos}{13}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Conjunto de datos y análisis exploratorio}{13}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Análisis exploratorio de datos y preprocesamiento}{14}{subsection.2.1.1}%
-\contentsline {subsubsection}{Distribución de la variable objetivo}{15}{section*.8}%
-\contentsline {section}{\numberline {2.2}Descripción de los métodos}{16}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Métricas de evaluación del modelo}{18}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.2}Descripción de los métodos}{15}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Métricas de evaluación del modelo}{17}{subsection.2.2.1}%
 \contentsline {chapter}{\numberline {3}Resultados}{21}{chapter.3}%
 \contentsline {chapter}{\numberline {4}Conclusiones}{23}{chapter.4}%
