@@ -10,6 +10,8 @@ import os
 import json
 from datetime import datetime
 from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.model_selection import train_test_split
+import seaborn as sns
 
 def get_device():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -102,6 +104,86 @@ def crear_datasets_proporcionales(
     resumen_df = pd.DataFrame(resumen_frecuencias)
     return list_x_train, list_y_train, list_x_test, list_y_test, resumen_df
 
+def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.0, 0.10, 0.25, 0.50]):
+    df_train_global, df_test_global = train_test_split(
+        df,
+        test_size=test_size,
+        random_state=42,
+        stratify=df[concepto]
+    )
+
+    x_test = df_test_global.drop(columns=[concepto]).to_numpy()
+    y_test = df_test_global[concepto].to_numpy()
+
+    df0 = df_train_global[df_train_global[concepto] == 0]
+    df1 = df_train_global[df_train_global[concepto] == 1]
+
+    max_size = min(len(df0), len(df1))
+
+    conjuntos = []
+
+    for p in proporciones:
+        n1 = int(max_size * p)
+        n0 = max_size - n1
+
+        df_mix = pd.concat([
+            df0.sample(n0, random_state=42),
+            df1.sample(n1, random_state=42)
+        ]).sample(frac=1, random_state=42).reset_index(drop=True)
+
+        x_train = df_mix.drop(columns=[concepto]).to_numpy()
+        y_train = df_mix[concepto].to_numpy()
+
+        conjuntos.append((x_train, x_test, y_train, y_test))
+
+    return conjuntos
+
+def crear_conjuntos_proporcionales2(df, concepto, test_size=0.2, proporciones=[0.0, 0.10, 0.25, 0.5]):
+    df0 = df[df[concepto] == 0]
+    df1 = df[df[concepto] == 1]
+
+    max_size = min(len(df0), len(df1))
+
+    conjuntos = []
+
+    for p in proporciones:
+        n1 = int(max_size * p)
+        n0 = max_size - n1
+
+        df_mix = pd.concat([
+            df0.sample(n0, random_state=42),
+            df1.sample(n1, random_state=42),
+        ]).sample(frac=1, random_state=42).reset_index(drop=True)
+
+        x = df_mix.drop(columns=[concepto]).to_numpy()
+        y = df_mix[concepto].to_numpy()
+
+        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=42, stratify=y)
+
+        conjuntos.append((x_train, x_test, y_train, y_test))
+    
+    return conjuntos
+
+def mostrar_resumen(conjuntos, proporciones=[0.0, 0.10, 0.25, 0.5]):
+    filas = []
+
+    for (X_train, x_test, y_train, y_test), p in zip(conjuntos, proporciones):
+        freq_pos = (y_train == 1).sum()
+        freq_neg = (y_train == 0).sum()
+        total = len(y_train)
+
+        filas.append({
+            "Proporción": p,
+            "Positivos": freq_pos,
+            "Negativos": freq_neg,
+            "Total": total,
+            "% Positivos": round(freq_pos / total * 100, 2),
+            "% Negativos": round(freq_neg / total * 100, 2),
+        })
+
+    resumen_df = pd.DataFrame(filas)
+    print(resumen_df)
+
 def evaluar_reconstruccion(modelo, original, device, idx_cols_binarias = None):
     reconstruccion = modelo.predict(x=original, device=device)
 
@@ -149,7 +231,6 @@ def obtener_epsilon(dif_norm, tipo_epsilon=1):
     else:
         return 0
 
-
 def obtener_matriz_confusion(dif_norm, dif_anom, epsilon):
     # Normales
     FP = np.sum(dif_norm > epsilon)
@@ -190,9 +271,9 @@ def graficar_matriz_confusion(TP, FN, FP, TN):
     total = matriz.sum()
     matriz_pct = np.round(100 * matriz / total, 2)
 
-    etiquetas = ["Anómalo", "Normal"]
     display_labels = ["Anómalo", "Normal"]
 
+    # --- MATRIZ ABSOLUTA ---
     fig1, ax1 = plt.subplots()
     disp1 = ConfusionMatrixDisplay(
         confusion_matrix=matriz,
@@ -200,6 +281,15 @@ def graficar_matriz_confusion(TP, FN, FP, TN):
     )
     disp1.plot(ax=ax1, cmap="Blues", colorbar=True)
 
+    # mover etiquetas arriba
+    ax1.xaxis.set_label_position("top")
+    ax1.xaxis.tick_top()
+
+    # cambiar nombres de ejes
+    ax1.set_ylabel("Etiqueta real")
+    ax1.set_xlabel("Etiqueta predicha")
+
+    # --- MATRIZ PORCENTUAL ---
     fig2, ax2 = plt.subplots()
     disp2 = ConfusionMatrixDisplay(
         confusion_matrix=matriz_pct,
@@ -207,7 +297,13 @@ def graficar_matriz_confusion(TP, FN, FP, TN):
     )
     disp2.plot(ax=ax2, cmap="Blues", colorbar=True)
 
-    plt.show()
+    ax2.xaxis.set_label_position("top")
+    ax2.xaxis.tick_top()
+
+    ax2.set_ylabel("Etiqueta real")
+    ax2.set_xlabel("Etiqueta predicha")
+
+    plt.show()      
 
 def save_grid_search_results(data, folder="results", verbose=False):
     fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")
@@ -217,3 +313,58 @@ def save_grid_search_results(data, folder="results", verbose=False):
         json.dump(data, f, indent=4, separators=(',', ': '))
 
     if verbose: print(f"Resultados de grid search guardados en: {path}")
+
+def graficar_espacio_latente(z: np.ndarray, y_labels: np.ndarray = None, target_names: List[str] = ["Clase 0", "Clase 1"]):
+
+    latent_dim = z.shape[1]
+    if latent_dim != 2:
+        raise ValueError("Solo se puede graficar la capa latente si tiene dimensión 2.")
+    
+    df_plot = pd.DataFrame({'x': z[:, 0], 'y': z[:, 1]})
+    
+    if y_labels.size > 0:
+        df_plot['clase'] = y_labels.astype(str)
+        hue_param = 'clase'
+        legend_param = "full"
+    else:
+        hue_param = None
+        legend_param = False
+
+    plt.figure(figsize=(10, 8))
+    
+    sns.scatterplot(
+        x='x', 
+        y='y', 
+        data=df_plot, 
+        hue=hue_param, 
+        palette="viridis",
+        legend=legend_param
+    )
+
+    if y_labels.size > 0 and target_names:
+        plt.legend(title="Clase", labels=target_names)
+
+    plt.xlabel("Dimensión Latente 1")
+    plt.ylabel("Dimensión Latente 2")
+    plt.grid(True, alpha=0.5)
+    plt.show()
+
+def graficar_histograma_errores_reconstruccion(dif_norm, dif_anom, epsilon = None, kde = False, bins = 'auto'):
+    plt.figure(figsize=(8,5))
+
+    sns.histplot(dif_norm, bins=bins, kde=kde, color='blue', alpha=0.4, label="Error de reconstrucción (normales)", stat="density")
+    sns.histplot(dif_anom, bins=bins, kde=kde, color='red', alpha=0.4, label="Error de reconstrucción (anómalos)", stat="density")
+
+    ax = plt.gca()
+    for patch in ax.patches:
+        patch.set_edgecolor("none")
+
+    if epsilon is not None:
+        plt.axvline(epsilon, color='red', linestyle='--', linewidth=2, label="Umbral (epsilon)")
+
+    plt.grid(True, linestyle="--", alpha=0.6)
+    plt.xlabel("Error de reconstrucción")
+    plt.ylabel("Densidad")
+    plt.legend()
+    plt.tight_layout()
+    plt.show()

@@ -70,7 +70,7 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 \title{Detección de Anomalías Utilizando Autocodificadores}
 \author{Autor: Matías Cisnero\\ Tutor: Dra. M. Juliana Gambini}
 \date{Diciembre 2025 \\ Universidad Nacional de Hurlingham}
-\titlepic{\vspace{12cm}\includegraphics[width=0.15\textwidth]{logo.png}}
+\titlepic{\vspace{12cm}\includegraphics[width=0.15\textwidth]{../figures/logo_unahur.png}}
 
 \newcommand{\comentario}[1]{\textbf{\textcolor{red}{#1}}}
 
@@ -258,7 +258,7 @@ La matriz de correlación correspondiente a los principales indicadores de salud
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{corr_matrix.png}
+	\includegraphics[width=0.8\textwidth]{../figures/corr_matrix.png}
 	\caption{Matriz de correlación entre los atributos del conjunto de datos.}
 	\label{fig:corr_matrix}
 \end{figure}
@@ -296,7 +296,7 @@ La arquitectura general de un autocodificador puede representarse de manera esqu
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{arquitectura}
+	\includegraphics[width=0.6\linewidth]{../figures/arquitectura}
 	\caption{Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $Y$.}
 	\label{fig:arquitectura}
 \end{figure}
@@ -322,7 +322,7 @@ Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{relu_gelu}
+	\includegraphics[width=0.6\linewidth]{../figures/relu_gelu}
 	\caption{Comparación entre las funciones de activación ReLU y GELU. Se observa que GELU presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}
 	\label{fig:relugelu}
 \end{figure}
@@ -469,14 +469,14 @@ En mi caso, resulta especialmente importante maximizar las métricas de \textbf{
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{matriz_conf_abs.png}
+	\includegraphics[width=0.7\textwidth]{../figures/matriz_conf_abs.png}
 	\caption{Matriz de confusión en valores absolutos.}
 	\label{fig:matriz_conf_abs}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{matriz_conf_pct.png}
+	\includegraphics[width=0.7\textwidth]{../figures/matriz_conf_pct.png}
 	\caption{Matriz de confusión en valores porcentuales.}
 	\label{fig:matriz_conf_pct}
 \end{figure}

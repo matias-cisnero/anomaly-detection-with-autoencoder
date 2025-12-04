@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
+import sys
 
 class BaseAutoencoder(nn.Module):
     def __init__(self, capas: list[int], activacion=nn.GELU):
@@ -51,19 +52,25 @@ class BaseAutoencoder(nn.Module):
     def compute_loss(self, batch_x, output) -> torch.Tensor:
         raise NotImplementedError("El método 'compute_loss' debe ser implementado por la subclase.")
 
-    def fit(self, x_data: np.ndarray, device, lr: float, batch_size: int, num_epochs: int,
-            verbose=1, lr_decay_factor=0.5, lr_patience=2):
+    def fit(self, x_data: np.ndarray, device, lr: float, batch_size: int, num_epochs: int, verbose = 1,
+            use_lr_scheduler: bool = False, lr_decay_factor=0.5, lr_patience: int = 2, patience_early_stopping: int = sys.maxsize):
         
         dataset = TensorDataset(torch.tensor(x_data, dtype=torch.float32))
         loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
         optimizer = optim.Adam(self.parameters(), lr=lr)
-        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode='min', factor=lr_decay_factor, patience=lr_patience)
+        
+        scheduler = None
+        if use_lr_scheduler:
+            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+                optimizer, mode='min', factor=lr_decay_factor, patience=lr_patience)
 
         loss_history = []
         self.to(device)
         self.train()
+
+        best_loss = float('inf')
+        epochs_no_improve = 0
 
         for epoch in range(num_epochs):
             epoch_loss = 0.0
@@ -81,8 +88,9 @@ class BaseAutoencoder(nn.Module):
 
             epoch_loss /= len(dataset)
             loss_history.append(epoch_loss)
-
-            scheduler.step(epoch_loss)
+            
+            if scheduler is not None:
+                scheduler.step(epoch_loss)
 
             if verbose in (1, 2) and (epoch + 1) % 25 == 0:
                 delta = epoch_loss - loss_history[-2] if len(loss_history) > 1 else 0
@@ -90,8 +98,20 @@ class BaseAutoencoder(nn.Module):
                 current_lr = optimizer.param_groups[0]['lr']
                 print(f"Epoch {epoch+1:>3}/{num_epochs:<3} │ Loss: {epoch_loss:.6f} {signo} │ lr: {current_lr:.6f}")
 
-            # "Early stopping"
-            if optimizer.param_groups[0]['lr'] < 1e-6:
+            # Early stopping clásico
+            if epoch_loss < best_loss:
+                best_loss = epoch_loss
+                epochs_no_improve = 0
+            else:
+                epochs_no_improve += 1
+            
+            if epochs_no_improve >= patience_early_stopping:
+                if verbose >= 1:
+                    print(f"Early stopping activado por no haber mejora en {patience_early_stopping} épocas de la perdida")
+                break
+
+            # Early stopping de scheduler
+            if use_lr_scheduler and optimizer.param_groups[0]['lr'] < 1e-6:
                 if verbose >= 1:
                     print(f"Early stopping activado por lr mínima en época {epoch+1}")
                 break

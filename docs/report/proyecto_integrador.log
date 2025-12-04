@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  30 NOV 2025 22:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  3 DEC 2025 19:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./EjemploTesis.tex
-(EjemploTesis.tex
+**./proyecto_integrador.tex
+(proyecto_integrador.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
@@ -612,9 +612,76 @@ Package caption Info: New subtype `subfigure' on input line 238.
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count303
 )
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2023/05/13 v2.17o AMS math features
+\@mathmargin=\skip65
+
+For additional information on amsmath, use the `?' option.
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks34
+\ex@=\dimen270
+))
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen271
+)
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count304
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count305
+\leftroot@=\count306
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count307
+\DOTSCASE@=\count308
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box63
+\strutbox@=\box64
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen272
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count309
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count310
+\dotsspace@=\muskip17
+\c@parentequation=\count311
+\dspbrk@lvl=\count312
+\tag@help=\toks35
+\row@=\count313
+\column@=\count314
+\maxfields@=\count315
+\andhelp@=\toks36
+\eqnshift@=\dimen273
+\alignsep@=\dimen274
+\tagshift@=\dimen275
+\tagwidth@=\dimen276
+\totwidth@=\dimen277
+\lineht@=\dimen278
+\@envbody=\toks37
+\multlinegap=\skip66
+\multlinetaggap=\skip67
+\mathdisplay@stack=\toks38
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks34
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
@@ -622,13 +689,13 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ) (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
-\babel@savecnt=\count304
-\U@D=\dimen270
+\babel@savecnt=\count316
+\U@D=\dimen279
 \l@unhyphenated=\language79
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read3
-\bbl@dirlevel=\count305
+\bbl@dirlevel=\count317
 *************************************
 * Local config file bblopts.cfg used
 *
@@ -644,23 +711,23 @@ Language: nil 2024/01/07 v24.1 Nil language
 \l@nil=\language80
 ))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count306
-\lst@gtempboxa=\box63
-\lst@token=\toks35
-\lst@length=\count307
-\lst@currlwidth=\dimen271
-\lst@column=\count308
-\lst@pos=\count309
-\lst@lostspace=\dimen272
-\lst@width=\dimen273
-\lst@newlines=\count310
-\lst@lineno=\count311
-\lst@maxwidth=\dimen274
+\lst@mode=\count318
+\lst@gtempboxa=\box65
+\lst@token=\toks39
+\lst@length=\count319
+\lst@currlwidth=\dimen280
+\lst@column=\count320
+\lst@pos=\count321
+\lst@lostspace=\dimen281
+\lst@width=\dimen282
+\lst@newlines=\count322
+\lst@lineno=\count323
+\lst@maxwidth=\dimen283
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-\c@lstnumber=\count312
-\lst@skipnumbers=\count313
-\lst@framebox=\box64
+\c@lstnumber=\count324
+\lst@skipnumbers=\count325
+\lst@framebox=\box66
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2023/02/27 1.9 listings configuration
@@ -668,11 +735,11 @@ File: listings.cfg 2023/02/27 1.9 listings configuration
 Package: listings 2023/02/27 1.9 (Carsten Heinz)
  (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count314
-\float@exts=\toks36
-\float@box=\box65
-\@float@everytoks=\toks37
-\@floatcapt=\box66
+\c@float@type=\count326
+\float@exts=\toks40
+\float@box=\box67
+\@float@everytoks=\toks41
+\@floatcapt=\box68
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjustbox.s
 ty
@@ -685,10 +752,10 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.te
 x
-\XKV@toks=\toks38
-\XKV@tempa@toks=\toks39
+\XKV@toks=\toks42
+\XKV@tempa@toks=\toks43
 )
-\XKV@depth=\count315
+\XKV@depth=\count327
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjcalc.sty
@@ -702,44 +769,44 @@ Package: trimclip 2025/02/21 v1.2a Trim and clip general TeX material
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/collectbox\collectbox
 .sty
 Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
-\collectedbox=\box67
+\collectedbox=\box69
 )
-\tc@llx=\dimen275
-\tc@lly=\dimen276
-\tc@urx=\dimen277
-\tc@ury=\dimen278
+\tc@llx=\dimen284
+\tc@lly=\dimen285
+\tc@urx=\dimen286
+\tc@ury=\dimen287
 Package trimclip Info: Using driver 'tc-pdftex.def'.
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\tc-pdftex.d
 ef
 File: tc-pdftex.def 2025/02/26 v2.3 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen279
-\adjbox@Height=\dimen280
-\adjbox@Depth=\dimen281
-\adjbox@Totalheight=\dimen282
-\adjbox@pwidth=\dimen283
-\adjbox@pheight=\dimen284
-\adjbox@pdepth=\dimen285
-\adjbox@ptotalheight=\dimen286
+\adjbox@Width=\dimen288
+\adjbox@Height=\dimen289
+\adjbox@Depth=\dimen290
+\adjbox@Totalheight=\dimen291
+\adjbox@pwidth=\dimen292
+\adjbox@pheight=\dimen293
+\adjbox@pdepth=\dimen294
+\adjbox@ptotalheight=\dimen295
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/ifoddpage\ifoddpage.s
 ty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
-\c@checkoddpage=\count316
+\c@checkoddpage=\count328
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/varwidth\varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box68
-\sift@deathcycles=\count317
-\@vwid@loff=\dimen287
-\@vwid@roff=\dimen288
+\@vwid@box=\box70
+\sift@deathcycles=\count329
+\@vwid@loff=\dimen296
+\@vwid@roff=\dimen297
 )) (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip65
-\bibsep=\skip66
+\bibhang=\skip68
+\bibsep=\skip69
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count318
+\c@NAT@ctr=\count330
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -756,9 +823,45 @@ LaTeX Info: Redefining \labelcref on input line 2370.
 LaTeX Info: Redefining \labelcpageref on input line 2370.
 Package cleveref Info: `listings' support loaded on input line 3131.
 )
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/colortbl\colortbl.sty
+Package: colortbl 2024/10/29 v1.0k Color table columns (DPC)
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen298
+\ar@mcellbox=\box71
+\extrarowheight=\dimen299
+\NC@list=\toks44
+\extratabsurround=\skip70
+\backup@length=\skip71
+\ar@cellbox=\box72
+)
+\everycr=\toks45
+\minrowclearance=\skip72
+\rownum=\count331
+)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/titlepic\titlepic.sty
 Package: titlepic 2017/03/14 1.2 Package to display a picture on the title page
 
+)
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen300
+\lightrulewidth=\dimen301
+\cmidrulewidth=\dimen302
+\belowrulesep=\dimen303
+\belowbottomsep=\dimen304
+\aboverulesep=\dimen305
+\abovetopsep=\dimen306
+\cmidrulesep=\dimen307
+\cmidrulekern=\dimen308
+\defaultaddspace=\dimen309
+\@cmidla=\count332
+\@cmidlb=\count333
+\@aboverulesep=\dimen310
+\@belowrulesep=\dimen311
+\@thisruleclass=\count334
+\@lastruleclass=\count335
+\@thisrulewidth=\dimen312
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/t
 ikz/libraries\tikzlibraryarrows.code.tex
@@ -767,51 +870,51 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgfli
 braryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen289
+\arrowsize=\dimen313
 ))
-\@float@every@table=\toks40
+\@float@every@table=\toks46
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-p
 dftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count319
-\l__pdf_internal_box=\box69
-) (EjemploTesis.aux)
-\openout1 = `EjemploTesis.aux'.
+\l__color_backend_stack_int=\count336
+\l__pdf_internal_box=\box73
+) (proyecto_integrador.aux)
+\openout1 = `proyecto_integrador.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 72.
-LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
 mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count320
-\scratchdimen=\dimen290
-\scratchbox=\box70
-\nofMPsegments=\count321
-\nofMParguments=\count322
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count323
-\MPscratchDim=\dimen291
-\MPnumerator=\count324
-\makeMPintoPDFobject=\count325
-\everyMPtoPDFconversion=\toks42
+\scratchcounter=\count337
+\scratchdimen=\dimen314
+\scratchbox=\box74
+\nofMPsegments=\count338
+\nofMParguments=\count339
+\everyMPshowfont=\toks47
+\MPscratchCnt=\count340
+\MPscratchDim=\dimen315
+\MPnumerator=\count341
+\makeMPintoPDFobject=\count342
+\everyMPtoPDFconversion=\toks48
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
 -base.sty
@@ -857,38 +960,38 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 72.
+Package hyperref Info: Link coloring OFF on input line 80.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count326
-LaTeX Font Info:    Trying to load font information for U+msa on input line 74.
+\c@lstlisting=\count343
+LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 74.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
 
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<logo.png, id=6, 76.285pt x 65.24374pt>
-File: logo.png Graphic file (type png)
-<use logo.png>
-Package pdftex.def Info: logo.png  used on input line 74.
+<../figures/logo_unahur.png, id=6, 76.285pt x 65.24374pt>
+File: ../figures/logo_unahur.png Graphic file (type png)
+<use ../figures/logo_unahur.png>
+Package pdftex.def Info: ../figures/logo_unahur.png  used on input line 82.
 (pdftex.def)             Requested size: 67.94241pt x 58.11053pt.
 
 [1
 
 
-{C:/Users/Matías/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./logo.png
->] [2
+{C:/Users/Matías/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <../figures
+/logo_unahur.png>] [2
 
-] (EjemploTesis.toc)
+] (proyecto_integrador.toc)
 \tf@toc=\write4
-\openout4 = `EjemploTesis.toc'.
+\openout4 = `proyecto_integrador.toc'.
 
  [3]
 
@@ -900,9 +1003,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [4
 
-] (EjemploTesis.lof)
+] (proyecto_integrador.lof)
 \tf@lof=\write5
-\openout5 = `EjemploTesis.lof'.
+\openout5 = `proyecto_integrador.lof'.
 
  [5]
 
@@ -914,9 +1017,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [6
 
-] (EjemploTesis.lot)
+] (proyecto_integrador.lot)
 \tf@lot=\write6
-\openout6 = `EjemploTesis.lot'.
+\openout6 = `proyecto_integrador.lot'.
 
  [7]
 
@@ -928,7 +1031,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [8
 
-] [9]
+]
+Overfull \hbox (10.71518pt too wide) in paragraph at lines 91--92
+\T1/cmr/m/n/10 an�malo cualquier patr�n que se desv�a significativamente de la 
+reconstrucci�n esperada. La implementaci�n
+ []
+
+[9]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -940,75 +1049,257 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 Chapter 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+
+Overfull \hbox (2.33759pt too wide) in paragraph at lines 97--98
+\T1/cmr/m/n/10 problema espec�fico que se aborda es c�mo entrenar un \T1/cmr/bx
+/n/10 autocodificador \T1/cmr/m/n/10 para que aprenda exclusivamente
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+
+ []
+
 [11]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.1638pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.1638pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
-
-[12
-
-]
-Chapter 2.
-[13]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.1638pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.1638pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
-
-[14
-
-]
-Chapter 3.
-[15] [16
-
-]
-Chapter 4.
-(EjemploTesis.bbl [17] [18
-
-]
-
-Package natbib Warning: Empty `thebibliography' environment on input line 3.
-
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
+36.
+ (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 
-Package caption Warning: Unused \captionsetup[sub] on input line 23.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[12]
+Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+
+ []
+
+
+Overfull \hbox (3.50536pt too wide) in paragraph at lines 150--151
+\T1/cmr/bx/n/10 Dataset\T1/cmr/m/n/10 , el cual se extrajo de la plataforma Kag
+gle (disponible en: []$\T1/cmtt/m/n/10 https : / / www . kaggle . com / dataset
+s /
+ []
+
+
+Overfull \hbox (13.39044pt too wide) in paragraph at lines 150--151
+\T1/cmr/m/n/10 y 22 atributos num�ricos relacionados con indicadores de salud, 
+h�bitos de vida y caracter�sticas demogr�ficas
+ []
+
+[13
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[14]
+<../figures/corr_matrix.png, id=156, 1147.6476pt x 802.9197pt>
+File: ../figures/corr_matrix.png Graphic file (type png)
+<use ../figures/corr_matrix.png>
+Package pdftex.def Info: ../figures/corr_matrix.png  used on input line 261.
+(pdftex.def)             Requested size: 362.37569pt x 253.52136pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[15]
+Overfull \hbox (16.25452pt too wide) in paragraph at lines 266--267
+[]\T1/cmr/m/n/10 Para realizar el entrenamiento del autocodificador us� 4 conju
+ntos, los cuales poseen distintas proporciones
+ []
+
+
+Overfull \hbox (35.45248pt too wide) in paragraph at lines 271--283
+ [][] 
+ []
+
+
+Overfull \hbox (3.341pt too wide) in paragraph at lines 285--286
+[]\T1/cmr/m/n/10 Estos conjuntos representan la proporci�n de contaminaci�n int
+roducida en el dataset de entrenamiento
+ []
+
+
+Overfull \hbox (1.1712pt too wide) in paragraph at lines 291--292
+\T1/cmr/m/n/10 �l m�todo empleado en este proyecto es un autocodificador, un ti
+po de perceptr�n multicapa caracterizado
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[16 <../figures/corr_matrix.png>]
+<../figures/arquitectura.png, id=176, 667.49374pt x 400.49625pt>
+File: ../figures/arquitectura.png Graphic file (type png)
+<use ../figures/arquitectura.png>
+Package pdftex.def Info: ../figures/arquitectura.png  used on input line 299.
+(pdftex.def)             Requested size: 271.7835pt x 163.07397pt.
+<../figures/relu_gelu.png, id=178, 489.9906pt x 323.7696pt>
+File: ../figures/relu_gelu.png Graphic file (type png)
+<use ../figures/relu_gelu.png>
+Package pdftex.def Info: ../figures/relu_gelu.png  used on input line 325.
+(pdftex.def)             Requested size: 271.7835pt x 179.5905pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[17 <../figures/arquitectura.png>]
+Overfull \hbox (9.51547pt too wide) in paragraph at lines 341--342
+\T1/cmr/m/n/10 utilizado durante el entrenamiento. En particular, se calcul� co
+mo la \T1/cmr/bx/n/10 media del error de reconstrucci�n\T1/cmr/m/n/10 : 
+ []
+
+
+Overfull \hbox (2.96022pt too wide) in paragraph at lines 357--358
+[]\T1/cmr/bx/n/10 Verdaderos Positivos (TP)\T1/cmr/m/n/10 : Casos \T1/cmr/m/it/
+10 an�malos \T1/cmr/m/n/10 (personas con diabetes) cuyo error de reconstrucci�n
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[18 <../figures/relu_gelu.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[19]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[20]
+Chapter 3.
+<../figures/matriz_conf_abs.png, id=215, 416.9979pt x 312.2064pt>
+File: ../figures/matriz_conf_abs.png Graphic file (type png)
+<use ../figures/matriz_conf_abs.png>
+Package pdftex.def Info: ../figures/matriz_conf_abs.png  used on input line 472
+.
+(pdftex.def)             Requested size: 317.07614pt x 237.40796pt.
+<../figures/matriz_conf_pct.png, id=216, 397.485pt x 312.2064pt>
+File: ../figures/matriz_conf_pct.png Graphic file (type png)
+<use ../figures/matriz_conf_pct.png>
+Package pdftex.def Info: ../figures/matriz_conf_pct.png  used on input line 479
+.
+(pdftex.def)             Requested size: 317.07614pt x 249.05565pt.
+
+Underfull \vbox (badness 5022) has occurred while \output is active []
+
+ [21
+
+ <../figures/matriz_conf_abs.png>] [22 <../figures/matriz_conf_pct.png>]
+Chapter 4.
+
+Overfull \hbox (1.08142pt too wide) in paragraph at lines 487--488
+[]\T1/cmr/bx/n/10 Explicar que aprendimos con la realizaci�n de este trabajo. Q
+u� nos muestran los resultados.[] 
+ []
+
+(proyecto_integrador.bbl [23
+
+] [24
+
+])
+
+Package caption Warning: Unused \captionsetup[sub] on input line 24.
 See the caption package documentation for explanation.
 
 
-Package caption Warning: Unused \captionsetup[subfigure] on input line 48.
+Package caption Warning: Unused \captionsetup[subfigure] on input line 51.
 See the caption package documentation for explanation.
 
-[19] (EjemploTesis.aux)
+[25] (proyecto_integrador.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 28230 strings out of 474485
- 538657 string characters out of 5742789
- 1928542 words of memory out of 5000000
- 50053 multiletter control sequences out of 15000+600000
- 572942 words of font info for 73 fonts, out of 8000000 for 9000
+ 29284 strings out of 474485
+ 555493 string characters out of 5742789
+ 1940542 words of memory out of 5000000
+ 51025 multiletter control sequences out of 15000+600000
+ 578661 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,11n,94p,534b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
-bx1440.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
-pi600\ecbx2074.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ecsl1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfo
-ur/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts
-/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\Matías\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Matías\AppData\Lo
-cal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\Matías\Ap
-pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk>
-Output written on EjemploTesis.pdf (19 pages, 99693 bytes).
+ 86i,12n,94p,1171b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
+rm1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
+pi600\ecbi1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ectt1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfo
+ur/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts
+/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Matías\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Matías\AppData\Lo
+cal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Matías\Ap
+pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Ma
+tías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\
+Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.
+pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\e
+crm1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/
+dpi600\ecrm1200.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jkna
+ppen/ec/dpi600\ecrm1728.pk><C:/Users/Matías/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Matías/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Matías/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Matías/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/
+Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><
+C:/Users/Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+msy10.pfb><C:/Users/Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmsy7.pfb>
+Output written on proyecto_integrador.pdf (25 pages, 671595 bytes).
 PDF statistics:
- 373 PDF objects out of 1000 (max. 8388607)
- 32 named destinations out of 1000 (max. 500000)
- 74 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 796 PDF objects out of 1000 (max. 8388607)
+ 75 named destinations out of 1000 (max. 500000)
+ 155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

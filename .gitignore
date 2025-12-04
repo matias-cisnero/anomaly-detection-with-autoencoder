@@ -5,5 +5,17 @@ anotaciones.md
 \models
 \legacy
 \results
+\documentos
+\presentation
+\figures
+\probar
 \__pycache__
 pruebas0.py
+train_autoencoder1.py
+grid_search1.py
+EDA1.ipynb
+test1.
+utils1.py
+breast-cancer.csv
+EjemploTesis.pdf
+EjemploTesis.tex
