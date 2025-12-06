@@ -132,17 +132,29 @@ def mostrar_resumen(conjuntos, proporciones=[0.0, 0.10, 0.25]):
     resumen_df = pd.DataFrame(filas)
     print(resumen_df)
 
-def evaluar_reconstruccion(modelo, original, device, idx_cols_binarias = None):
+def evaluar_reconstruccion(modelo, original, device, tipo_norma="L2"):
     reconstruccion = modelo.predict(x=original, device=device)
-
-    if idx_cols_binarias is not None:
-        reconstruccion = reconstruccion.copy()
-        reconstruccion[:, idx_cols_binarias] = np.round(np.abs(reconstruccion[:, idx_cols_binarias]))
     
-    diferencias = np.linalg.norm(original - reconstruccion, axis=1)
-    return original, reconstruccion, diferencias
+    diferencias = calcular_error_reconstruccion(original, reconstruccion, tipo_norma=tipo_norma)
+    return reconstruccion, diferencias
 
-def obtener_epsilon(dif_norm, tipo_epsilon=1):
+def calcular_error_reconstruccion(original, reconstruccion, tipo_norma="L2"):
+    diff = original - reconstruccion
+
+    if tipo_norma == "L1":
+        return np.linalg.norm(diff, ord=1, axis=1)
+    elif tipo_norma == "L2":
+        return np.linalg.norm(diff, ord=2, axis=1)
+    elif tipo_norma == "Linf":
+        return np.linalg.norm(diff, ord=np.inf, axis=1)
+    elif tipo_norma == "MSE":
+        return np.mean(diff**2, axis=1)
+    else:
+        raise ValueError("tipo norma debe ser: L1, L2, Linf, MSE")
+
+def obtener_epsilon(modelo, x_train, device, tipo_epsilon=1, tipo_norma="L2"):
+    _, dif_norm = evaluar_reconstruccion(modelo, x_train, device, tipo_norma)
+
     # 0: Máximo (umbral más permisivo)
     if tipo_epsilon == 0:
         return np.max(dif_norm)
@@ -191,8 +203,7 @@ def obtener_matriz_confusion(dif_norm, dif_anom, epsilon):
     return int(TP), int(FN), int(TN), int(FP)
 
 def obtener_metricas(TP: int, FN: int, TN: int, FP: int):
-
-    total = TP + TN + FP + FN
+    total = TP + FN + TN + FP
 
     accuracy = (TP + TN) / total
     precision = TP / (TP + FP) if (TP + FP) > 0 else 0
@@ -210,18 +221,19 @@ def obtener_metricas(TP: int, FN: int, TN: int, FP: int):
         "f1_score": round(float(f1_score), 4)
     }
 
-def graficar_matriz_confusion(TP, FN, FP, TN):
+def graficar_matriz_confusion(TP: int, FN: int, TN: int, FP: int, norm: bool = False):
     matriz = np.array([
         [TP, FN],
         [FP, TN]
     ])
 
-    matriz_norm = matriz / matriz.sum()
+    if norm:
+        matriz = matriz / matriz.sum()
 
     display_labels = ["Anómalo", "Normal"]
 
     fig, ax = plt.subplots(figsize=(6,6))
-    disp = ConfusionMatrixDisplay(confusion_matrix=matriz_norm, display_labels=display_labels)
+    disp = ConfusionMatrixDisplay(confusion_matrix=matriz, display_labels=display_labels)
     disp.plot(ax=ax, cmap="Blues", colorbar=True)
     
     # mover etiquetas arriba
@@ -277,11 +289,12 @@ def graficar_espacio_latente(z: np.ndarray, y_labels: np.ndarray = None, target_
     plt.grid(True, alpha=0.5)
     plt.show()
 
-def graficar_histograma_errores_reconstruccion(dif_norm, dif_anom, epsilon = None, kde = False, bins = 'auto'):
+def graficar_histograma_errores_reconstruccion(dif_norm, dif_anom, epsilon = None, kde = False, bins = 'auto', stat="density"):
+    "stat= 'density' o 'scale'"
     plt.figure(figsize=(8,5))
 
-    sns.histplot(dif_norm, bins=bins, kde=kde, color='blue', alpha=0.4, label="Error de reconstrucción (normales)", stat="density")
-    sns.histplot(dif_anom, bins=bins, kde=kde, color='red', alpha=0.4, label="Error de reconstrucción (anómalos)", stat="density")
+    sns.histplot(dif_norm, bins=bins, kde=kde, color='blue', alpha=0.4, label="Error de reconstrucción (normales)", stat=stat)
+    sns.histplot(dif_anom, bins=bins, kde=kde, color='red', alpha=0.4, label="Error de reconstrucción (anómalos)", stat=stat)
 
     ax = plt.gca()
     for patch in ax.patches:
@@ -292,7 +305,10 @@ def graficar_histograma_errores_reconstruccion(dif_norm, dif_anom, epsilon = Non
 
     plt.grid(True, linestyle="--", alpha=0.6)
     plt.xlabel("Error de reconstrucción")
-    plt.ylabel("Densidad")
+    if stat == "frequency":
+        plt.ylabel("Frecuencia")
+    else:
+        plt.ylabel("Densidad")
     plt.legend()
     plt.tight_layout()
     plt.show()

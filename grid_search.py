@@ -69,21 +69,26 @@ for nombre_conjunto, (x_train, x_test, y_train, y_test) in zip(nombres_conjuntos
             
             print(f"Error final = {error_final:.6f}")
 
+            evaluacion = modelo.evaluate(x_train, x_test[y_test==0], x_test[y_test==1], device, tipo_epsilon=2, tipo_norma="L2")
+
             historial.append({
                     "modelo": "Autoencoder",
                     "conjunto": nombre_conjunto,
                     "capas": str(capas),          # una sola línea
                     "lr": lr,
-                    "error": round(error_final, 3)
+                    "error": round(error_final, 3),
+                    **evaluacion
             })
 
-# =================== MEJOR CONFIGURACIÓN ===================
-mejor = min(historial, key=lambda h: h["error"])
+# =================== MEJORES MÉTRICAS ===================
+best_recall = max(historial, key=lambda h: h.get("recall", -1)).get("recall", None)
+best_precision = max(historial, key=lambda h: h.get("precision", -1)).get("precision", None)
+best_f1 = max(historial, key=lambda h: h.get("f1_score", -1)).get("f1_score", None)
 
-print("\nMEJOR CONFIGURACIÓN ENCONTRADA:")
-print(f"    Capas: {mejor['capas']}")
-print(f"    lr: {mejor['lr']}")
-print(f"    Error: {mejor['error']:.6f}")
+print("\nMEJORES MÉTRICAS ENCONTRADAS:")
+print(f"    Recall: {best_recall}")
+print(f"    Precision: {best_precision}")
+print(f"    F1-score: {best_f1}")
 
 # =================== GUARDADO ===================
 

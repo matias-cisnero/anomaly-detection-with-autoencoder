@@ -8,28 +8,30 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import sys
 
+from utils import obtener_matriz_confusion, obtener_epsilon, obtener_metricas, evaluar_reconstruccion
+
 class BaseAutoencoder(nn.Module):
-    def __init__(self, capas: list[int], activacion=nn.GELU):
+    def __init__(self, dims: list[int], activation=nn.GELU):
         super(BaseAutoencoder, self).__init__()
 
         encoder_layers = []
-        for i in range(len(capas) - 1):
-            encoder_layers.append(nn.Linear(capas[i], capas[i + 1]))
-            if i < len(capas) - 2:
-                encoder_layers.append(activacion())
+        for i in range(len(dims) - 1):
+            encoder_layers.append(nn.Linear(dims[i], dims[i + 1]))
+            if i < len(dims) - 2:
+                encoder_layers.append(activation())
         self.encoder = nn.Sequential(*encoder_layers)
 
         decoder_layers = []
-        for i in range(len(capas) - 1, 0, -1):
-            decoder_layers.append(nn.Linear(capas[i], capas[i - 1]))
+        for i in range(len(dims) - 1, 0, -1):
+            decoder_layers.append(nn.Linear(dims[i], dims[i - 1]))
             if i > 1:
-                decoder_layers.append(activacion())
+                decoder_layers.append(activation())
         self.decoder = nn.Sequential(*decoder_layers)
 
-    def propagate(self, module_or_function, x: np.ndarray, device="cpu") -> np.ndarray:
+    def propagate(self, module_or_function, input: np.ndarray, device="cpu") -> np.ndarray:
         self.eval()
         with torch.no_grad():
-            t = torch.tensor(x, dtype=torch.float32).to(device)
+            t = torch.tensor(input, dtype=torch.float32).to(device)
             output = module_or_function(t)
 
             if isinstance(output, tuple):
@@ -37,25 +39,25 @@ class BaseAutoencoder(nn.Module):
             else:
                 return output.cpu().numpy()
             
-    def forward(self, x):
+    def forward(self, input):
         raise NotImplementedError("El método 'forward' debe ser implementado por la subclase.")
 
-    def predict(self, x: np.ndarray, device="cpu") -> np.ndarray:
+    def predict(self, input: np.ndarray, device="cpu") -> np.ndarray:
         raise NotImplementedError("El método 'predict' debe ser implementado por la subclase.")
     
-    def encode(self, x: np.ndarray, device="cpu") -> np.ndarray:
+    def encode(self, input: np.ndarray, device="cpu") -> np.ndarray:
         raise NotImplementedError("El método 'encode' debe ser implementado por la subclase.")
 
-    def decode(self, x: np.ndarray, device="cpu") -> np.ndarray:
+    def decode(self, input: np.ndarray, device="cpu") -> np.ndarray:
         raise NotImplementedError("El método 'decode' debe ser implementado por la subclase.")
         
-    def compute_loss(self, batch_x, output) -> torch.Tensor:
+    def compute_loss(self, batch_input: torch.Tensor, output: torch.Tensor) -> torch.Tensor:
         raise NotImplementedError("El método 'compute_loss' debe ser implementado por la subclase.")
 
-    def fit(self, x_data: np.ndarray, device, lr: float, batch_size: int, num_epochs: int, verbose = 1,
+    def fit(self, x_train: np.ndarray, device, lr: float, batch_size: int, num_epochs: int, verbose = 1,
             use_lr_scheduler: bool = False, lr_decay_factor=0.5, lr_patience: int = 2, patience_early_stopping: int = sys.maxsize):
         
-        dataset = TensorDataset(torch.tensor(x_data, dtype=torch.float32))
+        dataset = TensorDataset(torch.tensor(x_train, dtype=torch.float32))
         loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
         optimizer = optim.Adam(self.parameters(), lr=lr)
@@ -74,17 +76,17 @@ class BaseAutoencoder(nn.Module):
 
         for epoch in range(num_epochs):
             epoch_loss = 0.0
-            for (inputs,) in loader:
+            for (batch_input,) in loader:
 
-                inputs = inputs.to(device)
+                batch_input = batch_input.to(device)
                 optimizer.zero_grad()
 
-                output = self(inputs)
-                loss = self.compute_loss(inputs, output)
+                output = self(batch_input)
+                loss = self.compute_loss(batch_input, output)
 
                 loss.backward()
                 optimizer.step()
-                epoch_loss += loss.item() * inputs.size(0)
+                epoch_loss += loss.item() * batch_input.size(0)
 
             epoch_loss /= len(dataset)
             loss_history.append(epoch_loss)
@@ -124,7 +126,29 @@ class BaseAutoencoder(nn.Module):
             plt.show()
 
         return loss_history
-    
+
+    def evaluate(self, x_train, x_test_norm, x_test_anom, device, tipo_epsilon=1, tipo_norma="L2") -> dict:
+
+        epsilon = obtener_epsilon(self, x_train, device, tipo_epsilon=tipo_epsilon, tipo_norma=tipo_norma)
+
+        _, dif_norm = evaluar_reconstruccion(self, x_test_norm, device, tipo_norma=tipo_norma)
+        _, dif_anom = evaluar_reconstruccion(self, x_test_anom, device, tipo_norma=tipo_norma)
+
+        TP, FN, TN, FP = obtener_matriz_confusion(dif_norm, dif_anom, epsilon)
+
+        metricas = obtener_metricas(TP, FN, TN, FP)
+
+        resultado = {
+        "epsilon": np.round(float(epsilon), 4),
+        "conf_matrix": [
+            [f"TP:{TP}", f"FN:{FN}"],
+            [f"FP:{FP}", f"TN:{TN}"]
+        ],
+        **metricas
+        }
+
+        return resultado
+
     def save(self, path: str, set_id: str = "-1", lr: float = -1):
         fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")
         final_path = f"{path}_{fecha}_lr={lr}_set={set_id}.pth"
@@ -132,11 +156,11 @@ class BaseAutoencoder(nn.Module):
         print(f"\nModelo guardado correctamente en '{final_path}'")
 
     @classmethod
-    def load(cls, path: str, device: str = "cpu"):
+    def load(cls, path: str, device: str = "cpu", verbose = False):
         model = torch.load(path, map_location=device)
         model.to(device)
         model.eval()
-        print(f"\nModelo cargado correctamente de '{path}'")
+        if verbose: print(f"\nModelo cargado correctamente de '{path}'")
         return model
     
     def summary(self):
@@ -170,64 +194,20 @@ class BaseAutoencoder(nn.Module):
         return "\n".join(lines)
     
 class Autoencoder(BaseAutoencoder):
-    def __init__(self, capas: list[int], activacion=nn.GELU):
-        super(Autoencoder, self).__init__(capas, activacion)
+    def __init__(self, dims: list[int], activation=nn.GELU):
+        super(Autoencoder, self).__init__(dims, activation)
 
-    def forward(self, x):
-        return self.decoder(self.encoder(x))
+    def forward(self, input):
+        return self.decoder(self.encoder(input))
     
-    def predict(self, x: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.forward, x, device)
+    def predict(self, input: np.ndarray, device="cpu") -> np.ndarray:
+        return self.propagate(self.forward, input, device)
     
-    def encode(self, x: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.encoder, x, device)
+    def encode(self, input: np.ndarray, device="cpu") -> np.ndarray:
+        return self.propagate(self.encoder, input, device)
 
-    def decode(self, x: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.decoder, x, device)
+    def decode(self, input: np.ndarray, device="cpu") -> np.ndarray:
+        return self.propagate(self.decoder, input, device)
     
-    def compute_loss(self, batch_x, output):
-        return F.mse_loss(output, batch_x, reduction="mean")
-    
-class HybridLossAutoencoder(BaseAutoencoder):
-    def __init__(self, capas: list[int], columnas_binarias: np.ndarray, activacion=nn.GELU):
-        super(HybridLossAutoencoder, self).__init__(capas, activacion)
-
-        self.register_buffer("mask_bin", torch.tensor(columnas_binarias, dtype=torch.bool))
-        self.register_buffer("mask_cont", ~self.mask_bin)
-
-    def forward(self, x):
-        return self.decoder(self.encoder(x))
-
-    def predict(self, x: np.ndarray, device="cpu") -> np.ndarray:
-        out = self.propagate(self.forward, x, device)
-
-        # Aplicamos sigmoide SOLO a las columnas binarias
-        out[:, self.mask_bin.cpu().numpy()] = 1 / (1 + np.exp(-out[:, self.mask_bin.cpu().numpy()]))
-        return out
-
-    def encode(self, x: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.encoder, x, device)
-
-    def decode(self, x: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.decoder, x, device)
-
-    def compute_loss(self, batch_x, output):
-        x_bin = batch_x[:, self.mask_bin]
-        x_cont = batch_x[:, self.mask_cont]
-
-        out_bin = output[:, self.mask_bin]
-        out_cont = output[:, self.mask_cont]
-
-        bce_loss = F.binary_cross_entropy_with_logits(out_bin, x_bin)
-        mse_loss = F.mse_loss(out_cont, x_cont)
-
-        w_bce = 1.0 / x_bin.size(1)
-        w_mse = 1.0 / x_cont.size(1)
-
-        return w_bce * bce_loss + w_mse * mse_loss
-    
-# DAE (Denoising Autoencoder)
-
-# CAE (Contractive Autoencoder)
-
-# SAE (Sparse Autoencoder)
+    def compute_loss(self, batch_input, output):
+        return F.mse_loss(output, input, reduction="mean")
