@@ -19,92 +19,27 @@ def get_device():
     return device
 
 def estandarizar_columnas_no_binarias(df: pd.DataFrame, mostrar_cols: bool = False) -> pd.DataFrame:
+
     cols_estandarizar = [col for col in df.columns if df[col].nunique() > 2]
     if mostrar_cols: print("Columnas estandarizadas:", cols_estandarizar)
 
     df[cols_estandarizar] = (df[cols_estandarizar] - df[cols_estandarizar].mean()) / df[cols_estandarizar].std()
     return df
 
-def estandarizar_columnas2(df: pd.DataFrame, cols_estandarizar: List[str]) -> pd.DataFrame:
-    df[cols_estandarizar] = (df[cols_estandarizar] - df[cols_estandarizar].mean()) / df[cols_estandarizar].std()
-    return df
-
-def separar_columnas_binarias(array: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-    idx_bin = []
-    idx_no_bin = []
-
-    for i in range(array.shape[1]):
-        if np.unique(array[:, i]).size <= 2:
-            idx_bin.append(i)
-        else:
-            idx_no_bin.append(i)
-
-    return np.array(idx_bin), np.array(idx_no_bin)
-
-def crear_datasets_proporcionales(
-    df: pd.DataFrame,
-    concepto: str,
-    proporciones: List[float] = [0.0, 0.10, 0.25, 0.50]
-) -> Tuple[List[np.ndarray], List[np.ndarray], List[np.ndarray], List[np.ndarray], pd.DataFrame]:
+def estandarizar_columnas_no_binarias_train(df_train: pd.DataFrame, df_test: pd.DataFrame, mostrar_cols: bool = False) -> Tuple[pd.DataFrame, pd.DataFrame]:
     
-    df = df.copy()
+    cols_estandarizar = [col for col in df_train.columns if df_train[col].nunique() > 2]
+    if mostrar_cols: print("Columnas estandarizadas:", cols_estandarizar)
 
-    # Separar clases
-    df_positivos = df[df[concepto] == 1.0]
-    df_negativos = df[df[concepto] == 0.0]
-    total_positivos = len(df_positivos)
+    media = df_train[cols_estandarizar].mean()
+    std = df_train[cols_estandarizar].std()
 
-    # Listas de salida
-    list_x_train, list_y_train = [], []
-    list_x_test, list_y_test = [], []
-    resumen_frecuencias = []
+    df_train[cols_estandarizar] = (df_train[cols_estandarizar] - media) / std
+    df_test[cols_estandarizar] = (df_test[cols_estandarizar] - media) / std
+    
+    return df_train, df_test
 
-    for p in proporciones:
-        tam_total = total_positivos * 2
-        n_positivos = int(p * tam_total)
-        n_negativos = tam_total - n_positivos
-
-        # Muestras para entrenamiento
-        sample_pos = df_positivos.sample(n=n_positivos, random_state=42)
-        sample_neg = df_negativos.sample(n=n_negativos, random_state=42)
-
-        df_train = pd.concat([sample_pos, sample_neg]).sample(frac=1, random_state=42).reset_index(drop=True)
-
-        # Filas restantes (test)
-        usados_idx = set(sample_pos.index).union(sample_neg.index)
-        df_test = df.loc[~df.index.isin(usados_idx)].reset_index(drop=True)
-
-        # Frecuencias del conjunto de entrenamiento
-        conteo = df_train[concepto].value_counts()
-        total = len(df_train)
-        freq_pos = conteo.get(1.0, 0)
-        freq_neg = conteo.get(0.0, 0)
-
-        resumen_frecuencias.append({
-            "Proporción": p,
-            "Positivos": freq_pos,
-            "Negativos": freq_neg,
-            "Total": total,
-            "% Positivos": round((freq_pos / total) * 100, 2),
-            "% Negativos": round((freq_neg / total) * 100, 2)
-        })
-
-        # Convertir a arrays NumPy (X e y)
-        x_train = df_train.drop(columns=[concepto]).to_numpy()
-        y_train = df_train[concepto].to_numpy()
-
-        x_test = df_test.drop(columns=[concepto]).to_numpy()
-        y_test = df_test[concepto].to_numpy()
-
-        list_x_train.append(x_train)
-        list_y_train.append(y_train)
-        list_x_test.append(x_test)
-        list_y_test.append(y_test)
-
-    resumen_df = pd.DataFrame(resumen_frecuencias)
-    return list_x_train, list_y_train, list_x_test, list_y_test, resumen_df
-
-def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.0, 0.10, 0.25, 0.50]):
+def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.0, 0.10, 0.25]):
     df_train_global, df_test_global = train_test_split(
         df,
         test_size=test_size,
@@ -118,13 +53,15 @@ def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.
     df0 = df_train_global[df_train_global[concepto] == 0]
     df1 = df_train_global[df_train_global[concepto] == 1]
 
-    max_size = min(len(df0), len(df1))
-
     conjuntos = []
 
     for p in proporciones:
-        n1 = int(max_size * p)
-        n0 = max_size - n1
+        n1 = int(len(df0) * p)
+        n0 = len(df0) - n1
+
+        # Para evitar pedir más de lo disponible en el dataset
+        n1 = min(n1, len(df1))
+        n0 = min(n0, len(df0))
 
         df_mix = pd.concat([
             df0.sample(n0, random_state=42),
@@ -138,33 +75,44 @@ def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.
 
     return conjuntos
 
-def crear_conjuntos_proporcionales2(df, concepto, test_size=0.2, proporciones=[0.0, 0.10, 0.25, 0.5]):
-    df0 = df[df[concepto] == 0]
-    df1 = df[df[concepto] == 1]
+def crear_conjuntos_proporcionales_estandarizados(df, concepto, test_size=0.2, proporciones=[0.0, 0.10, 0.25]):
+    df_train, df_test = train_test_split(
+        df,
+        test_size=test_size,
+        random_state=42,
+        stratify=df[concepto]
+    )
+    df_train_std, df_test_std = estandarizar_columnas_no_binarias_train(df_train, df_test)
+    
+    x_test = df_test_std.drop(columns=[concepto]).to_numpy()
+    y_test = df_test_std[concepto].to_numpy()
 
-    max_size = min(len(df0), len(df1))
-
+    df0 = df_train_std[df_train_std[concepto] == 0]
+    df1 = df_train_std[df_train_std[concepto] == 1] 
+    
     conjuntos = []
 
     for p in proporciones:
-        n1 = int(max_size * p)
-        n0 = max_size - n1
+        n1 = int(len(df0) * p)
+        n0 = len(df0) - n1
+
+        # Para evitar pedir más de lo disponible en el dataset
+        n1 = min(n1, len(df1))
+        n0 = min(n0, len(df0))
 
         df_mix = pd.concat([
             df0.sample(n0, random_state=42),
-            df1.sample(n1, random_state=42),
+            df1.sample(n1, random_state=42)
         ]).sample(frac=1, random_state=42).reset_index(drop=True)
 
-        x = df_mix.drop(columns=[concepto]).to_numpy()
-        y = df_mix[concepto].to_numpy()
-
-        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=42, stratify=y)
+        x_train = df_mix.drop(columns=[concepto]).to_numpy()
+        y_train = df_mix[concepto].to_numpy()
 
         conjuntos.append((x_train, x_test, y_train, y_test))
-    
+
     return conjuntos
 
-def mostrar_resumen(conjuntos, proporciones=[0.0, 0.10, 0.25, 0.5]):
+def mostrar_resumen(conjuntos, proporciones=[0.0, 0.10, 0.25]):
     filas = []
 
     for (X_train, x_test, y_train, y_test), p in zip(conjuntos, proporciones):
@@ -268,42 +216,22 @@ def graficar_matriz_confusion(TP, FN, FP, TN):
         [FP, TN]
     ])
 
-    total = matriz.sum()
-    matriz_pct = np.round(100 * matriz / total, 2)
+    matriz_norm = matriz / matriz.sum()
 
     display_labels = ["Anómalo", "Normal"]
 
-    # --- MATRIZ ABSOLUTA ---
-    fig1, ax1 = plt.subplots()
-    disp1 = ConfusionMatrixDisplay(
-        confusion_matrix=matriz,
-        display_labels=display_labels
-    )
-    disp1.plot(ax=ax1, cmap="Blues", colorbar=True)
-
+    fig, ax = plt.subplots(figsize=(6,6))
+    disp = ConfusionMatrixDisplay(confusion_matrix=matriz_norm, display_labels=display_labels)
+    disp.plot(ax=ax, cmap="Blues", colorbar=True)
+    
     # mover etiquetas arriba
-    ax1.xaxis.set_label_position("top")
-    ax1.xaxis.tick_top()
-
-    # cambiar nombres de ejes
-    ax1.set_ylabel("Etiqueta real")
-    ax1.set_xlabel("Etiqueta predicha")
-
-    # --- MATRIZ PORCENTUAL ---
-    fig2, ax2 = plt.subplots()
-    disp2 = ConfusionMatrixDisplay(
-        confusion_matrix=matriz_pct,
-        display_labels=display_labels
-    )
-    disp2.plot(ax=ax2, cmap="Blues", colorbar=True)
-
-    ax2.xaxis.set_label_position("top")
-    ax2.xaxis.tick_top()
-
-    ax2.set_ylabel("Etiqueta real")
-    ax2.set_xlabel("Etiqueta predicha")
-
-    plt.show()      
+    ax.xaxis.set_label_position("top")
+    ax.xaxis.tick_top()
+    
+    ax.set_ylabel("Etiqueta real")
+    ax.set_xlabel("Etiqueta predicha")
+    
+    plt.show()  
 
 def save_grid_search_results(data, folder="results", verbose=False):
     fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  4 DEC 2025 01:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  5 DEC 2025 20:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1091,24 +1091,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 140--141
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
+
+ []
+
+
+Overfull \hbox (16.07262pt too wide) in paragraph at lines 148--149
+[]\T1/cmr/m/n/10 Para la realización de este trabajo, utilicé el conjunto de da
+tos \T1/cmr/bx/n/10 Breast Cancer Wisconsin (Diagnostic)
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 148--149
 
  []
 
 
-Overfull \hbox (16.07262pt too wide) in paragraph at lines 150--151
-[]\T1/cmr/m/n/10 Para la realización de este trabajo, utilicé el conjunto de da
-tos \T1/cmr/bx/n/10 Breast Cancer Wisconsin (Diagnostic)
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+
  []
 
 [13
 
 ]
-<../figures/matriz_corr.png, id=153, 1160.6562pt x 815.9283pt>
-File: ../figures/matriz_corr.png Graphic file (type png)
-<use ../figures/matriz_corr.png>
-Package pdftex.def Info: ../figures/matriz_corr.png  used on input line 240.
-(pdftex.def)             Requested size: 362.37569pt x 254.74042pt.
+Overfull \hbox (8.69714pt too wide) in paragraph at lines 189--190
+\T1/cmr/m/n/10 distribución de cada variable y la generación de visualizaciones
+ que permiten identificar patrones, tendencias
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+ []
+
+
+Overfull \hbox (2.18741pt too wide) in paragraph at lines 193--194
+[]\T1/cmr/m/n/10 Un componente central del EDA fue el análisis de la \T1/cmr/bx
+/n/10 matriz de correlación\T1/cmr/m/n/10 , herramienta fundamental
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--194
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 211--213
+
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1118,26 +1158,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [14]
-Overfull \hbox (16.25452pt too wide) in paragraph at lines 245--246
-[]\T1/cmr/m/n/10 Para realizar el entrenamiento del autocodificador usé 4 conju
-ntos, los cuales poseen distintas proporciones
+Underfull \hbox (badness 10000) in paragraph at lines 221--223
+
  []
 
 
-Overfull \hbox (35.45248pt too wide) in paragraph at lines 250--262
- [][] 
+Overfull \hbox (4.42471pt too wide) in paragraph at lines 231--233
+\T1/cmr/m/n/10 Donde $\OML/cmm/m/it/10 Cov\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X; 
+Y\OT1/cmr/m/n/10 )$ \T1/cmr/m/n/10 representa la covarianza entre $\OML/cmm/m/i
+t/10 X$ \T1/cmr/m/n/10 e $\OML/cmm/m/it/10 Y$\T1/cmr/m/n/10 , y $\OML/cmm/m/it/
+10 s[]$\T1/cmr/m/n/10 , $\OML/cmm/m/it/10 s[]$ \T1/cmr/m/n/10 son sus desviacio
+nes estándar. Finalmente,
  []
 
+<../figures/matriz_corr.png, id=181, 1160.6562pt x 815.9283pt>
+File: ../figures/matriz_corr.png Graphic file (type png)
+<use ../figures/matriz_corr.png>
+Package pdftex.def Info: ../figures/matriz_corr.png  used on input line 243.
+(pdftex.def)             Requested size: 362.37569pt x 254.74042pt.
 
-Overfull \hbox (3.341pt too wide) in paragraph at lines 264--265
-[]\T1/cmr/m/n/10 Estos conjuntos representan la proporción de contaminación int
-roducida en el dataset de entrenamiento
- []
+Underfull \hbox (badness 10000) in paragraph at lines 248--249
 
-
-Overfull \hbox (1.1712pt too wide) in paragraph at lines 270--271
-\T1/cmr/m/n/10 Él método empleado en este proyecto es un autocodificador, un ti
-po de perceptrón multicapa caracterizado
  []
 
 
@@ -1148,15 +1189,58 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [15 <../figures/matriz_corr.png>]
-<../figures/arquitectura.png, id=172, 667.49374pt x 400.49625pt>
+<../figures/proporciones.png, id=194, 704.6325pt x 681.54625pt>
+File: ../figures/proporciones.png Graphic file (type png)
+<use ../figures/proporciones.png>
+Package pdftex.def Info: ../figures/proporciones.png  used on input line 254.
+(pdftex.def)             Requested size: 226.48395pt x 219.05602pt.
+
+Overfull \hbox (35.45248pt too wide) in paragraph at lines 263--273
+ [][] 
+ []
+
+
+Overfull \hbox (1.1712pt too wide) in paragraph at lines 283--284
+\T1/cmr/m/n/10 Él método empleado en este proyecto es un autocodificador, un ti
+po de perceptrón multicapa caracterizado
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 283--284
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--286
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[16 <../figures/proporciones.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
+
+ []
+
+<../figures/arquitectura.png, id=202, 667.49374pt x 400.49625pt>
 File: ../figures/arquitectura.png Graphic file (type png)
 <use ../figures/arquitectura.png>
-Package pdftex.def Info: ../figures/arquitectura.png  used on input line 278.
+Package pdftex.def Info: ../figures/arquitectura.png  used on input line 291.
 (pdftex.def)             Requested size: 271.7835pt x 163.07397pt.
-<../figures/relu_gelu.png, id=174, 489.9906pt x 323.7696pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--297
+
+ []
+
+<../figures/relu_gelu.png, id=204, 489.9906pt x 323.7696pt>
 File: ../figures/relu_gelu.png Graphic file (type png)
 <use ../figures/relu_gelu.png>
-Package pdftex.def Info: ../figures/relu_gelu.png  used on input line 304.
+Package pdftex.def Info: ../figures/relu_gelu.png  used on input line 319.
 (pdftex.def)             Requested size: 271.7835pt x 179.5905pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1169,35 +1253,60 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[16 <../figures/arquitectura.png>]
-Overfull \hbox (9.51547pt too wide) in paragraph at lines 320--321
-\T1/cmr/m/n/10 utilizado durante el entrenamiento. En particular, se calculó co
-mo la \T1/cmr/bx/n/10 media del error de reconstrucción\T1/cmr/m/n/10 : 
+[17 <../figures/arquitectura.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 324--325
+
  []
 
 
-Overfull \hbox (2.96022pt too wide) in paragraph at lines 336--337
+Underfull \hbox (badness 10000) in paragraph at lines 333--335
+
+ []
+
+
+Overfull \hbox (9.51547pt too wide) in paragraph at lines 336--337
+\T1/cmr/m/n/10 utilizado durante el entrenamiento. En particular, se calculó co
+mo la \T1/cmr/bx/n/10 media del error de reconstrucción\T1/cmr/m/n/10 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 348--349
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[18 <../figures/relu_gelu.png>]
+Overfull \hbox (2.96022pt too wide) in paragraph at lines 363--364
 []\T1/cmr/bx/n/10 Verdaderos Positivos (TP)\T1/cmr/m/n/10 : Casos \T1/cmr/m/it/
 10 anómalos \T1/cmr/m/n/10 (personas con diabetes) cuyo error de reconstrucción
 
  []
 
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.1638pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.1638pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+LaTeX Warning: Reference `tab:mat_conf' on page 19 undefined on input line 373.
 
-[17 <../figures/relu_gelu.png>]
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.1638pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.1638pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[18]
+Underfull \hbox (badness 10000) in paragraph at lines 393--394
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 411--412
+
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1206,6 +1315,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [19]
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 429--430
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 437--438
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 449--450
+
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1213,44 +1341,57 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[20
-
-]
+[20]
 Chapter 3.
-<../figures/histograma_error_reconstruccion.png, id=216, 570.933pt x 354.123pt>
-
-File: ../figures/histograma_error_reconstruccion.png Graphic file (type png)
-<use ../figures/histograma_error_reconstruccion.png>
-Package pdftex.def Info: ../figures/histograma_error_reconstruccion.png  used o
-n input line 438.
-(pdftex.def)             Requested size: 271.7835pt x 168.57759pt.
-<../figures/matriz_conf_abs.png, id=217, 416.9979pt x 312.2064pt>
-File: ../figures/matriz_conf_abs.png Graphic file (type png)
-<use ../figures/matriz_conf_abs.png>
-Package pdftex.def Info: ../figures/matriz_conf_abs.png  used on input line 465
-.
-(pdftex.def)             Requested size: 317.07614pt x 237.40796pt.
+<../figures/configuracion_autoencoder.png, id=246, 677.53125pt x 745.78625pt>
+File: ../figures/configuracion_autoencoder.png Graphic file (type png)
+<use ../figures/configuracion_autoencoder.png>
+Package pdftex.def Info: ../figures/configuracion_autoencoder.png  used on inpu
+t line 467.
+(pdftex.def)             Requested size: 226.48395pt x 249.29655pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [21 <../figures/histograma_error_reconstruccion.png>]
-<../figures/matriz_conf_pct.png, id=223, 397.485pt x 312.2064pt>
+ [21
+
+ <../figures/configuracion_autoencoder.png>]
+<../figures/hist_error_recons_a.png, id=258, 570.933pt x 354.123pt>
+File: ../figures/hist_error_recons_a.png Graphic file (type png)
+<use ../figures/hist_error_recons_a.png>
+Package pdftex.def Info: ../figures/hist_error_recons_a.png  used on input line
+ 511.
+(pdftex.def)             Requested size: 271.7835pt x 168.57759pt.
+File: ../figures/hist_error_recons_a.png Graphic file (type png)
+<use ../figures/hist_error_recons_a.png>
+Package pdftex.def Info: ../figures/hist_error_recons_a.png  used on input line
+ 518.
+(pdftex.def)             Requested size: 271.7835pt x 168.57759pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22 <../figures/hist_error_recons_a.png>]
+File: ../figures/hist_error_recons_a.png Graphic file (type png)
+<use ../figures/hist_error_recons_a.png>
+Package pdftex.def Info: ../figures/hist_error_recons_a.png  used on input line
+ 525.
+(pdftex.def)             Requested size: 271.7835pt x 168.57759pt.
+<../figures/matriz_conf_pct.png, id=264, 397.485pt x 312.2064pt>
 File: ../figures/matriz_conf_pct.png Graphic file (type png)
 <use ../figures/matriz_conf_pct.png>
-Package pdftex.def Info: ../figures/matriz_conf_pct.png  used on input line 472
+Package pdftex.def Info: ../figures/matriz_conf_pct.png  used on input line 534
 .
-(pdftex.def)             Requested size: 317.07614pt x 249.05565pt.
- [22 <../figures/matriz_conf_abs.png> <../figures/matriz_conf_pct.png>]
+(pdftex.def)             Requested size: 271.7835pt x 213.47899pt.
+ [23 <../figures/matriz_conf_pct.png>] [24]
 Chapter 4.
 
-Overfull \hbox (1.08142pt too wide) in paragraph at lines 480--481
+Overfull \hbox (1.08142pt too wide) in paragraph at lines 568--569
 []\T1/cmr/bx/n/10 Explicar que aprendimos con la realización de este trabajo. Q
 ué nos muestran los resultados.[] 
  []
 
-(proyecto_integrador.bbl [23
+(proyecto_integrador.bbl [25
 
-] [24
+] [26
 
 ])
 
@@ -1261,20 +1402,24 @@ See the caption package documentation for explanation.
 Package caption Warning: Unused \captionsetup[subfigure] on input line 51.
 See the caption package documentation for explanation.
 
-[25] (proyecto_integrador.aux)
+[27] (proyecto_integrador.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 29304 strings out of 474485
- 556285 string characters out of 5742789
+ 29349 strings out of 474485
+ 557548 string characters out of 5742789
  1940542 words of memory out of 5000000
- 51045 multiletter control sequences out of 15000+600000
- 578661 words of font info for 82 fonts, out of 8000000 for 9000
+ 51081 multiletter control sequences out of 15000+600000
+ 577287 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,14n,94p,1171b,527s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,14n,94p,1171b,478s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\MatÃ­as\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
 rm1000.pk> <C:\Users\MatÃ­as\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
 pi600\ecbi1000.pk> <C:\Users\MatÃ­as\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
@@ -1298,9 +1443,9 @@ MatÃ­as/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><
 C:/Users/MatÃ­as/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Users/MatÃ­as/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/cm/cmsy7.pfb>
-Output written on proyecto_integrador.pdf (25 pages, 915666 bytes).
+Output written on proyecto_integrador.pdf (27 pages, 968965 bytes).
 PDF statistics:
- 796 PDF objects out of 1000 (max. 8388607)
- 75 named destinations out of 1000 (max. 500000)
- 160 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 854 PDF objects out of 1000 (max. 8388607)
+ 86 named destinations out of 1000 (max. 500000)
+ 165 words of extra memory for PDF output out of 10000 (max. 10000000)
 

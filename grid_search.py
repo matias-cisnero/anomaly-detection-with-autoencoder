@@ -1,9 +1,5 @@
 import pandas as pd
-import time
 import numpy as np
-import json
-import os
-from datetime import datetime
 from models import Autoencoder
 from utils import estandarizar_columnas_no_binarias, get_device, save_grid_search_results, crear_conjuntos_proporcionales
 
@@ -21,7 +17,7 @@ df = estandarizar_columnas_no_binarias(df)
 
 # Dividimos nuestros conjuntos de datos
 conjuntos = crear_conjuntos_proporcionales(df, "diagnosis", 0.2)
-x_train, x_test, y_train, y_test = conjuntos[0] # <--- Tomo el conjunto que tiene 0% de anómalos
+x_train, x_test, y_train, y_test = conjuntos[0]
 
 device = get_device()
 
@@ -44,36 +40,42 @@ capas_posibles = [
     [x_train.shape[1], 256, 128, 64, 32, 16, 8, 4, 3],
     [x_train.shape[1], 256, 128, 64, 32, 16, 8, 4, 2]
 ]
+nombres_conjuntos = ["A", "B", "C"]
 
 BATCH_SIZE = 16
 EPOCHS = 1000
 USE_LR_SCHEDULER = False
 PATIENCE_EARLY_STOPPING = 50
 
+
 historial = []
 
 print("INICIANDO GRID SEARCH")
 
-for lr in tasas_de_aprendizaje:
-    print("\n=============================")
-    print(f"  Entrenando con LR = {lr}")
-    print("=============================\n")
-    for capas in capas_posibles:
+for nombre_conjunto, (x_train, x_test, y_train, y_test) in zip(nombres_conjuntos, conjuntos):
+    print(f"\n========= CONJUNTO {nombre_conjunto} =========\n")
+
+    for lr in tasas_de_aprendizaje:
+        print(f"\n-- LR = {lr} --")
         
-        modelo = Autoencoder(capas).to(device)
+        for capas in capas_posibles:
+            
+            modelo = Autoencoder(capas).to(device)
 
-        errores = modelo.fit(x_data=x_train, device=device, lr=lr, batch_size=BATCH_SIZE, num_epochs=EPOCHS, verbose=0,
-                             use_lr_scheduler=USE_LR_SCHEDULER, patience_early_stopping=PATIENCE_EARLY_STOPPING)
+            errores = modelo.fit(x_data=x_train, device=device, lr=lr, batch_size=BATCH_SIZE, num_epochs=EPOCHS, verbose=0,
+                                use_lr_scheduler=USE_LR_SCHEDULER, patience_early_stopping=PATIENCE_EARLY_STOPPING)
 
-        error_final = errores[-1]
-        
-        print(f"Error final = {error_final:.6f}")
+            error_final = errores[-1]
+            
+            print(f"Error final = {error_final:.6f}")
 
-        historial.append({
-            "lr": lr,
-            "capas": capas,
-            "error": round(float(error_final), 3),
-        })
+            historial.append({
+                    "modelo": "Autoencoder",
+                    "conjunto": nombre_conjunto,
+                    "capas": str(capas),          # una sola línea
+                    "lr": lr,
+                    "error": round(error_final, 3)
+            })
 
 # =================== MEJOR CONFIGURACIÓN ===================
 mejor = min(historial, key=lambda h: h["error"])

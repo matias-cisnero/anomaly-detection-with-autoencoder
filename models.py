@@ -125,7 +125,7 @@ class BaseAutoencoder(nn.Module):
 
         return loss_history
     
-    def save(self, path: str, set_id: int = -1, lr: float = -1):
+    def save(self, path: str, set_id: str = "-1", lr: float = -1):
         fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")
         final_path = f"{path}_{fecha}_lr={lr}_set={set_id}.pth"
         torch.save(self, final_path)

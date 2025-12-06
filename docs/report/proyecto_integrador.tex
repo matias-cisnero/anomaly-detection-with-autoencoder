@@ -139,19 +139,19 @@ Walczyna et al. (2025) \cite{walczyna2025latent}
 
 \comentario{Describir los métodos utilizados, si corresponde.}\\
 
-%prueba \cite{santos2025}
-
 El método empleado en este proyecto es el \textbf{Autocodificador (\textit{Autoencoder})}. Un autocodificador es un tipo de red neuronal artificial diseñada para aprender una representación codificada de un conjunto de datos de manera no supervisada. La arquitectura se compone de dos partes principales: el \textbf{Codificador (\textit{Encoder})} y el \textbf{Decodificador (\textit{Decoder})}.
 
 \section{Conjunto de datos y análisis exploratorio}
 
 \comentario{Se describen los datos utilizados y de donde fueron extraídos, si corresponde. En caso de que los datos sean propios, describir como fueron tomados}\\
 
-Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual se extrajo de la plataforma Kaggle (disponible en: \url{https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data}). 
+Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual obtuve de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original pubilicado por Wolberg et al. \cite{breast_cancer_wisconsin}.\\
 
-El conjunto de datos contiene 569 registros de muestras citológicas y 32 atributos, de los cuales 30 son características numéricas calculadas a partir de la digitalización de una imagen de aspirado con aguja fina (FNA) de una masa mamaria, más un número de identificación y el diagnóstico.
+El conjunto de datos está compuesto por 569 registros de muestras citológicas y 32 atributos, de los cuales 30 corresponden a características numéricas derivadas del análisis de imágenes digitalizadas de aspiraciones con aguja fina de masas mamarias. Estas características describen propiedades morfológicas de los núcleos celulares presentes en la imagen, tales como su tamaño, forma, textura y simetría.\\
 
-Los 30 atributos numéricos se derivan de diez características computadas para cada núcleo celular, las cuales son:
+La Aspiración con Aguja Fina (FNA, por sus siglas en inglés) es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de una lesión o masa con una aguja de pequeño calibre. Esta técnica, ampliamente empleada en el diagnóstico de tumores mamarios, permite recolectar células para su posterior análisis citológico, evitando métodos quirúrgicos más invasivos. Su uso en el estudio del cáncer de mama se remonta a la década de 1930 y ha demostrado poseer una elevada precisión diagnóstica cuando es ejecutada e interpretada por un patólogo especializado. Además, la FNA posibilita examinar características celulares y arquitectónicas del tejido aspirado, así como obtener material apto para tinciones citológicas que contribuyen a la detección de alteraciones malignas. Debido a su eficacia, simplicidad y bajo riesgo, la técnica se ha consolidado como una herramienta fundamental en la evaluación citológica de lesiones mamarias \cite{diamantis2009fine}.\\
+
+Los 30 atributos numéricos del conjunto de datos se derivan de diez características computadas para cada núcleo celular, las cuales se describen en la Tabla \ref{tab:caracteristicas_base}:
 
 \begin{table}[H]
 	\centering
@@ -165,7 +165,7 @@ Los 30 atributos numéricos se derivan de diez características computadas para 
 			3 & \textbf{Perímetro} (\textit{perimeter}) & Medida del contorno del núcleo. \\
 			4 & \textbf{Área} (\textit{area}) & Superficie cubierta por el núcleo. \\
 			5 & \textbf{Suavidad} (\textit{smoothness}) & Variación local en las longitudes del radio. \\
-			6 & \textbf{...} (\textit{compactness}) & $\text{Périmetro}^2 / \text{area} -1.0$. \\
+			6 & \textbf{Compacidad} (\textit{compactness}) & $\text{Périmetro}^2 / \text{area} -1.0$. \\
 			7 & \textbf{Concavidad} (\textit{concavity}) & Severidad de las porciones cóncavas del contorno. \\
 			8 & \textbf{Puntos Cóncavos} (\textit{concave points}) & Número de porciones cóncavas del contorno. \\
 			9 & \textbf{Simetría} (\textit{symmetry}) & Nivel de simetría del núcleo celular. \\
@@ -173,30 +173,29 @@ Los 30 atributos numéricos se derivan de diez características computadas para 
 			\bottomrule
 		\end{tabular}
 	\end{adjustbox}
-	\caption{Descripción de las Diez Características Base del \textit{Dataset}}
+	\caption{Descripción de las diez características base del conjunto de datos.}
 	\label{tab:caracteristicas_base}
 \end{table}
 
-Para cada una de estas diez características base, se calculan tres medidas distintas, lo que resulta en un total de 30 atributos finales en el conjunto de datos:
+\noindent
+Para cada una de estas diez características se calculan tres medidas distintas, lo que completa los 30 atributos finales del conjunto de datos:
+
 \begin{enumerate}
 	\item La \textbf{media} de la característica.
 	\item El \textbf{error estándar} (\textit{Standard Error}, SE) de la característica.
 	\item El \textbf{'peor'} valor o más grande, el cual se calcula como la media de los tres valores más grandes de la característica.
 \end{enumerate}
 
-\subsection{Análisis exploratorio de datos y preprocesamiento}
+Previo al entrenamiento del modelo, realicé un \textbf{análisis exploratorio de datos (EDA)} con el objetivo de comprender la estructura del conjunto de datos y detectar posibles problemas que afecten el desempeño del modelo. Este proceso incluyó la revisión de valores faltantes, la inspección de la distribución de cada variable y la generación de visualizaciones que permiten identificar patrones, tendencias y posibles anomalías.\\
 
-Previo al entrenamiento del modelo, realicé un \textbf{análisis exploratorio de datos (EDA)}. Este proceso incluye la limpieza de datos, el manejo de valores faltantes (si los hay), la visualización de la distribución de las variables y, fundamentalmente, el cálculo y la visualización de la matriz de correlación entre todos los atributos.
+Asimismo, apliqué una \textbf{estandarización} a los atributos no binarios con el fin de garantizar que todas las características se encuentren en una escala comparable, evitando que aquellas con valores numéricos más grandes dominen el proceso de entrenamiento.\\
 
-Se aplicó una \textbf{estandarización} a los atributos no binarios para asegurar que todas las entradas del modelo tienen una escala comparable.
+Un componente central del EDA fue el análisis de la \textbf{matriz de correlación}, herramienta fundamental para evaluar las dependencias lineales entre los atributos. Esta matriz permite identificar relaciones fuertes entre variables, lo que facilita comprender la estructura interna del conjunto de datos y justifica la utilización de modelos capaces de capturar relaciones complejas y no lineales, como los autocodificadores utilizados en este trabajo.\\
 
-La matriz de correlación resulta crucial porque permite identificar las \textbf{dependencias lineales} entre las variables y guía las decisiones sobre el preprocesamiento de los datos, confirmando la necesidad de un modelo capaz de capturar relaciones más complejas, como el autocodificador.
-
-La variable objetivo, $\textit{diagnosis}$, presenta la siguiente distribución:
+Tras el análisis general de los atributos, se examinó la \textbf{distribución de la variable objetivo}, \textit{diagnosis}, con el fin de comprender el balance entre las clases presentes en el conjunto de datos. La distribución se muestra en la Tabla~\ref{tab:diagnosis}.
 
 \begin{table}[H]
 	\centering
-	\caption{Distribución de la variable objetivo \textit{diagnosis}}
 	\begin{tabular}{lcc}
 		\toprule
 		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\
@@ -205,35 +204,39 @@ La variable objetivo, $\textit{diagnosis}$, presenta la siguiente distribución:
 		M (\textit{Maligno}) & 37.26 & 212 \\
 		\bottomrule
 	\end{tabular}
-	\label{tab:diabetes_012}
+	\caption{Distribución de la variable objetivo \textit{diagnosis}}
+	\label{tab:diagnosis}
 \end{table}
 
-Explicar por qué estandaricé...
+\noindent
+Esta distribución revela un leve desbalance entre ambas categorías, algo esperable para este trabajo, donde se espera detectar una anomalía, es decir, un diagnóstico maligno.\\
 
-Apliqué una estandarización a todos los atributos. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Este proceso se define formalmente en la ecuación~\ref{eq:estandarizacion}.
+Apliqué una estandarización a todos los atributos. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Este proceso se define formalmente en la Ecuación~\ref{eq:estandarizacion}.
 
 \begin{equation}
 	z = \frac{x - \mu}{\sigma}
 	\label{eq:estandarizacion}
 \end{equation}
 
-donde $x$ es el valor original del atributo, $\mu$ es su media y $\sigma$ es su desviación estándar.
+\noindent
+Donde $x$ es el valor original del atributo, $\mu$ es su media y $\sigma$ es su desviación estándar.\\
 
-Calculo la matriz de correlación ($\rho$), la cual mide el grado de asociación lineal entre cada par de atributos del conjunto de datos. Su definición matemática se muestra en la ecuación~\ref{eq:correlacion}.
+Calculé la matriz de correlación ($\rho$), la cual mide el grado de asociación lineal entre cada par de atributos del conjunto de datos. Su definición matemática se muestra en la Ecuación~\ref{eq:correlacion}.
 
 \begin{equation}
 	\rho(X, Y) = \frac{Cov(X, Y)}{s_x s_y}
 	\label{eq:correlacion}
 \end{equation}
 
-Donde $Cov(X, Y)$ representa la covarianza entre $X$ e $Y$, y $s_x$, $s_y$ son sus desviaciones estándar. Finalmente, la covarianza utilizada en ese cálculo se expresa en la ecuación~\ref{eq:covarianza}.
+\noindent
+Donde $Cov(X, Y)$ representa la covarianza entre $X$ e $Y$, y $s_x$, $s_y$ son sus desviaciones estándar. Finalmente, la covarianza utilizada en ese cálculo se expresa en la Ecuación~\ref{eq:covarianza}.
 
 \begin{equation}
 	Cov(X, Y) = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})
 	\label{eq:covarianza}
 \end{equation}
 
-La matriz de correlación correspondiente a los principales indicadores de salud del conjunto de datos se presenta en la figura~\ref{fig:corr_matrix}, donde pueden observarse las relaciones lineales entre los distintos atributos.
+La matriz de correlación correspondiente a los principales indicadores de salud del conjunto de datos se presenta en la Figura~\ref{fig:corr_matrix}, donde pueden observarse las relaciones lineales entre los distintos atributos.
 
 \begin{figure}[H]
 	\centering
@@ -242,36 +245,46 @@ La matriz de correlación correspondiente a los principales indicadores de salud
 	\label{fig:corr_matrix}
 \end{figure}
 
-Para realizar el entrenamiento del autocodificador usé 4 conjuntos, los cuales poseen distintas proporciones de datos atípicos, esto lo realizo con el fin de evaluar la robustez del modelo ante estos. Cada conjunto de entrenamiento mantuvo un \textbf{total de 170 registros}.
+Para analizar la robustez del autocodificador frente a distintos niveles de contaminación en los datos realicé una división del conjunto de datos en entrenamiento y prueba, manteniendo la proporción real de clases, tal como se indica en el paso (1) de la Figura~\ref{fig:diagrama_proporciones}. En esta etapa se reservó el 20\% de las muestras para el conjunto de prueba, mientras que el 80\% restante se destinó al entrenamiento.\\
+
+A partir del subconjunto de entrenamiento, generé tres nuevos conjuntos con diferentes proporciones de anomalías, proceso señalado como paso (2) de la Figura~\ref{fig:diagrama_proporciones}. El objetivo fue evaluar cómo afecta al modelo entrenar con distintos niveles de contaminación controlada, manteniendo constante el tamaño total de cada conjunto (285 muestras).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{../figures/proporciones}
+	\caption{Diagrama del proceso de división del dataset en entrenamiento y prueba, y posterior creación de los conjuntos A, B y C con diferentes proporciones de anomalías.}
+	\label{fig:diagrama_proporciones}
+\end{figure}
+
+La Tabla~\ref{tab:proporciones_conjunto} resume las proporciones definidas para cada conjunto de entrenamiento. El conjunto A contiene únicamente registros normales, mientras que B y C incorporan niveles crecientes de anomalías (10\% y 25\%, respectivamente).
 
 \begin{table}[H]
 	\centering
-	\caption{Conjuntos de datos creados para evaluar la resistencia a anomalías}
 	\begin{tabular}{ccccc}
 		\toprule
 		\textbf{ID} & \textbf{Proporción Anómalos} & \textbf{Proporción Normales} & \textbf{Registros Anómalos} & \textbf{Registros Normales} \\
 		& (\% Total) & (\% Total) & (Positivos) & (Negativos) \\
 		\midrule
-		A & 0\%  & 100\% & 0  & 170 \\
-		B & 10\% & 90\%  & 17 & 153 \\
-		C & 25\% & 75\%  & 42 & 128 \\
-		D & 50\% & 50\%  & 85 & 85  \\
+		A & 0\%  & 100\% & 0  & 285 \\
+		B & 10\% & 90\%  & 28 & 257 \\
+		C & 25\% & 75\%  & 71 & 214 \\
 		\bottomrule
 	\end{tabular}
-	\label{tab:resistencia_anomalias}
+	\caption{Conjuntos de entrenamiento creados para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}
+	\label{tab:proporciones_conjunto}
 \end{table}
-
-Estos conjuntos representan la proporción de contaminación introducida en el dataset de entrenamiento para simular escenarios donde la pureza de los datos normales no está garantizada.
-
-Para cada conjunto realicé una división en entrenamiento y prueba. El conjunto de entrenamiento se obtuvo tomando el 80\% de las muestras y manteniendo la proporción de anomalías correspondiente a su conjunto del conjunto original, mientras que el 20\% restante se utilizó como conjunto de prueba, el cual es el mismo para los conjuntos A, B, C y D. De esta manera, tanto la distribución de clases como las diferentes proporciones de contaminación se mantienen consistentes en ambos subconjuntos, permitiendo evaluar el desempeño del modelo bajo escenarios comparables.
 
 \section{Descripción de los métodos}
 
-Él método empleado en este proyecto es un autocodificador, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por tener la misma dimensión en la entrada ($d$) y en la salida. Aunque suele decirse que el aprendizaje en este modelo es no supervisado, en realidad sí es supervisado, ya que la salida esperada ($Y$) es la propia entrada ($X$).
+Introducción...
 
-En esta arquitectura, el \textbf{codificador} comprime la entrada en una representación ubicada en la \textbf{capa latente}, que es la capa oculta central y cuya dimensión ($k$) suele ser menor que la de la entrada ($k < d$). Esta capa contiene la representación comprimida de los datos. Luego, el \textbf{decodificador}, que constituye la segunda mitad de la red, reconstruye la salida a partir de esa representación latente.
+\subsection{Autocodificadores}
 
-La arquitectura general de un autocodificador puede representarse de manera esquemática como se muestra en la figura~\ref{fig:arquitectura}. En ella se observa las distintas capas del modelo, desde la entrada hasta la salida.
+Él método empleado en este proyecto es un autocodificador, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por tener la misma dimensión en la entrada ($d$) y en la salida. Aunque suele decirse que el aprendizaje en este modelo es no supervisado, en realidad sí es supervisado, ya que la salida esperada ($Y$) es la propia entrada ($X$).\\
+
+En esta arquitectura, el \textbf{codificador} comprime la entrada en una representación ubicada en la \textbf{capa latente}, que es la capa oculta central y cuya dimensión ($k$) suele ser menor que la de la entrada ($k < d$). Esta capa contiene la representación comprimida de los datos. Luego, el \textbf{decodificador}, que constituye la segunda mitad de la red, reconstruye la salida a partir de esa representación latente.\\
+
+La arquitectura general de un autocodificador puede representarse de manera esquemática como se muestra en la Figura~\ref{fig:arquitectura}. En ella se observa las distintas capas del modelo, desde la entrada hasta la salida reconstruida.\\
 
 \begin{figure}[H]
 	\centering
@@ -280,8 +293,9 @@ La arquitectura general de un autocodificador puede representarse de manera esqu
 	\label{fig:arquitectura}
 \end{figure}
 
-Como función de activación en mi autocodificador utilizo \text{GELU} debido a sus ventajas frente a la comúnmente empleada \text{ReLU}. Entre ellas se destacan: una superficie de pérdida más suave que facilita un entrenamiento más estable y rápido, la ausencia del problema de "neuronas muertas" propio de ReLU, y una mayor capacidad de modelar relaciones no lineales gracias a su naturaleza probabilística basada en la distribución normal.
+Como función de activación en mi autocodificador utilizo \text{GELU} debido a sus ventajas frente a la comúnmente empleada \text{ReLU}. Entre ellas se destacan: una superficie de pérdida más suave que facilita un entrenamiento más estable y rápido, la ausencia del problema de "neuronas muertas" propio de ReLU y una mayor capacidad de modelar relaciones no lineales gracias a su naturaleza probabilística basada en la distribución normal.\\
 
+\noindent
 La función GELU(x) está definida por:
 
 \begin{equation}
@@ -290,6 +304,7 @@ La función GELU(x) está definida por:
 	\label{eq:gelu}
 \end{equation}
 
+\noindent
 La función ReLU(x) se define como:
 
 \begin{equation}
@@ -297,7 +312,7 @@ La función ReLU(x) se define como:
 	\label{eq:relu}
 \end{equation}
 
-Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se puede apreciar la suavidad de \text{GELU} al aproximarse a 0, en contraste con el comportamiento abrupto de \text{ReLU}.
+Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se puede apreciar la suavidad de \textbf{GELU} al aproximarse a 0, en contraste con el comportamiento abrupto de \textbf{ReLU}.
 
 \begin{figure}[H]
 	\centering
@@ -306,31 +321,43 @@ Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se 
 	\label{fig:relugelu}
 \end{figure}
 
-A partir de esta arquitectura, el autocodificador puede emplearse como un método de \textbf{detección de anomalías}. Para ello, el modelo se entrena exclusivamente con la clase que representa el comportamiento normal, es decir, pacientes sin diabetes. Debido a que aprende a reconstruir adecuadamente este tipo de patrones, cuando recibe un dato $t$ perteneciente a la misma distribución, se espera que el error de reconstrucción $||t' - t||$ sea pequeño.
+A partir de esta arquitectura, el autocodificador puede emplearse como un método de \textbf{detección de anomalías}. Para ello, el modelo se entrena exclusivamente con la clase que representa el comportamiento normal, es decir, pacientes sin diabetes. Al aprender a reconstruir correctamente este tipo de patrones, cuando el modelo recibe un dato $t$ perteneciente a la misma distribución, se espera que el error de reconstrucción $\lVert t' - t \rVert$ sea pequeño.\\
 
-En contraste, si se presenta un dato atípico $t^{*}$, correspondiente a un paciente con diabetes el modelo no logra reconstruirlo con la misma fidelidad, generando así un error significativamente mayor. Este comportamiento permite establecer un criterio simple y efectivo para la detección de anomalías: un dato se clasifica como anómalo si su error de reconstrucción supera un umbral $\epsilon$ predefinido. Formalmente:
+En contraste, si se presenta un dato atípico $t^{*}$, correspondiente a un diagnóstico maligno, el modelo no logra reconstruirlo con la misma fidelidad, generando así un error significativamente mayor. Este comportamiento permite establecer un criterio simple y efectivo para la detección de anomalías: un dato se clasifica como anómalo si su error de reconstrucción supera un umbral $\epsilon$ predefinido. El criterio se expresa formalmente en la Ecuación~\ref{eq:dif_reconstruccion}:
 
 \begin{equation}
 	\lVert t^{*} - t^{\prime *} \rVert > \epsilon
 	\label{eq:dif_reconstruccion}
 \end{equation}
 
-donde $t^{\prime *}$ es la reconstrucción producida por la red a partir del dato $t^{*}$. Si la desigualdad se cumple, el dato se considera \emph{anómalo}; de lo contrario, se clasifica como \emph{normal}.
+\noindent
+Donde $t^{\prime *}$ es la reconstrucción producida por la red a partir del dato $t^{*}$. Si la desigualdad se cumple, el dato se considera \emph{anómalo}; de lo contrario, se clasifica como \emph{normal}.\\
 
-El valor del umbral $\epsilon$ se determinó de manera empírica a partir del conjunto de datos normales utilizado durante el entrenamiento. En particular, se calculó como la \textbf{media del error de reconstrucción}:
+El valor del umbral $\epsilon$ se determinó de manera empírica a partir del conjunto de datos normales utilizado durante el entrenamiento. En particular, se calculó como la \textbf{media del error de reconstrucción}. Esta definición se detalla en la Ecuación~\ref{eq:epsilon}:
 
 \begin{equation}
 	\epsilon = \text{media}\!\left( \lVert t'_i - t_i \rVert \right)
 	\label{eq:epsilon}
 \end{equation}
 
-donde $t_i$ corresponde a cada muestra normal y $t'_i$ a su respectiva reconstrucción generada por el modelo. Este valor promedio proporciona un límite representativo del comportamiento esperado en datos no anómalos, permitiendo distinguir de forma efectiva aquellos casos cuyo error excede significativamente lo aprendido por la red.
+\noindent
+Donde $t_i$ corresponde a cada muestra normal y $t'_i$ a su respectiva reconstrucción generada por el modelo. Este valor promedio proporciona un límite representativo del comportamiento esperado en datos no anómalos, permitiendo distinguir de forma efectiva aquellos casos cuyo error excede significativamente lo aprendido por la red.
 
 \subsection{Métricas de evaluación del modelo}
 
-Para evaluar el rendimiento del autocodificador en la tarea de detección de anomalías, se recurre a la \textbf{matriz de confusión}, la cual resume la relación entre las predicciones del modelo y las etiquetas reales. En este contexto, cada instancia se clasifica como \emph{normal} o \emph{anómala} según su error de reconstrucción $||t' - t||$ comparado con un umbral $\epsilon$.
+Para evaluar el rendimiento del autocodificador en la tarea de detección de anomalías, utilizo la \textbf{matriz de confusión}, la cual resume la relación entre las predicciones del modelo y las etiquetas reales. En este contexto, cada instancia se clasifica como \emph{normal} o \emph{anómala} según si su error de reconstrucción $\lVert t' - t \rVert$ supera o no el umbral $\epsilon$ definido, tal como se muestra en la Ecuación~\ref{eq:criterio}.\\
 
-A partir de este criterio, se definen los siguientes casos:
+\begin{equation}
+	\hat{y} =
+	\begin{cases}
+		0, & \text{si } \lVert t' - t \rVert \le \epsilon \\[4pt]
+		1, & \text{si } \lVert t' - t \rVert > \epsilon
+	\end{cases}
+	\label{eq:criterio}
+\end{equation}
+
+\noindent
+A partir de este criterio, se distinguen los siguientes cuatro casos fundamentales:
 
 \begin{itemize}
 	\item \textbf{Verdaderos Positivos (TP)}: Casos \emph{anómalos} (personas con diabetes) cuyo error de reconstrucción satisface $||t' - t|| > \epsilon$.
@@ -342,7 +369,8 @@ A partir de este criterio, se definen los siguientes casos:
 	\item \textbf{Falsos Positivos (FP)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||t' - t|| > \epsilon$, siendo incorrectamente clasificados como anómalos.
 \end{itemize}
 
-Luego, con estos casos, se construye la siguiente matriz de confusión:
+\noindent
+A partir de estas cuatro categorías se construye la matriz de confusión mostrada en la Tabla~\ref{tab:mat_conf}, donde la diagonal verde representa las predicciones correctas y las celdas rojas los errores de clasificación.
 
 \begin{table}[H]
 	\centering
@@ -362,53 +390,53 @@ Luego, con estos casos, se construye la siguiente matriz de confusión:
 	\caption{Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}
 \end{table}
 
-Luego de definir los cuatro posibles resultados derivados del criterio basado en el umbral $\epsilon$, es posible cuantificar el rendimiento del modelo mediante diversas métricas. Cada una de ellas resume un aspecto distinto de la calidad de las predicciones y se deriva directamente de los valores presentes en la matriz de confusión. A continuación, se presentan las métricas utilizadas en este trabajo, junto con sus expresiones formales.
+Una vez definidas las categorías de la matriz de confusión, es posible cuantificar el rendimiento del modelo mediante distintas métricas, cada una evaluando un aspecto particular de la calidad de las predicciones. Todas ellas se derivan directamente de los valores TP, FP, TN y FN.\\
 
-La exactitud (accuracy) cuantifica la proporción total de predicciones correctas realizadas por el modelo según la ecuación~\ref{eq:accuracy}.
+La \textbf{exactitud} (accuracy) cuantifica la proporción total de predicciones correctas realizadas por el modelo según la Ecuación~\ref{eq:accuracy}.
 
 \begin{equation}
 	\text{Accuracy} =
 	\frac{\text{TP} + \text{TN}}
 	{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
 	\label{eq:accuracy}
-\end{equation}
+\end{equation}\\
 
-La precisión (precision) indica qué proporción de las predicciones positivas corresponde realmente a casos positivos, tal como se define en la ecuación~\ref{eq:precision}.
+La precisión (precision) indica qué proporción de las predicciones positivas corresponde realmente a casos positivos, tal como se define en la Ecuación~\ref{eq:precision}.
 
 \begin{equation}
 	\text{Precision} =
 	\frac{\text{TP}}
 	{\text{TP} + \text{FP}}
 	\label{eq:precision}
-\end{equation}
+\end{equation}\\
 
-La sensibilidad (recall) mide la capacidad del modelo para identificar correctamente los casos positivos presentes en el conjunto de datos, de acuerdo con la ecuación~\ref{eq:recall}.
+La sensibilidad (recall) mide la capacidad del modelo para identificar correctamente los casos positivos presentes en el conjunto de datos, de acuerdo con la Ecuación~\ref{eq:recall}.
 
 \begin{equation}
 	\text{Recall} =
 	\frac{\text{TP}}
 	{\text{TP} + \text{FN}}
 	\label{eq:recall}
-\end{equation}
+\end{equation}\\
 
-La especificidad (specificity) evalúa la proporción de casos negativos correctamente clasificados, definida en la ecuación~\ref{eq:specificity}.
+La especificidad (specificity) evalúa la proporción de casos negativos correctamente clasificados, definida en la Ecuación~\ref{eq:specificity}.
 
 \begin{equation}
 	\text{Specificity} =
 	\frac{\text{TN}}
 	{\text{TN} + \text{FP}}
 	\label{eq:specificity}
-\end{equation}
+\end{equation}\\
 
-La exactitud balanceada (balanced accuracy), mostrada en la ecuación~\ref{eq:balanced-accuracy}, combina sensibilidad y especificidad para obtener una medida equilibrada del rendimiento.
+La exactitud balanceada (balanced accuracy), mostrada en la Ecuación~\ref{eq:balanced-accuracy}, combina sensibilidad y especificidad para obtener una medida equilibrada del rendimiento.
 
 \begin{equation}
 	\text{Balanced Accuracy} =
 	\frac{\text{Recall} + \text{Specificity}}{2}
 	\label{eq:balanced-accuracy}
-\end{equation}
+\end{equation}\\
 
-El F1-Score combina las medidas de precisión y sensibilidad para ofrecer una métrica más general de la calidad del modelo, tal como se expresa en la ecuación~\ref{eq:f1-score}.
+El F1-Score combina las medidas de precisión y sensibilidad para ofrecer una métrica más general de la calidad del modelo, tal como se expresa en la Ecuación~\ref{eq:f1-score}.
 
 \begin{equation}
 	\text{F1\_Score} =
@@ -418,68 +446,128 @@ El F1-Score combina las medidas de precisión y sensibilidad para ofrecer una m�
 	\frac{2\,\text{TP}}
 	{2\,\text{TP} + \text{FP} + \text{FN}}
 	\label{eq:f1-score}
-\end{equation}
+\end{equation}\\
 
-En mi caso, resulta especialmente importante maximizar las métricas de \textbf{Recall} y \textbf{Precision}. Un alto \textit{Recall} garantiza que la mayoría de los casos anómalos sean identificados, minimizando los falsos negativos, mientras que una alta \textit{Precision} asegura que las instancias marcadas como anómalas realmente lo sean, reduciendo los falsos positivos. Dado que el \textbf{F1\_Score} combina ambas métricas en una sola medida equilibrada del rendimiento del modelo, maximizar esta métrica resulta especialmente relevante para esta tarea.
+En el caso particular de este trabajo, resulta crítico priorizar la métrica de \textbf{Recall}. Dado que un falso negativo implica no identificar un caso potencialmente maligno, maximizar el Recall es esencial para garantizar que el modelo no pase por alto ninguna anomalía relevante.
+
+Si bien \textbf{Precision} también aporta información valiosa al reducir el número de falsos positivos, la severidad clínica de un falso negativo vuelve al Recall la métrica de mayor importancia práctica en este contexto.
+
+No obstante, para obtener una visión más equilibrada del rendimiento global del sistema, también se considera el \textbf{F1\_Score}, que combina Recall y Precision en una única medida. De esta manera, aunque el objetivo principal es maximizar el Recall, un F1\_Score elevado asegura que dicho incremento no se logra a costa de elevar los falsos positivos, proporcionando así una evaluación más completa de la calidad del modelo.
 
 \chapter{Resultados}
 
 \comentario{Mostrar los resultados obtenidos utilizando gráficos, tablas, figuras, etc}
 
+En este capitulo se presentan los resultados obtenidos durante el entrenamiento y evaluación del autocodificador propuesto. Para ello, se muestran la configuración utilizada, los histogramas de errores de reconstrucción, las métricas de desempeño para los distintos conjuntos evaluados y finalmente la matriz de confusión porcentual que resume el rendimiento del modelo bajo el criterio definido previamente.
+
 Para entrenar el autocodificador se utilizó la siguiente configuración:
 
-Insertar gráfico:
-<Autoencoder: In 30 → 128 → 64 → 32 → 16 → 8 → 4 → [2] → 4 → 8 → 16 → 32 → 64 → 128 → 30 Out>
-
-Graficando los histogramas de los errores de reconstrucción:
-
-\begin{figure}
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{../figures/histograma_error_reconstruccion}
-	\caption{}
-	\label{fig:histogramaerrorreconstruccion}
+	\includegraphics[width=0.5\linewidth]{../figures/configuracion_autoencoder}
+	\caption{Arquitectura del autocodificador utilizado}
+	\label{fig:configuracion_autoencoder}
 \end{figure}
+
+Los hiperparámetros utilizados durante el entrenamiento se listan en la Tabla~\ref{tab:configuracion_entrenamiento}:
 
 \begin{table}[H]
 	\centering
-	\caption{Métricas de rendimiento del modelo evaluado en diferentes proporciones de datos anómalos en el entrenamiento}
-	\begin{tabular}{lcccc}
+	\begin{tabular}{lccc}
 		\toprule
-		\textbf{Métrica} & \textbf{Conjunto 0} & \textbf{Conjunto 1} & \textbf{Conjunto 2} & \textbf{Conjunto 3} \\
-		& (0\% Anómalos) & (10\% Anómalos) & (25\% Anómalos) & (50\% Anómalos) \\
+		\textbf{Parámetro} & \textbf{Modelo A} & \textbf{Modelo B} & \textbf{Modelo C} \\
 		\midrule
-		\textit{Accuracy} & 0.7193 & -- & -- & -- \\
-		\textit{Precision} & 0.5735 & -- & -- & -- \\
-		\textit{Recall} & 0.9286 & -- & -- & -- \\
-		\textit{Specificity} & 0.5972 & -- & -- & -- \\
-		\textit{Balanced Accuracy} & 0.7629 & -- & -- & -- \\
-		\textit{F1\_Score} & 0.7091 & -- & -- & -- \\
+		Tasa de aprendizaje (lr)     & 0.001 & 0.001 & 0.001 \\
+		Tamaño de batch (batch size) & 32    & 32    & 32    \\
+		Épocas de entrenamiento      & 50    & 50    & 50    \\
+		Función de pérdida           & MSE   & MSE   & MSE   \\
+		Optimizador                  & Adam  & Adam  & Adam  \\
 		\bottomrule
 	\end{tabular}
-	\label{tab:metricas_resistencia_anomalias}
+	\caption{Hiperparámetros de entrenamiento empleados para los modelos A, B y C, entrenados con los correspondientes conjuntos.}
+	\label{tab:configuracion_entrenamiento}
 \end{table}
 
+Para cada uno de los modelos entrenados (A, B y C) calculé el umbral 
+$\epsilon$ que permite distinguir entre instancias normales y anómalas a partir del error de reconstrucción. Dicho umbral se obtiene utilizando únicamente el conjunto de entrenamiento, siguiendo el criterio definido en la Ecuación~\ref{eq:epsilon}. Los valores finales de empleados por cada modelo se muestran en la Tabla~\ref{tab:epsilons_modelos}.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Parámetro} & \textbf{Modelo A} & \textbf{Modelo B} & \textbf{Modelo C} \\
+		\midrule
+		Umbral $\epsilon$ & 0.XXX & 0.YYY & 0.ZZZ \\
+		\bottomrule
+	\end{tabular}
+	\caption{Valores de umbral $\epsilon$ obtenidos para los modelos A, B y C.}
+	\label{tab:epsilons_modelos}
+\end{table}
+
+Una vez establecido el umbral para cada modelo, analicé la distribución del error de reconstrucción sobre el conjunto de prueba. Los histogramas correspondientes, presentados en las Figuras~\ref{fig:hist_error_recons_a}, \ref{fig:hist_error_recons_b} y \ref{fig:hist_error_recons_c} permiten visualizar cómo se distribuyen los errores y cómo se posiciona el umbral $\epsilon$ en cada caso. Esta comparación facilita interpretar la capacidad del autocodificador para separar registros normales de anómalos según su desempeño con distintos niveles de contaminación en el entrenamiento.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{../figures/matriz_conf_abs.png}
-	\caption{Matriz de confusión en valores absolutos.}
-	\label{fig:matriz_conf_abs}
+	\includegraphics[width=0.6\linewidth]{../figures/hist_error_recons_a}
+	\caption{Distribución del error de reconstrucción para el Modelo A.}
+	\label{fig:hist_error_recons_a}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{../figures/matriz_conf_pct.png}
-	\caption{Matriz de confusión en valores porcentuales.}
+	\includegraphics[width=0.6\linewidth]{../figures/hist_error_recons_a}
+	\caption{Distribución del error de reconstrucción para el Modelo B.}
+	\label{fig:hist_error_recons_b}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{../figures/hist_error_recons_a}
+	\caption{Distribución del error de reconstrucción para el Modelo C.}
+	\label{fig:hist_error_recons_c}
+\end{figure}
+
+Explicación...
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{../figures/matriz_conf_pct.png}
+	\caption{Matriz de confusión expresada en valores porcentuales para el conjunto evaluado.}
 	\label{fig:matriz_conf_pct}
 \end{figure}
 
+Finalmente, se obtuvieron las métricas de la Tabla~\ref{tab:metricas_resistencia_anomalias} donde se puede observar ...
+
+Explicación...
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Métrica} & \textbf{Conjunto A} & \textbf{Conjunto B} & \textbf{Conjunto C} \\
+		& (0\% Anómalos) & (10\% Anómalos) & (25\% Anómalos) \\
+		\midrule
+		\textit{Accuracy}          & 0.7193 & -- & -- \\
+		\textit{Precision}         & 0.5735 & -- & -- \\
+		\textit{Recall}            & 0.9286 & -- & -- \\
+		\textit{Specificity}       & 0.5972 & -- & -- \\
+		\textit{Balanced Accuracy} & 0.7629 & -- & -- \\
+		\textit{F1\_Score}         & 0.7091 & -- & -- \\
+		\bottomrule
+	\end{tabular}
+	\caption{Métricas de rendimiento del modelo evaluado sobre el mismo conjunto de prueba para los conjuntos A, B y C. Cada conjunto fue entrenado con distinta proporción de datos anómalos, lo que permite analizar la robustez del autocodificador frente a diferentes niveles de contaminación en el entrenamiento.}
+	\label{tab:metricas_resistencia_anomalias}
+\end{table}
+
+Explicación...
+
+CURVA ROC
 
 \chapter{Conclusiones}
 
 \comentario{Explicar que aprendimos con la realización de este trabajo. Qué nos muestran los resultados.}
 
 \bibliographystyle{plain}
-\bibliography{References}
+\bibliography{../References}
 
 \end{document}

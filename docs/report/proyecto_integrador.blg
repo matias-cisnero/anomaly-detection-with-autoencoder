@@ -3,46 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: proyecto_integrador.aux
 Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: plain.bst
-Reallocating 'name_of_file' (item size: 1) to 11 items.
-Database file #1: References.bib
-You've used 3 entries,
+Reallocating 'name_of_file' (item size: 1) to 14 items.
+Database file #1: ../References.bib
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            515 strings with 4442 characters,
-and the built_in function-call counts, 849 in all, are:
-= -- 80
-> -- 39
+            533 strings with 5060 characters,
+and the built_in function-call counts, 1777 in all, are:
+= -- 170
+> -- 93
 < -- 0
-+ -- 16
-- -- 12
-* -- 55
-:= -- 157
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 14
++ -- 37
+- -- 30
+* -- 114
+:= -- 315
+add.period$ -- 20
+call.type$ -- 6
+change.case$ -- 32
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 32
-empty$ -- 66
-format.name$ -- 12
-if$ -- 170
+cite$ -- 6
+duplicate$ -- 57
+empty$ -- 137
+format.name$ -- 30
+if$ -- 362
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 3
-newline$ -- 18
-num.names$ -- 6
-pop$ -- 10
+int.to.str$ -- 6
+missing$ -- 4
+newline$ -- 35
+num.names$ -- 12
+pop$ -- 36
 preamble$ -- 1
-purify$ -- 11
+purify$ -- 26
 quote$ -- 0
-skip$ -- 25
+skip$ -- 44
 stack$ -- 0
-substring$ -- 43
-swap$ -- 3
+substring$ -- 83
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
+type$ -- 24
 warning$ -- 0
-while$ -- 8
-width$ -- 4
-write$ -- 34
+while$ -- 16
+width$ -- 7
+write$ -- 68

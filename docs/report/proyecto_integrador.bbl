@@ -5,6 +5,18 @@ R~Bouman and T~Heskes.
 \newblock Autoencoders for anomaly detection are unreliable.
 \newblock {\em arXiv preprint arXiv:2501.13864}, 2025.
 
+\bibitem{diamantis2009fine}
+Aristidis Diamantis, Emmanouil Magiorkinis, and Helen Koutselini.
+\newblock Fine-needle aspiration (fna) biopsy: historical aspects.
+\newblock {\em Folia histochemica et cytobiologica}, 47(2):191--197, 2009.
+
+\bibitem{kaggle_breast_cancer_wisconsin}
+UCI~Machine Learning and Ovsen.
+\newblock Breast cancer wisconsin (diagnostic) data set.
+\newblock
+  \url{https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data/data}.
+\newblock Kaggle Dataset. Accedido: 2025-11-27.
+
 \bibitem{neloy2024study}
 A~A Neloy and M~Turgeon.
 \newblock A comprehensive study of auto-encoders for anomaly detection:
@@ -15,5 +27,11 @@ A~A Neloy and M~Turgeon.
 T~Walczyna et~al.
 \newblock Enhancing anomaly detection through latent space manipulation.
 \newblock {\em Applied Sciences}, 15(1):286, 2025.
+
+\bibitem{breast_cancer_wisconsin}
+William Wolberg, Olvi Mangasarian, Nick Street, and W.~Street.
+\newblock Breast cancer wisconsin (diagnostic).
+\newblock UCI Machine Learning Repository, 1993.
+\newblock DOI: \url{https://doi.org/10.24432/C5DW2B}.
 
 \end{thebibliography}
