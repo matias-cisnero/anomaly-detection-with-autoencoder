@@ -5,29 +5,30 @@
 %\usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage[margin=1in]{geometry}
-%\usepackage[spanish]{babel}
+\usepackage[spanish]{babel}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage{incgraph,tikz}
+\usepackage{floatrow}
+\floatsetup[table]{capposition=top}
 \usepackage{caption}
+\captionsetup[table]{position=top}
+\captionsetup[table]{name=Tabla}
 \usepackage{subcaption}
 \usepackage{amsmath} % agregado
 \usepackage{amsfonts}
-\usepackage{babel}
 \usepackage{color}
 \usepackage{listings}
-\usepackage{float}
 \usepackage{tikz}
 \usepackage{adjustbox}
 \usepackage{natbib}
-\usepackage{subcaption}
 \usepackage{cleveref}
 \usepackage{colortbl} % agregado 
 \usepackage{xcolor}
 \usepackage{titlepic}
 \usepackage{booktabs} % para bottom, mid y top rule
+\usepackage{multirow}
 
-\usepackage{listings}
 \lstset{ %
 basicstyle=\footnotesize,       % the size of the fonts that are used for the code
 numbers=none,                   % where to put the line-numbers
@@ -65,10 +66,10 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 
 \pagestyle{fancy}
 
-\restylefloat{table}
+%\restylefloat{table}
 
 \title{Detección de Anomalías Utilizando Autocodificadores}
-\author{Autor: Matías Cisnero\\ Tutor: Dra. M. Juliana Gambini}
+\author{Autor: Matías Cisnero\\ Tutora: Dra. M. Juliana Gambini}
 \date{Diciembre 2025 \\ Universidad Nacional de Hurlingham}
 \titlepic{\vspace{12cm}\includegraphics[width=0.15\textwidth]{../figures/logo_unahur.png}}
 
@@ -79,80 +80,134 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 
 \begin{document}
 
-\maketitle
+\renewcommand{\contentsname}{\'Indice General}
+\renewcommand{\listfigurename}{\'Indice de Figuras}
+\renewcommand{\listtablename}{\'Indice de Tablas}
+\renewcommand{\lstlistingname}{Salida}
+\renewcommand\tablename{Tabla}
+\renewcommand{\figurename}{Figura}
 
+\maketitle
 
 \tableofcontents
 \listoffigures
 \listoftables
 
+\newpage
+\section*{Glosario}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{Notación} & \textbf{Descripción} \\
+		\midrule
+		$\mathbf{X} = \{x^{(1)}, \ldots, x^{(N)}\}$ & Conjunto de datos (N ejemplos) \\
+		$X_i$ & Atributo i-ésimo del conjunto de datos\\
+		$x^{(u)} \in \mathbb{R}^{D}$ & Ejemplo $u$-ésimo del conjunto de datos \\
+		$x_k^{(u)}$ & Componente $k$ del ejemplo $x^{(u)}$ \\
+		$\hat{x}^{(u)}$ & Reconstrucción del ejemplo $x^{(u)}$ \\
+		$z^{(u)} \in \mathbb{R}^{K}$ & Representación latente del ejemplo $u$ \\
+		$z_j^{(u)}$ & Activación del componente $j$ de la representación latente \\
+		$D$ & Dimensión del vector de entrada \\
+		$K$ & Dimensión de la capa latente \\
+		$H$ & Dimensión de una capa oculta genérica \\
+		$N$ & Cantidad total de ejemplos \\
+		$W$ & Conjunto de matrices de pesos \\
+		$w_{jk}$ & Peso que conecta la entrada $k$ con la neurona $j$ \\
+		$b$ & Conjunto de vectores sesgo o \emph{bias} \\
+		$b_{j}$ & Ssesgo o \emph{bias} de la neurona $j$ \\
+		$a_j^{(u)}$ & Activación de la neurona $j$ para el ejemplo $u$ \\
+		$g(x)$ & Función de activación \\
+		$\mathcal{L}(W,b)$ & Función de costo (MSE) \\
+		
+		$\bar{x}_i$ & Media muestral del atributo $X_i$ \\
+		$s_{x_i}$ & Desvío estándar muestral del atributo $X_i$ \\
+		$\operatorname{Cov}(X_i, X_j)$ & Covarianza entre atributos $X_i$ y $X_j$ \\
+		$\operatorname{Corr}(X_i, X_j)$ & Correlación entre atributos $X_i$ y $X_j$ \\
+		$\Sigma \in \mathbb{R}^{D \times D}$ & Matriz de correlaciones \\
+		
+		$\rho$ & Activación promedio deseada (SAE) \\
+		$\hat{\rho}_j$ & Activación promedio real de la neurona $j$ (SAE) \\
+		$\mathrm{KL}(p\,\|\,q)$ & Divergencia Kullback–Leibler \\
+		$E_{\text{sparse}}(W,b)$ & Función de costo por dispersidad (SAE) \\
+		
+		$J_f(x^{(u)})$ & Jacobiano del codificador evaluado en $x^{(u)}$ (CAE) \\
+		$\|A\|_{F}^{2}$ & Cuadrado de la norma de Frobenius de la matriz $A$ \\
+		$E_{\text{CAE}}(W,b)$ & Función de costo total del CAE (reconstrucción + penalización contractiva) \\
+		
+		$\mathbf{T}$ & Conjunto de datos con igual distribución que $\mathbf{X}$ \\
+		$t$ & Dato de entrada con igual distribución que los datos pertenecientes a la clase "normal" \\
+		$\hat{t}$ & Reconstrucción de $t$ generada por el autocodificador \\
+		$t^{*}$ & Dato atípico con distinta distribución que $t$ \\
+		$\hat{t}^{*}$ & Reconstrucción de $t^{*}$ generada por el autocodificador \\
+		$\epsilon$ & Umbral calculado a partir del error de reconstrucción de los datos considerados normales \\
+		$y^{(u)}$ & Etiqueta del ejemplo $x^{(u)}$, donde $0$ indica normal (benigno) y $1$ indica anómalo (maligno) \\
+		$\hat{y}^{(u)}$ & Predicción de la clase de $x^{(u)}$ por el autocodificador según el umbral $\epsilon$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
 \chapter*{Resumen}
 
-El presente \underline{trabajo (o informe)} aborda el problema de la detección de anomalías en conjuntos de datos de salud, enfocándose en el diagnóstico temprano y la prevención de enfermedades como la diabetes. Se emplea la arquitectura de Autocodificadores (\textit{Autoencoders}), una clase de red neuronal no supervisada, para aprender una representación compacta y eficiente de los patrones de datos normales. El modelo se entrena utilizando el conjunto de datos \textbf{Diabetes Health Indicators Dataset}, donde se considera anómalo cualquier patrón que se desvía significativamente de la reconstrucción esperada. La implementación se realiza mediante la biblioteca PyTorch. Los resultados de esta investigación muestran ***. Se presenta un análisis exploratorio de los datos inicial, incluyendo la matriz de correlación y ***.
+El presente informe aborda el problema de la detección de anomalías en conjuntos de datos de salud, enfocándose en el diagnóstico temprano y la prevención de enfermedades como el cáncer de mama. Se emplea la arquitectura de Autocodificadores (\emph{Autoencoders}), una clase de red neuronal, para aprender una representación compacta y eficiente de los patrones de datos normales. El modelo se entrena utilizando el conjunto de datos \textbf{Breast Cancer Wisconsin}, donde se considera anómalo cualquier patrón que se desvía significativamente de la reconstrucción esperada. La implementación se realiza mediante la biblioteca PyTorch. Los resultados de esta investigación muestran \comentario{rellenar}. Se presenta un análisis exploratorio de los datos, incluyendo la matriz de correlación y un análisis distribucional de las variables.
+
+\comentario{Agregar resultados, mini descripción de Autoencoders y conjunto de datos}
 
 \chapter{Introducción}
 
-\comentario{Describir el problema que se desea resolver}\\
+La detección de anomalías es un campo fundamental dentro del análisis de datos, cuyo objetivo principal es la identificación de patrones que no se ajustan a un comportamiento que coincide con el de la mayoría de los registros. En el contexto de los datos de salud, una anomalía puede representar un error de medición, o una indicación temprana de una condición médica patológica, como el cáncer de mama.\\
 
-La detección de anomalías es un campo fundamental dentro del análisis de datos, cuyo objetivo principal es la identificación de patrones que no se ajustan a un comportamiento que coincide con el de la mayoría de los registros. En el contexto de los datos de salud, una anomalía puede representar un error de medición, o una indicación temprana de una condición médica patológica, como la diabetes. Este trabajo se centra en desarrollar un sistema robusto para la detección automática de tales desviaciones. Se busca resolver la limitación de los métodos estadísticos tradicionales, los cuales a menudo no logran capturar las complejas interrelaciones no lineales presentes en conjuntos de datos de alta dimensionalidad. El problema específico que se aborda es cómo entrenar un \textbf{autocodificador} para que aprenda exclusivamente el perfil de pacientes normales o sanos a partir de un conjunto de datos que solamente incluya pacientes sanos y otro con pacientes sanos y enfermos, y cómo utilizar su error de reconstrucción para señalar con precisión qué registros se consideran anómalos.
+Este trabajo se centra en desarrollar un sistema robusto para la detección automática de tales desviaciones. Se busca resolver la limitación de los métodos estadísticos tradicionales, los cuales a menudo no logran capturar las complejas relaciones no lineales presentes en conjuntos de datos de alta dimensionalidad. El problema específico que se aborda es cómo entrenar un \textbf{autocodificador} para que aprenda como identificar si la muestra tomada del área mamaria de un paciente, mediante la aspiración con aguja fina (FNA) se trata de un caso benigno o maligno a partir de un conjunto de datos.
 
 \section{Motivación}
 
-\comentario{Explicar porqué estudiamos este problema, para qué sirve, cuál es el impacto y en qué áreas.}\\
+El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna. En muchos casos, los datos obtenidos a través de las muestras contienen patrones sutiles que pueden pasar desapercibidos a través de métodos tradicionales de análisis. Por este motivo, resulta fundamental el desarrollo de herramientas automáticas capaces de detectar irregularidades de manera precisa y rápida.\\
 
-El diagnóstico temprano de enfermedades como la diabetes es una tarea prioritaria en la medicina moderna. En muchos casos, los datos clínicos contienen patrones sutiles que pueden pasar desapercibidos a través de métodos tradicionales de análisis. Por este motivo, resulta fundamental el desarrollo de herramientas automáticas capaces de detectar irregularidades de manera precisa y rápida. 
- 
-Las redes neuronales, y en particular los autocodificadores, ofrecen un enfoque adecuado para esta tarea. Un autocodificador es un tipo de red neuronal diseñado para aprender una representación comprimida de los datos, capturando sus características más relevantes. Esta capacidad lo convierte en un candidato natural para identificar desviaciones respecto del comportamiento considerado normal.  
+\comentario{de la enfermedad, poner estadísticas globales y locales (de Argentina), históricamente, actualmente (2025 o similar). Comparando por rango etario}
 
-La incorporación de este tipo de modelos en sistemas de monitoreo podría asistir a profesionales de la salud en la detección temprana de pacientes en riesgo, incluso antes de la manifestación de síntomas clínicos evidentes. Por ello, en este proyecto se emplea un autocodificador como herramienta para analizar registros de pacientes y explorar su utilidad como detector de posibles anomalías asociadas a la diabetes.
+Las redes neuronales, y en particular los autocodificadores, ofrecen un enfoque adecuado para esta tarea. Un autocodificador es un tipo de red neuronal diseñado para aprender una representación comprimida de los datos, capturando sus características más relevantes. Esta capacidad lo convierte en un buen candidato para identificar si un nuevo registro sigue la misma distribución que los registros normales con los que fue entrenado el modelo.\\
 
+La incorporación de este tipo de modelos en sistemas de monitoreo podría asistir a profesionales de la salud en la detección temprana de pacientes en riesgo. Por ello, en este proyecto se emplea un autocodificador como herramienta para analizar muestras tomadas de pacientes y explorar su utilidad como detector de posibles casos de cáncer de mama.
 
 \section{Estado del Arte}
 
-\comentario{En esta sección se realiza una descripción de algunos de los métodos más importantes existentes en la bibliografía describiendo el problema y el método utilizado por cada autor. Se cita la bibliografía.}\\
+El uso de técnicas de aprendizaje profundo para la detección de anomalías ha generado un amplio debate académico en torno a la fiabilidad y eficiencia de las arquitecturas basadas en reconstrucción. Este debate ha impulsado múltiples líneas de investigación que analizan las limitaciones de los autocodificadores tradicionales, comparan diferentes variantes y exploran estrategias alternativas para mejorar la robustez de estos modelos en dominios complejos.\\
 
-\subsection{Autoencoders for Anomaly Detection Are Unreliable}
+En una crítica central a este supuesto, Bouman y Heskes \cite{bouman2025autoencoders} realizan un análisis teórico y experimental que demuestra que los autocodificadores clásicos son inherentemente poco fiables en escenarios de detección de anomalías. A partir de un estudio que inicia con el análisis de componentes principales (PCA) y autocodificadores lineales, los autores prueban matemáticamente que es posible reconstruir de manera casi perfecta datos anómalos alejados de la distribución de entrenamiento, lo que produce una pérdida de reconstrucción prácticamente nula. Su evidencia experimental, basada en datos tabulares y en el conocido dataset de imágenes MNIST, confirma que este fenómeno persiste también en modelos no lineales. Concluyen que la pérdida de reconstrucción constituye un indicador poco fiable para la identificación de anomalías y que confiar exclusivamente en ella puede conducir a un número significativo de falsos negativos, especialmente en aplicaciones sensibles a errores.\\
 
-Bouman y Heskes (2025) \cite{bouman2025unreliable} analizan críticamente el uso de autocodificadores clásicos como detectores de anomalías. El trabajo sostiene que, bajo ciertas condiciones, los autocodificadores pueden reconstruir correctamente ejemplos anómalos, lo cual conduce a falsos negativos incluso en casos evidentes.
+Motivados en parte por estas limitaciones señaladas en los autocodificadores clásicos, Neloy y Turgeon \cite{neloy2024comprehensive} realizan una evaluación comparativa sistemática sobre once arquitecturas aplicadas a la detección de anomalías no supervisada (UAD). Estas arquitecturas, agrupadas en modelos clásicos, variacionales y regularizados, son evaluadas en términos de capacidad de reconstrucción, calidad de generación de muestras e interpretabilidad del espacio latente, empleando experimentos de reproducibilidad sobre los datasets MNIST y Fashion-MNIST junto con métricas como ROC-AUC. Los autores identifican compromisos claros entre fidelidad reconstructiva y estructura latente: mientras los métodos variacionales avanzados (como VQ-VAE y $\beta$-VAE) mejoran la organización del espacio latente mediante un control explícito de representaciones discretas, tienden a generar reconstrucciones borrosas. Por el contrario, los modelos deterministas, como el \emph{sparse autoencoder} (SAE) o el \emph{denoising autoencoder} (DAE), muestran mayor precisión reconstructiva y mejor desempeño ante ruido, pero menor robustez ante variaciones complejas de la distribución. Este estudio aporta así una visión integradora sobre las fortalezas y limitaciones prácticas de cada familia de autocodificadores en UAD.\\
 
-\textbf{Metodología.}  
+Continuando con esta línea de investigación orientada a superar las limitaciones tradicionales, Walczyna et al. \cite{walczyna2024enhancing} proponen un enfoque centrado en la manipulación directa del espacio latente y en el uso de funciones de costo modificadas. En un análisis dirigido principalmente al tráfico de red, comparan autocodificadores estándar y variacionales, destacando el rol crítico de la estructura latente para discriminar comportamientos anómalos. Los autores introducen un autocodificador variacional con función M-ELBO que incorpora información de anomalías durante el entrenamiento sin intentar reconstruirlas, lo que permite separar de forma más efectiva las regiones latentes correspondientes a comportamiento normal y anómalo. Su marco experimental, ligero y escalable mediante la integración del \emph{stack} ELK y Apache Spark, demuestra beneficios claros en sensibilidad y especificidad, especialmente en flujos de datos de alta intensidad. En conjunto, su trabajo evidencia que el control explícito del espacio latente y el uso de pérdidas modificadas constituyen estrategias efectivas para mejorar la detección en entornos complejos.\\
 
-\textbf{Resultados principales.}  
+Finalmente, en dominios donde la fiabilidad es crítica, como el biomédico, se han explorado estrategias adicionales fundamentadas en la combinación de modelos. En este contexto, Nawaz et al. \cite{10418130} presentan una revisión narrativa exhaustiva sobre el uso de ensambles de autocodificadores (EoAE), destacando que la heterogeneidad de los datos médicos incluyendo modalidades como rayos X, MRI, CT, ECG y EEG y la rareza de las anomalías vuelven insuficiente el uso de un único autocodificador. Su revisión muestra que los ensambles, construidos mediante la diversificación de hiperparámetros y combinados mediante estrategias como votación o valores promedios, permiten reducir la generalización excesiva observada en modelos individuales y detectar desviaciones sutiles que podrían pasar desapercibidas. No obstante, señalan desafíos importantes, entre ellos la escalabilidad, la falta de interpretabilidad inherente a modelos de tipo “caja negra” y el coste computacional asociado a ejecutar múltiples autocodificadores en paralelo, lo que plantea direcciones claras para investigaciones futuras.
 
-\textbf{Limitaciones.}  
-
-\textbf{Relevancia.}  
-
-\subsection{A comprehensive study of auto-encoders for anomaly detection}
-
-Neloy y Turgeon (2024) \cite{neloy2024study}
-
-\subsection{Enhancing Anomaly Detection Through Latent Space Manipulation}
-
-Walczyna et al. (2025) \cite{walczyna2025latent}
-
-\subsection{Ensemble of Autoencoders for Anomaly Detection in Biomedical Data}
-
-\url{https://ieeexplore.ieee.org/abstract/document/10418130}
+%\url{https://ieeexplore.ieee.org/abstract/document/10418130}
 
 \chapter{Materiales y Métodos}
 
-\comentario{Describir los métodos utilizados, si corresponde.}\\
+En este capitulo se describe el conjunto de datos utilizado, de donde se obtuvo y un análisis exploratorio al mismo, con el propósito de observar las diversas relaciones y distribuciones de las variables.
 
-El método empleado en este proyecto es el \textbf{Autocodificador (\textit{Autoencoder})}. Un autocodificador es un tipo de red neuronal artificial diseñada para aprender una representación codificada de un conjunto de datos de manera no supervisada. La arquitectura se compone de dos partes principales: el \textbf{Codificador (\textit{Encoder})} y el \textbf{Decodificador (\textit{Decoder})}.
+Por otra parte, el método empleado para la detección de anomalías es el \textbf{Autocodificador (\emph{Autoencoder})}. Un autocodificador es un tipo de red neuronal artificial diseñada para aprender una representación codificada de un conjunto de datos. La arquitectura se compone de dos partes principales: el \textbf{Codificador (\emph{Encoder})} y el \textbf{Decodificador (\emph{Decoder})}. El funcionamiento general de esta arquitectura puede observarse en la Figura~\ref{fig:encoder_decoder}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{../figures/encoder_decoder}
+	\caption{Ejemplo de un autocodificador, donde se codifica y decodifica una imagen (tomado de \cite{bank2020autoencoders}).}
+	\label{fig:encoder_decoder}
+\end{figure}
+
 
 \section{Conjunto de datos y análisis exploratorio}
 
-\comentario{Se describen los datos utilizados y de donde fueron extraídos, si corresponde. En caso de que los datos sean propios, describir como fueron tomados}\\
+Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual obtuve de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original pubilicado por Wolberg et al. \cite{breast_cancer_wisconsin}.\\
 
-Para la realización de este trabajo, utilicé el conjunto de datos \textbf{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual obtuve de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original pubilicado por Wolberg et al. \cite{breast_cancer_wisconsin}.\\
+El conjunto de datos está compuesto por 569 registros de muestras citológicas y 32 atributos, de los cuales 30 corresponden a características numéricas derivadas del análisis de imágenes digitalizadas, correspondientes a aspiraciones con aguja fina de masas mamarias. Las 2 características restantes son categóricas, el \emph{ID} y el diagnostico que puede ser benigno o maligno. Las muestras incluidas en el conjunto de datos fueron recolectadas entre enero de 1989 y noviembre de 1991.\\
 
-El conjunto de datos está compuesto por 569 registros de muestras citológicas y 32 atributos, de los cuales 30 corresponden a características numéricas derivadas del análisis de imágenes digitalizadas de aspiraciones con aguja fina de masas mamarias. Estas características describen propiedades morfológicas de los núcleos celulares presentes en la imagen, tales como su tamaño, forma, textura y simetría.\\
+Las \textbf{muestras citológicas} se refieren a células individuales obtenidas de las masas mamarias mediante la técnica de aspiración con aguja fina (FNA), que es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de la masa mamaria con una aguja de pequeño calibre. Esta técnica, ampliamente empleada en el diagnóstico de tumores mamarios, permite recolectar células para su posterior análisis citológico, evitando métodos quirúrgicos más invasivos. Su uso en el estudio del cáncer de mama se remonta a la década de 1930 y ha demostrado poseer una elevada precisión diagnóstica cuando es ejecutada e interpretada por un patólogo especializado.
 
-La Aspiración con Aguja Fina (FNA, por sus siglas en inglés) es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de una lesión o masa con una aguja de pequeño calibre. Esta técnica, ampliamente empleada en el diagnóstico de tumores mamarios, permite recolectar células para su posterior análisis citológico, evitando métodos quirúrgicos más invasivos. Su uso en el estudio del cáncer de mama se remonta a la década de 1930 y ha demostrado poseer una elevada precisión diagnóstica cuando es ejecutada e interpretada por un patólogo especializado. Además, la FNA posibilita examinar características celulares y arquitectónicas del tejido aspirado, así como obtener material apto para tinciones citológicas que contribuyen a la detección de alteraciones malignas. Debido a su eficacia, simplicidad y bajo riesgo, la técnica se ha consolidado como una herramienta fundamental en la evaluación citológica de lesiones mamarias \cite{diamantis2009fine}.\\
+La FNA posibilita examinar características celulares y arquitectónicas del tejido aspirado, así como obtener material apto para tinciones citológicas que contribuyen a la detección de alteraciones malignas. Debido a su eficacia, simplicidad y bajo riesgo, la técnica se ha consolidado como una herramienta fundamental en la evaluación citológica de lesiones mamarias \cite{diamantis2009fine}.\\
 
-Los 30 atributos numéricos del conjunto de datos se derivan de diez características computadas para cada núcleo celular, las cuales se describen en la Tabla \ref{tab:caracteristicas_base}:
-
+Las diez características base del conjunto de datos fueron obtenidas mediante las metodologías computacionales detalladas en el artículo original de Street et al. \cite{Street1993NuclearFE}. Estas características describen propiedades estructurales de los núcleos celulares, tales como tamaño, forma, textura y simetría, y se muestran en la Tabla~\ref{tab:caracteristicas_base}.
 \begin{table}[H]
 	\centering
 	\begin{adjustbox}{width=\textwidth}
@@ -160,240 +215,405 @@ Los 30 atributos numéricos del conjunto de datos se derivan de diez caracterís
 			\toprule
 			\textbf{No.} & \textbf{Característica} & \textbf{Descripción} \\
 			\midrule
-			1 & \textbf{Radio} (\textit{radius}) & Media de las distancias del centro a los puntos del perímetro. \\
-			2 & \textbf{Textura} (\textit{texture}) & Desviación estándar de los valores de la escala de grises. \\
-			3 & \textbf{Perímetro} (\textit{perimeter}) & Medida del contorno del núcleo. \\
-			4 & \textbf{Área} (\textit{area}) & Superficie cubierta por el núcleo. \\
-			5 & \textbf{Suavidad} (\textit{smoothness}) & Variación local en las longitudes del radio. \\
-			6 & \textbf{Compacidad} (\textit{compactness}) & $\text{Périmetro}^2 / \text{area} -1.0$. \\
-			7 & \textbf{Concavidad} (\textit{concavity}) & Severidad de las porciones cóncavas del contorno. \\
-			8 & \textbf{Puntos Cóncavos} (\textit{concave points}) & Número de porciones cóncavas del contorno. \\
-			9 & \textbf{Simetría} (\textit{symmetry}) & Nivel de simetría del núcleo celular. \\
-			10 & \textbf{Dimensión Fractal} (\textit{fractal dimension}) & Aproximación a la "línea de costa" menos 1. \\
+			1 & \textbf{Radio} (\emph{radius}) & Media de las distancias del centro a los puntos del perímetro. \\
+			2 & \textbf{Textura} (\emph{texture}) & Desviación estándar de los valores de la escala de grises. \\
+			3 & \textbf{Perímetro} (\emph{perimeter}) & Medida del contorno del núcleo. \\
+			4 & \textbf{Área} (\emph{area}) & Superficie cubierta por el núcleo. \\
+			5 & \textbf{Suavidad} (\emph{smoothness}) & Variación local en las longitudes del radio. \\
+			6 & \textbf{Compacidad} (\emph{compactness}) & $\text{Périmetro}^2 / \text{area} -1.0$. \\
+			7 & \textbf{Concavidad} (\emph{concavity}) & Severidad de las porciones cóncavas del contorno. \\
+			8 & \textbf{Puntos Cóncavos} (\emph{concave points}) & Número de porciones cóncavas del contorno. \\
+			9 & \textbf{Simetría} (\emph{symmetry}) & Nivel de simetría del núcleo celular. \\
+			10 & \textbf{Dimensión Fractal} (\emph{fractal dimension}) & Aproximación a la "línea de costa" menos 1. \\
 			\bottomrule
 		\end{tabular}
 	\end{adjustbox}
-	\caption{Descripción de las diez características base del conjunto de datos.}
+	\caption{Descripción de las diez características base extraídas de las imágenes digitalizadas de FNA.}
 	\label{tab:caracteristicas_base}
 \end{table}
-
-\noindent
-Para cada una de estas diez características se calculan tres medidas distintas, lo que completa los 30 atributos finales del conjunto de datos:
-
+para cada una de estas diez características se calculan tres medidas distintas, lo que completa los 30 atributos finales del conjunto de datos:
 \begin{enumerate}
 	\item La \textbf{media} de la característica.
-	\item El \textbf{error estándar} (\textit{Standard Error}, SE) de la característica.
+	\item El \textbf{error estándar} (\emph{Standard Error}, SE) de la característica.
 	\item El \textbf{'peor'} valor o más grande, el cual se calcula como la media de los tres valores más grandes de la característica.
 \end{enumerate}
 
-Previo al entrenamiento del modelo, realicé un \textbf{análisis exploratorio de datos (EDA)} con el objetivo de comprender la estructura del conjunto de datos y detectar posibles problemas que afecten el desempeño del modelo. Este proceso incluyó la revisión de valores faltantes, la inspección de la distribución de cada variable y la generación de visualizaciones que permiten identificar patrones, tendencias y posibles anomalías.\\
+Previo al entrenamiento del modelo, se realiza un \textbf{análisis exploratorio de datos (EDA)} con el objetivo de comprender la estructura del conjunto y detectar posibles problemas que afecten el desempeño del modelo. Este proceso incluye la revisión de valores faltantes, la inspección de la distribución de cada variable y la generación de visualizaciones que permiten identificar patrones, tendencias y posibles anomalías.\\
 
-Asimismo, apliqué una \textbf{estandarización} a los atributos no binarios con el fin de garantizar que todas las características se encuentren en una escala comparable, evitando que aquellas con valores numéricos más grandes dominen el proceso de entrenamiento.\\
+Asimismo, se aplica una \textbf{estandarización} a todos los atributos de los conjuntos de entrenamiento y prueba (de manera independiente) con el objetivo de garantizar que las características se expresen en una escala comparable, evitando así que aquellas con valores numéricos mayores influyan de forma desproporcionada en el proceso de entrenamiento. Esta normalización también contribuye a mitigar posibles problemas de \emph{overflow} en las activaciones del autocodificador, los cuales pueden surgir cuando el modelo recibe valores excesivamente grandes.\\
 
 Un componente central del EDA fue el análisis de la \textbf{matriz de correlación}, herramienta fundamental para evaluar las dependencias lineales entre los atributos. Esta matriz permite identificar relaciones fuertes entre variables, lo que facilita comprender la estructura interna del conjunto de datos y justifica la utilización de modelos capaces de capturar relaciones complejas y no lineales, como los autocodificadores utilizados en este trabajo.\\
 
-Tras el análisis general de los atributos, se examinó la \textbf{distribución de la variable objetivo}, \textit{diagnosis}, con el fin de comprender el balance entre las clases presentes en el conjunto de datos. La distribución se muestra en la Tabla~\ref{tab:diagnosis}.
+Tras el análisis general de los atributos, se examinó la \textbf{distribución de la variable objetivo}, \emph{diagnosis}, con el fin de comprender el balance entre las clases presentes en el conjunto de datos. La distribución se muestra en la Tabla~\ref{tab:diagnosis}.
 
 \begin{table}[H]
 	\centering
+	\caption{Distribución de la variable objetivo \emph{diagnosis}}
 	\begin{tabular}{lcc}
 		\toprule
 		\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\
 		\midrule
-		B (\textit{Benigno}) & 62.74 & 357 \\
-		M (\textit{Maligno}) & 37.26 & 212 \\
+		B (Benigno) & 62.74 & 357 \\
+		M (Maligno) & 37.26 & 212 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Distribución de la variable objetivo \textit{diagnosis}}
 	\label{tab:diagnosis}
 \end{table}
+esta distribución revela un leve desbalance entre ambas categorías, algo esperable para este trabajo, donde se espera detectar una anomalía, es decir, un diagnóstico maligno.\\
 
-\noindent
-Esta distribución revela un leve desbalance entre ambas categorías, algo esperable para este trabajo, donde se espera detectar una anomalía, es decir, un diagnóstico maligno.\\
+% Lugar previo de estandarización
 
-Apliqué una estandarización a todos los atributos. La estandarización transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas al modelo tienen una escala comparable. Este proceso se define formalmente en la Ecuación~\ref{eq:estandarizacion}.
-
+Calculo la matriz de correlación $\Sigma$, la cual mide el grado de relación entre cada par de atributos del conjunto de datos. Este valor está acotado entre -1 y 1, donde 1 indica una relación lineal perfecta, -1 una relación lineal inversa perfecta y 0 denota que no existe una relación lineal entre los atributos. La matriz de correlación se define en la Ecuación~\ref{eq:matriz_correlaciones} para cada par de atributos $(X_i, X_j) \in \mathbf{X}$.
 \begin{equation}
-	z = \frac{x - \mu}{\sigma}
-	\label{eq:estandarizacion}
+	\Sigma =
+	\begin{pmatrix}
+		\operatorname{Corr}(X_1, X_1) & \operatorname{Corr}(X_1, X_2) & \cdots & \operatorname{Corr}(X_1, X_d) \\
+		\operatorname{Corr}(X_2, X_1) & \operatorname{Corr}(X_2, X_2) & \cdots & \operatorname{Corr}(X_2, X_d) \\
+		\vdots & \vdots & \ddots & \vdots \\
+		\operatorname{Corr}(X_d, X_1) & \operatorname{Corr}(X_d, X_2) & \cdots & \operatorname{Corr}(X_d, X_d)
+	\end{pmatrix}
+	\in \mathbb{R}^{d \times d}
+	\label{eq:matriz_correlaciones}
 \end{equation}
-
-\noindent
-Donde $x$ es el valor original del atributo, $\mu$ es su media y $\sigma$ es su desviación estándar.\\
-
-Calculé la matriz de correlación ($\rho$), la cual mide el grado de asociación lineal entre cada par de atributos del conjunto de datos. Su definición matemática se muestra en la Ecuación~\ref{eq:correlacion}.
-
+donde la correlación entre dos atributos $\operatorname{Corr}(X_1, X_2)$ se muestra en la Ecuación~\ref{eq:correlacion}.
 \begin{equation}
-	\rho(X, Y) = \frac{Cov(X, Y)}{s_x s_y}
+	\operatorname{Corr}(X_i, X_j)
+	=
+	\frac{\operatorname{Cov}(X_i, X_j)}{s_{x_i}\, s_{x_j}}
 	\label{eq:correlacion}
 \end{equation}
-
-\noindent
-Donde $Cov(X, Y)$ representa la covarianza entre $X$ e $Y$, y $s_x$, $s_y$ son sus desviaciones estándar. Finalmente, la covarianza utilizada en ese cálculo se expresa en la Ecuación~\ref{eq:covarianza}.
-
+y $\operatorname{Cov}(X_i, X_j)$ representa la covarianza entre$X_i$ y $X_j$, mientras que $s_{x_i}$ y $s_{x_j}$ son sus desviaciones estándar. Finalmente, la covarianza utilizada en ese cálculo se expresa en la Ecuación~\ref{eq:covarianza}, que mide la existencia de asociación lineal entre los dos atributos.
 \begin{equation}
-	Cov(X, Y) = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})
+	\operatorname{Cov}(X_i, X_j) = \frac{1}{n} \sum_{t=1}^{n} (x_{ti} - \bar{x}_i)(x_{tj} - \bar{x}_j)
 	\label{eq:covarianza}
 \end{equation}
+donde $\bar{x}_i$ es la media muestral del atributo $X_i$, definida como:
+\begin{equation}
+	\bar{x}_i = \frac{1}{n} \sum_{t=1}^{n} x_{ti}
+	\label{eq:media_muestral}
+\end{equation}
+y $s_{x_i}$ es el desvío estándar muestral asociado a $X_i$, dado por:
+\begin{equation}
+	s_{x_i} = \sqrt{\frac{1}{n-1} \sum_{t=1}^{n} (x_{ti} - \bar{x}_i)^2}
+	\label{eq:desvio_muestral}
+\end{equation}
 
-La matriz de correlación correspondiente a los principales indicadores de salud del conjunto de datos se presenta en la Figura~\ref{fig:corr_matrix}, donde pueden observarse las relaciones lineales entre los distintos atributos.
-
+La matriz de correlación correspondiente a las características del conjunto de datos de este trabajo se presenta en la Figura~\ref{fig:corr_matrix}, donde pueden observarse las relaciones lineales entre los distintos atributos. En la misma se observa una fuerte relación entre el área, el perímetro y el radio, algo esperable teniendo en cuenta las relaciones entre estas medidas.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../figures/matriz_corr.png}
+	\includegraphics[width=0.9\textwidth]{../figures/matriz_corr.png}
 	\caption{Matriz de correlación entre los atributos del conjunto de datos.}
 	\label{fig:corr_matrix}
 \end{figure}
 
-Para analizar la robustez del autocodificador frente a distintos niveles de contaminación en los datos realicé una división del conjunto de datos en entrenamiento y prueba, manteniendo la proporción real de clases, tal como se indica en el paso (1) de la Figura~\ref{fig:diagrama_proporciones}. En esta etapa se reservó el 20\% de las muestras para el conjunto de prueba, mientras que el 80\% restante se destinó al entrenamiento.\\
+Para analizar la robustez del autocodificador frente a distintos niveles de contaminación en los datos, se realiza una división inicial del conjunto de datos en tres subconjuntos: \textbf{entrenamiento}, \textbf{validación} y \textbf{prueba}, manteniendo en todos la proporción original de clases, tal como se indica en el paso (1) de la Figura~\ref{fig:diagrama_proporciones}. En esta división, el 60\% de las muestras se destinó al entrenamiento, el 20\% al conjunto de validación y el 20\% restante al conjunto de prueba, tal como se muestra en la Tabla~\ref{tab:division_subconjuntos}.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ccccc}
+		\toprule
+		\textbf{Subconjunto} & \textbf{Proporción} & \textbf{Total} & \textbf{Normales} & \textbf{Anómalos} \\
+		\midrule
+		Entrenamiento & 60\% & 341 & 214 & 128 \\
+		Validación    & 20\% & 114 & 72  & 42  \\
+		Prueba        & 20\% & 114 & 72  & 42  \\
+		\bottomrule
+	\end{tabular}
+	\caption{División del conjunto original en entrenamiento, validación y prueba, manteniendo la proporción original de clases.}
+	\label{tab:division_subconjuntos}
+\end{table}
 
-A partir del subconjunto de entrenamiento, generé tres nuevos conjuntos con diferentes proporciones de anomalías, proceso señalado como paso (2) de la Figura~\ref{fig:diagrama_proporciones}. El objetivo fue evaluar cómo afecta al modelo entrenar con distintos niveles de contaminación controlada, manteniendo constante el tamaño total de cada conjunto (285 muestras).
+El subconjunto de validación se utiliza con dos propósitos principales: evitar el sobreajuste (\emph{overfitting}) del modelo durante el entrenamiento empleando únicamente los registros \textbf{normales} para este control y calcular las métricas necesarias durante el proceso de \emph{grid search} para la selección de hiperparámetros.\\
 
+Luego, se aplica una estandarización a todos los atributos de cada subconjunto de manera independiente. Este método transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas del modelo tengan una escala comparable. Este proceso se define formalmente en la Ecuación~\ref{eq:estandarizacion}.
+\begin{equation}
+	z = \frac{x - \mu}{\sigma}
+	\label{eq:estandarizacion}
+\end{equation}
+La estandarización de los tres subconjuntos (entrenamiento, validación y prueba) se realiza utilizando exclusivamente la media y el desvío estándar calculados a partir del \textbf{subconjunto de entrenamiento}. Esta estrategia evita la fuga de información o \emph{data leakage}, fenómeno que ocurre cuando se incorporan, directa o indirectamente, estadísticas derivadas de los datos de validación o prueba durante el entrenamiento del modelo. La fuga de información genera una visión artificialmente optimista del desempeño, ya que introduce en el proceso señales que el modelo no debería conocer antes de ser evaluado.\\
+
+A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos con diferentes proporciones de anomalías, proceso señalado como paso (2) en la Figura~\ref{fig:diagrama_proporciones}. El objetivo consiste en evaluar cómo afecta al modelo entrenar con distintos niveles de contaminación, manteniendo constante el tamaño total de cada conjunto.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{../figures/proporciones}
-	\caption{Diagrama del proceso de división del dataset en entrenamiento y prueba, y posterior creación de los conjuntos A, B y C con diferentes proporciones de anomalías.}
+	\caption{Diagrama del proceso de división del conjunto de datos en entrenamiento, validación y prueba, para posterior creación de los subconjuntos A, B y C con diferentes proporciones de anomalías.}
 	\label{fig:diagrama_proporciones}
 \end{figure}
 
-La Tabla~\ref{tab:proporciones_conjunto} resume las proporciones definidas para cada conjunto de entrenamiento. El conjunto A contiene únicamente registros normales, mientras que B y C incorporan niveles crecientes de anomalías (10\% y 25\%, respectivamente).
-
+La Tabla~\ref{tab:proporciones_conjunto} resume las proporciones definidas para cada subconjunto derivado del entrenamiento. El subconjunto A contiene únicamente registros normales, mientras que B y C incorporan niveles crecientes de anomalías (10\% y 25\%, respectivamente).
 \begin{table}[H]
 	\centering
 	\begin{tabular}{ccccc}
 		\toprule
 		\textbf{ID} & \textbf{Proporción Anómalos} & \textbf{Proporción Normales} & \textbf{Registros Anómalos} & \textbf{Registros Normales} \\
-		& (\% Total) & (\% Total) & (Positivos) & (Negativos) \\
 		\midrule
-		A & 0\%  & 100\% & 0  & 285 \\
-		B & 10\% & 90\%  & 28 & 257 \\
-		C & 25\% & 75\%  & 71 & 214 \\
+		A & 0\%  & 100\% & 0  & 214 \\
+		B & 10\% & 90\%  & 21 & 193 \\
+		C & 25\% & 75\%  & 53 & 161 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Conjuntos de entrenamiento creados para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}
+	\caption{Subconjuntos derivados del subconjunto de entrenamiento para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}
 	\label{tab:proporciones_conjunto}
 \end{table}
 
 \section{Descripción de los métodos}
 
-Introducción...
+En esta sección se presentan los conceptos centrales utilizados en el desarrollo del trabajo. Primero, se describe formalmente la arquitectura del \textbf{autocodificador} clásico y dos de sus variantes: \emph{sparse autoencoder} y \emph{contractive autoencoder}. Luego, el modo en que pueden emplearse como detector de anomalías, mediante el análisis del error de reconstrucción y estableciendo un criterio de decisión.
+
+Con el criterio de decisión definido, se detallan las \textbf{métricas de evaluación} empleadas para cuantificar el desempeño del modelo, incluyendo las medidas estándar derivadas de la matriz de confusión, así como herramientas adicionales de análisis como la \textbf{curva ROC} y el \textbf{AUC}, que permiten evaluar el comportamiento del detector bajo diferentes umbrales de decisión.
 
 \subsection{Autocodificadores}
 
-Él método empleado en este proyecto es un autocodificador, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por tener la misma dimensión en la entrada ($d$) y en la salida. Aunque suele decirse que el aprendizaje en este modelo es no supervisado, en realidad sí es supervisado, ya que la salida esperada ($Y$) es la propia entrada ($X$).\\
+El método empleado en este trabajo es el \textbf{autocodificador}, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por poseer la misma dimensión tanto en la entrada como en la salida. Su objetivo es aprender una representación comprimida que permita reconstruir los datos originales.\\
 
-En esta arquitectura, el \textbf{codificador} comprime la entrada en una representación ubicada en la \textbf{capa latente}, que es la capa oculta central y cuya dimensión ($k$) suele ser menor que la de la entrada ($k < d$). Esta capa contiene la representación comprimida de los datos. Luego, el \textbf{decodificador}, que constituye la segunda mitad de la red, reconstruye la salida a partir de esa representación latente.\\
+Los autocodificadores surgen de las primeras investigaciones en redes neuronales orientadas a aprender representaciones internas útiles sin supervisión explícita. En particular, el trabajo de Rumelhart, Hinton y Williams \cite{ggcs1986learning} introdujo el uso del algoritmo de retropropagación para aprender representaciones internas, sentando las bases conceptuales para modelos capaces de reconstruir sus propias entradas. Posteriormente, el enfoque fue formalizado explícitamente por Bourlard y Kamp \cite{bourlard1988auto}, quienes describieron la autoasociación mediante perceptrones multicapa y demostraron su relación con métodos clásicos de reducción de dimensionalidad como la descomposición en valores singulares (SVD). Estos desarrollos consolidaron al autocodificador como un modelo central para el aprendizaje de representaciones de baja dimensión.\\
 
-La arquitectura general de un autocodificador puede representarse de manera esquemática como se muestra en la Figura~\ref{fig:arquitectura}. En ella se observa las distintas capas del modelo, desde la entrada hasta la salida reconstruida.\\
-
+La arquitectura de un autocodificador se compone de dos partes principales: un \textbf{codificador}, que transforma los datos de entrada en una representación de menor dimensionalidad, y un \textbf{decodificador}, que intenta reconstruir la entrada original a partir de dicha representación compacta. Entre ambos se encuentra la \textbf{capa latente}, donde se almacena la representación interna de menor dimensión. La Figura~\ref{fig:arquitectura} ilustra la arquitectura general utilizada en este trabajo, mostrando el proceso completo de codificación, la obtención de la representación latente y la posterior reconstrucción realizada por el decodificador.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{../figures/arquitectura}
-	\caption{Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $Y$.}
+	\caption{Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $\hat{X}$.}
 	\label{fig:arquitectura}
 \end{figure}
 
-Como función de activación en mi autocodificador utilizo \text{GELU} debido a sus ventajas frente a la comúnmente empleada \text{ReLU}. Entre ellas se destacan: una superficie de pérdida más suave que facilita un entrenamiento más estable y rápido, la ausencia del problema de "neuronas muertas" propio de ReLU y una mayor capacidad de modelar relaciones no lineales gracias a su naturaleza probabilística basada en la distribución normal.\\
-
-\noindent
-La función GELU(x) está definida por:
-
+Para formalizar este proceso, considérese un conjunto de entrenamiento:
 \begin{equation}
-	\text{GELU}(x) =
+	\mathbf{X} = \{x^{(1)}, x^{(2)}, \ldots, x^{(N)}\}, 
+	\qquad x^{(u)} \in \mathbb{R}^D,
+\end{equation}
+donde cada ejemplo puede escribirse como:
+\begin{equation}
+	x^{(u)} = (x^{(u)}_1, x^{(u)}_2, \ldots, x^{(u)}_D),
+\end{equation}
+y el conjunto de salidas deseadas se define como:
+\begin{equation}
+	\hat{x}^{(u)} = x^{(u)},
+\end{equation}
+donde $\hat{x}^{(u)}$ es la salida generada por el modelo y la salida esperada es la propia entrada $x^{(u)}$. Lo que implica que, aunque típicamente se lo describe como un modelo no supervisado por no requerir etiquetas externas, el aprendizaje es \textbf{supervisado}, pues la red debe aprender a reproducir su propia entrada.\\
+
+En este esquema, el \textbf{codificador} proyecta el vector de entrada $x^{(u)}$ a una representación comprimida $z^{(u)} \in\mathbb{R}^K$, donde $K < D$, a través de una transformación no lineal:
+\begin{equation}
+	z^{(u)} = \operatorname{codificador}(x^{(u)}),
+	\label{eq:encoding}
+\end{equation}
+mientras que el \textbf{decodificador} intenta reconstruir la entrada original generando:
+\begin{equation}
+	\hat{x}^{(u)} = y^{(u)} = \operatorname{decodificador}(z^{(u)}),
+	\label{eq:decoding}
+\end{equation}
+dando lugar al proceso completo de codificación y decodificación.\\
+
+El entrenamiento del autocodificador se realiza mediante retropropagación, minimizando una función de costo $\mathcal{L}$ que mide la diferencia entre cada entrada $x^{(u)}$ y su reconstrucción $\hat{x}^{(u)}$. Una forma clásica de esta función está dada por:
+\begin{equation}
+	\mathcal{L} = \frac{1}{ND} \sum_{u=1}^{N} \sum_{k=1}^{D} \left( x^{(u)}_k - \hat{x}^{(u)}_k \right)^{2},
+	\label{eq:loss_autoencoder}
+\end{equation}
+equivalente al error cuadrático medio (MSE por sus siglas en inglés) sobre todas las muestras. Este error descrito en la Ecuación~\ref{eq:loss_autoencoder} guía el ajuste de los parámetros del codificador y del decodificador para mejorar la calidad de reconstrucción.\\
+
+La \textbf{no linealidad} presente en el autocodificador surge del uso de funciones de activación aplicadas en cada neurona del modelo. En esencia, cada unidad realiza la operación mostrada en la Ecuación~\ref{eq:activacion}.
+\begin{equation}
+	a_j^{(u)} = g\!\left( \sum_{k=1}^{D} w_{jk} \, x_k^{(u)} \right),
+	\label{eq:activacion}
+\end{equation}
+donde $x_k^{(u)}$ representa el valor de la $k$-ésima componente del vector de entrada $x^{(u)}$ que ingresa a la neurona $j$, $w_{jk}$ es el peso sináptico que regula la contribución de dicha entrada en la activación y $a_j^{(u)}$ la activación obtenida en dicha neurona.
+La función $g(x)$ es una función de activación no lineal por ejemplo, $\tanh(\beta x)$ o funciones sigmoideas relacionadas que permiten que la red modele relaciones complejas que no podrían representarse mediante transformaciones puramente lineales. Este componente no lineal es esencial para que el autocodificador pueda aprender estructuras internas del conjunto de datos y generar representaciones latentes útiles.\\
+
+En este trabajo, la función de activación utilizada en todas las capas ocultas es $\operatorname{GELU}$, debido a sus ventajas frente a la comúnmente empleada $\operatorname{ReLU}$. Entre estas ventajas se encuentran: una superficie de pérdida más suave que facilita un entrenamiento más estable, la ausencia del problema de "neuronas muertas" asociado a $\operatorname{ReLU}$ y una mayor capacidad para capturar relaciones no lineales gracias a su formulación probabilística basada en la distribución normal.\\
+
+La función $\operatorname{GELU}(x)$ está definida por:
+\begin{equation}
+	\operatorname{GELU}(x) =
 	0.5\,x\left(1 + \tanh\!\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715x^{3}\right)\right)\right)
 	\label{eq:gelu}
 \end{equation}
 
-\noindent
-La función ReLU(x) se define como:
-
+La función $\operatorname{ReLU}(x)$ se define como:
 \begin{equation}
-	\text{ReLU}(x) = \max(0, x)
+	\operatorname{ReLU}(x) = \max(0, x)
 	\label{eq:relu}
 \end{equation}
 
-Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se puede apreciar la suavidad de \textbf{GELU} al aproximarse a 0, en contraste con el comportamiento abrupto de \textbf{ReLU}.
+Como se muestra en la Figura~\ref{fig:relugelu}, al graficar ambas funciones se puede apreciar la suavidad de $\operatorname{GELU}$ al aproximarse a 0, en contraste con el comportamiento abrupto de $\operatorname{ReLU}$.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{../figures/relu_gelu}
-	\caption{Comparación entre las funciones de activación ReLU y GELU. Se observa que GELU presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}
+	\caption{Comparación entre las funciones de activación $\operatorname{ReLU}$ y $\operatorname{GELU}$. Se observa que $\operatorname{GELU}$ presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}
 	\label{fig:relugelu}
 \end{figure}
 
-A partir de esta arquitectura, el autocodificador puede emplearse como un método de \textbf{detección de anomalías}. Para ello, el modelo se entrena exclusivamente con la clase que representa el comportamiento normal, es decir, pacientes sin diabetes. Al aprender a reconstruir correctamente este tipo de patrones, cuando el modelo recibe un dato $t$ perteneciente a la misma distribución, se espera que el error de reconstrucción $\lVert t' - t \rVert$ sea pequeño.\\
+%============================NUEVO==================================
+
+Si bien el autocodificador estándar es efectivo para reducir la dimensionalidad,
+asegurando que la capa latente sea de menor dimensión ($K < D$), existen
+variantes que imponen restricciones adicionales sobre la representación latente
+$\mathbf{z}^{(u)} \in \mathbb{R}^K$ para evitar que el modelo simplemente aprenda 
+la función identidad y para forzarlo a capturar características más robustas y 
+útiles de los datos.\\
+
+El \textbf{Autocodificador Disperso (SAE)} \cite{ng2011sparse} impone una 
+restricción de \textbf{dispersión} (sparsity) sobre la capa latente. En este caso,
+el objetivo no es necesariamente reducir la dimensión ($K$ puede ser menor o incluso
+mayor que $D$), sino asegurar que la mayoría de las neuronas en la capa latente 
+permanezcan \textbf{inactivas} (con activación cercana a cero) para cada ejemplo
+$x^{(u)}$. Esta dispersión fuerza al modelo a utilizar diferentes subconjuntos
+de neuronas para representar distintas entradas, lo que previene el sobre ajuste y 
+favorece la extracción de características más discriminativas.\\
+
+La función de costo total del SAE se denota como $\mathcal{L}_{\text{sparse}}(W,b)$ y está
+compuesta por el término de reconstrucción $\mathcal{L}(W,b)$ más un término de penalización de dispersión:
+\begin{equation}
+	\mathcal{L}_{\text{sparse}}(W,b)
+	=
+	\mathcal{L}(W,b)
+	+
+	\beta \sum_{j=1}^{H} \mathrm{KL}(\rho \,\|\, \hat{\rho}_j),
+	\label{eq:loss_sae}
+\end{equation}
+donde $W$ denota el conjunto de \textbf{matrices de pesos} de todas las capas del autocodificador (tanto del codificador como del decodificador), $b$ corresponde al conjunto de \textbf{vectores de sesgo} o \emph{bias} asociados a dichas capasy $\beta$ es el hiperparámetro que controla el peso de la penalización. El término de penalización es la suma de la \textbf{divergencia Kullback-Leibler $(\mathrm{KL})$} entre la tasa de activación promedio deseada ($\rho$, un valor pequeño fijo (0.05 en el articulo original) y la tasa de activación promedio real ($\hat{\rho}_j$) de cada neurona $j$ en la capa oculta:
+\begin{equation}
+	\sum_{j=1}^{H} \text{KL}(\rho \,\|\, \hat{\rho}_j)
+	=
+	\sum_{j=1}^{H}
+	\left[
+	\rho \log\left(\frac{\rho}{\hat{\rho}_j}\right)
+	+
+	(1 - \rho) \log\left(\frac{1-\rho}{1-\hat{\rho}_j}\right)
+	\right]
+	\label{eq:kullback-leibler}
+\end{equation}
+
+Esta penalización tiene la propiedad de ser cero si $\hat{\rho}_j = \rho$, y aumentar a medida que $\hat{\rho}_j$ se aleja de $\rho$. Al minimizar esta función, el SAE es obligado a tener representaciones latentes dispersas.\\
+
+Otra variante interesante es el \textbf{Autocodificador Contractivo (CAE)}\cite{rifai2011contracting}, este se enfoca en hacer que la representación latente $z^{(u)}$ sea \textbf{robusta} frente a pequeñas variaciones o ruido en los datos de entrada $x^{(u)}$. El objetivo es que la función de codificación $f$ sea \textbf{contractiva}, es decir, que un pequeño cambio en el vector de entrada produzca un cambio muy pequeño en la representación latente. Esto obliga al modelo a capturar únicamente los \textbf{factores de variación más relevantes}, ignorando perturbaciones irrelevantes.\\
+
+El CAE introduce un término de penalización basado en la sensibilidad del codificador. Esta sensibilidad está dada por la \textbf{matriz Jacobiana} del codificador evaluada en cada ejemplo $x^{(u)}$:
+\begin{equation}
+	J_f(x^{(u)}) = 
+	\frac{\partial f(x^{(u)})}{\partial x^{(u)}} 
+	\in \mathbb{R}^{K \times D}.
+	\label{eq:matriz_jacobiana}
+\end{equation}
+
+La penalización se define como el \textbf{cuadrado de la norma de Frobenius} del Jacobiano. Para una matriz $A \in \mathbb{R}^{m \times n}$, la norma de Frobenius se define como:
+\begin{equation}
+	\|A\|_{F}^{2}
+	=
+	\sum_{i=1}^{m}
+	\sum_{j=1}^{n}
+	A_{ij}^{2}.
+	\label{eq:frobenius}
+\end{equation}
+
+Con esta definición, la función de costo total del CAE es:
+\begin{equation}
+	\mathcal{L}_{\text{CAE}}(W,b)
+	=
+	\mathcal{L}(W,b)
+	+
+	\lambda 
+	\sum_{u=1}^{N}
+	\left\| J_f\!\left(x^{(u)}\right) \right\|_{F}^{2},
+	\label{eq:loss_cae}
+\end{equation}
+
+donde $\mathcal{L}(W,b)$ es el error de reconstrucción (por ejemplo, MSE) 
+y $\lambda > 0$ controla el peso del término contractivo.\\
+
+Al minimizar $\mathcal{L}_{\text{CAE}}(W,b)$, el codificador aprende un mapeo 
+$x^{(u)} \mapsto Z^{(u)}$ que es \textbf{suave, estable y resistente al ruido}, 
+haciéndose insensible a variaciones irrelevantes y destacando las características realmente importantes.\\
+
+%===================================================================
+
+A partir de estas arquitecturas, el autocodificador y sus variantes pueden emplearse como un método de \textbf{detección de anomalías}. Para ello, se deben tener en cuenta las etiquetas de cada ejemplo del conjunto de datos, definidas en la Ecuación~\ref{eq:etiqueta}:
+\begin{equation}
+	y^{(u)} =
+	\begin{cases}
+		0, & \text{representa un caso benigno (normal)} \\[4pt]
+		1, & \text{representa un caso maligno (anomalía)}
+	\end{cases}
+	\label{eq:etiqueta}
+\end{equation}
+
+Con esta definición, el modelo se entrena exclusivamente utilizando el subconjunto de ejemplos que representan el comportamiento ``normal'', tal como se especifica en la Ecuación~\ref{eq:subconjunto_normal}:
+\begin{equation}
+	\mathbf{X}_{\text{benigno}}
+	= \bigl\{\, x^{(u)} \in \mathbf{X} \;\big|\; y^{(u)} = 0 \,\bigr\}.
+	\label{eq:subconjunto_normal}
+\end{equation}
+es decir, masas tumorales benignas. Al aprender a reconstruir correctamente este tipo de patrones, cuando el modelo recibe un nuevo dato $t$ perteneciente a un conjunto $\mathbf{T}$ con la misma distribución que $\mathbf{X}$, se espera que el error de reconstrucción $\lVert \hat{t} - t \rVert$ sea pequeño.\\
 
 En contraste, si se presenta un dato atípico $t^{*}$, correspondiente a un diagnóstico maligno, el modelo no logra reconstruirlo con la misma fidelidad, generando así un error significativamente mayor. Este comportamiento permite establecer un criterio simple y efectivo para la detección de anomalías: un dato se clasifica como anómalo si su error de reconstrucción supera un umbral $\epsilon$ predefinido. El criterio se expresa formalmente en la Ecuación~\ref{eq:dif_reconstruccion}:
-
 \begin{equation}
-	\lVert t^{*} - t^{\prime *} \rVert > \epsilon
+	\lVert \hat{t}^{*} - t^{*}  \rVert > \epsilon
 	\label{eq:dif_reconstruccion}
 \end{equation}
+donde $\hat{t}^{*}$ es la reconstrucción producida por la red a partir del dato $t^{*}$. Si la desigualdad se cumple, el dato se considera \textbf{anómalo}; de lo contrario, se clasifica como \textbf{normal}.\\
 
-\noindent
-Donde $t^{\prime *}$ es la reconstrucción producida por la red a partir del dato $t^{*}$. Si la desigualdad se cumple, el dato se considera \emph{anómalo}; de lo contrario, se clasifica como \emph{normal}.\\
-
-El valor del umbral $\epsilon$ se determinó de manera empírica a partir del conjunto de datos normales utilizado durante el entrenamiento. En particular, se calculó como la \textbf{media del error de reconstrucción}. Esta definición se detalla en la Ecuación~\ref{eq:epsilon}:
+El valor del umbral $\epsilon$ se determinó de manera empírica a partir del conjunto de datos normales utilizado durante el entrenamiento. En particular, se calculó como la media del error de reconstrucción más dos veces su desvío estándar. Esta definición se detalla en la Ecuación~\ref{eq:epsilon}:
 
 \begin{equation}
-	\epsilon = \text{media}\!\left( \lVert t'_i - t_i \rVert \right)
+	\epsilon
+	= \operatorname{media}\!\left( \lVert \hat{x}^{(u)} - x^{(u)} \rVert \right)
+	+ 2 \cdot \operatorname{std}\!\left( \lVert \hat{x}^{(u)} - x^{(u)} \rVert \right),
 	\label{eq:epsilon}
 \end{equation}
-
-\noindent
-Donde $t_i$ corresponde a cada muestra normal y $t'_i$ a su respectiva reconstrucción generada por el modelo. Este valor promedio proporciona un límite representativo del comportamiento esperado en datos no anómalos, permitiendo distinguir de forma efectiva aquellos casos cuyo error excede significativamente lo aprendido por la red.
+donde $x^{(u)}$ corresponde a cada muestra normal del conjunto de entrenamiento $\mathbf{X}_{\text{benigno}}$ y $\hat{x}^{(u)}$ a su respectiva reconstrucción generada por el modelo. Este valor proporciona un límite representativo del comportamiento esperado en datos no anómalos, permitiendo distinguir de forma efectiva aquellos casos cuyo error excede significativamente lo aprendido por la red.
 
 \subsection{Métricas de evaluación del modelo}
 
-Para evaluar el rendimiento del autocodificador en la tarea de detección de anomalías, utilizo la \textbf{matriz de confusión}, la cual resume la relación entre las predicciones del modelo y las etiquetas reales. En este contexto, cada instancia se clasifica como \emph{normal} o \emph{anómala} según si su error de reconstrucción $\lVert t' - t \rVert$ supera o no el umbral $\epsilon$ definido, tal como se muestra en la Ecuación~\ref{eq:criterio}.\\
+Para evaluar rigurosamente el desempeño del autocodificador en la tarea de detección de anomalías, se analizan diversas métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$. Dado que este valor actúa como cuantificador directo de qué tan bien el modelo reproduce cada instancia, es posible utilizarlo como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$.
 
+A partir de esta regla se construye la matriz de confusión, desde la cual se obtienen métricas clásicas de evaluación como la exactitud, la sensibilidad y la especificidad. Asimismo, se emplean herramientas adicionales basadas en la variación del umbral, como la curva ROC y el área bajo dicha curva (AUC) que permiten caracterizar el rendimiento global del modelo sin depender de un valor fijo de $\epsilon$, proporcionando una visión más completa de su capacidad discriminativa en términos del error de reconstrucción.\\
+
+Para obtener un criterio de decisión utilizamos el umbral $\epsilon$ definido en la Ecuación~\ref{eq:epsilon}, a partir del cual, cada instancia se clasifica como \textbf{normal} o \textbf{anómala} según si su error de reconstrucción $\lVert \hat{t} - t \rVert$ supera o no el umbral $\epsilon$, tal como se muestra en la Ecuación~\ref{eq:criterio}.
 \begin{equation}
 	\hat{y} =
 	\begin{cases}
-		0, & \text{si } \lVert t' - t \rVert \le \epsilon \\[4pt]
-		1, & \text{si } \lVert t' - t \rVert > \epsilon
+		0, & \text{si } \lVert \hat{t} - t \rVert \le \epsilon \\[4pt]
+		1, & \text{si } \lVert \hat{t} - t \rVert > \epsilon
 	\end{cases}
 	\label{eq:criterio}
 \end{equation}
 
-\noindent
 A partir de este criterio, se distinguen los siguientes cuatro casos fundamentales:
 
 \begin{itemize}
-	\item \textbf{Verdaderos Positivos (TP)}: Casos \emph{anómalos} (personas con diabetes) cuyo error de reconstrucción satisface $||t' - t|| > \epsilon$.
+	\item \textbf{Verdaderos Positivos (TP)}: Casos \emph{anómalos} (personas con diabetes) cuyo error de reconstrucción satisface $||\hat{t} - t|| > \epsilon$.
 	
-	\item \textbf{Falsos Negativos (FN)}: Casos \emph{anómalos} (con diabetes) pero cuyo error cumple $||t' - t|| \le \epsilon$, es decir, el modelo no detectó la anomalía.
+	\item \textbf{Falsos Negativos (FN)}: Casos \emph{anómalos} (con diabetes) pero cuyo error cumple $||\hat{t} - t|| \le \epsilon$, es decir, el modelo no detectó la anomalía.
 	
-	\item \textbf{Verdaderos Negativos (TN)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||t' - t|| \le \epsilon$.
+	\item \textbf{Verdaderos Negativos (TN)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||\hat{t} - t|| \le \epsilon$.
 	
-	\item \textbf{Falsos Positivos (FP)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||t' - t|| > \epsilon$, siendo incorrectamente clasificados como anómalos.
+	\item \textbf{Falsos Positivos (FP)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||\hat{t} - t|| > \epsilon$, siendo incorrectamente clasificados como anómalos.
 \end{itemize}
 
-\noindent
 A partir de estas cuatro categorías se construye la matriz de confusión mostrada en la Tabla~\ref{tab:mat_conf}, donde la diagonal verde representa las predicciones correctas y las celdas rojas los errores de clasificación.
 
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.8}
-	\begin{tabular}{c|c|c|}
-		\multicolumn{1}{c}{} &
-		\multicolumn{2}{c}{\textbf{Predicción}} \\
-		\multicolumn{1}{c}{} &
-		\textbf{Anómalo} & \textbf{Normal} \\ \hline
-		\textbf{Real: Anómalo} &
-		\cellcolor{green!25}\textbf{Verdadero Positivo (TP)} &
-		\cellcolor{red!25}\textbf{Falso Negativo (FN)} \\ \hline
-		\textbf{Real: Normal} &
-		\cellcolor{red!25}\textbf{Falso Positivo (FP)} &
-		\cellcolor{green!25}\textbf{Verdadero Negativo (TN)} \\ \hline
+	\renewcommand{\arraystretch}{1.6}
+	\setlength{\tabcolsep}{12pt}
+	\begin{tabular}{c c c c}
+		& & \multicolumn{2}{c}{\textbf{Predicción}} \\[2pt]
+		& & \textbf{Anómalo} & \textbf{Normal} \\
+		
+		\multirow{2}{*}{\rotatebox{90}{\textbf{Real}}}
+		& \textbf{Anómalo} &
+		\cellcolor{green!20}\textbf{Verdadero Positivo (TP)} &
+		\cellcolor{red!20}\textbf{Falso Negativo (FN)} \\[3pt]
+		
+		& \textbf{Normal} &
+		\cellcolor{red!20}\textbf{Falso Positivo (FP)} &
+		\cellcolor{green!20}\textbf{Verdadero Negativo (TN)} \\
 	\end{tabular}
 	\caption{Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}
+	\label{tab:mat_conf}
 \end{table}
 
 Una vez definidas las categorías de la matriz de confusión, es posible cuantificar el rendimiento del modelo mediante distintas métricas, cada una evaluando un aspecto particular de la calidad de las predicciones. Todas ellas se derivan directamente de los valores TP, FP, TN y FN.\\
 
-La \textbf{exactitud} (accuracy) cuantifica la proporción total de predicciones correctas realizadas por el modelo según la Ecuación~\ref{eq:accuracy}.
-
+La \textbf{exactitud} (\emph{Accuracy}) cuantifica la proporción total de predicciones correctas realizadas por el modelo según la Ecuación~\ref{eq:accuracy}.
 \begin{equation}
 	\text{Accuracy} =
 	\frac{\text{TP} + \text{TN}}
@@ -401,8 +621,7 @@ La \textbf{exactitud} (accuracy) cuantifica la proporción total de predicciones
 	\label{eq:accuracy}
 \end{equation}\\
 
-La precisión (precision) indica qué proporción de las predicciones positivas corresponde realmente a casos positivos, tal como se define en la Ecuación~\ref{eq:precision}.
-
+La precisión (\emph{Precision}) indica qué proporción de las predicciones positivas corresponde realmente a casos positivos, tal como se define en la Ecuación~\ref{eq:precision}.
 \begin{equation}
 	\text{Precision} =
 	\frac{\text{TP}}
@@ -410,8 +629,7 @@ La precisión (precision) indica qué proporción de las predicciones positivas 
 	\label{eq:precision}
 \end{equation}\\
 
-La sensibilidad (recall) mide la capacidad del modelo para identificar correctamente los casos positivos presentes en el conjunto de datos, de acuerdo con la Ecuación~\ref{eq:recall}.
-
+La sensibilidad (\emph{Recall}) mide la capacidad del modelo para identificar correctamente los casos positivos presentes en el conjunto de datos, de acuerdo con la Ecuación~\ref{eq:recall}.
 \begin{equation}
 	\text{Recall} =
 	\frac{\text{TP}}
@@ -419,8 +637,7 @@ La sensibilidad (recall) mide la capacidad del modelo para identificar correctam
 	\label{eq:recall}
 \end{equation}\\
 
-La especificidad (specificity) evalúa la proporción de casos negativos correctamente clasificados, definida en la Ecuación~\ref{eq:specificity}.
-
+La especificidad (\emph{Specificity}) evalúa la proporción de casos negativos correctamente clasificados, definida en la Ecuación~\ref{eq:specificity}.
 \begin{equation}
 	\text{Specificity} =
 	\frac{\text{TN}}
@@ -428,16 +645,14 @@ La especificidad (specificity) evalúa la proporción de casos negativos correct
 	\label{eq:specificity}
 \end{equation}\\
 
-La exactitud balanceada (balanced accuracy), mostrada en la Ecuación~\ref{eq:balanced-accuracy}, combina sensibilidad y especificidad para obtener una medida equilibrada del rendimiento.
-
+La exactitud balanceada (\emph{Balanced Accuracy}), mostrada en la Ecuación~\ref{eq:balanced-accuracy}, combina sensibilidad y especificidad para obtener una medida equilibrada del rendimiento.
 \begin{equation}
 	\text{Balanced Accuracy} =
 	\frac{\text{Recall} + \text{Specificity}}{2}
 	\label{eq:balanced-accuracy}
 \end{equation}\\
 
-El F1-Score combina las medidas de precisión y sensibilidad para ofrecer una métrica más general de la calidad del modelo, tal como se expresa en la Ecuación~\ref{eq:f1-score}.
-
+El \emph{F1-Score} combina las medidas de \emph{Precision} y \emph{Recall} para ofrecer una métrica más general de la calidad del modelo, tal como se expresa en la Ecuación~\ref{eq:f1-score}.
 \begin{equation}
 	\text{F1\_Score} =
 	\frac{2 \cdot \text{Precision} \cdot \text{Recall}}
@@ -448,19 +663,60 @@ El F1-Score combina las medidas de precisión y sensibilidad para ofrecer una m�
 	\label{eq:f1-score}
 \end{equation}\\
 
-En el caso particular de este trabajo, resulta crítico priorizar la métrica de \textbf{Recall}. Dado que un falso negativo implica no identificar un caso potencialmente maligno, maximizar el Recall es esencial para garantizar que el modelo no pase por alto ninguna anomalía relevante.
+En el caso particular de este trabajo, resulta crítico priorizar la métrica de \emph{Recall}. Dado que un falso negativo implica no identificar un caso potencialmente maligno. Maximizar esta métrica es esencial para garantizar que el modelo no pase por alto ninguna anomalía.
 
-Si bien \textbf{Precision} también aporta información valiosa al reducir el número de falsos positivos, la severidad clínica de un falso negativo vuelve al Recall la métrica de mayor importancia práctica en este contexto.
+Si bien \emph{Precision} también aporta información valiosa al reducir el número de falsos positivos, la severidad clínica de un falso negativo vuelve al \emph{Recall} la métrica de mayor importancia en este contexto.
+No obstante, para obtener una visión más equilibrada del rendimiento global del sistema, también se considera el \emph{F1\_Score}, que combina \emph{Recall} y \emph{Precision} en una única medida. De esta manera, aunque el objetivo principal es maximizar el \emph{Recall}, un \emph{F1\_Score} elevado asegura que dicho incremento no se logra a costa de elevar los falsos positivos, proporcionando así una evaluación más completa de la calidad del modelo.\\
 
-No obstante, para obtener una visión más equilibrada del rendimiento global del sistema, también se considera el \textbf{F1\_Score}, que combina Recall y Precision en una única medida. De esta manera, aunque el objetivo principal es maximizar el Recall, un F1\_Score elevado asegura que dicho incremento no se logra a costa de elevar los falsos positivos, proporcionando así una evaluación más completa de la calidad del modelo.
+Las métricas presentadas hasta ahora (\emph{Accuracy}, \emph{Precision}, \emph{Recall}, \emph{Especificity}, etc.) son dependientes del umbral de decisión $\epsilon$ elegido. Para obtener una evaluación del rendimiento que sea independiente de la elección de un umbral específico y que caracterice la capacidad discriminativa del modelo en todo el rango de posibles valores del error de reconstrucción, se utiliza la \textbf{Curva ROC} y el área bajo esta curva (\textbf{AUC}).\\
+
+La \textbf{Curva ROC} es una representación gráfica que resume el comportamiento del clasificador al comparar la proporción de verdaderos positivos contra la proporción de falsos positivos para distintos valores de umbral $\epsilon$. Para construirla, se utiliza en el eje vertical $y$ la \textbf{Tasa de Verdaderos Positivos (TPR)}, una medida que cuantifica qué tan eficaz es el modelo para detectar correctamente las anomalías presentes en los datos. Esta tasa se define en la Ecuación~\ref{eq:tpr}.
+\begin{equation}
+	\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+	= \frac{\text{TP}}{\text{P}}
+	\label{eq:tpr}
+\end{equation}
+
+De forma análoga, el eje horizontal $x$ de la curva utiliza la \textbf{Tasa de Falsos Positivos (FPR)}, que indica cuántos casos normales son clasificados erróneamente como anómalos. Se describe en la Ecuación~\ref{eq:fpr} y esta cantidad es complementaria a la especificidad definida anteriormente en la Ecuación~\ref{eq:specificity}.
+\begin{equation}
+	\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}}
+	= \frac{\text{FP}}{\text{N}}
+	= 1 - \text{Specificity}
+	\label{eq:fpr}
+\end{equation}
+
+La curva se genera variando el umbral de decisión $\epsilon$ a través de todos los valores posibles del error de reconstrucción. Cada valor de $\epsilon$ resulta en un punto diferente (FPR, TPR) en el espacio ROC. Un clasificador ideal se encuentra en el punto (0, 1) del espacio ROC, lo que corresponde a $TPR=1$ (todos los anómalos detectados) y $FPR=0$ (ningún normal clasificado erróneamente).\\
+
+El \textbf{Área Bajo la Curva ROC (AUC)} es una métrica escalar que resume el rendimiento global del modelo en una única medida. Se define como el área total delimitada por la curva ROC y los ejes.
+
+El AUC proporciona una medida robusta e independiente del umbral de la capacidad de clasificación del modelo, lo que lo convierte en una métrica fundamental para evaluar el desempeño general. Especialmente en tareas de detección de anomalías, donde la distribución de clases suele ser altamente desbalanceada. Un clasificador es razonable si $0.5 < \text{AUC} \leq 1$.
 
 \chapter{Resultados}
 
-\comentario{Mostrar los resultados obtenidos utilizando gráficos, tablas, figuras, etc}
+En este capitulo se presentan los resultados obtenidos durante el entrenamiento de los autocodificadores propuestos. Para ello, se muestran las configuraciones utilizadas, los histogramas de errores de reconstrucción y finalmente las matrices de confusión junto a las métricas de desempeño para los distintos conjuntos con diferente proporción de anomalías y modelos evaluados, que resumen el rendimiento de cada modelo bajo el criterio de decisión.\\
 
-En este capitulo se presentan los resultados obtenidos durante el entrenamiento y evaluación del autocodificador propuesto. Para ello, se muestran la configuración utilizada, los histogramas de errores de reconstrucción, las métricas de desempeño para los distintos conjuntos evaluados y finalmente la matriz de confusión porcentual que resume el rendimiento del modelo bajo el criterio definido previamente.
+Para cada una de las arquitecturas consideradas autocodificador clásico (AE), autocodificador disperso (SAE) y autocodificador contractivo (CAE) se entrenan tres variantes (A, B y C), que comparten exactamente la misma configuración e hiperparámetros y difieren únicamente en el conjunto de entrenamiento utilizado.\\
 
-Para entrenar el autocodificador se utilizó la siguiente configuración:
+Las configuraciones finales empleadas para cada arquitectura surgen de un proceso de \emph{grid search}, en el cual se exploraron distintas combinaciones de cantidad de capas, de neuronas y tasas de aprendizaje. La selección de los hiperparámetros óptimos se basó en el desempeño sobre el conjunto de \textbf{validación}, priorizando las métricas de \emph{Recall}, \emph{F1\_score} y AUC. Posteriormente, los modelos seleccionados fueron entrenados por completo con los hiperparámetros con mejores métricas y fueron evaluados sobre el conjunto de prueba, cuyos resultados son los expuestos en este capítulo. La Tabla~\ref{tab:hiperparametros_modelos} resume los hiperparámetros utilizados para cada una de las arquitecturas finales:
+\begin{table}[H]
+	\centering
+	\caption{Hiperparámetros de entrenamiento para cada modelo.}
+	\begin{tabular}{lcccc}
+		\toprule
+		\textbf{Modelo} &
+		\textbf{Dimensiones de capas} &
+		\textbf{\emph{lr}} &
+		\textbf{\emph{Batch size}} &
+		\textbf{Épocas} \\
+		\midrule
+		AE  & [\dots] & 0.001 & 32 & 50 \\
+		SAE & [\dots] & 0.001 & 32 & 50 \\
+		CAE & [\dots] & 0.001 & 32 & 50 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:hiperparametros_modelos}
+\end{table}
+en todos los modelos se utiliza \textbf{MSE} como función de pérdida, \textbf{Adam} como optimizador y una \textbf{paciencia} para el \emph{Early Stop} de 50 épocas.
 
 \begin{figure}[H]
 	\centering
@@ -469,103 +725,131 @@ Para entrenar el autocodificador se utilizó la siguiente configuración:
 	\label{fig:configuracion_autoencoder}
 \end{figure}
 
-Los hiperparámetros utilizados durante el entrenamiento se listan en la Tabla~\ref{tab:configuracion_entrenamiento}:
-
+Para cada uno de los modelos entrenados se calcula el umbral 
+$\epsilon$ que permite distinguir entre instancias normales y anómalas a partir del error de reconstrucción. Dicho umbral se obtiene utilizando únicamente el conjunto de entrenamiento, siguiendo el criterio definido en la Ecuación~\ref{eq:epsilon}. Los valores finales empleados por cada modelo se muestran en la Tabla~\ref{tab:epsilons_modelos}.
 \begin{table}[H]
 	\centering
-	\begin{tabular}{lccc}
+	\caption{Valores de umbral $\epsilon$ obtenidos para cada modelo.}
+	\begin{tabular}{lc}
 		\toprule
-		\textbf{Parámetro} & \textbf{Modelo A} & \textbf{Modelo B} & \textbf{Modelo C} \\
+		\textbf{Modelo} & \textbf{Umbral $\epsilon$} \\
 		\midrule
-		Tasa de aprendizaje (lr)     & 0.001 & 0.001 & 0.001 \\
-		Tamaño de batch (batch size) & 32    & 32    & 32    \\
-		Épocas de entrenamiento      & 50    & 50    & 50    \\
-		Función de pérdida           & MSE   & MSE   & MSE   \\
-		Optimizador                  & Adam  & Adam  & Adam  \\
+		AE (A)  & 3.683 \\
+		AE (B)  & 4.340 \\
+		AE (C)  & 5.071 \\
+		SAE (A) & 3.683 \\
+		SAE (B) & 4.340 \\
+		SAE (C) & 5.071 \\
+		CAE (A) & 3.683 \\
+		CAE (B) & 4.340 \\
+		CAE (C) & 5.071 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Hiperparámetros de entrenamiento empleados para los modelos A, B y C, entrenados con los correspondientes conjuntos.}
-	\label{tab:configuracion_entrenamiento}
-\end{table}
-
-Para cada uno de los modelos entrenados (A, B y C) calculé el umbral 
-$\epsilon$ que permite distinguir entre instancias normales y anómalas a partir del error de reconstrucción. Dicho umbral se obtiene utilizando únicamente el conjunto de entrenamiento, siguiendo el criterio definido en la Ecuación~\ref{eq:epsilon}. Los valores finales de empleados por cada modelo se muestran en la Tabla~\ref{tab:epsilons_modelos}.
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{lccc}
-		\toprule
-		\textbf{Parámetro} & \textbf{Modelo A} & \textbf{Modelo B} & \textbf{Modelo C} \\
-		\midrule
-		Umbral $\epsilon$ & 0.XXX & 0.YYY & 0.ZZZ \\
-		\bottomrule
-	\end{tabular}
-	\caption{Valores de umbral $\epsilon$ obtenidos para los modelos A, B y C.}
 	\label{tab:epsilons_modelos}
 \end{table}
 
-Una vez establecido el umbral para cada modelo, analicé la distribución del error de reconstrucción sobre el conjunto de prueba. Los histogramas correspondientes, presentados en las Figuras~\ref{fig:hist_error_recons_a}, \ref{fig:hist_error_recons_b} y \ref{fig:hist_error_recons_c} permiten visualizar cómo se distribuyen los errores y cómo se posiciona el umbral $\epsilon$ en cada caso. Esta comparación facilita interpretar la capacidad del autocodificador para separar registros normales de anómalos según su desempeño con distintos niveles de contaminación en el entrenamiento.
+Una vez definido el umbral para cada modelo, se analiza la distribución del error de reconstrucción sobre el conjunto de prueba para los \textbf{autocodificadores clásicos}. Los histogramas mostrados en las Figuras~\ref{fig:hist_error_recons_a}, \ref{fig:hist_error_recons_b} y \ref{fig:hist_error_recons_c} ilustran la distribución de dichos errores, distinguiendo los registros normales (en azul) de los anómalos (en rojo), así como la ubicación del umbral $\epsilon$ en cada caso. Esta visualización permite evaluar de manera intuitiva la capacidad de cada autocodificador para separar registros normales de anómalos bajo distintos niveles de contaminación durante el entrenamiento.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{../figures/hist_error_recons_a}
-	\caption{Distribución del error de reconstrucción para el Modelo A.}
+	\includegraphics[width=0.5\linewidth]{../figures/hist_error_recons_a}
+	\caption{Distribución del error de reconstrucción para el autocodificador A.}
 	\label{fig:hist_error_recons_a}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{../figures/hist_error_recons_a}
-	\caption{Distribución del error de reconstrucción para el Modelo B.}
+	\includegraphics[width=0.5\linewidth]{../figures/hist_error_recons_a}
+	\caption{Distribución del error de reconstrucción para el autocodificador B.}
 	\label{fig:hist_error_recons_b}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{../figures/hist_error_recons_a}
-	\caption{Distribución del error de reconstrucción para el Modelo C.}
+	\includegraphics[width=0.5\linewidth]{../figures/hist_error_recons_a}
+	\caption{Distribución del error de reconstrucción para el autocodificador C.}
 	\label{fig:hist_error_recons_c}
 \end{figure}
 
-Explicación...
+Con el umbral computado para cada modelo y utilizando el criterio de decisión formulado, se construyen las matrices de confusión correspondientes a las Figuras~\ref{fig:matriz_conf_pct_A}, \ref{fig:matriz_conf_pct_A} y \ref{fig:matriz_conf_pct_A}. Cabe destacar que, no se muestran las frecuencias absolutas, sino relativas.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{../figures/matriz_conf_pct.png}
-	\caption{Matriz de confusión expresada en valores porcentuales para el conjunto evaluado.}
-	\label{fig:matriz_conf_pct}
+	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_pct.png}
+	\caption{Matriz de confusión expresada en valores relativos para el conjunto evaluado.}
+	\label{fig:matriz_conf_pct_A}
 \end{figure}
 
-Finalmente, se obtuvieron las métricas de la Tabla~\ref{tab:metricas_resistencia_anomalias} donde se puede observar ...
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_pct.png}
+	\caption{Matriz de confusión expresada en valores relativos para el conjunto evaluado.}
+	\label{fig:matriz_conf_pct_B}
+\end{figure}
 
-Explicación...
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_pct.png}
+	\caption{Matriz de confusión expresada en valores relativos para el conjunto evaluado.}
+	\label{fig:matriz_conf_pct_C}
+\end{figure}
 
+Con los valores de la matriz de confusión, se obtuvieron las métricas de la Tabla~\ref{tab:metricas_modelos} donde se puede observar que las métricas empeoran a medida que aumenta el porcentaje de anomalías en el conjunto de entrenamiento.
 \begin{table}[H]
 	\centering
-	\begin{tabular}{lccc}
+	\caption{Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C.}
+	\begin{tabular}{lcccccc}
 		\toprule
-		\textbf{Métrica} & \textbf{Conjunto A} & \textbf{Conjunto B} & \textbf{Conjunto C} \\
-		& (0\% Anómalos) & (10\% Anómalos) & (25\% Anómalos) \\
+		\textbf{Modelo} &
+		\textbf{\emph{Accuracy}} &
+		\textbf{\emph{Precision}} &
+		\textbf{\emph{Recall}} &
+		\textbf{\emph{Specificity}} &
+		\textbf{\emph{Balanced Accuracy}} &
+		\textbf{\emph{F1\_Score}} \\
 		\midrule
-		\textit{Accuracy}          & 0.7193 & -- & -- \\
-		\textit{Precision}         & 0.5735 & -- & -- \\
-		\textit{Recall}            & 0.9286 & -- & -- \\
-		\textit{Specificity}       & 0.5972 & -- & -- \\
-		\textit{Balanced Accuracy} & 0.7629 & -- & -- \\
-		\textit{F1\_Score}         & 0.7091 & -- & -- \\
+		AE (A)  & 0.8684 & 0.8140 & 0.8333 & 0.8889 & 0.8611 & 0.8235 \\
+		AE (B)  & 0.6667 & 0.5769 & 0.3571 & 0.8472 & 0.6022 & 0.4412 \\
+		AE (C)  & 0.6228 & 0.4615 & 0.1429 & 0.9028 & 0.5228 & 0.2182 \\
+		SAE (A) & 0.8684 & 0.8140 & 0.8333 & 0.8889 & 0.8611 & 0.8235 \\
+		SAE (B) & 0.6667 & 0.5769 & 0.3571 & 0.8472 & 0.6022 & 0.4412 \\
+		SAE (C) & 0.6228 & 0.4615 & 0.1429 & 0.9028 & 0.5228 & 0.2182 \\
+		CAE (A) & 0.8684 & 0.8140 & 0.8333 & 0.8889 & 0.8611 & 0.8235 \\
+		CAE (B) & 0.6667 & 0.5769 & 0.3571 & 0.8472 & 0.6022 & 0.4412 \\
+		CAE (C) & 0.6228 & 0.4615 & 0.1429 & 0.9028 & 0.5228 & 0.2182 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Métricas de rendimiento del modelo evaluado sobre el mismo conjunto de prueba para los conjuntos A, B y C. Cada conjunto fue entrenado con distinta proporción de datos anómalos, lo que permite analizar la robustez del autocodificador frente a diferentes niveles de contaminación en el entrenamiento.}
-	\label{tab:metricas_resistencia_anomalias}
+	\label{tab:metricas_modelos}
 \end{table}
 
-Explicación...
+Finalmente, con el objetivo de evaluar la capacidad discriminativa de cada arquitectura frente a instancias anómalas independientemente del umbral $\epsilon$ seleccionado, se calculan las curvas ROC y sus correspondientes valores de AUC para todos los modelos entrenados. Para facilitar la comparación, los modelos se agrupan según el conjunto de entrenamiento utilizado (A, B y C), lo que permite analizar cómo varía el rendimiento ante distintos niveles de contaminación en el entrenamiento. Los resultados se presentan en las Figuras~\ref{fig:autoencoder_roc_auc_A}, \ref{fig:autoencoder_roc_auc_B} y \ref{fig:autoencoder_roc_auc_C}.
 
-CURVA ROC
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{../figures/autoencoder_roc_auc.png}
+	\caption{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías).}
+	\label{fig:autoencoder_roc_auc_A}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{../figures/autoencoder_roc_auc.png}
+	\caption{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías).}
+	\label{fig:autoencoder_roc_auc_B}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{../figures/autoencoder_roc_auc.png}
+	\caption{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías).}
+	\label{fig:autoencoder_roc_auc_C}
+\end{figure}
 
 \chapter{Conclusiones}
 
 \comentario{Explicar que aprendimos con la realización de este trabajo. Qué nos muestran los resultados.}
+
+El presente trabajo muestra la capacidad de los autocodificadores como modelos de detección de anomalías con el correspondiente entrenamiento en conjuntos con unicamente datos normales. Es pertinente destacar ... 
 
 \bibliographystyle{plain}
 \bibliography{../References}

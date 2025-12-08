@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  5 DEC 2025 20:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.15)  8 DEC 2025 16:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -78,7 +78,37 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 \Gm@dimlist=\toks20
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg
+)) (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2024/01/07 v24.1 The Babel package
+\babel@savecnt=\count199
+\U@D=\dimen151
+\l@unhyphenated=\language79
+
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count266
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/babel-spanish\spanish
+.ldf
+Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
+\es@quottoks=\toks21
+\es@quotdepth=\count267
+Package babel Info: Making " an active character on input line 570.
+Package babel Info: Making . an active character on input line 675.
+Package babel Info: Making < an active character on input line 722.
+Package babel Info: Making > an active character on input line 722.
 ))
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/es\bab
+el-spanish.tex
+Package babel Info: Importing font and identification data for spanish
+(babel)             from babel-es.ini. Reported on input line 11.
+)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2023-11-26 v7.01g Hypertext links for LaTeX
 
@@ -133,15 +163,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 ty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count199
+\c@section@level=\count268
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count266
+\etb@tempcnta=\count269
 )
-\@linkdim=\dimen151
-\Hy@linkcounter=\count267
-\Hy@pagecounter=\count268
+\@linkdim=\dimen152
+\Hy@linkcounter=\count270
+\Hy@pagecounter=\count271
  (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2023-11-26 v7.01g Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -150,7 +180,7 @@ Now handling font encoding PD1 ...
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count269
+\Hy@SavedSpaceFactor=\count272
  (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2023-11-26 v7.01g Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -163,13 +193,13 @@ Package hyperref Info: Plain pages OFF on input line 4196.
 Package hyperref Info: Backreferencing OFF on input line 4201.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4448.
-\c@Hy@tempcnt=\count270
+\c@Hy@tempcnt=\count273
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4786.
-\XeTeXLinkMargin=\dimen152
+\XeTeXLinkMargin=\dimen153
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -179,9 +209,9 @@ lc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count271
-\Field@Width=\dimen153
-\Fld@charsize=\dimen154
+\Fld@menulength=\count274
+\Field@Width=\dimen154
+\Fld@charsize=\dimen155
 Package hyperref Info: Hyper figures OFF on input line 6065.
 Package hyperref Info: Link nesting OFF on input line 6070.
 Package hyperref Info: Hyper index ON on input line 6073.
@@ -194,9 +224,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6095.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count272
-\c@Item=\count273
-\c@Hfootnote=\count274
+\Hy@abspage=\count275
+\c@Item=\count276
+\c@Hfootnote=\count277
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
@@ -209,8 +239,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\Fld@listcount=\count275
-\c@bookmark@seq@number=\count276
+\Fld@listcount=\count278
+\c@bookmark@seq@number=\count279
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunf
 ilecheck.sty
@@ -242,7 +272,7 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip62
 \f@nch@widthC=\skip63
 \f@nch@widthR=\skip64
-\@temptokenb=\toks21
+\@temptokenb=\toks22
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/incgraph\incgraph.sty
 Package: incgraph 2024/03/14 v1.3.0 LaTeX special graphics inclusion
@@ -253,9 +283,9 @@ y
 sty
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfut
 il-common.tex
-\pgfutil@everybye=\toks22
-\pgfutil@tempdima=\dimen155
-\pgfutil@tempdimb=\dimen156
+\pgfutil@everybye=\toks23
+\pgfutil@tempdima=\dimen156
+\pgfutil@tempdimb=\dimen157
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfut
 il-latex.def
@@ -279,33 +309,33 @@ Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfke
 ys.code.tex
-\pgfkeys@pathtoks=\toks23
-\pgfkeys@temptoks=\toks24
+\pgfkeys@pathtoks=\toks24
+\pgfkeys@temptoks=\toks25
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfke
 yslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks25
+\pgfkeys@tmptoks=\toks26
 ))
-\pgf@x=\dimen157
-\pgf@y=\dimen158
-\pgf@xa=\dimen159
-\pgf@ya=\dimen160
-\pgf@xb=\dimen161
-\pgf@yb=\dimen162
-\pgf@xc=\dimen163
-\pgf@yc=\dimen164
-\pgf@xd=\dimen165
-\pgf@yd=\dimen166
+\pgf@x=\dimen158
+\pgf@y=\dimen159
+\pgf@xa=\dimen160
+\pgf@ya=\dimen161
+\pgf@xb=\dimen162
+\pgf@yb=\dimen163
+\pgf@xc=\dimen164
+\pgf@yc=\dimen165
+\pgf@xd=\dimen166
+\pgf@yd=\dimen167
 \w@pgf@writea=\write3
-\r@pgf@reada=\read2
-\c@pgf@counta=\count277
-\c@pgf@countb=\count278
-\c@pgf@countc=\count279
-\c@pgf@countd=\count280
-\t@pgf@toka=\toks26
-\t@pgf@tokb=\toks27
-\t@pgf@tokc=\toks28
-\pgf@sys@id@count=\count281
+\r@pgf@reada=\read3
+\c@pgf@counta=\count280
+\c@pgf@countb=\count281
+\c@pgf@countc=\count282
+\c@pgf@countd=\count283
+\t@pgf@toka=\toks27
+\t@pgf@tokb=\toks28
+\t@pgf@tokc=\toks29
+\pgf@sys@id@count=\count284
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf
 .cfg
@@ -324,8 +354,8 @@ File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf
 syssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count282
-\pgfsyssoftpath@bigbuffer@items=\count283
+\pgfsyssoftpath@smallbuffer@items=\count285
+\pgfsyssoftpath@bigbuffer@items=\count286
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf
 sysprotocol.code.tex
@@ -362,12 +392,12 @@ de.tex
 l.code.tex)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathpar
 ser.code.tex
-\pgfmath@dimen=\dimen167
-\pgfmath@count=\count284
+\pgfmath@dimen=\dimen168
+\pgfmath@count=\count287
 \pgfmath@box=\box52
-\pgfmath@toks=\toks29
-\pgfmath@stack@operand=\toks30
-\pgfmath@stack@operation=\toks31
+\pgfmath@toks=\toks30
+\pgfmath@stack@operand=\toks31
+\pgfmath@stack@operation=\toks32
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfun
 ctions.code.tex)
@@ -391,39 +421,39 @@ ctions.integerarithmetics.code.tex)
 c.code.tex)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathflo
 at.code.tex
-\c@pgfmathroundto@lastzeros=\count285
+\c@pgfmathroundto@lastzeros=\count288
 ))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.cod
 e.tex)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 orepoints.code.tex
 File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen168
-\pgf@picmaxx=\dimen169
-\pgf@picminy=\dimen170
-\pgf@picmaxy=\dimen171
-\pgf@pathminx=\dimen172
-\pgf@pathmaxx=\dimen173
-\pgf@pathminy=\dimen174
-\pgf@pathmaxy=\dimen175
-\pgf@xx=\dimen176
-\pgf@xy=\dimen177
-\pgf@yx=\dimen178
-\pgf@yy=\dimen179
-\pgf@zx=\dimen180
-\pgf@zy=\dimen181
+\pgf@picminx=\dimen169
+\pgf@picmaxx=\dimen170
+\pgf@picminy=\dimen171
+\pgf@picmaxy=\dimen172
+\pgf@pathminx=\dimen173
+\pgf@pathmaxx=\dimen174
+\pgf@pathminy=\dimen175
+\pgf@pathmaxy=\dimen176
+\pgf@xx=\dimen177
+\pgf@xy=\dimen178
+\pgf@yx=\dimen179
+\pgf@yy=\dimen180
+\pgf@zx=\dimen181
+\pgf@zy=\dimen182
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 orepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen182
-\pgf@path@lasty=\dimen183
+\pgf@path@lastx=\dimen183
+\pgf@path@lasty=\dimen184
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 orepathusage.code.tex
 File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen184
-\pgf@shorten@start@additional=\dimen185
+\pgf@shorten@end@additional=\dimen185
+\pgf@shorten@start@additional=\dimen186
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 orescopes.code.tex
@@ -431,19 +461,19 @@ File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfpic=\box53
 \pgf@hbox=\box54
 \pgf@layerbox@main=\box55
-\pgf@picture@serial@count=\count286
+\pgf@picture@serial@count=\count289
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 oregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen186
+\pgflinewidth=\dimen187
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 oretransformations.code.tex
 File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen187
-\pgf@pt@y=\dimen188
-\pgf@pt@temp=\dimen189
+\pgf@pt@x=\dimen188
+\pgf@pt@y=\dimen189
+\pgf@pt@temp=\dimen190
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 orequick.code.tex
@@ -460,14 +490,14 @@ File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 orearrows.code.tex
 File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen190
+\pgfarrowsep=\dimen191
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 oreshade.code.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen191
-\pgf@sys@shading@range@num=\count287
-\pgf@shadingcount=\count288
+\pgf@max=\dimen192
+\pgf@sys@shading@range@num=\count290
+\pgf@shadingcount=\count291
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfc
 oreimage.code.tex
@@ -506,8 +536,8 @@ File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgf
 comp-version-0-65.sty
 Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen192
-\pgf@nodesepend=\dimen193
+\pgf@nodesepstart=\dimen193
+\pgf@nodesepend=\dimen194
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgf
 comp-version-1-18.sty
@@ -525,10 +555,10 @@ de.tex))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffo
 r.code.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen194
-\pgffor@skip=\dimen195
-\pgffor@stack=\toks32
-\pgffor@toks=\toks33
+\pgffor@iter=\dimen195
+\pgffor@skip=\dimen196
+\pgffor@stack=\toks33
+\pgffor@toks=\toks34
 ))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
@@ -537,11 +567,11 @@ Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
 ef
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO
 )
-\BKM@id=\count289
+\BKM@id=\count292
 ))
 \igrbox=\box58
-\c@igrtarget=\count290
-\l__incgra_offx_left_dim=\dimen196
+\c@igrtarget=\count293
+\l__incgra_offx_left_dim=\dimen197
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tik
 z.sty
@@ -552,69 +582,108 @@ Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgfli
 braryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count291
-\pgfplotmarksize=\dimen197
+\pgf@plot@mark@count=\count294
+\pgfplotmarksize=\dimen198
 )
-\tikz@lastx=\dimen198
-\tikz@lasty=\dimen199
-\tikz@lastxsaved=\dimen256
-\tikz@lastysaved=\dimen257
-\tikz@lastmovetox=\dimen258
-\tikz@lastmovetoy=\dimen259
-\tikzleveldistance=\dimen260
-\tikzsiblingdistance=\dimen261
+\tikz@lastx=\dimen199
+\tikz@lasty=\dimen256
+\tikz@lastxsaved=\dimen257
+\tikz@lastysaved=\dimen258
+\tikz@lastmovetox=\dimen259
+\tikz@lastmovetoy=\dimen260
+\tikzleveldistance=\dimen261
+\tikzsiblingdistance=\dimen262
 \tikz@figbox=\box59
 \tikz@figbox@bg=\box60
 \tikz@tempbox=\box61
 \tikz@tempbox@bg=\box62
-\tikztreelevel=\count292
-\tikznumberofchildren=\count293
-\tikznumberofcurrentchild=\count294
-\tikz@fig@count=\count295
+\tikztreelevel=\count295
+\tikznumberofchildren=\count296
+\tikznumberofcurrentchild=\count297
+\tikz@fig@count=\count298
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodu
 lematrix.code.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count296
-\pgfmatrixcurrentcolumn=\count297
-\pgf@matrix@numberofcolumns=\count298
+\pgfmatrixcurrentrow=\count299
+\pgfmatrixcurrentcolumn=\count300
+\pgf@matrix@numberofcolumns=\count301
 )
-\tikz@expandcount=\count299
+\tikz@expandcount=\count302
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/t
 ikz/libraries\tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
-(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
-Package: caption 2023/08/05 v3.6o Customizing captions (AR)
-
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/floatrow\floatrow.sty
+Package: floatrow 2008/08/02 v0.3b floatrow: float package extension
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen262
-\captionmargin=\dimen263
-\caption@leftmargin=\dimen264
-\caption@rightmargin=\dimen265
-\caption@width=\dimen266
-\caption@indent=\dimen267
-\caption@parindent=\dimen268
-\caption@hangindent=\dimen269
+\caption@tempdima=\dimen263
+\captionmargin=\dimen264
+\caption@leftmargin=\dimen265
+\caption@rightmargin=\dimen266
+\caption@width=\dimen267
+\caption@indent=\dimen268
+\caption@parindent=\dimen269
+\caption@hangindent=\dimen270
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count300
-\c@continuedfloat=\count301
+\c@float@type=\count303
+\float@exts=\toks35
+\float@box=\box63
+\@floatcapt=\box64
+Package floatrow Info: Modified float package code loaded on input line 455.
+Package floatrow Info: Modified rotfloat package code loaded on input line 473.
+
+\FR@everyfloat=\toks36
+\flrow@foot=\insert252
+\FB@wd=\dimen271
+\FBo@wd=\dimen272
+\FBc@wd=\dimen273
+\FBo@ht=\skip65
+\FBc@ht=\skip66
+\FBf@ht=\skip67
+\FBo@max=\skip68
+\FBc@max=\skip69
+\FBf@max=\skip70
+\c@FBl@b=\count304
+\floatbox@depth=\count305
+\c@FRobj=\count306
+\c@FRsobj=\count307
+\Xhsize=\skip71
+\sXhsize=\skip72
+\Zhsize=\skip73
+\sZhsize=\skip74
+\flrow@rowbox=\box65
+\FR@Zunitlength=\dimen274
+\c@FBcnt=\count308
+\FPOScnt=\count309
+\LTleft=\skip75
+\LTright=\skip76
+\LTleft=\skip77
+\LTright=\skip78
+\flrow@types=\toks37
+) (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+\c@caption@flags=\count310
+\c@continuedfloat=\count311
+Package caption Info: float package is loaded.
+Package caption Info: floatrow package is loaded.
+Package caption Info: floatrow package is loaded.
 Package caption Info: hyperref package is loaded.
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.st
 y
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count302
+\c@subfigure=\count312
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count303
+\c@subtable=\count313
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2023/05/13 v2.17o AMS math features
-\@mathmargin=\skip65
+\@mathmargin=\skip79
 
 For additional information on amsmath, use the `?' option.
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
@@ -622,61 +691,61 @@ Package: amstext 2021/08/26 v2.01 AMS text
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks34
-\ex@=\dimen270
+\@emptytoks=\toks38
+\ex@=\dimen275
 ))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen271
+\pmbraise@=\dimen276
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count304
+\inf@bad=\count314
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count305
-\leftroot@=\count306
+\uproot@=\count315
+\leftroot@=\count316
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count307
-\DOTSCASE@=\count308
+\classnum@=\count317
+\DOTSCASE@=\count318
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box63
-\strutbox@=\box64
+\Mathstrutbox@=\box66
+\strutbox@=\box67
 LaTeX Info: Redefining \big on input line 722.
 LaTeX Info: Redefining \Big on input line 723.
 LaTeX Info: Redefining \bigg on input line 724.
 LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen272
+\big@size=\dimen277
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count309
+\macc@depth=\count319
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count310
+\c@MaxMatrixCols=\count320
 \dotsspace@=\muskip17
-\c@parentequation=\count311
-\dspbrk@lvl=\count312
-\tag@help=\toks35
-\row@=\count313
-\column@=\count314
-\maxfields@=\count315
-\andhelp@=\toks36
-\eqnshift@=\dimen273
-\alignsep@=\dimen274
-\tagshift@=\dimen275
-\tagwidth@=\dimen276
-\totwidth@=\dimen277
-\lineht@=\dimen278
-\@envbody=\toks37
-\multlinegap=\skip66
-\multlinetaggap=\skip67
-\mathdisplay@stack=\toks38
+\c@parentequation=\count321
+\dspbrk@lvl=\count322
+\tag@help=\toks39
+\row@=\count323
+\column@=\count324
+\maxfields@=\count325
+\andhelp@=\toks40
+\eqnshift@=\dimen278
+\alignsep@=\dimen279
+\tagshift@=\dimen280
+\tagwidth@=\dimen281
+\totwidth@=\dimen282
+\lineht@=\dimen283
+\@envbody=\toks41
+\multlinegap=\skip80
+\multlinetaggap=\skip81
+\mathdisplay@stack=\toks42
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 )
@@ -687,60 +756,31 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-) (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
-Package: babel 2024/01/07 v24.1 The Babel package
-\babel@savecnt=\count316
-\U@D=\dimen279
-\l@unhyphenated=\language79
-
-(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
-\bbl@readstream=\read3
-\bbl@dirlevel=\count317
-*************************************
-* Local config file bblopts.cfg used
-*
-(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
-File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
- babel
 )
-Package babel Info: You haven't specified a language as a class or package
-(babel)             option. I'll load 'nil'. Reported on input line 4342.
-
-(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/babel\nil.ldf
-Language: nil 2024/01/07 v24.1 Nil language
-\l@nil=\language80
-))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count318
-\lst@gtempboxa=\box65
-\lst@token=\toks39
-\lst@length=\count319
-\lst@currlwidth=\dimen280
-\lst@column=\count320
-\lst@pos=\count321
-\lst@lostspace=\dimen281
-\lst@width=\dimen282
-\lst@newlines=\count322
-\lst@lineno=\count323
-\lst@maxwidth=\dimen283
+\lst@mode=\count326
+\lst@gtempboxa=\box68
+\lst@token=\toks43
+\lst@length=\count327
+\lst@currlwidth=\dimen284
+\lst@column=\count328
+\lst@pos=\count329
+\lst@lostspace=\dimen285
+\lst@width=\dimen286
+\lst@newlines=\count330
+\lst@lineno=\count331
+\lst@maxwidth=\dimen287
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-\c@lstnumber=\count324
-\lst@skipnumbers=\count325
-\lst@framebox=\box66
+\c@lstnumber=\count332
+\lst@skipnumbers=\count333
+\lst@framebox=\box69
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2023/02/27 1.9 listings configuration
 ))
 Package: listings 2023/02/27 1.9 (Carsten Heinz)
- (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count326
-\float@exts=\toks40
-\float@box=\box67
-\@float@everytoks=\toks41
-\@floatcapt=\box68
-)
+
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjustbox.s
 ty
 Package: adjustbox 2025/02/26 v1.3c Adjusting TeX boxes (trim, clip, ...)
@@ -752,10 +792,10 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.te
 x
-\XKV@toks=\toks42
-\XKV@tempa@toks=\toks43
+\XKV@toks=\toks44
+\XKV@tempa@toks=\toks45
 )
-\XKV@depth=\count327
+\XKV@depth=\count334
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjcalc.sty
@@ -769,44 +809,44 @@ Package: trimclip 2025/02/21 v1.2a Trim and clip general TeX material
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/collectbox\collectbox
 .sty
 Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
-\collectedbox=\box69
+\collectedbox=\box70
 )
-\tc@llx=\dimen284
-\tc@lly=\dimen285
-\tc@urx=\dimen286
-\tc@ury=\dimen287
+\tc@llx=\dimen288
+\tc@lly=\dimen289
+\tc@urx=\dimen290
+\tc@ury=\dimen291
 Package trimclip Info: Using driver 'tc-pdftex.def'.
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\tc-pdftex.d
 ef
 File: tc-pdftex.def 2025/02/26 v2.3 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen288
-\adjbox@Height=\dimen289
-\adjbox@Depth=\dimen290
-\adjbox@Totalheight=\dimen291
-\adjbox@pwidth=\dimen292
-\adjbox@pheight=\dimen293
-\adjbox@pdepth=\dimen294
-\adjbox@ptotalheight=\dimen295
+\adjbox@Width=\dimen292
+\adjbox@Height=\dimen293
+\adjbox@Depth=\dimen294
+\adjbox@Totalheight=\dimen295
+\adjbox@pwidth=\dimen296
+\adjbox@pheight=\dimen297
+\adjbox@pdepth=\dimen298
+\adjbox@ptotalheight=\dimen299
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/ifoddpage\ifoddpage.s
 ty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
-\c@checkoddpage=\count328
+\c@checkoddpage=\count335
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/varwidth\varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box70
-\sift@deathcycles=\count329
-\@vwid@loff=\dimen296
-\@vwid@roff=\dimen297
+\@vwid@box=\box71
+\sift@deathcycles=\count336
+\@vwid@loff=\dimen300
+\@vwid@roff=\dimen301
 )) (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip68
-\bibsep=\skip69
+\bibhang=\skip82
+\bibsep=\skip83
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count330
+\c@NAT@ctr=\count337
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -827,17 +867,17 @@ Package cleveref Info: `listings' support loaded on input line 3131.
 Package: colortbl 2024/10/29 v1.0k Color table columns (DPC)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
-\col@sep=\dimen298
-\ar@mcellbox=\box71
-\extrarowheight=\dimen299
-\NC@list=\toks44
-\extratabsurround=\skip70
-\backup@length=\skip71
-\ar@cellbox=\box72
+\col@sep=\dimen302
+\ar@mcellbox=\box72
+\extrarowheight=\dimen303
+\NC@list=\toks46
+\extratabsurround=\skip84
+\backup@length=\skip85
+\ar@cellbox=\box73
 )
-\everycr=\toks45
-\minrowclearance=\skip72
-\rownum=\count331
+\everycr=\toks47
+\minrowclearance=\skip86
+\rownum=\count338
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/titlepic\titlepic.sty
 Package: titlepic 2017/03/14 1.2 Package to display a picture on the title page
@@ -845,23 +885,30 @@ Package: titlepic 2017/03/14 1.2 Package to display a picture on the title page
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen300
-\lightrulewidth=\dimen301
-\cmidrulewidth=\dimen302
-\belowrulesep=\dimen303
-\belowbottomsep=\dimen304
-\aboverulesep=\dimen305
-\abovetopsep=\dimen306
-\cmidrulesep=\dimen307
-\cmidrulekern=\dimen308
-\defaultaddspace=\dimen309
-\@cmidla=\count332
-\@cmidlb=\count333
-\@aboverulesep=\dimen310
-\@belowrulesep=\dimen311
-\@thisruleclass=\count334
-\@lastruleclass=\count335
-\@thisrulewidth=\dimen312
+\heavyrulewidth=\dimen304
+\lightrulewidth=\dimen305
+\cmidrulewidth=\dimen306
+\belowrulesep=\dimen307
+\belowbottomsep=\dimen308
+\aboverulesep=\dimen309
+\abovetopsep=\dimen310
+\cmidrulesep=\dimen311
+\cmidrulekern=\dimen312
+\defaultaddspace=\dimen313
+\@cmidla=\count339
+\@cmidlb=\count340
+\@aboverulesep=\dimen314
+\@belowrulesep=\dimen315
+\@thisruleclass=\count341
+\@lastruleclass=\count342
+\@thisrulewidth=\dimen316
+)
+(C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip87
+\multirow@cntb=\count343
+\multirow@dima=\skip88
+\bigstrutjot=\dimen317
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/t
 ikz/libraries\tikzlibraryarrows.code.tex
@@ -870,51 +917,52 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgfli
 braryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen313
+\arrowsize=\dimen318
 ))
-\@float@every@table=\toks46
-
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-p
 dftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count336
-\l__pdf_internal_box=\box73
-) (proyecto_integrador.aux)
+\l__color_backend_stack_int=\count344
+\l__pdf_internal_box=\box74
+) (proyecto_integrador.aux
+LaTeX Info: Redefining \. on input line 13.
+LaTeX Info: Redefining \% on input line 13.
+)
 \openout1 = `proyecto_integrador.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
 mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count337
-\scratchdimen=\dimen314
-\scratchbox=\box74
-\nofMPsegments=\count338
-\nofMParguments=\count339
-\everyMPshowfont=\toks47
-\MPscratchCnt=\count340
-\MPscratchDim=\dimen315
-\MPnumerator=\count341
-\makeMPintoPDFobject=\count342
-\everyMPtoPDFconversion=\toks48
+\scratchcounter=\count345
+\scratchdimen=\dimen319
+\scratchbox=\box75
+\nofMPsegments=\count346
+\nofMParguments=\count347
+\everyMPshowfont=\toks48
+\MPscratchCnt=\count348
+\MPscratchDim=\dimen320
+\MPnumerator=\count349
+\makeMPintoPDFobject=\count350
+\everyMPtoPDFconversion=\toks49
 )
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
 -base.sty
@@ -960,18 +1008,19 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 80.
+LaTeX Info: Redefining \. on input line 81.
+LaTeX Info: Redefining \% on input line 81.
+Package hyperref Info: Link coloring OFF on input line 81.
 Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count343
-LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
+\c@lstlisting=\count351
+LaTeX Font Info:    Trying to load font information for U+msa on input line 90.
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 90.
 
 
 (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -980,7 +1029,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <../figures/logo_unahur.png, id=6, 76.285pt x 65.24374pt>
 File: ../figures/logo_unahur.png Graphic file (type png)
 <use ../figures/logo_unahur.png>
-Package pdftex.def Info: ../figures/logo_unahur.png  used on input line 82.
+Package pdftex.def Info: ../figures/logo_unahur.png  used on input line 90.
 (pdftex.def)             Requested size: 67.94241pt x 58.11053pt.
 
 [1
@@ -989,11 +1038,19 @@ Package pdftex.def Info: ../figures/logo_unahur.png  used on input line 82.
 {C:/Users/Matías/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <../figures
 /logo_unahur.png>] [2
 
-] (proyecto_integrador.toc)
+] (proyecto_integrador.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write4
 \openout4 = `proyecto_integrador.toc'.
 
  [3]
+LaTeX Info: Redefining \. on input line 93.
+LaTeX Info: Redefining \% on input line 93.
+LaTeX Info: Redefining \. on input line 93.
+LaTeX Info: Redefining \% on input line 93.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1003,11 +1060,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [4
 
-] (proyecto_integrador.lof)
+] (proyecto_integrador.lof
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@lof=\write5
 \openout5 = `proyecto_integrador.lof'.
 
  [5]
+LaTeX Info: Redefining \. on input line 94.
+LaTeX Info: Redefining \% on input line 94.
+LaTeX Info: Redefining \. on input line 94.
+LaTeX Info: Redefining \% on input line 94.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1017,11 +1082,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [6
 
-] (proyecto_integrador.lot)
+] (proyecto_integrador.lot
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@lot=\write6
 \openout6 = `proyecto_integrador.lot'.
 
  [7]
+Overfull \hbox (53.55418pt too wide) in paragraph at lines 100--148
+ [][] 
+ []
+
+LaTeX Info: Redefining \. on input line 150.
+LaTeX Info: Redefining \% on input line 150.
+LaTeX Info: Redefining \. on input line 150.
+LaTeX Info: Redefining \% on input line 150.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1029,15 +1105,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[8
+[8] [9
 
 ]
-Overfull \hbox (10.71518pt too wide) in paragraph at lines 91--92
-\T1/cmr/m/n/10 an�malo cualquier patr�n que se desv�a significativamente de la 
-reconstrucci�n esperada. La implementaci�n
- []
+LaTeX Info: Redefining \. on input line 156.
+LaTeX Info: Redefining \% on input line 156.
+LaTeX Info: Redefining \. on input line 156.
+LaTeX Info: Redefining \% on input line 156.
 
-[9]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1048,34 +1123,49 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [10
 
 ]
-Chapter 1.
+Cap\'{\i }tulo 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
-
- []
-
-
-Overfull \hbox (2.33759pt too wide) in paragraph at lines 97--98
-\T1/cmr/m/n/10 problema espec�fico que se aborda es c�mo entrenar un \T1/cmr/bx
-/n/10 autocodificador \T1/cmr/m/n/10 para que aprenda exclusivamente
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 101--102
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--113
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
 
-[11]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
-36.
- (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
-File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
+
+ []
+
+
+Underfull \vbox (badness 4479) has occurred while \output is active []
+
+ [11]
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 180--181
+
+ []
+
+LaTeX Info: Redefining \. on input line 183.
+LaTeX Info: Redefining \% on input line 183.
+LaTeX Info: Redefining \. on input line 183.
+LaTeX Info: Redefining \% on input line 183.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1084,72 +1174,75 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
 [12]
-Chapter 2.
-
-Underfull \hbox (badness 10000) in paragraph at lines 140--141
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
-
- []
+LaTeX Info: Redefining \. on input line 186.
+LaTeX Info: Redefining \% on input line 186.
+LaTeX Info: Redefining \. on input line 186.
+LaTeX Info: Redefining \% on input line 186.
 
 
-Overfull \hbox (16.07262pt too wide) in paragraph at lines 148--149
-[]\T1/cmr/m/n/10 Para la realizaci�n de este trabajo, utilic� el conjunto de da
-tos \T1/cmr/bx/n/10 Breast Cancer Wisconsin (Diagnostic)
- []
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[13]
+LaTeX Info: Redefining \. on input line 186.
+LaTeX Info: Redefining \% on input line 186.
+LaTeX Info: Redefining \. on input line 186.
+LaTeX Info: Redefining \% on input line 186.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 150--151
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
-
- []
-
-[13
+[14
 
 ]
-Overfull \hbox (8.69714pt too wide) in paragraph at lines 189--190
-\T1/cmr/m/n/10 distribuci�n de cada variable y la generaci�n de visualizaciones
- que permiten identificar patrones, tendencias
- []
+Cap\'{\i }tulo 2.
+<../figures/encoder_decoder.png, id=182, 436.63126pt x 155.07938pt>
+File: ../figures/encoder_decoder.png Graphic file (type png)
+<use ../figures/encoder_decoder.png>
+Package pdftex.def Info: ../figures/encoder_decoder.png  used on input line 194
+.
+(pdftex.def)             Requested size: 317.07614pt x 112.61777pt.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 189--190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
 
  []
 
 
-Overfull \hbox (2.18741pt too wide) in paragraph at lines 193--194
-[]\T1/cmr/m/n/10 Un componente central del EDA fue el an�lisis de la \T1/cmr/bx
-/n/10 matriz de correlaci�n\T1/cmr/m/n/10 , herramienta fundamental
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 211--213
+[15 <../figures/encoder_decoder.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 241--242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 243--244
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
+
+ []
+
+LaTeX Info: Redefining \. on input line 246.
+LaTeX Info: Redefining \% on input line 246.
+LaTeX Info: Redefining \. on input line 246.
+LaTeX Info: Redefining \% on input line 246.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1157,30 +1250,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[14]
-Underfull \hbox (badness 10000) in paragraph at lines 221--223
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 262--263
 
  []
 
-
-Overfull \hbox (4.42471pt too wide) in paragraph at lines 231--233
-\T1/cmr/m/n/10 Donde $\OML/cmm/m/it/10 Cov\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X; 
-Y\OT1/cmr/m/n/10 )$ \T1/cmr/m/n/10 representa la covarianza entre $\OML/cmm/m/i
-t/10 X$ \T1/cmr/m/n/10 e $\OML/cmm/m/it/10 Y$\T1/cmr/m/n/10 , y $\OML/cmm/m/it/
-10 s[]$\T1/cmr/m/n/10 , $\OML/cmm/m/it/10 s[]$ \T1/cmr/m/n/10 son sus desviacio
-nes est�ndar. Finalmente,
- []
-
-<../figures/matriz_corr.png, id=181, 1160.6562pt x 815.9283pt>
+<../figures/matriz_corr.png, id=211, 1160.6562pt x 815.9283pt>
 File: ../figures/matriz_corr.png Graphic file (type png)
 <use ../figures/matriz_corr.png>
-Package pdftex.def Info: ../figures/matriz_corr.png  used on input line 243.
-(pdftex.def)             Requested size: 362.37569pt x 254.74042pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
-
- []
-
+Package pdftex.def Info: ../figures/matriz_corr.png  used on input line 304.
+(pdftex.def)             Requested size: 407.66833pt x 286.58763pt.
+LaTeX Info: Redefining \. on input line 308.
+LaTeX Info: Redefining \% on input line 308.
+LaTeX Info: Redefining \. on input line 308.
+LaTeX Info: Redefining \% on input line 308.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1188,33 +1271,42 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[15 <../figures/matriz_corr.png>]
-<../figures/proporciones.png, id=194, 704.6325pt x 681.54625pt>
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 325--326
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--333
+
+ []
+
+LaTeX Info: Redefining \. on input line 333.
+LaTeX Info: Redefining \% on input line 333.
+LaTeX Info: Redefining \. on input line 333.
+LaTeX Info: Redefining \% on input line 333.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[18 <../figures/matriz_corr.png>]
+<../figures/proporciones.png, id=232, 669.50125pt x 681.54625pt>
 File: ../figures/proporciones.png Graphic file (type png)
 <use ../figures/proporciones.png>
-Package pdftex.def Info: ../figures/proporciones.png  used on input line 254.
-(pdftex.def)             Requested size: 226.48395pt x 219.05602pt.
+Package pdftex.def Info: ../figures/proporciones.png  used on input line 337.
+(pdftex.def)             Requested size: 226.48395pt x 230.5579pt.
 
-Overfull \hbox (35.45248pt too wide) in paragraph at lines 263--273
+Overfull \hbox (35.45248pt too wide) in paragraph at lines 345--354
  [][] 
  []
 
-
-Overfull \hbox (1.1712pt too wide) in paragraph at lines 283--284
-\T1/cmr/m/n/10 �l m�todo empleado en este proyecto es un autocodificador, un ti
-po de perceptr�n multicapa caracterizado
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--284
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
-
- []
-
+LaTeX Info: Redefining \. on input line 363.
+LaTeX Info: Redefining \% on input line 363.
+LaTeX Info: Redefining \. on input line 363.
+LaTeX Info: Redefining \% on input line 363.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1222,30 +1314,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[16 <../figures/proporciones.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+[19 <../figures/proporciones.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 366--367
 
  []
 
-<../figures/arquitectura.png, id=202, 667.49374pt x 400.49625pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 368--369
+
+ []
+
+<../figures/arquitectura.png, id=243, 667.49374pt x 400.49625pt>
 File: ../figures/arquitectura.png Graphic file (type png)
 <use ../figures/arquitectura.png>
-Package pdftex.def Info: ../figures/arquitectura.png  used on input line 291.
+Package pdftex.def Info: ../figures/arquitectura.png  used on input line 373.
 (pdftex.def)             Requested size: 271.7835pt x 163.07397pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
-
- []
-
-<../figures/relu_gelu.png, id=204, 489.9906pt x 323.7696pt>
-File: ../figures/relu_gelu.png Graphic file (type png)
-<use ../figures/relu_gelu.png>
-Package pdftex.def Info: ../figures/relu_gelu.png  used on input line 319.
-(pdftex.def)             Requested size: 271.7835pt x 179.5905pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+LaTeX Info: Redefining \. on input line 386.
+LaTeX Info: Redefining \% on input line 386.
+LaTeX Info: Redefining \. on input line 386.
+LaTeX Info: Redefining \% on input line 386.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.1638pt, for example:
@@ -1253,86 +1340,233 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[17 <../figures/arquitectura.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 324--325
+[20 <../figures/arquitectura.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 390--392
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 333--335
+Underfull \hbox (badness 10000) in paragraph at lines 402--404
 
  []
 
 
-Overfull \hbox (9.51547pt too wide) in paragraph at lines 336--337
-\T1/cmr/m/n/10 utilizado durante el entrenamiento. En particular, se calcul� co
-mo la \T1/cmr/bx/n/10 media del error de reconstrucci�n\T1/cmr/m/n/10 .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
+Underfull \hbox (badness 10000) in paragraph at lines 409--411
 
  []
 
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.1638pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.1638pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
-
-[18 <../figures/relu_gelu.png>]
-Overfull \hbox (2.96022pt too wide) in paragraph at lines 363--364
-[]\T1/cmr/bx/n/10 Verdaderos Positivos (TP)\T1/cmr/m/n/10 : Casos \T1/cmr/m/it/
-10 an�malos \T1/cmr/m/n/10 (personas con diabetes) cuyo error de reconstrucci�n
+Underfull \hbox (badness 10000) in paragraph at lines 416--419
 
  []
 
 
-LaTeX Warning: Reference `tab:mat_conf' on page 19 undefined on input line 373.
-
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 393--394
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 402--403
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 411--412
-
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.1638pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.1638pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
-
-[19]
 Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
  []
 
+LaTeX Info: Redefining \. on input line 427.
+LaTeX Info: Redefining \% on input line 427.
+LaTeX Info: Redefining \. on input line 427.
+LaTeX Info: Redefining \% on input line 427.
 
-Underfull \hbox (badness 10000) in paragraph at lines 429--430
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[21]
+<../figures/relu_gelu.png, id=266, 489.9906pt x 323.7696pt>
+File: ../figures/relu_gelu.png Graphic file (type png)
+<use ../figures/relu_gelu.png>
+Package pdftex.def Info: ../figures/relu_gelu.png  used on input line 439.
+(pdftex.def)             Requested size: 271.7835pt x 179.5905pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 446--452
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--438
+Underfull \hbox (badness 10000) in paragraph at lines 453--461
+
+ []
+
+LaTeX Info: Redefining \. on input line 483.
+LaTeX Info: Redefining \% on input line 483.
+LaTeX Info: Redefining \. on input line 483.
+LaTeX Info: Redefining \% on input line 483.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[22 <../figures/relu_gelu.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 485--486
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 449--450
+Underfull \hbox (badness 10000) in paragraph at lines 487--488
 
  []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 519--521
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 522--525
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 543--545
+
+ []
+
+LaTeX Info: Redefining \. on input line 547.
+LaTeX Info: Redefining \% on input line 547.
+LaTeX Info: Redefining \. on input line 547.
+LaTeX Info: Redefining \% on input line 547.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 550--552
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 567--568
+
+ []
+
+LaTeX Info: Redefining \. on input line 589.
+LaTeX Info: Redefining \% on input line 589.
+LaTeX Info: Redefining \. on input line 589.
+LaTeX Info: Redefining \% on input line 589.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 614--615
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 622--623
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 630--631
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 638--639
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 646--647
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 653--654
+
+ []
+
+LaTeX Info: Redefining \. on input line 656.
+LaTeX Info: Redefining \% on input line 656.
+LaTeX Info: Redefining \. on input line 656.
+LaTeX Info: Redefining \% on input line 656.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[25]
+Underfull \hbox (badness 10000) in paragraph at lines 664--665
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 668--670
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 671--672
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 688--689
+
+ []
+
+LaTeX Info: Redefining \. on input line 694.
+LaTeX Info: Redefining \% on input line 694.
+LaTeX Info: Redefining \. on input line 694.
+LaTeX Info: Redefining \% on input line 694.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[26]
+Cap\'{\i }tulo 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 696--697
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 698--699
+
+ []
+
+<../figures/configuracion_autoencoder.png, id=330, 677.53125pt x 745.78625pt>
+File: ../figures/configuracion_autoencoder.png Graphic file (type png)
+<use ../figures/configuracion_autoencoder.png>
+Package pdftex.def Info: ../figures/configuracion_autoencoder.png  used on inpu
+t line 723.
+(pdftex.def)             Requested size: 226.48395pt x 249.29655pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [27
+
+]
+<../figures/hist_error_recons_a.png, id=340, 570.933pt x 354.123pt>
+File: ../figures/hist_error_recons_a.png Graphic file (type png)
+<use ../figures/hist_error_recons_a.png>
+Package pdftex.def Info: ../figures/hist_error_recons_a.png  used on input line
+ 755.
+(pdftex.def)             Requested size: 226.48395pt x 140.47952pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 759.
+LaTeX Info: Redefining \% on input line 759.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1341,92 +1575,149 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-[20]
-Chapter 3.
-<../figures/configuracion_autoencoder.png, id=246, 677.53125pt x 745.78625pt>
-File: ../figures/configuracion_autoencoder.png Graphic file (type png)
-<use ../figures/configuracion_autoencoder.png>
-Package pdftex.def Info: ../figures/configuracion_autoencoder.png  used on inpu
-t line 467.
-(pdftex.def)             Requested size: 226.48395pt x 249.29655pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [21
-
- <../figures/configuracion_autoencoder.png>]
-<../figures/hist_error_recons_a.png, id=258, 570.933pt x 354.123pt>
+[28 <../figures/configuracion_autoencoder.png>]
 File: ../figures/hist_error_recons_a.png Graphic file (type png)
 <use ../figures/hist_error_recons_a.png>
 Package pdftex.def Info: ../figures/hist_error_recons_a.png  used on input line
- 511.
-(pdftex.def)             Requested size: 271.7835pt x 168.57759pt.
+ 762.
+(pdftex.def)             Requested size: 226.48395pt x 140.47952pt.
 File: ../figures/hist_error_recons_a.png Graphic file (type png)
 <use ../figures/hist_error_recons_a.png>
 Package pdftex.def Info: ../figures/hist_error_recons_a.png  used on input line
- 518.
-(pdftex.def)             Requested size: 271.7835pt x 168.57759pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [22 <../figures/hist_error_recons_a.png>]
-File: ../figures/hist_error_recons_a.png Graphic file (type png)
-<use ../figures/hist_error_recons_a.png>
-Package pdftex.def Info: ../figures/hist_error_recons_a.png  used on input line
- 525.
-(pdftex.def)             Requested size: 271.7835pt x 168.57759pt.
-<../figures/matriz_conf_pct.png, id=264, 397.485pt x 312.2064pt>
+ 769.
+(pdftex.def)             Requested size: 226.48395pt x 140.47952pt.
+<../figures/matriz_conf_pct.png, id=349, 397.485pt x 312.2064pt>
 File: ../figures/matriz_conf_pct.png Graphic file (type png)
 <use ../figures/matriz_conf_pct.png>
-Package pdftex.def Info: ../figures/matriz_conf_pct.png  used on input line 534
+Package pdftex.def Info: ../figures/matriz_conf_pct.png  used on input line 778
 .
-(pdftex.def)             Requested size: 271.7835pt x 213.47899pt.
- [23 <../figures/matriz_conf_pct.png>] [24]
-Chapter 4.
+(pdftex.def)             Requested size: 226.48395pt x 177.89757pt.
 
-Overfull \hbox (1.08142pt too wide) in paragraph at lines 568--569
-[]\T1/cmr/bx/n/10 Explicar que aprendimos con la realizaci�n de este trabajo. Q
-u� nos muestran los resultados.[] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-(proyecto_integrador.bbl [25
+LaTeX Info: Redefining \. on input line 782.
+LaTeX Info: Redefining \% on input line 782.
 
-] [26
 
-])
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
 
-Package caption Warning: Unused \captionsetup[sub] on input line 24.
+[29 <../figures/hist_error_recons_a.png>]
+File: ../figures/matriz_conf_pct.png Graphic file (type png)
+<use ../figures/matriz_conf_pct.png>
+Package pdftex.def Info: ../figures/matriz_conf_pct.png  used on input line 785
+.
+(pdftex.def)             Requested size: 226.48395pt x 177.89757pt.
+File: ../figures/matriz_conf_pct.png Graphic file (type png)
+<use ../figures/matriz_conf_pct.png>
+Package pdftex.def Info: ../figures/matriz_conf_pct.png  used on input line 792
+.
+(pdftex.def)             Requested size: 226.48395pt x 177.89757pt.
+LaTeX Info: Redefining \. on input line 823.
+LaTeX Info: Redefining \% on input line 823.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[30 <../figures/matriz_conf_pct.png>]
+<../figures/autoencoder_roc_auc.png, id=364, 390.258pt x 382.3083pt>
+File: ../figures/autoencoder_roc_auc.png Graphic file (type png)
+<use ../figures/autoencoder_roc_auc.png>
+Package pdftex.def Info: ../figures/autoencoder_roc_auc.png  used on input line
+ 829.
+(pdftex.def)             Requested size: 271.7835pt x 266.24893pt.
+File: ../figures/autoencoder_roc_auc.png Graphic file (type png)
+<use ../figures/autoencoder_roc_auc.png>
+Package pdftex.def Info: ../figures/autoencoder_roc_auc.png  used on input line
+ 836.
+(pdftex.def)             Requested size: 271.7835pt x 266.24893pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 840.
+LaTeX Info: Redefining \% on input line 840.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[31 <../figures/autoencoder_roc_auc.png>]
+File: ../figures/autoencoder_roc_auc.png Graphic file (type png)
+<use ../figures/autoencoder_roc_auc.png>
+Package pdftex.def Info: ../figures/autoencoder_roc_auc.png  used on input line
+ 843.
+(pdftex.def)             Requested size: 271.7835pt x 266.24893pt.
+LaTeX Info: Redefining \. on input line 848.
+LaTeX Info: Redefining \% on input line 848.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[32]
+Cap\'{\i }tulo 4.
+(proyecto_integrador.bbl [33
+
+]
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.1638pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.1638pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.1638pt}.
+
+[34
+
+]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
+3.
+ (C:\Users\Matías\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+))
+
+Package caption Warning: Unused \captionsetup[subfigure] on input line 52.
 See the caption package documentation for explanation.
 
-
-Package caption Warning: Unused \captionsetup[subfigure] on input line 51.
-See the caption package documentation for explanation.
-
-[27] (proyecto_integrador.aux)
+[35] (proyecto_integrador.aux
+LaTeX Info: Redefining \. on input line 13.
+LaTeX Info: Redefining \% on input line 13.
+)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 29349 strings out of 474485
- 557548 string characters out of 5742789
- 1940542 words of memory out of 5000000
- 51081 multiletter control sequences out of 15000+600000
- 577287 words of font info for 80 fonts, out of 8000000 for 9000
+ 30459 strings out of 474485
+ 575496 string characters out of 5742789
+ 1944542 words of memory out of 5000000
+ 52140 multiletter control sequences out of 15000+600000
+ 577879 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,14n,94p,1171b,478s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
-rm1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
-pi600\ecbi1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ectt1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfo
-ur/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts
-/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Matías\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Matías\AppData\Lo
+ 86i,15n,94p,1393b,662s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
+tt1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
+pi600\ecbx1200.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ecbi1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfo
+ur/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts
+/pk/ljfour/jknappen/ec/dpi600\ecrm0700.pk> <C:\Users\Matías\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Matías\AppData\Lo
 cal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Matías\Ap
 pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Ma
 tías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\
@@ -1435,17 +1726,20 @@ pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\e
 crm1000.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/
 dpi600\ecrm1200.pk> <C:\Users\Matías\AppData\Local\MiKTeX\fonts/pk/ljfour/jkna
 ppen/ec/dpi600\ecrm1728.pk><C:/Users/Matías/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Matías/AppData/Local/Programs/
-MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Matías/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Matías/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/
-Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-C:/Users/Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
-msy10.pfb><C:/Users/Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmsy7.pfb>
-Output written on proyecto_integrador.pdf (27 pages, 968965 bytes).
+s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Matías/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Matías/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Matías/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users
+/Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb
+><C:/Users/Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmr10.pfb><C:/Users/Matías/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmr7.pfb><C:/Users/Matías/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb><C:/Users/Matías/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Matías/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on proyecto_integrador.pdf (35 pages, 1121747 bytes).
 PDF statistics:
- 854 PDF objects out of 1000 (max. 8388607)
- 86 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 994 PDF objects out of 1000 (max. 8388607)
+ 125 named destinations out of 1000 (max. 500000)
+ 143 words of extra memory for PDF output out of 10000 (max. 10000000)
 

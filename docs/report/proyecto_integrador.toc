@@ -1,15 +1,11 @@
-\babel@toc {nil}{}\relax 
+\babel@toc {spanish}{}\relax 
 \contentsline {chapter}{\numberline {1}Introducción}{11}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivación}{11}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Estado del Arte}{11}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Autoencoders for Anomaly Detection Are Unreliable}{12}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}A comprehensive study of auto-encoders for anomaly detection}{12}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Enhancing Anomaly Detection Through Latent Space Manipulation}{12}{subsection.1.2.3}%
-\contentsline {subsection}{\numberline {1.2.4}Ensemble of Autoencoders for Anomaly Detection in Biomedical Data}{12}{subsection.1.2.4}%
-\contentsline {chapter}{\numberline {2}Materiales y Métodos}{13}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Conjunto de datos y análisis exploratorio}{13}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Descripción de los métodos}{16}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Autocodificadores}{16}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Métricas de evaluación del modelo}{18}{subsection.2.2.2}%
-\contentsline {chapter}{\numberline {3}Resultados}{21}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Conclusiones}{25}{chapter.4}%
+\contentsline {section}{\numberline {1.2}Estado del Arte}{12}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Materiales y Métodos}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Conjunto de datos y análisis exploratorio}{15}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Descripción de los métodos}{19}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Autocodificadores}{20}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Métricas de evaluación del modelo}{24}{subsection.2.2.2}%
+\contentsline {chapter}{\numberline {3}Resultados}{27}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Conclusiones}{33}{chapter.4}%

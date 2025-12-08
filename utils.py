@@ -9,14 +9,29 @@ import pandas as pd
 import os
 import json
 from datetime import datetime
-from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import ConfusionMatrixDisplay, roc_auc_score
 from sklearn.model_selection import train_test_split
 import seaborn as sns
+import random
 
 def get_device():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Dispositivo usado: {device}{f' ({torch.cuda.get_device_name(0)})' if device.type == 'cuda' else ''}\n")
     return device
+
+def set_seed(seed=42):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+    # GPU
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+
+    # Para reproducibilidad en CUDNN
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 def estandarizar_columnas_no_binarias(df: pd.DataFrame, mostrar_cols: bool = False) -> pd.DataFrame:
 
@@ -43,7 +58,7 @@ def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.
     df_train_global, df_test_global = train_test_split(
         df,
         test_size=test_size,
-        random_state=42,
+        random_state=11,
         stratify=df[concepto]
     )
 
@@ -64,9 +79,9 @@ def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.
         n0 = min(n0, len(df0))
 
         df_mix = pd.concat([
-            df0.sample(n0, random_state=42),
-            df1.sample(n1, random_state=42)
-        ]).sample(frac=1, random_state=42).reset_index(drop=True)
+            df0.sample(n0, random_state=11),
+            df1.sample(n1, random_state=11)
+        ]).sample(frac=1, random_state=11).reset_index(drop=True)
 
         x_train = df_mix.drop(columns=[concepto]).to_numpy()
         y_train = df_mix[concepto].to_numpy()
@@ -75,11 +90,11 @@ def crear_conjuntos_proporcionales(df, concepto, test_size=0.2, proporciones=[0.
 
     return conjuntos
 
-def crear_conjuntos_proporcionales_estandarizados(df, concepto, test_size=0.2, proporciones=[0.0, 0.10, 0.25]):
+def crear_conjuntos_proporcionales_estandarizados(df: pd.DataFrame, concepto: str, test_size: float = 0.2, proporciones: list = [0.0, 0.10, 0.25]):
     df_train, df_test = train_test_split(
         df,
         test_size=test_size,
-        random_state=42,
+        random_state=11,
         stratify=df[concepto]
     )
     df_train_std, df_test_std = estandarizar_columnas_no_binarias_train(df_train, df_test)
@@ -101,9 +116,9 @@ def crear_conjuntos_proporcionales_estandarizados(df, concepto, test_size=0.2, p
         n0 = min(n0, len(df0))
 
         df_mix = pd.concat([
-            df0.sample(n0, random_state=42),
-            df1.sample(n1, random_state=42)
-        ]).sample(frac=1, random_state=42).reset_index(drop=True)
+            df0.sample(n0, random_state=11),
+            df1.sample(n1, random_state=11)
+        ]).sample(frac=1, random_state=11).reset_index(drop=True)
 
         x_train = df_mix.drop(columns=[concepto]).to_numpy()
         y_train = df_mix[concepto].to_numpy()
@@ -111,6 +126,64 @@ def crear_conjuntos_proporcionales_estandarizados(df, concepto, test_size=0.2, p
         conjuntos.append((x_train, x_test, y_train, y_test))
 
     return conjuntos
+
+def crear_conjuntos_con_validacion_estandarizados(
+    df: pd.DataFrame, concepto: str, test_size: float = 0.2, val_size: float = 0.2, proporciones: list = [0.0, 0.10, 0.25]):
+
+    df_train, df_temp = train_test_split(
+        df,
+        test_size=0.40,         # 40% → se divide en val y test
+        random_state=11,
+        stratify=df[concepto]
+    )
+
+    df_val, df_test = train_test_split(
+        df_temp,
+        test_size=0.50,         # 50% de 40% → 20%
+        random_state=11,
+        stratify=df_temp[concepto]
+    )
+
+    df_train_std, df_val_std  = estandarizar_columnas_no_binarias_train(df_train, df_val)
+    df_train_std, df_test_std = estandarizar_columnas_no_binarias_train(df_train, df_test)
+
+    x_test = df_test_std.drop(columns=[concepto]).to_numpy()
+    y_test = df_test_std[concepto].to_numpy()
+
+    x_val  = df_val_std.drop(columns=[concepto]).to_numpy()
+    y_val  = df_val_std[concepto].to_numpy()
+
+    # Validación solo normales (early stopping)
+    df_val_norm = df_val_std[df_val_std[concepto] == 0]
+    x_val_norm = df_val_norm.drop(columns=[concepto]).to_numpy()
+    y_val_norm = df_val_norm[concepto].to_numpy()
+
+    df0 = df_train_std[df_train_std[concepto] == 0]
+    df1 = df_train_std[df_train_std[concepto] == 1]
+
+    conjuntos_train = []
+
+    for p in proporciones:
+        n1 = int(len(df0) * p)
+        n0 = len(df0) - n1
+
+        # Para evitar pedir más de lo disponible en el dataset
+        n1 = min(n1, len(df1))
+        n0 = min(n0, len(df0))
+
+        df_mix = pd.concat([
+            df0.sample(n0, random_state=11),
+            df1.sample(n1, random_state=11)
+        ]).sample(frac=1, random_state=11).reset_index(drop=True)
+
+        x_train = df_mix.drop(columns=[concepto]).to_numpy()
+        y_train = df_mix[concepto].to_numpy()
+
+        conjuntos_train.append((x_train, y_train))
+
+    conjuntos = [x_test, y_test, x_val, y_val, x_val_norm, y_val_norm, conjuntos_train]
+
+    return conjuntos 
 
 def mostrar_resumen(conjuntos, proporciones=[0.0, 0.10, 0.25]):
     filas = []
@@ -132,8 +205,50 @@ def mostrar_resumen(conjuntos, proporciones=[0.0, 0.10, 0.25]):
     resumen_df = pd.DataFrame(filas)
     print(resumen_df)
 
+def mostrar_resumen_validacion(conjuntos, proporciones=[0.0, 0.10, 0.25]):
+    x_test, y_test, x_val, y_val, x_val_norm, y_val_norm, conjuntos_train = conjuntos
+
+    filas = []
+
+    filas.append({
+        "conjunto": "test",
+        "proporcion": None,
+        "normales": int((y_test == 0).sum()),
+        "anomalías": int((y_test == 1).sum()),
+        "total": len(y_test),
+    })
+
+    filas.append({
+        "conjunto": "validacion",
+        "proporcion": None,
+        "normales": int((y_val == 0).sum()),
+        "anomalías": int((y_val == 1).sum()),
+        "total": len(y_val),
+    })
+
+    filas.append({
+        "conjunto": "validacion_norm",
+        "proporcion": None,
+        "normales": int((y_val_norm == 0).sum()),
+        "anomalías": int((y_val_norm == 1).sum()),
+        "total": len(y_val_norm),
+    })
+
+    for (x_train, y_train), p in zip(conjuntos_train, proporciones):
+        filas.append({
+            "conjunto": "train",
+            "proporcion": p,
+            "normales": int((y_train == 0).sum()),
+            "anomalías": int((y_train == 1).sum()),
+            "total": len(y_train),
+        })
+
+    df = pd.DataFrame(filas)
+    print(df)
+    return df
+
 def evaluar_reconstruccion(modelo, original, device, tipo_norma="L2"):
-    reconstruccion = modelo.predict(x=original, device=device)
+    reconstruccion = modelo.predict(input=original, device=device)
     
     diferencias = calcular_error_reconstruccion(original, reconstruccion, tipo_norma=tipo_norma)
     return reconstruccion, diferencias
@@ -244,6 +359,13 @@ def graficar_matriz_confusion(TP: int, FN: int, TN: int, FP: int, norm: bool = F
     ax.set_xlabel("Etiqueta predicha")
     
     plt.show()  
+
+def calcular_auc(dif_norm, dif_anom):
+    scores = np.concatenate([dif_norm, dif_anom])
+    labels = np.concatenate([np.zeros(len(dif_norm)), np.ones(len(dif_anom))])
+
+    auc = roc_auc_score(labels, scores)
+    return auc
 
 def save_grid_search_results(data, folder="results", verbose=False):
     fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")

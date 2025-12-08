@@ -1,12 +1,13 @@
-\babel@toc {nil}{}\relax 
+\babel@toc {spanish}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Descripción de las diez características base del conjunto de datos.}}{14}{table.2.1}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Distribución de la variable objetivo \textit {diagnosis}}}{14}{table.2.2}%
-\contentsline {table}{\numberline {2.3}{\ignorespaces Conjuntos de entrenamiento creados para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}}{16}{table.2.3}%
-\contentsline {table}{\numberline {2.4}{\ignorespaces Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}}{19}{table.2.4}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Descripción de las diez características base extraídas de las imágenes digitalizadas de FNA.}}{16}{table.caption.8}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Distribución de la variable objetivo \emph {diagnosis}}}{17}{table.caption.9}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces División del conjunto original en entrenamiento, validación y prueba, manteniendo la proporción original de clases.}}{18}{table.caption.11}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Subconjuntos derivados del subconjunto de entrenamiento para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}}{19}{table.caption.13}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}}{25}{table.caption.16}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Hiperparámetros de entrenamiento empleados para los modelos A, B y C, entrenados con los correspondientes conjuntos.}}{22}{table.3.1}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Valores de umbral $\epsilon $ obtenidos para los modelos A, B y C.}}{22}{table.3.2}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Métricas de rendimiento del modelo evaluado sobre el mismo conjunto de prueba para los conjuntos A, B y C. Cada conjunto fue entrenado con distinta proporción de datos anómalos, lo que permite analizar la robustez del autocodificador frente a diferentes niveles de contaminación en el entrenamiento.}}{24}{table.3.3}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Hiperparámetros de entrenamiento para cada modelo.}}{27}{table.caption.17}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Valores de umbral $\epsilon $ obtenidos para cada modelo.}}{28}{table.caption.19}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C.}}{31}{table.caption.26}%
 \addvspace {10\p@ }

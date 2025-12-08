@@ -1,14 +1,30 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{bouman2025unreliable}
-R~Bouman and T~Heskes.
+\bibitem{bank2020autoencoders}
+Dor Bank, Noam Koenigstein, and Raja Giryes.
+\newblock Autoencoders.
+\newblock {\em arXiv preprint arXiv:2003.05991}, 2020.
+
+\bibitem{bouman2025autoencoders}
+Roel Bouman and Tom Heskes.
 \newblock Autoencoders for anomaly detection are unreliable.
 \newblock {\em arXiv preprint arXiv:2501.13864}, 2025.
+
+\bibitem{bourlard1988auto}
+H~Bourlard and Y~Kamp.
+\newblock Auto-association by multilayer perceptrons and singular value
+  decomposition.
+\newblock {\em Biol. Cybern}, 59:291--294, 1988.
 
 \bibitem{diamantis2009fine}
 Aristidis Diamantis, Emmanouil Magiorkinis, and Helen Koutselini.
 \newblock Fine-needle aspiration (fna) biopsy: historical aspects.
 \newblock {\em Folia histochemica et cytobiologica}, 47(2):191--197, 2009.
+
+\bibitem{ggcs1986learning}
+KS~GGCS.
+\newblock Learning representations by back-propagating errors.
+\newblock {\em NATURE}, 323(9), 1986.
 
 \bibitem{kaggle_breast_cancer_wisconsin}
 UCI~Machine Learning and Ovsen.
@@ -17,16 +33,39 @@ UCI~Machine Learning and Ovsen.
   \url{https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data/data}.
 \newblock Kaggle Dataset. Accedido: 2025-11-27.
 
-\bibitem{neloy2024study}
-A~A Neloy and M~Turgeon.
+\bibitem{10418130}
+Ali Nawaz, Shehroz~S. Khan, and Amir Ahmad.
+\newblock Ensemble of autoencoders for anomaly detection in biomedical data: A
+  narrative review.
+\newblock {\em IEEE Access}, 12:17273--17289, 2024.
+
+\bibitem{neloy2024comprehensive}
+Asif~Ahmed Neloy and Maxime Turgeon.
 \newblock A comprehensive study of auto-encoders for anomaly detection:
   Efficiency and trade-offs.
 \newblock {\em Machine Learning with Applications}, 17:100572, 2024.
 
-\bibitem{walczyna2025latent}
-T~Walczyna et~al.
-\newblock Enhancing anomaly detection through latent space manipulation.
-\newblock {\em Applied Sciences}, 15(1):286, 2025.
+\bibitem{ng2011sparse}
+Andrew Ng et~al.
+\newblock Sparse autoencoder.
+\newblock {\em CS294A Lecture notes}, 72(2011):1--19, 2011.
+
+\bibitem{rifai2011contracting}
+Salah Rifai, Pascal Vincent, Xavier Muller, Xavier Glorot, and Yoshua Bengio.
+\newblock Contracting auto-encoders.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning (ICML), Bellevue, WA, USA}, page~95, 2011.
+
+\bibitem{Street1993NuclearFE}
+William~Nick Street, William~H. Wolberg, and Olvi~L. Mangasarian.
+\newblock Nuclear feature extraction for breast tumor diagnosis.
+\newblock In {\em Electronic imaging}, 1993.
+
+\bibitem{walczyna2024enhancing}
+Tomasz Walczyna, Damian Jankowski, and Zbigniew Piotrowski.
+\newblock Enhancing anomaly detection through latent space manipulation in
+  autoencoders: A comparative analysis.
+\newblock {\em Applied Sciences}, 15(1):286, 2024.
 
 \bibitem{breast_cancer_wisconsin}
 William Wolberg, Olvi Mangasarian, Nick Street, and W.~Street.
