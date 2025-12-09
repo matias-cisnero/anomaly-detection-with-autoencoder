@@ -12,22 +12,22 @@
 \providecommand \oddpage@label [2]{}
 \babel@aux{spanish}{}
 \citation{bank2020autoencoders}
-\BKM@entry{id=1,dest={636861707465722E31},srcline={156}}{5C3337365C3337375C303030495C3030306E5C303030745C303030725C3030306F5C303030645C303030755C303030635C303030635C303030695C3030305C3336335C3030306E}
-\BKM@entry{id=2,dest={73656374696F6E2E312E31},srcline={162}}{5C3337365C3337375C3030304D5C3030306F5C303030745C303030695C303030765C303030615C303030635C303030695C3030305C3336335C3030306E}
-\BKM@entry{id=3,dest={73656374696F6E2E312E32},srcline={172}}{5C3337365C3337375C303030455C303030735C303030745C303030615C303030645C3030306F5C3030305C3034305C303030645C303030655C3030306C5C3030305C3034305C303030415C303030725C303030745C30303065}
+\BKM@entry{id=1,dest={636861707465722E31},srcline={160}}{5C3337365C3337375C303030495C3030306E5C303030745C303030725C3030306F5C303030645C303030755C303030635C303030635C303030695C3030305C3336335C3030306E}
+\BKM@entry{id=2,dest={73656374696F6E2E312E31},srcline={166}}{5C3337365C3337375C3030304D5C3030306F5C303030745C303030695C303030765C303030615C303030635C303030695C3030305C3336335C3030306E}
+\BKM@entry{id=3,dest={73656374696F6E2E312E32},srcline={174}}{5C3337365C3337375C303030455C303030735C303030745C303030615C303030645C3030306F5C3030305C3034305C303030645C303030655C3030306C5C3030305C3034305C303030415C303030725C303030745C30303065}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introducción}{11}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Motivación}{11}{section.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Estado del Arte}{11}{section.1.2}\protected@file@percent }
 \citation{bouman2025autoencoders}
 \citation{neloy2024comprehensive}
 \citation{walczyna2024enhancing}
 \citation{10418130}
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}Estado del Arte}{12}{section.1.2}\protected@file@percent }
 \BKM@entry{id=4,dest={636861707465722E32},srcline={186}}{5C3337365C3337375C3030304D5C303030615C303030745C303030655C303030725C303030695C303030615C3030306C5C303030655C303030735C3030305C3034305C303030795C3030305C3034305C3030304D5C3030305C3335315C303030745C3030306F5C303030645C3030306F5C30303073}
 \citation{bank2020autoencoders}
 \citation{bank2020autoencoders}
-\BKM@entry{id=5,dest={73656374696F6E2E322E31},srcline={200}}{5C3337365C3337375C303030435C3030306F5C3030306E5C3030306A5C303030755C3030306E5C303030745C3030306F5C3030305C3034305C303030645C303030655C3030305C3034305C303030645C303030615C303030745C3030306F5C303030735C3030305C3034305C303030795C3030305C3034305C303030615C3030306E5C3030305C3334315C3030306C5C303030695C303030735C303030695C303030735C3030305C3034305C303030655C303030785C303030705C3030306C5C3030306F5C303030725C303030615C303030745C3030306F5C303030725C303030695C3030306F}
+\BKM@entry{id=5,dest={73656374696F6E2E322E31},srcline={200}}{5C3337365C3337375C303030435C3030306F5C3030306E5C3030306A5C303030755C3030306E5C303030745C3030306F5C3030305C3034305C303030645C303030655C3030305C3034305C303030645C303030615C303030745C3030306F5C303030735C3030305C3034305C303030795C3030305C3034305C303030455C303030445C30303041}
 \citation{kaggle_breast_cancer_wisconsin}
 \citation{breast_cancer_wisconsin}
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Materiales y Métodos}{15}{chapter.2}\protected@file@percent }
@@ -37,7 +37,7 @@
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:encoder_decoder}{{2.1}{15}{Ejemplo de un autocodificador, donde se codifica y decodifica una imagen (tomado de \cite {bank2020autoencoders})}{figure.caption.7}{}}
 \newlabel{fig:encoder_decoder@cref}{{[figure][1][2]2.1}{[1][15][]15}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Conjunto de datos y análisis exploratorio}{15}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Conjunto de datos y EDA}{15}{section.2.1}\protected@file@percent }
 \citation{diamantis2009fine}
 \citation{Street1993NuclearFE}
 \@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Descripción de las diez características base extraídas de las imágenes digitalizadas de FNA.}}{16}{table.caption.8}\protected@file@percent }
@@ -45,145 +45,136 @@
 \newlabel{tab:caracteristicas_base@cref}{{[table][1][2]2.1}{[1][16][]16}}
 \@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Distribución de la variable objetivo \emph  {diagnosis}}}{17}{table.caption.9}\protected@file@percent }
 \newlabel{tab:diagnosis}{{2.2}{17}{Distribución de la variable objetivo \emph {diagnosis}}{table.caption.9}{}}
-\newlabel{tab:diagnosis@cref}{{[table][2][2]2.2}{[1][17][]17}}
-\newlabel{eq:matriz_correlaciones}{{2.1}{17}{Conjunto de datos y análisis exploratorio}{equation.2.1.1}{}}
+\newlabel{tab:diagnosis@cref}{{[table][2][2]2.2}{[1][16][]17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Boxplot combinado de \emph  {Area Mean}, \emph  {Fractal Dimension Mean} y \emph  {Simmetry Mean}, segmentado por (normal/anómalo).}}{17}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:boxplot_mean}{{2.2}{17}{Boxplot combinado de \emph {Area Mean}, \emph {Fractal Dimension Mean} y \emph {Simmetry Mean}, segmentado por (normal/anómalo)}{figure.caption.10}{}}
+\newlabel{fig:boxplot_mean@cref}{{[figure][2][2]2.2}{[1][17][]17}}
+\newlabel{eq:matriz_correlaciones}{{2.1}{17}{Conjunto de datos y EDA}{equation.2.1.1}{}}
 \newlabel{eq:matriz_correlaciones@cref}{{[equation][1][2]2.1}{[1][17][]17}}
-\newlabel{eq:correlacion}{{2.2}{17}{Conjunto de datos y análisis exploratorio}{equation.2.1.2}{}}
+\newlabel{eq:correlacion}{{2.2}{17}{Conjunto de datos y EDA}{equation.2.1.2}{}}
 \newlabel{eq:correlacion@cref}{{[equation][2][2]2.2}{[1][17][]17}}
-\newlabel{eq:covarianza}{{2.3}{17}{Conjunto de datos y análisis exploratorio}{equation.2.1.3}{}}
-\newlabel{eq:covarianza@cref}{{[equation][3][2]2.3}{[1][17][]17}}
-\newlabel{eq:media_muestral}{{2.4}{17}{Conjunto de datos y análisis exploratorio}{equation.2.1.4}{}}
-\newlabel{eq:media_muestral@cref}{{[equation][4][2]2.4}{[1][17][]17}}
-\newlabel{eq:desvio_muestral}{{2.5}{17}{Conjunto de datos y análisis exploratorio}{equation.2.1.5}{}}
-\newlabel{eq:desvio_muestral@cref}{{[equation][5][2]2.5}{[1][17][]17}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Matriz de correlación entre los atributos del conjunto de datos.}}{18}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:corr_matrix}{{2.2}{18}{Matriz de correlación entre los atributos del conjunto de datos}{figure.caption.10}{}}
-\newlabel{fig:corr_matrix@cref}{{[figure][2][2]2.2}{[1][17][]18}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces División del conjunto original en entrenamiento, validación y prueba, manteniendo la proporción original de clases.}}{18}{table.caption.11}\protected@file@percent }
-\newlabel{tab:division_subconjuntos}{{2.3}{18}{División del conjunto original en entrenamiento, validación y prueba, manteniendo la proporción original de clases}{table.caption.11}{}}
-\newlabel{tab:division_subconjuntos@cref}{{[table][3][2]2.3}{[1][18][]18}}
-\newlabel{eq:estandarizacion}{{2.6}{18}{Conjunto de datos y análisis exploratorio}{equation.2.1.6}{}}
-\newlabel{eq:estandarizacion@cref}{{[equation][6][2]2.6}{[1][18][]18}}
-\BKM@entry{id=6,dest={73656374696F6E2E322E32},srcline={358}}{5C3337365C3337375C303030445C303030655C303030735C303030635C303030725C303030695C303030705C303030635C303030695C3030305C3336335C3030306E5C3030305C3034305C303030645C303030655C3030305C3034305C3030306C5C3030306F5C303030735C3030305C3034305C3030306D5C3030305C3335315C303030745C3030306F5C303030645C3030306F5C30303073}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Diagrama del proceso de división del conjunto de datos en entrenamiento, validación y prueba, para posterior creación de los subconjuntos A, B y C con diferentes proporciones de anomalías.}}{19}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:diagrama_proporciones}{{2.3}{19}{Diagrama del proceso de división del conjunto de datos en entrenamiento, validación y prueba, para posterior creación de los subconjuntos A, B y C con diferentes proporciones de anomalías}{figure.caption.12}{}}
-\newlabel{fig:diagrama_proporciones@cref}{{[figure][3][2]2.3}{[1][19][]19}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.4}{\ignorespaces Subconjuntos derivados del subconjunto de entrenamiento para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}}{19}{table.caption.13}\protected@file@percent }
-\newlabel{tab:proporciones_conjunto}{{2.4}{19}{Subconjuntos derivados del subconjunto de entrenamiento para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías}{table.caption.13}{}}
-\newlabel{tab:proporciones_conjunto@cref}{{[table][4][2]2.4}{[1][19][]19}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Descripción de los métodos}{19}{section.2.2}\protected@file@percent }
-\BKM@entry{id=7,dest={73756273656374696F6E2E322E322E31},srcline={364}}{5C3337365C3337375C303030415C303030755C303030745C3030306F5C303030635C3030306F5C303030645C303030695C303030665C303030695C303030635C303030615C303030645C3030306F5C303030725C303030655C30303073}
+\newlabel{eq:covarianza}{{2.3}{18}{Conjunto de datos y EDA}{equation.2.1.3}{}}
+\newlabel{eq:covarianza@cref}{{[equation][3][2]2.3}{[1][17][]18}}
+\newlabel{eq:media_muestral}{{2.4}{18}{Conjunto de datos y EDA}{equation.2.1.4}{}}
+\newlabel{eq:media_muestral@cref}{{[equation][4][2]2.4}{[1][18][]18}}
+\newlabel{eq:desvio_muestral}{{2.5}{18}{Conjunto de datos y EDA}{equation.2.1.5}{}}
+\newlabel{eq:desvio_muestral@cref}{{[equation][5][2]2.5}{[1][18][]18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Matriz de correlación entre los atributos del conjunto de datos.}}{18}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:corr_matrix}{{2.3}{18}{Matriz de correlación entre los atributos del conjunto de datos}{figure.caption.11}{}}
+\newlabel{fig:corr_matrix@cref}{{[figure][3][2]2.3}{[1][18][]18}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces División del conjunto original en entrenamiento, validación y prueba, manteniendo la proporción original de clases.}}{19}{table.caption.12}\protected@file@percent }
+\newlabel{tab:division_subconjuntos}{{2.3}{19}{División del conjunto original en entrenamiento, validación y prueba, manteniendo la proporción original de clases}{table.caption.12}{}}
+\newlabel{tab:division_subconjuntos@cref}{{[table][3][2]2.3}{[1][18][]19}}
+\newlabel{eq:estandarizacion}{{2.6}{19}{Conjunto de datos y EDA}{equation.2.1.6}{}}
+\newlabel{eq:estandarizacion@cref}{{[equation][6][2]2.6}{[1][19][]19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Esquema de la división del conjunto de datos.}}{19}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:diagrama_proporciones}{{2.4}{19}{Esquema de la división del conjunto de datos}{figure.caption.13}{}}
+\newlabel{fig:diagrama_proporciones@cref}{{[figure][4][2]2.4}{[1][19][]19}}
+\BKM@entry{id=6,dest={73656374696F6E2E322E32},srcline={359}}{5C3337365C3337375C303030445C303030655C303030735C303030635C303030725C303030695C303030705C303030635C303030695C3030305C3336335C3030306E5C3030305C3034305C303030645C303030655C3030305C3034305C3030306C5C3030306F5C303030735C3030305C3034305C3030306D5C3030305C3335315C303030745C3030306F5C303030645C3030306F5C30303073}
+\BKM@entry{id=7,dest={73756273656374696F6E2E322E322E31},srcline={365}}{5C3337365C3337375C303030415C303030755C303030745C3030306F5C303030635C3030306F5C303030645C303030695C303030665C303030695C303030635C303030615C303030645C3030306F5C303030725C303030655C30303073}
 \citation{ggcs1986learning}
 \citation{bourlard1988auto}
+\@writefile{lot}{\contentsline {table}{\numberline {2.4}{\ignorespaces Subconjuntos derivados del subconjunto de entrenamiento para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}}{20}{table.caption.14}\protected@file@percent }
+\newlabel{tab:proporciones_conjunto}{{2.4}{20}{Subconjuntos derivados del subconjunto de entrenamiento para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías}{table.caption.14}{}}
+\newlabel{tab:proporciones_conjunto@cref}{{[table][4][2]2.4}{[1][19][]20}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Descripción de los métodos}{20}{section.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Autocodificadores}{20}{subsection.2.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $\hat  {X}$.}}{20}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:arquitectura}{{2.4}{20}{Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $\hat {X}$}{figure.caption.14}{}}
-\newlabel{fig:arquitectura@cref}{{[figure][4][2]2.4}{[1][20][]20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Arquitectura general de un autocodificador.}}{21}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:arquitectura}{{2.5}{21}{Arquitectura general de un autocodificador}{figure.caption.15}{}}
+\newlabel{fig:arquitectura@cref}{{[figure][5][2]2.5}{[1][20][]21}}
 \newlabel{eq:encoding}{{2.10}{21}{Autocodificadores}{equation.2.2.10}{}}
 \newlabel{eq:encoding@cref}{{[equation][10][2]2.10}{[1][21][]21}}
 \newlabel{eq:decoding}{{2.11}{21}{Autocodificadores}{equation.2.2.11}{}}
 \newlabel{eq:decoding@cref}{{[equation][11][2]2.11}{[1][21][]21}}
 \newlabel{eq:loss_autoencoder}{{2.12}{21}{Autocodificadores}{equation.2.2.12}{}}
 \newlabel{eq:loss_autoencoder@cref}{{[equation][12][2]2.12}{[1][21][]21}}
-\newlabel{eq:activacion}{{2.13}{21}{Autocodificadores}{equation.2.2.13}{}}
-\newlabel{eq:activacion@cref}{{[equation][13][2]2.13}{[1][21][]21}}
 \citation{ng2011sparse}
+\newlabel{eq:activacion}{{2.13}{22}{Autocodificadores}{equation.2.2.13}{}}
+\newlabel{eq:activacion@cref}{{[equation][13][2]2.13}{[1][21][]22}}
 \newlabel{eq:gelu}{{2.14}{22}{Autocodificadores}{equation.2.2.14}{}}
-\newlabel{eq:gelu@cref}{{[equation][14][2]2.14}{[1][21][]22}}
+\newlabel{eq:gelu@cref}{{[equation][14][2]2.14}{[1][22][]22}}
 \newlabel{eq:relu}{{2.15}{22}{Autocodificadores}{equation.2.2.15}{}}
 \newlabel{eq:relu@cref}{{[equation][15][2]2.15}{[1][22][]22}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Comparación entre las funciones de activación $\operatorname  {ReLU}$ y $\operatorname  {GELU}$. Se observa que $\operatorname  {GELU}$ presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}}{22}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:relugelu}{{2.5}{22}{Comparación entre las funciones de activación $\operatorname {ReLU}$ y $\operatorname {GELU}$. Se observa que $\operatorname {GELU}$ presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales}{figure.caption.15}{}}
-\newlabel{fig:relugelu@cref}{{[figure][5][2]2.5}{[1][22][]22}}
-\newlabel{eq:loss_sae}{{2.16}{22}{Autocodificadores}{equation.2.2.16}{}}
-\newlabel{eq:loss_sae@cref}{{[equation][16][2]2.16}{[1][22][]22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Funciones de activación $\operatorname  {ReLU}$ y $\operatorname  {GELU}$.}}{22}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:relugelu}{{2.6}{22}{Funciones de activación $\operatorname {ReLU}$ y $\operatorname {GELU}$}{figure.caption.16}{}}
+\newlabel{fig:relugelu@cref}{{[figure][6][2]2.6}{[1][22][]22}}
 \citation{rifai2011contracting}
+\newlabel{eq:loss_sae}{{2.16}{23}{Autocodificadores}{equation.2.2.16}{}}
+\newlabel{eq:loss_sae@cref}{{[equation][16][2]2.16}{[1][23][]23}}
 \newlabel{eq:kullback-leibler}{{2.17}{23}{Autocodificadores}{equation.2.2.17}{}}
-\newlabel{eq:kullback-leibler@cref}{{[equation][17][2]2.17}{[1][22][]23}}
+\newlabel{eq:kullback-leibler@cref}{{[equation][17][2]2.17}{[1][23][]23}}
 \newlabel{eq:matriz_jacobiana}{{2.18}{23}{Autocodificadores}{equation.2.2.18}{}}
 \newlabel{eq:matriz_jacobiana@cref}{{[equation][18][2]2.18}{[1][23][]23}}
 \newlabel{eq:frobenius}{{2.19}{23}{Autocodificadores}{equation.2.2.19}{}}
 \newlabel{eq:frobenius@cref}{{[equation][19][2]2.19}{[1][23][]23}}
 \newlabel{eq:loss_cae}{{2.20}{23}{Autocodificadores}{equation.2.2.20}{}}
 \newlabel{eq:loss_cae@cref}{{[equation][20][2]2.20}{[1][23][]23}}
-\newlabel{eq:etiqueta}{{2.21}{23}{Autocodificadores}{equation.2.2.21}{}}
-\newlabel{eq:etiqueta@cref}{{[equation][21][2]2.21}{[1][23][]23}}
-\newlabel{eq:subconjunto_normal}{{2.22}{23}{Autocodificadores}{equation.2.2.22}{}}
-\newlabel{eq:subconjunto_normal@cref}{{[equation][22][2]2.22}{[1][23][]23}}
-\BKM@entry{id=8,dest={73756273656374696F6E2E322E322E32},srcline={563}}{5C3337365C3337375C3030304D5C3030305C3335315C303030745C303030725C303030695C303030635C303030615C303030735C3030305C3034305C303030645C303030655C3030305C3034305C303030655C303030765C303030615C3030306C5C303030755C303030615C303030635C303030695C3030305C3336335C3030306E5C3030305C3034305C303030645C303030655C3030306C5C3030305C3034305C3030306D5C3030306F5C303030645C303030655C3030306C5C3030306F}
+\BKM@entry{id=8,dest={73756273656374696F6E2E322E322E32},srcline={564}}{5C3337365C3337375C3030304D5C3030305C3335315C303030745C303030725C303030695C303030635C303030615C303030735C3030305C3034305C303030645C303030655C3030305C3034305C303030655C303030765C303030615C3030306C5C303030755C303030615C303030635C303030695C3030305C3336335C3030306E5C3030305C3034305C303030645C303030655C3030306C5C3030305C3034305C3030306D5C3030306F5C303030645C303030655C3030306C5C3030306F}
+\newlabel{eq:etiqueta}{{2.21}{24}{Autocodificadores}{equation.2.2.21}{}}
+\newlabel{eq:etiqueta@cref}{{[equation][21][2]2.21}{[1][24][]24}}
+\newlabel{eq:subconjunto_normal}{{2.22}{24}{Autocodificadores}{equation.2.2.22}{}}
+\newlabel{eq:subconjunto_normal@cref}{{[equation][22][2]2.22}{[1][24][]24}}
 \newlabel{eq:dif_reconstruccion}{{2.23}{24}{Autocodificadores}{equation.2.2.23}{}}
 \newlabel{eq:dif_reconstruccion@cref}{{[equation][23][2]2.23}{[1][24][]24}}
 \newlabel{eq:epsilon}{{2.24}{24}{Autocodificadores}{equation.2.2.24}{}}
 \newlabel{eq:epsilon@cref}{{[equation][24][2]2.24}{[1][24][]24}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Métricas de evaluación del modelo}{24}{subsection.2.2.2}\protected@file@percent }
-\newlabel{eq:criterio}{{2.25}{24}{Métricas de evaluación del modelo}{equation.2.2.25}{}}
-\newlabel{eq:criterio@cref}{{[equation][25][2]2.25}{[1][24][]24}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.5}{\ignorespaces Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}}{25}{table.caption.16}\protected@file@percent }
-\newlabel{tab:mat_conf}{{2.5}{25}{Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación}{table.caption.16}{}}
+\newlabel{eq:criterio}{{2.25}{25}{Métricas de evaluación del modelo}{equation.2.2.25}{}}
+\newlabel{eq:criterio@cref}{{[equation][25][2]2.25}{[1][25][]25}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.5}{\ignorespaces Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación.}}{25}{table.caption.17}\protected@file@percent }
+\newlabel{tab:mat_conf}{{2.5}{25}{Matriz de confusión. La diagonal verde representa predicciones correctas, mientras que las celdas rojas corresponden a errores de clasificación}{table.caption.17}{}}
 \newlabel{tab:mat_conf@cref}{{[table][5][2]2.5}{[1][25][]25}}
 \newlabel{eq:accuracy}{{2.26}{25}{Métricas de evaluación del modelo}{equation.2.2.26}{}}
 \newlabel{eq:accuracy@cref}{{[equation][26][2]2.26}{[1][25][]25}}
 \newlabel{eq:precision}{{2.27}{25}{Métricas de evaluación del modelo}{equation.2.2.27}{}}
 \newlabel{eq:precision@cref}{{[equation][27][2]2.27}{[1][25][]25}}
-\newlabel{eq:recall}{{2.28}{25}{Métricas de evaluación del modelo}{equation.2.2.28}{}}
-\newlabel{eq:recall@cref}{{[equation][28][2]2.28}{[1][25][]25}}
-\newlabel{eq:specificity}{{2.29}{25}{Métricas de evaluación del modelo}{equation.2.2.29}{}}
-\newlabel{eq:specificity@cref}{{[equation][29][2]2.29}{[1][25][]25}}
-\newlabel{eq:balanced-accuracy}{{2.30}{25}{Métricas de evaluación del modelo}{equation.2.2.30}{}}
-\newlabel{eq:balanced-accuracy@cref}{{[equation][30][2]2.30}{[1][25][]25}}
+\newlabel{eq:recall}{{2.28}{26}{Métricas de evaluación del modelo}{equation.2.2.28}{}}
+\newlabel{eq:recall@cref}{{[equation][28][2]2.28}{[1][25][]26}}
+\newlabel{eq:specificity}{{2.29}{26}{Métricas de evaluación del modelo}{equation.2.2.29}{}}
+\newlabel{eq:specificity@cref}{{[equation][29][2]2.29}{[1][26][]26}}
+\newlabel{eq:balanced-accuracy}{{2.30}{26}{Métricas de evaluación del modelo}{equation.2.2.30}{}}
+\newlabel{eq:balanced-accuracy@cref}{{[equation][30][2]2.30}{[1][26][]26}}
 \newlabel{eq:f1-score}{{2.31}{26}{Métricas de evaluación del modelo}{equation.2.2.31}{}}
 \newlabel{eq:f1-score@cref}{{[equation][31][2]2.31}{[1][26][]26}}
 \newlabel{eq:tpr}{{2.32}{26}{Métricas de evaluación del modelo}{equation.2.2.32}{}}
 \newlabel{eq:tpr@cref}{{[equation][32][2]2.32}{[1][26][]26}}
-\newlabel{eq:fpr}{{2.33}{26}{Métricas de evaluación del modelo}{equation.2.2.33}{}}
-\newlabel{eq:fpr@cref}{{[equation][33][2]2.33}{[1][26][]26}}
-\BKM@entry{id=9,dest={636861707465722E33},srcline={694}}{5C3337365C3337375C303030525C303030655C303030735C303030755C3030306C5C303030745C303030615C303030645C3030306F5C30303073}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Resultados}{27}{chapter.3}\protected@file@percent }
+\newlabel{eq:fpr}{{2.33}{27}{Métricas de evaluación del modelo}{equation.2.2.33}{}}
+\newlabel{eq:fpr@cref}{{[equation][33][2]2.33}{[1][27][]27}}
+\BKM@entry{id=9,dest={636861707465722E33},srcline={695}}{5C3337365C3337375C303030525C303030655C303030735C303030755C3030306C5C303030745C303030615C303030645C3030306F5C30303073}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Resultados}{29}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Hiperparámetros de entrenamiento para cada modelo.}}{27}{table.caption.17}\protected@file@percent }
-\newlabel{tab:hiperparametros_modelos}{{3.1}{27}{Hiperparámetros de entrenamiento para cada modelo}{table.caption.17}{}}
-\newlabel{tab:hiperparametros_modelos@cref}{{[table][1][3]3.1}{[1][27][]27}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura del autocodificador utilizado}}{28}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:configuracion_autoencoder}{{3.1}{28}{Arquitectura del autocodificador utilizado}{figure.caption.18}{}}
-\newlabel{fig:configuracion_autoencoder@cref}{{[figure][1][3]3.1}{[1][27][]28}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Valores de umbral $\epsilon $ obtenidos para cada modelo.}}{28}{table.caption.19}\protected@file@percent }
-\newlabel{tab:epsilons_modelos}{{3.2}{28}{Valores de umbral $\epsilon $ obtenidos para cada modelo}{table.caption.19}{}}
-\newlabel{tab:epsilons_modelos@cref}{{[table][2][3]3.2}{[1][28][]28}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Distribución del error de reconstrucción para el autocodificador A.}}{29}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:hist_error_recons_a}{{3.2}{29}{Distribución del error de reconstrucción para el autocodificador A}{figure.caption.20}{}}
-\newlabel{fig:hist_error_recons_a@cref}{{[figure][2][3]3.2}{[1][28][]29}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Distribución del error de reconstrucción para el autocodificador B.}}{29}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:hist_error_recons_b}{{3.3}{29}{Distribución del error de reconstrucción para el autocodificador B}{figure.caption.21}{}}
-\newlabel{fig:hist_error_recons_b@cref}{{[figure][3][3]3.3}{[1][29][]29}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Distribución del error de reconstrucción para el autocodificador C.}}{29}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:hist_error_recons_c}{{3.4}{29}{Distribución del error de reconstrucción para el autocodificador C}{figure.caption.22}{}}
-\newlabel{fig:hist_error_recons_c@cref}{{[figure][4][3]3.4}{[1][29][]29}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de confusión expresada en valores relativos para el conjunto evaluado.}}{30}{figure.caption.23}\protected@file@percent }
-\newlabel{fig:matriz_conf_pct_A}{{3.5}{30}{Matriz de confusión expresada en valores relativos para el conjunto evaluado}{figure.caption.23}{}}
-\newlabel{fig:matriz_conf_pct_A@cref}{{[figure][5][3]3.5}{[1][29][]30}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de confusión expresada en valores relativos para el conjunto evaluado.}}{30}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:matriz_conf_pct_B}{{3.6}{30}{Matriz de confusión expresada en valores relativos para el conjunto evaluado}{figure.caption.24}{}}
-\newlabel{fig:matriz_conf_pct_B@cref}{{[figure][6][3]3.6}{[1][30][]30}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Matriz de confusión expresada en valores relativos para el conjunto evaluado.}}{30}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:matriz_conf_pct_C}{{3.7}{30}{Matriz de confusión expresada en valores relativos para el conjunto evaluado}{figure.caption.25}{}}
-\newlabel{fig:matriz_conf_pct_C@cref}{{[figure][7][3]3.7}{[1][30][]30}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C.}}{31}{table.caption.26}\protected@file@percent }
-\newlabel{tab:metricas_modelos}{{3.3}{31}{Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C}{table.caption.26}{}}
-\newlabel{tab:metricas_modelos@cref}{{[table][3][3]3.3}{[1][30][]31}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías).}}{31}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:autoencoder_roc_auc_A}{{3.8}{31}{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías)}{figure.caption.27}{}}
-\newlabel{fig:autoencoder_roc_auc_A@cref}{{[figure][8][3]3.8}{[1][31][]31}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías).}}{32}{figure.caption.28}\protected@file@percent }
-\newlabel{fig:autoencoder_roc_auc_B}{{3.9}{32}{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías)}{figure.caption.28}{}}
-\newlabel{fig:autoencoder_roc_auc_B@cref}{{[figure][9][3]3.9}{[1][31][]32}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías).}}{32}{figure.caption.29}\protected@file@percent }
-\newlabel{fig:autoencoder_roc_auc_C}{{3.10}{32}{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías)}{figure.caption.29}{}}
-\newlabel{fig:autoencoder_roc_auc_C@cref}{{[figure][10][3]3.10}{[1][32][]32}}
-\BKM@entry{id=10,dest={636861707465722E34},srcline={848}}{5C3337365C3337375C303030435C3030306F5C3030306E5C303030635C3030306C5C303030755C303030735C303030695C3030306F5C3030306E5C303030655C30303073}
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Hiperparámetros de entrenamiento para cada modelo.}}{29}{table.caption.18}\protected@file@percent }
+\newlabel{tab:hiperparametros_modelos}{{3.1}{29}{Hiperparámetros de entrenamiento para cada modelo}{table.caption.18}{}}
+\newlabel{tab:hiperparametros_modelos@cref}{{[table][1][3]3.1}{[1][29][]29}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Valores de umbral $\epsilon $ obtenidos para cada modelo.}}{30}{table.caption.19}\protected@file@percent }
+\newlabel{tab:epsilons_modelos}{{3.2}{30}{Valores de umbral $\epsilon $ obtenidos para cada modelo}{table.caption.19}{}}
+\newlabel{tab:epsilons_modelos@cref}{{[table][2][3]3.2}{[1][29][]30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Distribución del error de reconstrucción para el autocodificador A.}}{30}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:hist_error_recons_A}{{3.1}{30}{Distribución del error de reconstrucción para el autocodificador A}{figure.caption.20}{}}
+\newlabel{fig:hist_error_recons_A@cref}{{[figure][1][3]3.1}{[1][30][]30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Distribución del error de reconstrucción para el autocodificador B.}}{30}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:hist_error_recons_B}{{3.2}{30}{Distribución del error de reconstrucción para el autocodificador B}{figure.caption.21}{}}
+\newlabel{fig:hist_error_recons_B@cref}{{[figure][2][3]3.2}{[1][30][]30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Distribución del error de reconstrucción para el autocodificador C.}}{31}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:hist_error_recons_C}{{3.3}{31}{Distribución del error de reconstrucción para el autocodificador C}{figure.caption.22}{}}
+\newlabel{fig:hist_error_recons_C@cref}{{[figure][3][3]3.3}{[1][30][]31}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C.}}{31}{table.caption.23}\protected@file@percent }
+\newlabel{tab:metricas_modelos}{{3.3}{31}{Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C}{table.caption.23}{}}
+\newlabel{tab:metricas_modelos@cref}{{[table][3][3]3.3}{[1][31][]31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías).}}{32}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:autoencoder_roc_auc_A}{{3.4}{32}{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías)}{figure.caption.24}{}}
+\newlabel{fig:autoencoder_roc_auc_A@cref}{{[figure][4][3]3.4}{[1][31][]32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías).}}{32}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:autoencoder_roc_auc_B}{{3.5}{32}{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías)}{figure.caption.25}{}}
+\newlabel{fig:autoencoder_roc_auc_B@cref}{{[figure][5][3]3.5}{[1][32][]32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías).}}{33}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:autoencoder_roc_auc_C}{{3.6}{33}{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías)}{figure.caption.26}{}}
+\newlabel{fig:autoencoder_roc_auc_C@cref}{{[figure][6][3]3.6}{[1][32][]33}}
+\BKM@entry{id=10,dest={636861707465722E34},srcline={819}}{5C3337365C3337375C303030435C3030306F5C3030306E5C303030635C3030306C5C303030755C303030735C303030695C3030306F5C3030306E5C303030655C30303073}
 \bibstyle{plain}
 \bibdata{../References}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Conclusiones}{33}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Conclusiones}{35}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \bibcite{bank2020autoencoders}{{1}{}{{}}{{}}}
@@ -200,4 +191,4 @@
 \bibcite{walczyna2024enhancing}{{12}{}{{}}{{}}}
 \bibcite{breast_cancer_wisconsin}{{13}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\gdef \@abspage@last{35}
+\gdef \@abspage@last{37}

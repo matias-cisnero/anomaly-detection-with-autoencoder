@@ -13,6 +13,8 @@ anotaciones.md
 pruebas0.py
 pruebas.py
 train_autoencoder1.py
+train_autoencoder2.py
+feature_selection.ipynb
 grid_search1.py
 EDA1.ipynb
 test1.

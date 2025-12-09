@@ -4,6 +4,9 @@ from models import Autoencoder, SAE, CAE, VAE
 from utils import get_device, set_seed ,save_grid_search_results, crear_conjuntos_con_validacion_estandarizados
 
 # =================== CARGA Y PREPROCESAMIENTO ===================
+seeds = np.random.randint(0, 10_000, size=300)
+set_seed(11)
+
 df = pd.read_csv("data/breast-cancer-wisconsin.csv")
 
 # Quitamos atributos no necesarios
@@ -14,10 +17,10 @@ df["diagnosis"] = df["diagnosis"].map({"M": 1, "B": 0})
 
 # Dividimos nuestros conjuntos de datos
 conjuntos = crear_conjuntos_con_validacion_estandarizados(df, "diagnosis")
-input_size = 30
 
 x_test, y_test, x_val, y_val, x_val_norm, y_val_norm, conjuntos_train = conjuntos
 x_train, y_train = conjuntos_train[0]
+input_size = x_train.shape[1]
 
 device = get_device()
 
@@ -29,17 +32,17 @@ capas_posibles = [
     [input_size, 32, 16, 8, 4, 2],
     [input_size, 64, 32, 16, 8, 4, 2],
     [input_size, 128, 64, 32, 16, 8, 4, 2],
-    [input_size, 256, 128, 64, 32, 16, 8, 4, 2],
+
+    [input_size, 32, 16, 8, 4],
+    [input_size, 64, 32, 16, 8, 4],
+    [input_size, 128, 64, 32, 16, 8, 4],
 
     [input_size, 64, 32, 16, 8],
     [input_size, 128, 64, 32, 16],
     [input_size, 256, 128, 64, 32],
 
+    [input_size, 128, 64],
     [input_size, 64, 32],
-    [input_size, 64],
-    [input_size, 32],
-
-    [input_size, 128, 32],
     [input_size, 64, 16]
 ]
 
@@ -48,6 +51,7 @@ EPOCHS = 1000
 USE_LR_SCHEDULER = False
 PATIENCE_EARLY_STOPPING = 50
 
+current_seed = 0
 historial = []
 
 print("INICIANDO GRID SEARCH")
@@ -61,7 +65,9 @@ for ModeloClass in modelos:
         print(f"\n-- LR = {lr} --")
         
         for capas in capas_posibles:
-            set_seed(11)
+
+            set_seed(seeds[current_seed])
+            current_seed += 1
 
             modelo = ModeloClass(capas).to(device)
 
@@ -74,6 +80,7 @@ for ModeloClass in modelos:
             historial.append({
                     "modelo": nombre_modelo,
                     "conjunto": "A",
+                    "seed_used": seeds[current_seed],
                     "capas": str(capas), # una sola línea
                     "lr": lr,
                     "error": round(error_final, 4),

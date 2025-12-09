@@ -2,19 +2,16 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Ejemplo de un autocodificador, donde se codifica y decodifica una imagen (tomado de \cite {bank2020autoencoders}).}}{15}{figure.caption.7}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Matriz de correlación entre los atributos del conjunto de datos.}}{18}{figure.caption.10}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Diagrama del proceso de división del conjunto de datos en entrenamiento, validación y prueba, para posterior creación de los subconjuntos A, B y C con diferentes proporciones de anomalías.}}{19}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Arquitectura de un autocodificador: la entrada $X$ es procesada por el codificador hasta obtener la representación latente $Z$, a partir de la cual el decodificador reconstruye la salida $\hat {X}$.}}{20}{figure.caption.14}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Comparación entre las funciones de activación $\operatorname {ReLU}$ y $\operatorname {GELU}$. Se observa que $\operatorname {GELU}$ presenta una transición suave alrededor de cero, lo que evita discontinuidades y favorece un entrenamiento más estable en modelos neuronales.}}{22}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Boxplot combinado de \emph {Area Mean}, \emph {Fractal Dimension Mean} y \emph {Simmetry Mean}, segmentado por (normal/anómalo).}}{17}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Matriz de correlación entre los atributos del conjunto de datos.}}{18}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Esquema de la división del conjunto de datos.}}{19}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Arquitectura general de un autocodificador.}}{21}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Funciones de activación $\operatorname {ReLU}$ y $\operatorname {GELU}$.}}{22}{figure.caption.16}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura del autocodificador utilizado}}{28}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Distribución del error de reconstrucción para el autocodificador A.}}{29}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Distribución del error de reconstrucción para el autocodificador B.}}{29}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Distribución del error de reconstrucción para el autocodificador C.}}{29}{figure.caption.22}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de confusión expresada en valores relativos para el conjunto evaluado.}}{30}{figure.caption.23}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de confusión expresada en valores relativos para el conjunto evaluado.}}{30}{figure.caption.24}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Matriz de confusión expresada en valores relativos para el conjunto evaluado.}}{30}{figure.caption.25}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías).}}{31}{figure.caption.27}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías).}}{32}{figure.caption.28}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías).}}{32}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Distribución del error de reconstrucción para el autocodificador A.}}{30}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Distribución del error de reconstrucción para el autocodificador B.}}{30}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Distribución del error de reconstrucción para el autocodificador C.}}{31}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías).}}{32}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías).}}{32}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías).}}{33}{figure.caption.26}%
 \addvspace {10\p@ }

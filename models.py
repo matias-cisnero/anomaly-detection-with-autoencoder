@@ -122,20 +122,20 @@ class BaseAutoencoder(nn.Module):
             
             if epochs_no_improve >= patience_early_stopping:
                 if verbose >= 1:
-                    print(f"Early stopping: sin mejora en val_norm por {patience_early_stopping} épocas")
+                    print(f"Early stopping: sin mejora en val_norm en época [{epoch+1}]")
                 break
 
             # Early stopping de scheduler
             if use_lr_scheduler and optimizer.param_groups[0]['lr'] < 1e-6:
                 if verbose >= 1:
-                    print(f"Early stopping: LR mínimo alcanzado en época {epoch}")
+                    print(f"Early stopping: LR mínimo alcanzado en época [{epoch+1}]")
                 break
 
         if verbose == 2:
             plt.figure(figsize=(8, 5))
 
-            plt.plot(loss_history, label="Train loss")
-            plt.plot(val_loss_history, label="Validation loss")
+            plt.plot(loss_history, label="Pérdida de entrenamiento")
+            plt.plot(val_loss_history, label="Pérdida de validación")
 
             plt.xlabel("Época")
             plt.ylabel("Error medio (MSE)")

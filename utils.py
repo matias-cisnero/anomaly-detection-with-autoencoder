@@ -129,23 +129,23 @@ def crear_conjuntos_proporcionales_estandarizados(df: pd.DataFrame, concepto: st
 
 def crear_conjuntos_con_validacion_estandarizados(
     df: pd.DataFrame, concepto: str, test_size: float = 0.2, val_size: float = 0.2, proporciones: list = [0.0, 0.10, 0.25]):
-
+    seed = 11
     df_train, df_temp = train_test_split(
         df,
         test_size=0.40,         # 40% → se divide en val y test
-        random_state=11,
+        random_state=seed,
         stratify=df[concepto]
     )
 
     df_val, df_test = train_test_split(
         df_temp,
         test_size=0.50,         # 50% de 40% → 20%
-        random_state=11,
+        random_state=seed,
         stratify=df_temp[concepto]
     )
 
     df_train_std, df_val_std  = estandarizar_columnas_no_binarias_train(df_train, df_val)
-    df_train_std, df_test_std = estandarizar_columnas_no_binarias_train(df_train, df_test)
+    _, df_test_std = estandarizar_columnas_no_binarias_train(df_train_std, df_test)
 
     x_test = df_test_std.drop(columns=[concepto]).to_numpy()
     y_test = df_test_std[concepto].to_numpy()
@@ -172,9 +172,9 @@ def crear_conjuntos_con_validacion_estandarizados(
         n0 = min(n0, len(df0))
 
         df_mix = pd.concat([
-            df0.sample(n0, random_state=11),
-            df1.sample(n1, random_state=11)
-        ]).sample(frac=1, random_state=11).reset_index(drop=True)
+            df0.sample(n0, random_state=seed),
+            df1.sample(n1, random_state=seed)
+        ]).sample(frac=1, random_state=seed).reset_index(drop=True)
 
         x_train = df_mix.drop(columns=[concepto]).to_numpy()
         y_train = df_mix[concepto].to_numpy()
@@ -337,28 +337,26 @@ def obtener_metricas(TP: int, FN: int, TN: int, FP: int):
     }
 
 def graficar_matriz_confusion(TP: int, FN: int, TN: int, FP: int, norm: bool = False):
-    matriz = np.array([
-        [TP, FN],
-        [FP, TN]
-    ])
-
-    if norm:
-        matriz = matriz / matriz.sum()
-
-    display_labels = ["Anómalo", "Normal"]
-
-    fig, ax = plt.subplots(figsize=(6,6))
-    disp = ConfusionMatrixDisplay(confusion_matrix=matriz, display_labels=display_labels)
-    disp.plot(ax=ax, cmap="Blues", colorbar=True)
     
-    # mover etiquetas arriba
-    ax.xaxis.set_label_position("top")
+    matriz = np.array([[TP, FN], [FP, TN]])
+    if norm: matriz = matriz / matriz.sum()
+    
+    sns.set_theme(style="white", context="notebook", font_scale=1.1)
+    plt.figure(figsize=(6, 6))
+    
+    # Heatmap configurado en una sola línea
+    ax = sns.heatmap(matriz, annot=True, fmt=".1%" if norm else "d", cmap="Blues", cbar=False, square=True, linewidths=1.5, linecolor='white', xticklabels=["Anómalo", "Normal"], yticklabels=["Anómalo", "Normal"], annot_kws={"size": 14})
+    
+    # Mover etiquetas al tope
     ax.xaxis.tick_top()
+    ax.xaxis.set_label_position('top')
     
-    ax.set_ylabel("Etiqueta real")
-    ax.set_xlabel("Etiqueta predicha")
+    # Etiquetas de ejes limpias
+    plt.ylabel("Etiqueta Real")
+    plt.xlabel("Etiqueta Predicha")
     
-    plt.show()  
+    plt.tight_layout()
+    plt.show()
 
 def calcular_auc(dif_norm, dif_anom):
     scores = np.concatenate([dif_norm, dif_anom])
@@ -411,26 +409,26 @@ def graficar_espacio_latente(z: np.ndarray, y_labels: np.ndarray = None, target_
     plt.grid(True, alpha=0.5)
     plt.show()
 
-def graficar_histograma_errores_reconstruccion(dif_norm, dif_anom, epsilon = None, kde = False, bins = 'auto', stat="density"):
-    "stat= 'density' o 'scale'"
-    plt.figure(figsize=(8,5))
-
-    sns.histplot(dif_norm, bins=bins, kde=kde, color='blue', alpha=0.4, label="Error de reconstrucción (normales)", stat=stat)
-    sns.histplot(dif_anom, bins=bins, kde=kde, color='red', alpha=0.4, label="Error de reconstrucción (anómalos)", stat=stat)
-
-    ax = plt.gca()
-    for patch in ax.patches:
-        patch.set_edgecolor("none")
-
+def graficar_histograma_errores_reconstruccion(dif_norm, dif_anom, epsilon=None, kde=True, bins=50, stat="density"):
+    
+    sns.set_theme(style="whitegrid", context="notebook", font_scale=1.1)
+    plt.figure(figsize=(8, 5))
+    
+    # Colores
+    c_norm, c_anom, c_thresh = '#2E86C1', '#E74C3C', "#FF0000"
+    
+    # Histogramas en una sola línea
+    sns.histplot(dif_norm, bins=bins, kde=kde, color=c_norm, alpha=0.5, label="Normales", stat=stat, linewidth=0, kde_kws={'linewidth': 2})
+    sns.histplot(dif_anom, bins=bins, kde=kde, color=c_anom, alpha=0.5, label="Anómalos", stat=stat, linewidth=0, kde_kws={'linewidth': 2})
+    
     if epsilon is not None:
-        plt.axvline(epsilon, color='red', linestyle='--', linewidth=2, label="Umbral (epsilon)")
-
-    plt.grid(True, linestyle="--", alpha=0.6)
-    plt.xlabel("Error de reconstrucción")
-    if stat == "frequency":
-        plt.ylabel("Frecuencia")
-    else:
-        plt.ylabel("Densidad")
-    plt.legend()
+        plt.axvline(epsilon, color=c_thresh, linestyle='--', linewidth=2.5, label=f"Umbral ($\epsilon = {epsilon:.2f}$)")
+    
+    # Etiquetas sin negrita y sin título
+    plt.xlabel("Error de Reconstrucción (MSE)")
+    plt.ylabel("Densidad" if stat == "density" else "Frecuencia")
+    
+    plt.legend(frameon=True, fancybox=True, framealpha=0.95, loc='upper right')
+    sns.despine()
     plt.tight_layout()
     plt.show()

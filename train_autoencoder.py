@@ -3,6 +3,12 @@ import numpy as np
 from models import Autoencoder, SAE, CAE
 from utils import get_device, set_seed, crear_conjuntos_con_validacion_estandarizados
 
+# =================== CARGA Y PREPROCESAMIENTO ===================
+
+seed_modelos = np.random.randint(0, 10_000)
+print(seed_modelos)
+set_seed(11)
+
 df = pd.read_csv("data/breast-cancer-wisconsin.csv")
 
 # Quitamos atributos no necesarios
@@ -19,23 +25,27 @@ x_test, y_test, x_val, y_val, x_val_norm, y_val_norm, conjuntos_train = conjunto
 
 device = get_device()
 
-LR = 0.01
+LR = 0.001
 BATCH_SIZE = 16
 EPOCHS = 1000
 USE_LR_SCHEDULER = False
 PATIENCE_EARLY_STOPPING = 50
 SAVE_MODEL = True
-MODEL = Autoencoder
+MODEL = CAE
 
 for i, conjunto_train in enumerate(conjuntos_train):
     x_train, y_train = conjunto_train
-    set_seed(11)
+    set_seed(seed_modelos)
     
-    modelo = MODEL([x_train.shape[1], 32, 16, 8, 4, 2]).to(device)  
+    modelo = MODEL([x_train.shape[1], 32, 16, 8, 4]).to(device)  
     if i == 0: modelo.summary()
 
-    modelo.fit(x_train=x_train, x_val_norm=x_val_norm, device=device, lr=LR, batch_size=BATCH_SIZE, num_epochs=EPOCHS, verbose=2, use_lr_scheduler=USE_LR_SCHEDULER, patience_early_stopping=PATIENCE_EARLY_STOPPING)
+    modelo.fit(x_train=x_train, x_val_norm=x_val_norm, device=device, lr=LR, batch_size=BATCH_SIZE, num_epochs=EPOCHS,
+               verbose=2,use_lr_scheduler=USE_LR_SCHEDULER, patience_early_stopping=PATIENCE_EARLY_STOPPING)
 
+    print(f"\nMétricas en evaluación")
+    print(modelo.evaluate(x_train, x_val[y_val==0], x_val[y_val==1], device, tipo_epsilon=2, tipo_norma="L2"))
+    print(f"\nMétricas en prueba")
     print(modelo.evaluate(x_train, x_test[y_test==0], x_test[y_test==1], device, tipo_epsilon=2, tipo_norma="L2"))
 
     if SAVE_MODEL:
