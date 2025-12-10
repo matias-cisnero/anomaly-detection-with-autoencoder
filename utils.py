@@ -11,6 +11,7 @@ import json
 from datetime import datetime
 from sklearn.metrics import ConfusionMatrixDisplay, roc_auc_score
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 import seaborn as sns
 import random
 
@@ -127,7 +128,80 @@ def crear_conjuntos_proporcionales_estandarizados(df: pd.DataFrame, concepto: st
 
     return conjuntos
 
+def crear_conjuntos_train_val_test(x, y, test_size: float = 0.2, val_size: float = 0.2, random_state= 42):
+
+    x_train_val, x_test, y_train_val, y_test = train_test_split(x, y, test_size=test_size, stratify=y, random_state=random_state)
+    x_train, x_val, y_train, y_val = train_test_split(x_train_val, y_train_val, test_size=val_size, stratify=y_train_val, random_state=random_state)
+
+    x_train_benign = x_train[y_train == 0]
+
+    scaler = StandardScaler().fit(x_train_benign)
+
+    x_train_scaled = scaler.transform(x_train_benign)
+    x_val_scaled = scaler.transform(x_val)
+    x_test_scaled = scaler.transform(x_test)
+
+    return x_train_scaled, y_train, x_val_scaled, y_val, x_test_scaled, y_test, scaler
+
 def crear_conjuntos_con_validacion_estandarizados(
+    df: pd.DataFrame, concepto: str, test_size: float = 0.2, val_size: float = 0.2, proporciones: list = [0.0, 0.10, 0.25]):
+    seed = 11
+    df_train, df_temp = train_test_split(
+        df,
+        test_size=0.40,         # 40% → se divide en val y test
+        random_state=seed,
+        stratify=df[concepto]
+    )
+
+    df_val, df_test = train_test_split(
+        df_temp,
+        test_size=0.50,         # 50% de 40% → 20%
+        random_state=seed,
+        stratify=df_temp[concepto]
+    )
+
+    df_train_std, df_val_std  = estandarizar_columnas_no_binarias_train(df_train, df_val)
+    _, df_test_std = estandarizar_columnas_no_binarias_train(df_train_std, df_test)
+
+    x_test = df_test_std.drop(columns=[concepto]).to_numpy()
+    y_test = df_test_std[concepto].to_numpy()
+
+    x_val  = df_val_std.drop(columns=[concepto]).to_numpy()
+    y_val  = df_val_std[concepto].to_numpy()
+
+    # Validación solo normales (early stopping)
+    df_val_norm = df_val_std[df_val_std[concepto] == 0]
+    x_val_norm = df_val_norm.drop(columns=[concepto]).to_numpy()
+    y_val_norm = df_val_norm[concepto].to_numpy()
+
+    df0 = df_train_std[df_train_std[concepto] == 0]
+    df1 = df_train_std[df_train_std[concepto] == 1]
+
+    conjuntos_train = []
+
+    for p in proporciones:
+        n1 = int(len(df0) * p)
+        n0 = len(df0) - n1
+
+        # Para evitar pedir más de lo disponible en el dataset
+        n1 = min(n1, len(df1))
+        n0 = min(n0, len(df0))
+
+        df_mix = pd.concat([
+            df0.sample(n0, random_state=seed),
+            df1.sample(n1, random_state=seed)
+        ]).sample(frac=1, random_state=seed).reset_index(drop=True)
+
+        x_train = df_mix.drop(columns=[concepto]).to_numpy()
+        y_train = df_mix[concepto].to_numpy()
+
+        conjuntos_train.append((x_train, y_train))
+
+    conjuntos = [x_test, y_test, x_val, y_val, x_val_norm, y_val_norm, conjuntos_train]
+
+    return conjuntos 
+
+def crear_conjuntos_con_validacion(
     df: pd.DataFrame, concepto: str, test_size: float = 0.2, val_size: float = 0.2, proporciones: list = [0.0, 0.10, 0.25]):
     seed = 11
     df_train, df_temp = train_test_split(

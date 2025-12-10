@@ -240,6 +240,25 @@ class Autoencoder(BaseAutoencoder):
     def compute_loss(self, batch_input: torch.Tensor, output: torch.Tensor) -> torch.Tensor:
         return F.mse_loss(output, batch_input, reduction="mean")
     
+class Autoencoder2(BaseAutoencoder):
+    def __init__(self, dims: list[int], activation=nn.GELU):
+        super(Autoencoder2, self).__init__(dims, activation)
+
+    def forward(self, input):
+        return self.decoder(self.encoder(input))
+    
+    def predict(self, input: np.ndarray, device="cpu") -> np.ndarray:
+        return self.propagate(self.forward, input, device)
+    
+    def encode(self, input: np.ndarray, device="cpu") -> np.ndarray:
+        return self.propagate(self.encoder, input, device)
+
+    def decode(self, input: np.ndarray, device="cpu") -> np.ndarray:
+        return self.propagate(self.decoder, input, device)
+    
+    def compute_loss(self, batch_input: torch.Tensor, output: torch.Tensor) -> torch.Tensor:
+        return F.mse_loss(output, batch_input, reduction="mean")
+
 class SAE(BaseAutoencoder):
     def __init__(self, dims: list[int], activation=nn.GELU, rho: float = 0.05, lambda_sparse: float = 0.1):
         nn.Module.__init__(self) 
