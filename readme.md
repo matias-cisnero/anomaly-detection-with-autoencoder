@@ -10,8 +10,7 @@ Este proyecto implementa un autoencoder utilizando PyTorch para detectar anomal�
 
 ## 📊 Conjunto de Datos Utilizados
 
-- **[Diabetes Health Indicators Dataset](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset)**  
-  Contiene indicadores de salud relacionados con la diabetes, como niveles de glucosa y presión arterial.
+- **[Breast Cancer Wisconsin](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)**  
 
 ## ⚙️ Tecnologías Utilizadas
 
