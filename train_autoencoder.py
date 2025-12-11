@@ -1,14 +1,10 @@
 import pandas as pd
 import numpy as np
 from models import Autoencoder, SAE, CAE
-from utils import get_device, set_seed, crear_conjuntos_con_validacion_estandarizados
+from utils import (get_device, train_val_test_split_scaled, calculate_reconstruction_error, evaluate,
+                   calculate_mean_std_threshold, calculate_percentil_n_threshold, calculate_youden_threshold)
 
 # =================== CARGA Y PREPROCESAMIENTO ===================
-
-seed_modelos = np.random.randint(0, 10_000)
-print(seed_modelos)
-set_seed(11)
-
 df = pd.read_csv("data/breast-cancer-wisconsin.csv")
 
 # Quitamos atributos no necesarios
@@ -18,35 +14,42 @@ df = df.drop(columns=["id", "Unnamed: 32"])
 df["diagnosis"] = df["diagnosis"].map({"M": 1, "B": 0})
 
 # Dividimos nuestro conjuntos de datos y lo estandarizamos respecto a la división de entrenamiento
-conjuntos = crear_conjuntos_con_validacion_estandarizados(df, "diagnosis")
+x_test, y_test, x_val, y_val, train_sets = train_val_test_split_scaled(df, "diagnosis")
 etiquetas = ["A", "B", "C"]
-
-x_test, y_test, x_val, y_val, x_val_norm, y_val_norm, conjuntos_train = conjuntos 
+x_val_norm = x_val[y_val==0]
 
 device = get_device()
 
 LR = 0.001
 BATCH_SIZE = 16
-EPOCHS = 1000
-USE_LR_SCHEDULER = False
+EPOCHS = 200
+VERBOSE = 2
 PATIENCE_EARLY_STOPPING = 50
 SAVE_MODEL = True
+METRIC_TYPE = "MSE"
 MODEL = CAE
 
-for i, conjunto_train in enumerate(conjuntos_train):
-    x_train, y_train = conjunto_train
-    set_seed(seed_modelos)
+for i, train_set in enumerate(train_sets):
+    x_train, y_train = train_set
     
-    modelo = MODEL([x_train.shape[1], 32, 16, 8, 4]).to(device)  
+    modelo = MODEL([x_train.shape[1], 64]).to(device)  
     if i == 0: modelo.summary()
 
-    modelo.fit(x_train=x_train, x_val_norm=x_val_norm, device=device, lr=LR, batch_size=BATCH_SIZE, num_epochs=EPOCHS,
-               verbose=2,use_lr_scheduler=USE_LR_SCHEDULER, patience_early_stopping=PATIENCE_EARLY_STOPPING)
+    modelo.fit(x_train=x_train, x_val=x_val_norm, device=device, lr=LR, batch_size=BATCH_SIZE, num_epochs=EPOCHS,
+               verbose=VERBOSE, patience_early_stopping=PATIENCE_EARLY_STOPPING)
+    
+    norm_errors = calculate_reconstruction_error(modelo, x_test[y_test==0], device, metric_type=METRIC_TYPE)
+    anom_errors = calculate_reconstruction_error(modelo, x_test[y_test==1], device, metric_type=METRIC_TYPE)
+    val_errors = calculate_reconstruction_error(modelo, x_val, device, metric_type=METRIC_TYPE)
 
-    print(f"\nMétricas en evaluación")
-    print(modelo.evaluate(x_train, x_val[y_val==0], x_val[y_val==1], device, tipo_epsilon=2, tipo_norma="L2"))
-    print(f"\nMétricas en prueba")
-    print(modelo.evaluate(x_train, x_test[y_test==0], x_test[y_test==1], device, tipo_epsilon=2, tipo_norma="L2"))
+    eps_mean = calculate_mean_std_threshold(val_errors, y_val, 0)
+    eps_mean_2std = calculate_mean_std_threshold(val_errors, y_val, 2)
+    eps_mean_3std = calculate_mean_std_threshold(val_errors, y_val, 3)
+    eps_p95 = calculate_percentil_n_threshold(val_errors, y_val, 95)
+    eps_youden = calculate_youden_threshold(val_errors, y_val)
+
+    eval = evaluate(norm_errors, anom_errors, eps_youden)
+    print(eval)
 
     if SAVE_MODEL:
         modelo.save(path=f"models/{MODEL.__name__}", set_id=etiquetas[i], lr=LR)

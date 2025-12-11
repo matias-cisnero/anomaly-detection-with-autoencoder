@@ -6,9 +6,6 @@ from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
-import sys
-
-from utils import obtener_matriz_confusion, obtener_epsilon, obtener_metricas, evaluar_reconstruccion, calcular_auc
 
 class BaseAutoencoder(nn.Module):
     def __init__(self, dims: list[int], activation=nn.GELU):
@@ -54,45 +51,43 @@ class BaseAutoencoder(nn.Module):
     def compute_loss(self, batch_input: torch.Tensor, output: torch.Tensor) -> torch.Tensor:
         raise NotImplementedError("El método 'compute_loss' debe ser implementado por la subclase.")
 
-    def fit(self, x_train: np.ndarray, x_val_norm: np.ndarray, device, lr: float, batch_size: int, num_epochs: int, verbose = 1,
-            use_lr_scheduler: bool = False, lr_decay_factor=0.5, lr_patience: int = 2, patience_early_stopping: int = 100000):
+    def _train_epoch(self, loader: DataLoader, optimizer: optim.Optimizer, device: str) -> float:
+        self.train()
+        total_loss = 0.0
         
-        dataset = TensorDataset(torch.tensor(x_train, dtype=torch.float32))
-        loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+        for (batch_input,) in loader:
+            batch_input = batch_input.to(device)
+            optimizer.zero_grad()
+
+            output = self(batch_input)
+            loss = self.compute_loss(batch_input, output)
+
+            loss.backward()
+            optimizer.step()
+
+            total_loss += loss.item() * batch_input.size(0)
+        return total_loss / len(loader.dataset)
+
+    def fit(self, x_train: np.ndarray, x_val: np.ndarray, device, lr: float, batch_size: int, num_epochs: int, verbose = 1, patience_early_stopping: int = 100000):
+        
+        train_dataset = TensorDataset(torch.tensor(x_train, dtype=torch.float32))
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
         optimizer = optim.Adam(self.parameters(), lr=lr)
         
-        scheduler = None
-        if use_lr_scheduler:
-            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-                optimizer, mode='min', factor=lr_decay_factor, patience=lr_patience)
-
         loss_history = []
         val_loss_history = []
 
         self.to(device)
-        self.train()
 
         best_val_loss = float('inf')
         epochs_no_improve = 0
 
-        val_tensor = torch.tensor(x_val_norm, dtype=torch.float32).to(device)
+        val_tensor = torch.tensor(x_val, dtype=torch.float32).to(device)
 
         for epoch in range(num_epochs):
-            epoch_loss = 0.0
-            for (batch_input,) in loader:
 
-                batch_input = batch_input.to(device)
-                optimizer.zero_grad()
-
-                output = self(batch_input)
-                loss = self.compute_loss(batch_input, output)
-
-                loss.backward()
-                optimizer.step()
-                epoch_loss += loss.item() * batch_input.size(0)
-
-            epoch_loss /= len(dataset)
+            epoch_loss = self._train_epoch(train_loader, optimizer, device)
             loss_history.append(epoch_loss)
 
             # Para validación
@@ -103,18 +98,18 @@ class BaseAutoencoder(nn.Module):
             self.train()
 
             val_loss_history.append(val_loss)
-            
-            if scheduler is not None:
-                scheduler.step(epoch_loss)
 
-            if verbose in (1, 2) and (epoch + 1) % 25 == 0:
-                delta = epoch_loss - loss_history[-2] if len(loss_history) > 1 else 0
-                signo = "↓" if delta < 0 else "↑"
-                current_lr = optimizer.param_groups[0]['lr']
-                print(f"epoch {epoch+1:>3}/{num_epochs:<3} │ loss_train: {epoch_loss:.6f} {signo} │ loss_val={val_loss:.6f} │ lr: {current_lr:.6f}")
+            if verbose >= 1 and (epoch + 1) % 25 == 0:
+                train_delta = epoch_loss - loss_history[-2] if len(loss_history) > 1 else 0
+                train_sign = "↓" if train_delta < 0 else "↑"
+
+                val_delta = val_loss - val_loss_history[-2] if len(val_loss_history) > 1 else 0
+                val_sign = "↓" if val_delta < 0 else "↑"
+
+                print(f"epoch {epoch+1:>3}/{num_epochs:<3} │ train_loss: {epoch_loss:.6f} {train_sign} │ val_loss: {val_loss:.6f} {val_sign}")
 
             # Early stopping clásico
-            if val_loss < best_val_loss:
+            if val_loss < best_val_loss - 1e-5:
                 best_val_loss = val_loss
                 epochs_no_improve = 0
             else:
@@ -123,12 +118,6 @@ class BaseAutoencoder(nn.Module):
             if epochs_no_improve >= patience_early_stopping:
                 if verbose >= 1:
                     print(f"Early stopping: sin mejora en val_norm en época [{epoch+1}]")
-                break
-
-            # Early stopping de scheduler
-            if use_lr_scheduler and optimizer.param_groups[0]['lr'] < 1e-6:
-                if verbose >= 1:
-                    print(f"Early stopping: LR mínimo alcanzado en época [{epoch+1}]")
                 break
 
         if verbose == 2:
@@ -145,31 +134,6 @@ class BaseAutoencoder(nn.Module):
             plt.show()
 
         return loss_history, val_loss_history
-
-    def evaluate(self, x_train, x_test_norm, x_test_anom, device, tipo_epsilon=1, tipo_norma="L2") -> dict:
-
-        epsilon = obtener_epsilon(self, x_train, device, tipo_epsilon=tipo_epsilon, tipo_norma=tipo_norma)
-
-        _, dif_norm = evaluar_reconstruccion(self, x_test_norm, device, tipo_norma=tipo_norma)
-        _, dif_anom = evaluar_reconstruccion(self, x_test_anom, device, tipo_norma=tipo_norma)
-
-        TP, FN, TN, FP = obtener_matriz_confusion(dif_norm, dif_anom, epsilon)
-
-        metricas = obtener_metricas(TP, FN, TN, FP)
-
-        auc = calcular_auc(dif_norm, dif_anom)
-
-        resultado = {
-        "epsilon": round(float(epsilon), 4),
-        "conf_matrix": str([
-            [f"TP:{TP}", f"FN:{FN}"],
-            [f"FP:{FP}", f"TN:{TN}"]
-        ]),
-        **metricas,
-        "auc": round(float(auc), 4)
-        }
-
-        return resultado
 
     def save(self, path: str, set_id: str = "-1", lr: float = -1):
         fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")
@@ -225,6 +189,8 @@ class Autoencoder(BaseAutoencoder):
     def __init__(self, dims: list[int], activation=nn.GELU):
         super(Autoencoder, self).__init__(dims, activation)
 
+        self.criterion = nn.MSELoss()
+
     def forward(self, input):
         return self.decoder(self.encoder(input))
     
@@ -238,7 +204,7 @@ class Autoencoder(BaseAutoencoder):
         return self.propagate(self.decoder, input, device)
     
     def compute_loss(self, batch_input: torch.Tensor, output: torch.Tensor) -> torch.Tensor:
-        return F.mse_loss(output, batch_input, reduction="mean")
+        return self.criterion(output, batch_input)
     
 class Autoencoder2(BaseAutoencoder):
     def __init__(self, dims: list[int], activation=nn.GELU):
@@ -366,70 +332,3 @@ class CAE(BaseAutoencoder):
             contractive_pen = torch.tensor(0.0, device=batch_input.device)
 
         return mse + self.lambda_c * contractive_pen
-
-class VAE(BaseAutoencoder):
-    def __init__(self, dims: list[int], activation=nn.GELU):
-        nn.Module.__init__(self)
-        
-        latent_dim = dims[-1]
-        penultima_dim = dims[-2] if len(dims) > 1 else dims[0]
-
-        encoder_layers = []
-        for i in range(len(dims) - 2):
-            encoder_layers.append(nn.Linear(dims[i], dims[i + 1]))
-            encoder_layers.append(activation())
-        # Añadimos la última capa lineal que alimenta mu/logvar
-        encoder_layers.append(nn.Linear(dims[-2], penultima_dim))
-        self.encoder = nn.Sequential(*encoder_layers)
-
-        self.mu_layer = nn.Linear(penultima_dim, latent_dim)
-        self.logvar_layer = nn.Linear(penultima_dim, latent_dim)
-
-        decoder_layers = []
-        for i in range(len(dims) - 1, 0, -1):
-            decoder_layers.append(nn.Linear(dims[i], dims[i - 1]))
-            if i > 1:
-                decoder_layers.append(activation())
-        self.decoder = nn.Sequential(*decoder_layers)
-
-    def encode_raw(self, input):
-        h = self.encoder(input)
-        mu = self.mu_layer(h)
-        logvar = self.logvar_layer(h)
-        return mu, logvar
-
-    def reparameterize(self, mu, logvar):
-        std = torch.exp(0.5 * logvar)
-        eps = torch.randn_like(std)
-        return mu + eps * std
-
-    def forward(self, input):
-        mu, logvar = self.encode_raw(input)
-        z = self.reparameterize(mu, logvar)
-        return self.decoder(z), mu, logvar
-
-    def encode(self, input: np.ndarray, device="cpu") -> np.ndarray:
-        def func(t):
-            mu, _ = self.encode_raw(t)
-            return mu
-        return self.propagate(func, input, device)
-
-    def decode(self, input: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.decoder, input, device)
-
-    def predict(self, input: np.ndarray, device="cpu") -> np.ndarray:
-        def func(t):
-            recon, _, _ = self.forward(t)
-            return recon
-        return self.propagate(func, input, device)
-
-    def compute_loss(self, batch_input, output_tuple):
-        recon, mu, logvar = output_tuple
-
-        mse = F.mse_loss(recon, batch_input, reduction="mean")
-
-        # Divergencia KL (promedio por batch)
-        # KL = -0.5 * sum(1 + logvar - mu^2 - exp(logvar))
-        kl = -0.5 * torch.mean(1 + logvar - mu.pow(2) - logvar.exp())
-
-        return mse + kl

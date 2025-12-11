@@ -1,38 +1,18 @@
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
-import matplotlib.pyplot as plt
 from typing import List, Tuple, Dict
 import pandas as pd
 import os
 import json
 from datetime import datetime
-from sklearn.metrics import ConfusionMatrixDisplay, roc_auc_score
+from sklearn.metrics import roc_auc_score, roc_curve
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-import seaborn as sns
-import random
 
 def get_device():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Dispositivo usado: {device}{f' ({torch.cuda.get_device_name(0)})' if device.type == 'cuda' else ''}\n")
     return device
-
-def set_seed(seed=42):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-
-    # GPU
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed(seed)
-        torch.cuda.manual_seed_all(seed)
-
-    # Para reproducibilidad en CUDNN
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
 
 def apply_zscore_scaling(df: pd.DataFrame, target_col_name: str, means: pd.Series, stds: pd.Series) -> pd.DataFrame:
     x_scaled = df.drop(columns=[target_col_name])
@@ -121,77 +101,32 @@ def print_summary_split(sets, proportions=[0.0, 0.10, 0.25]):
     df = pd.DataFrame(summary_rows)
     print(df)
 
-def evaluar_reconstruccion(modelo, original, device, tipo_norma="L2"):
-    reconstruccion = modelo.predict(input=original, device=device)
-    
-    diferencias = calcular_error_reconstruccion(original, reconstruccion, tipo_norma=tipo_norma)
-    return reconstruccion, diferencias
+def calculate_reconstruction_error(modelo, original, device, metric_type: str = "MSE"):
+    reconstruction = modelo.predict(input=original, device=device)
+    error = original - reconstruction
 
-def calcular_error_reconstruccion(original, reconstruccion, tipo_norma="L2"):
-    diff = original - reconstruccion
-
-    if tipo_norma == "L1":
-        return np.linalg.norm(diff, ord=1, axis=1)
-    elif tipo_norma == "L2":
-        return np.linalg.norm(diff, ord=2, axis=1)
-    elif tipo_norma == "Linf":
-        return np.linalg.norm(diff, ord=np.inf, axis=1)
-    elif tipo_norma == "MSE":
-        return np.mean(diff**2, axis=1)
+    if metric_type == "MSE":
+        return np.mean(error**2, axis=1)
+    elif metric_type == "L1":
+        return np.linalg.norm(error, ord=1, axis=1)
+    elif metric_type == "L2":
+        return np.linalg.norm(error, ord=2, axis=1)
+    elif metric_type == "Linf":
+        return np.linalg.norm(error, ord=np.inf, axis=1)
     else:
         raise ValueError("tipo norma debe ser: L1, L2, Linf, MSE")
 
-def obtener_epsilon(modelo, x_train, device, tipo_epsilon=1, tipo_norma="L2"):
-    _, dif_norm = evaluar_reconstruccion(modelo, x_train, device, tipo_norma)
-
-    # 0: Máximo (umbral más permisivo)
-    if tipo_epsilon == 0:
-        return np.max(dif_norm)
-
-    # 1: Media
-    elif tipo_epsilon == 1:
-        return np.mean(dif_norm)
-
-    # 2: Media + 2*STD
-    elif tipo_epsilon == 2:
-        return np.mean(dif_norm) + 2 * np.std(dif_norm)
-
-    # 3: Percentil 95
-    elif tipo_epsilon == 3:
-        return np.percentile(dif_norm, 95)
-
-    # 4: Mediana + IQR
-    elif tipo_epsilon == 4:
-        q1 = np.percentile(dif_norm, 25)
-        q3 = np.percentile(dif_norm, 75)
-        iqr = q3 - q1
-        return q3 + 1.5 * iqr
-
-    # 5: Mediana + MAD
-    elif tipo_epsilon == 5:
-        med = np.median(dif_norm)
-        mad = np.median(np.abs(dif_norm - med))
-        return med + 3 * mad
-
-    # 6: Media + 3*STD
-    elif tipo_epsilon == 6:
-        return np.mean(dif_norm) + 3 * np.std(dif_norm)
-
-    else:
-        return 0
-
-def obtener_matriz_confusion(dif_norm, dif_anom, epsilon):
+def get_confusion_matrix(error_norm: np.ndarray, error_anom: np.ndarray, epsilon: float):
     # Normales
-    FP = np.sum(dif_norm > epsilon)
-    TN = np.sum(dif_norm <= epsilon)
-
+    FP = np.sum(error_norm > epsilon)
+    TN = np.sum(error_norm <= epsilon)
     # Anómalas
-    TP = np.sum(dif_anom > epsilon)
-    FN = np.sum(dif_anom <= epsilon)
+    TP = np.sum(error_anom > epsilon)
+    FN = np.sum(error_anom <= epsilon)
 
     return int(TP), int(FN), int(TN), int(FP)
 
-def obtener_metricas(TP: int, FN: int, TN: int, FP: int):
+def calculate_metrics(TP: int, FN: int, TN: int, FP: int) -> dict:
     total = TP + FN + TN + FP
 
     accuracy = (TP + TN) / total
@@ -210,12 +145,41 @@ def obtener_metricas(TP: int, FN: int, TN: int, FP: int):
         "f1_score": round(float(f1_score), 4)
     }
 
-def calcular_auc(dif_norm, dif_anom):
-    scores = np.concatenate([dif_norm, dif_anom])
-    labels = np.concatenate([np.zeros(len(dif_norm)), np.ones(len(dif_anom))])
+def calculate_auc(error_norm: np.ndarray, error_anom: np.ndarray) -> float:
+    scores = np.concatenate([error_norm, error_anom])
+    labels = np.concatenate([np.zeros(len(error_norm)), np.ones(len(error_anom))])
 
     auc = roc_auc_score(labels, scores)
-    return auc
+    return float(auc)
+
+def evaluate(error_norm: np.ndarray, error_anom: np.ndarray, epsilon: float) -> dict:
+
+    TP, FN, TN, FP = get_confusion_matrix(error_norm, error_anom, epsilon)
+
+    metrics = calculate_metrics(TP, FN, TN, FP)
+    auc = calculate_auc(error_norm, error_anom)
+
+    return {
+        "epsilon": round(float(epsilon), 4),
+        "conf_matrix": str({"TP": TP, "FN": FN, "FP": FP, "TN": TN}),
+        **metrics,
+        "auc": round(float(auc), 4)
+    }
+
+def calculate_mean_std_threshold(errors: np.ndarray, labels: np.ndarray, factor: int = 2) -> float:
+    benign_errors = errors[labels == 0]
+    return np.mean(benign_errors) + (factor * np.std(benign_errors))
+
+def calculate_percentil_n_threshold(errors: np.ndarray, labels: np.ndarray, n: int = 95) -> float:
+    benign_errors = errors[labels == 0]
+    return np.percentile(benign_errors, n)
+
+def calculate_youden_threshold(errors: np.ndarray, labels: np.ndarray) -> float:
+    fpr, tpr, thresholds = roc_curve(labels, errors)
+    youden_idx = np.argmax(tpr - fpr)
+
+    youden_threshold = thresholds[youden_idx]
+    return youden_threshold
 
 def save_grid_search_results(data, folder="results", verbose=False):
     fecha = datetime.now().strftime("%Y-%m-%dT%H.%M")

@@ -136,7 +136,7 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 		$\mathcal{L}_{\text{CAE}}(W,b)$ & Función de costo total del CAE (reconstrucción + penalización contractiva) \\
 		
 		$\mathbf{T}$ & Conjunto de datos con igual distribución que $\mathbf{X}$ \\
-		$t$ & Dato de entrada con igual distribución que los datos pertenecientes a la clase "normal" \\
+		$t$ & Dato de entrada con igual distribución que los datos pertenecientes a la clase ``normal'' \\
 		$\hat{t}$ & Reconstrucción de $t$ generada por el autocodificador \\
 		$t^{*}$ & Dato atípico con distinta distribución que $t$ \\
 		$\hat{t}^{*}$ & Reconstrucción de $t^{*}$ generada por el autocodificador \\
@@ -198,7 +198,7 @@ Por otra parte, el método empleado para la detección de anomalías es el \text
 
 \section{Conjunto de datos y AED}
 
-Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual obtuve de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original publicado por Wolberg et al. \cite{breast_cancer_wisconsin}. Este conjunto de datos es ampliamente utilizado en tareas de clasificación y análisis de anomalías en el ámbito biomédico. Antes de aplicar cualquier técnica de modelado, se realiza un análisis exploratorio de datos (EAD) con el objetivo de comprender la distribución de las características, detectar posibles valores atípicos y observar la relación entre las variables que describen los núcleos celulares.\\
+Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual obtuve de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original publicado por Wolberg et al. \cite{breast_cancer_wisconsin}. Este conjunto de datos es ampliamente utilizado en tareas de clasificación y análisis de anomalías en el ámbito biomédico. Antes de aplicar cualquier técnica de modelado, se realiza un análisis exploratorio de datos (AED) con el objetivo de comprender la distribución de las características, detectar posibles valores atípicos y observar la relación entre las variables que describen los núcleos celulares.\\
 \comentario{explicar núcleos celulares}\\
 
 El conjunto de datos está compuesto por 569 registros de muestras citológicas y 32 atributos, de los cuales 30 corresponden a características numéricas derivadas del análisis de imágenes digitalizadas, correspondientes a aspiraciones con aguja fina de masas mamarias. Las 2 características restantes son categóricas, \emph{ID}, el cual es solo un metadato que no se utiliza para el entrenamiento del modelo y el \textbf{diagnóstico} que puede ser benigno o maligno. Las muestras incluidas en el conjunto de datos fueron recolectadas entre enero de 1989 y noviembre de 1991.\\
@@ -224,7 +224,7 @@ Las diez características base del conjunto de datos fueron obtenidas mediante l
 			7 & \textbf{Concavidad} (\emph{concavity}) & Severidad de las porciones cóncavas del contorno. \\
 			8 & \textbf{Puntos Cóncavos} (\emph{concave points}) & Número de porciones cóncavas del contorno. \\
 			9 & \textbf{Simetría} (\emph{symmetry}) & Nivel de simetría del núcleo celular. \\
-			10 & \textbf{Dimensión Fractal} (\emph{fractal dimension}) & Aproximación a la "línea de costa" menos 1. \\
+			10 & \textbf{Dimensión Fractal} (\emph{fractal dimension}) & Aproximación a la ``línea de costa'' menos 1. \\
 			\bottomrule
 		\end{tabular}
 	\end{adjustbox}
@@ -238,7 +238,7 @@ para cada una de estas diez características se calculan tres medidas distintas,
 	\item El \textbf{'peor'} valor o más grande, el cual se calcula como la media de los tres valores más grandes de la característica.
 \end{enumerate}
 
-Iniciando el proceso de \textbf{análisis exploratorio de datos (EAD)}, se verifica la integridad del conjunto. Tras la revisión de todos los registros y atributos, se confirma la ausencia total de datos faltantes, lo que hizo innecesaria cualquier etapa de imputación o limpieza de datos previa.\\
+Iniciando el proceso de \textbf{análisis exploratorio de datos (AED)}, se verifica la integridad del conjunto. Tras la revisión de todos los registros y atributos, se confirma la ausencia total de datos faltantes, lo que hizo innecesaria cualquier etapa de imputación o limpieza de datos previa.\\
 
 Tras el análisis general de los atributos, se examina la \textbf{distribución de la variable objetivo}, \emph{diagnosis}, con el fin de comprender el balance entre las clases presentes en el conjunto de datos. La distribución se muestra en la Tabla~\ref{tab:diagnosis}.
 \begin{table}[H]
@@ -306,6 +306,7 @@ La matriz de correlación correspondiente a las características del conjunto de
 	\caption{Matriz de correlación entre los atributos del conjunto de datos.}
 	\label{fig:corr_matrix}
 \end{figure}
+\comentario{comentar sobre relaciones negativas}
 
 Para analizar la robustez del autocodificador frente a distintos niveles de contaminación en los datos, se realiza una división inicial del conjunto de datos en tres subconjuntos: \textbf{entrenamiento}, \textbf{validación} y \textbf{prueba}, manteniendo en todos la proporción original de clases, tal como se indica en el paso (1) de la Figura~\ref{fig:diagrama_proporciones}. En esta división, el 60\% de las muestras se destinó al entrenamiento, el 20\% al conjunto de validación y el 20\% restante al conjunto de prueba, tal como se muestra en la Tabla~\ref{tab:division_subconjuntos}.
 \begin{table}[H]
@@ -330,6 +331,8 @@ Luego, se aplica una estandarización a todos los atributos de cada subconjunto 
 	z = \frac{x - \mu}{\sigma}
 	\label{eq:estandarizacion}
 \end{equation}
+donde $x$ corresponde al dato original y tanto $\mu$ como $\sigma$, a la media y la desviación estándar de esa variable, respectivamente.
+
 La estandarización de los tres subconjuntos (entrenamiento, validación y prueba) se realiza utilizando exclusivamente la media y el desvío estándar calculados a partir del \textbf{subconjunto de entrenamiento}. Esta estrategia evita la fuga de información o \emph{data leakage}, fenómeno que ocurre cuando se incorporan, directa o indirectamente, estadísticas derivadas de los datos de validación o prueba durante el entrenamiento del modelo. La fuga de información genera una visión artificialmente optimista del desempeño, ya que introduce en el proceso señales que el modelo no debería conocer antes de ser evaluado.\\
 
 A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos con diferentes proporciones de anomalías, proceso señalado como paso (2) en la Figura~\ref{fig:diagrama_proporciones}. El objetivo es evaluar cómo afecta al modelo entrenar con distintos niveles de contaminación, manteniendo constante el tamaño total de cada conjunto y preservando la separación previa entre entrenamiento, validación y prueba establecida en el esquema general mostrado en la figura.
@@ -366,6 +369,8 @@ Con el criterio de decisión definido, se detallan las \textbf{métricas de eval
 
 El método empleado en este trabajo es el \textbf{autocodificador}, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por poseer la misma dimensión tanto en la entrada como en la salida. Su objetivo es aprender una representación comprimida que permita reconstruir los datos originales.\\
 
+\comentario{pasar a estado del arte}
+
 Los autocodificadores surgen de las primeras investigaciones en redes neuronales orientadas a aprender representaciones internas útiles sin supervisión explícita. En particular, el trabajo de Rumelhart, Hinton y Williams \cite{ggcs1986learning} introdujo el uso del algoritmo de retropropagación para aprender representaciones internas, sentando las bases conceptuales para modelos capaces de reconstruir sus propias entradas. Posteriormente, el enfoque fue formalizado explícitamente por Bourlard y Kamp \cite{bourlard1988auto}, quienes describieron la autoasociación mediante perceptrones multicapa y demostraron su relación con métodos clásicos de reducción de dimensionalidad como la descomposición en valores singulares (SVD). Estos desarrollos consolidaron al autocodificador como un modelo central para el aprendizaje de representaciones de baja dimensión.\\
 
 La arquitectura de un autocodificador se compone de dos partes principales: un \textbf{codificador}, que transforma los datos de entrada en una representación de menor dimensionalidad, y un \textbf{decodificador}, que intenta reconstruir la entrada original a partir de dicha representación compacta. Entre ambos se encuentra la \textbf{capa latente}, donde se almacena la representación interna de menor dimensión. La Figura~\ref{fig:arquitectura} ilustra la arquitectura general empleada en este trabajo, mostrando el flujo desde la entrada $X$, su codificación en el espacio latente $Z$, y la posterior reconstrucción $\hat{X}$ realizada por el decodificador.
@@ -380,10 +385,12 @@ Para formalizar este proceso, considérese un conjunto de entrenamiento:
 \begin{equation}
 	\mathbf{X} = \{x^{(1)}, x^{(2)}, \ldots, x^{(N)}\}, 
 	\qquad x^{(u)} \in \mathbb{R}^D,
+	\qquad u \in 1 \dots N,
 \end{equation}
 donde cada ejemplo puede escribirse como:
 \begin{equation}
 	x^{(u)} = (x^{(u)}_1, x^{(u)}_2, \ldots, x^{(u)}_D),
+	\qquad u \in 1 \dots N,
 \end{equation}
 y el conjunto de salidas deseadas se define como:
 \begin{equation}
@@ -408,7 +415,7 @@ El entrenamiento del autocodificador se realiza mediante retropropagación, mini
 	\mathcal{L} = \frac{1}{ND} \sum_{u=1}^{N} \sum_{k=1}^{D} \left( x^{(u)}_k - \hat{x}^{(u)}_k \right)^{2},
 	\label{eq:loss_autoencoder}
 \end{equation}
-equivalente al error cuadrático medio (MSE por sus siglas en inglés) sobre todas las muestras. Este error descrito en la Ecuación~\ref{eq:loss_autoencoder} guía el ajuste de los parámetros del codificador y del decodificador para mejorar la calidad de reconstrucción.\\
+equivalente al error cuadrático medio (MSE por sus siglas en inglés) sobre todas las muestras, donde $N$ es la cantidad de registros y $D$ es la dimensión de $x$. Este error descrito en la Ecuación~\ref{eq:loss_autoencoder} guía el ajuste de los parámetros del codificador y del decodificador para mejorar la calidad de reconstrucción.\\
 
 La \textbf{no linealidad} presente en el autocodificador surge del uso de funciones de activación aplicadas en cada neurona del modelo. En esencia, cada unidad realiza la operación mostrada en la Ecuación~\ref{eq:activacion}.
 \begin{equation}
@@ -418,7 +425,7 @@ La \textbf{no linealidad} presente en el autocodificador surge del uso de funcio
 donde $x_k^{(u)}$ representa el valor de la $k$-ésima componente del vector de entrada $x^{(u)}$ que ingresa a la neurona $j$, $w_{jk}$ es el peso sináptico que regula la contribución de dicha entrada en la activación y $a_j^{(u)}$ la activación obtenida en dicha neurona.
 La función $g(x)$ es una función de activación no lineal por ejemplo, $\tanh(\beta x)$ o funciones sigmoideas relacionadas que permiten que la red modele relaciones complejas que no podrían representarse mediante transformaciones puramente lineales. Este componente no lineal es esencial para que el autocodificador pueda aprender estructuras internas del conjunto de datos y generar representaciones latentes útiles.\\
 
-En este trabajo, la función de activación utilizada en todas las capas ocultas es $\operatorname{GELU}$, debido a sus ventajas frente a la comúnmente empleada $\operatorname{ReLU}$. Entre estas ventajas se encuentran: una superficie de pérdida más suave que facilita un entrenamiento más estable, la ausencia del problema de "neuronas muertas" asociado a $\operatorname{ReLU}$ y una mayor capacidad para capturar relaciones no lineales gracias a su formulación probabilística basada en la distribución normal.\\
+En este trabajo, la función de activación utilizada en todas las capas ocultas es $\operatorname{GELU}$, debido a sus ventajas frente a la comúnmente empleada $\operatorname{ReLU}$. Entre estas ventajas se encuentran: una superficie de pérdida más suave que facilita un entrenamiento más estable, la ausencia del problema de ``neuronas muertas'' asociado a $\operatorname{ReLU}$ y una mayor capacidad para capturar relaciones no lineales gracias a su formulación probabilística basada en la distribución normal.\\
 
 La función $\operatorname{GELU}(x)$ está definida por:
 \begin{equation}
@@ -470,7 +477,9 @@ compuesta por el término de reconstrucción $\mathcal{L}(W,b)$ más un término
 	\beta \sum_{j=1}^{H} \mathrm{KL}(\rho \,\|\, \hat{\rho}_j),
 	\label{eq:loss_sae}
 \end{equation}
-donde $W$ denota el conjunto de \textbf{matrices de pesos} de todas las capas del autocodificador (tanto del codificador como del decodificador), $b$ corresponde al conjunto de \textbf{vectores de sesgo} o \emph{bias} asociados a dichas capasy $\beta$ es el hiperparámetro que controla el peso de la penalización. El término de penalización es la suma de la \textbf{divergencia Kullback-Leibler $(\mathrm{KL})$} entre la tasa de activación promedio deseada ($\rho$, un valor pequeño fijo (0.05 en el articulo original) y la tasa de activación promedio real ($\hat{\rho}_j$) de cada neurona $j$ en la capa oculta:
+\comentario{explicar H}
+
+donde $W$ denota el conjunto de \textbf{matrices de pesos} de todas las capas del autocodificador (tanto del codificador como del decodificador), $b$ corresponde al conjunto de \textbf{vectores de sesgo} o \emph{bias} asociados a dichas capas y $\beta$ es el hiperparámetro que controla el peso de la penalización. El término de penalización es la suma de la \textbf{divergencia Kullback-Leibler $(\mathrm{KL})$} entre la tasa de activación promedio deseada ($\rho$, un valor pequeño fijo (0.05 en el artículo original) y la tasa de activación promedio real ($\hat{\rho}_j$) de cada neurona $j$ en la capa oculta:
 \begin{equation}
 	\sum_{j=1}^{H} \text{KL}(\rho \,\|\, \hat{\rho}_j)
 	=
@@ -482,6 +491,7 @@ donde $W$ denota el conjunto de \textbf{matrices de pesos} de todas las capas de
 	\right]
 	\label{eq:kullback-leibler}
 \end{equation}
+\comentario{cambiar explicación $\rho$}
 
 Esta penalización tiene la propiedad de ser cero si $\hat{\rho}_j = \rho$, y aumentar a medida que $\hat{\rho}_j$ se aleja de $\rho$. Al minimizar esta función, el SAE es obligado a tener representaciones latentes dispersas.\\
 
@@ -580,13 +590,13 @@ Para obtener un criterio de decisión utilizamos el umbral $\epsilon$ definido e
 A partir de este criterio, se distinguen los siguientes cuatro casos fundamentales:
 
 \begin{itemize}
-	\item \textbf{Verdaderos Positivos (TP)}: Casos \emph{anómalos} (personas con diabetes) cuyo error de reconstrucción satisface $||\hat{t} - t|| > \epsilon$.
+	\item \textbf{Verdaderos Positivos (TP)}: Casos \emph{anómalos} (malignos) cuyo error de reconstrucción satisface $||\hat{t} - t|| > \epsilon$.
 	
-	\item \textbf{Falsos Negativos (FN)}: Casos \emph{anómalos} (con diabetes) pero cuyo error cumple $||\hat{t} - t|| \le \epsilon$, es decir, el modelo no detectó la anomalía.
+	\item \textbf{Falsos Negativos (FN)}: Casos \emph{anómalos} (malignos) cuyo error cumple $||\hat{t} - t|| \le \epsilon$, es decir, el modelo no detectó la anomalía.
 	
-	\item \textbf{Verdaderos Negativos (TN)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||\hat{t} - t|| \le \epsilon$.
+	\item \textbf{Verdaderos Negativos (TN)}: Casos \emph{normales} (benignos) cuyo error satisface $||\hat{t} - t|| \le \epsilon$.
 	
-	\item \textbf{Falsos Positivos (FP)}: Casos \emph{normales} (sin diabetes) cuyo error satisface $||\hat{t} - t|| > \epsilon$, siendo incorrectamente clasificados como anómalos.
+	\item \textbf{Falsos Positivos (FP)}: Casos \emph{normales} (benignos) cuyo error satisface $||\hat{t} - t|| > \epsilon$, siendo incorrectamente clasificados como anómalos.
 \end{itemize}
 
 A partir de estas cuatro categorías se construye la matriz de confusión mostrada en la Tabla~\ref{tab:mat_conf}, donde la diagonal verde representa las predicciones correctas y las celdas rojas los errores de clasificación.
@@ -655,30 +665,30 @@ La exactitud balanceada (\emph{Balanced Accuracy}), mostrada en la Ecuación~\re
 
 El \emph{F1-Score} combina las medidas de \emph{Precision} y \emph{Recall} para ofrecer una métrica más general de la calidad del modelo, tal como se expresa en la Ecuación~\ref{eq:f1-score}.
 \begin{equation}
-	\text{F1\_Score} =
+	\text{F1}_{\text{score}} =
 	\frac{2 \cdot \text{Precision} \cdot \text{Recall}}
 	{\text{Precision} + \text{Recall}}
 	=
 	\frac{2\,\text{TP}}
 	{2\,\text{TP} + \text{FP} + \text{FN}}
 	\label{eq:f1-score}
-\end{equation}\\
+\end{equation}
 
 En el caso particular de este trabajo, resulta crítico priorizar la métrica de \emph{Recall}. Dado que un falso negativo implica no identificar un caso potencialmente maligno. Maximizar esta métrica es esencial para garantizar que el modelo no pase por alto ninguna anomalía.
 
 Si bien \emph{Precision} también aporta información valiosa al reducir el número de falsos positivos, la severidad clínica de un falso negativo vuelve al \emph{Recall} la métrica de mayor importancia en este contexto.
-No obstante, para obtener una visión más equilibrada del rendimiento global del sistema, también se considera el \emph{F1\_Score}, que combina \emph{Recall} y \emph{Precision} en una única medida. De esta manera, aunque el objetivo principal es maximizar el \emph{Recall}, un \emph{F1\_Score} elevado asegura que dicho incremento no se logra a costa de elevar los falsos positivos, proporcionando así una evaluación más completa de la calidad del modelo.\\
+No obstante, para obtener una visión más equilibrada del rendimiento global del sistema, también se considera el $\emph{F1}_{\emph{score}}$, que combina \emph{Recall} y \emph{Precision} en una única medida. De esta manera, aunque el objetivo principal es maximizar el \emph{Recall}, un $\emph{F1}_{\emph{score}}$ elevado asegura que dicho incremento no se logra a costa de elevar los falsos positivos, proporcionando así una evaluación más completa de la calidad del modelo.\\
 
-Las métricas presentadas hasta ahora (\emph{Accuracy}, \emph{Precision}, \emph{Recall}, \emph{Especificity}, etc.) son dependientes del umbral de decisión $\epsilon$ elegido. Para obtener una evaluación del rendimiento que sea independiente de la elección de un umbral específico y que caracterice la capacidad discriminativa del modelo en todo el rango de posibles valores del error de reconstrucción, se utiliza la \textbf{Curva ROC} y el área bajo esta curva (\textbf{AUC}).\\
+Las métricas presentadas hasta ahora (\emph{Accuracy}, \emph{Precision}, \emph{Recall}, \emph{Specificity}, etc.) son dependientes del umbral de decisión $\epsilon$ elegido. Para obtener una evaluación del rendimiento que sea independiente de la elección de un umbral específico y que caracterice la capacidad discriminativa del modelo en todo el rango de posibles valores del error de reconstrucción, se utiliza la \textbf{Curva ROC} y el área bajo esta curva (\textbf{AUC}).\\
 
-La \textbf{Curva ROC} es una representación gráfica que resume el comportamiento del clasificador al comparar la proporción de verdaderos positivos contra la proporción de falsos positivos para distintos valores de umbral $\epsilon$. Para construirla, se utiliza en el eje vertical $y$ la \textbf{Tasa de Verdaderos Positivos (TPR)}, una medida que cuantifica qué tan eficaz es el modelo para detectar correctamente las anomalías presentes en los datos. Esta tasa se define en la Ecuación~\ref{eq:tpr}.
+La \textbf{Curva ROC} es una representación gráfica que resume el comportamiento del clasificador al comparar la proporción de verdaderos positivos contra la proporción de falsos positivos para distintos valores de umbral $\epsilon$. Para construirla, se utiliza en el eje vertical $y$ la \textbf{Tasa de Verdaderos Positivos} (o por sus siglas en inglés TPR de \emph{True Positive Rate}), una medida que cuantifica qué tan eficaz es el modelo para detectar correctamente las anomalías presentes en los datos. Esta tasa se define en la Ecuación~\ref{eq:tpr}.
 \begin{equation}
 	\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}}
 	= \frac{\text{TP}}{\text{P}}
 	\label{eq:tpr}
 \end{equation}
 
-De forma análoga, el eje horizontal $x$ de la curva utiliza la \textbf{Tasa de Falsos Positivos (FPR)}, que indica cuántos casos normales son clasificados erróneamente como anómalos. Se describe en la Ecuación~\ref{eq:fpr} y esta cantidad es complementaria a la especificidad definida anteriormente en la Ecuación~\ref{eq:specificity}.
+De forma análoga, el eje horizontal $x$ de la curva utiliza la \textbf{Tasa de Falsos Positivos} (o por sus siglas en inglés FPR de \emph{False Positive Rate}), que indica cuántos casos normales son clasificados erróneamente como anómalos. Se describe en la Ecuación~\ref{eq:fpr} y esta cantidad es complementaria a la especificidad definida anteriormente en la Ecuación~\ref{eq:specificity}.
 \begin{equation}
 	\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}}
 	= \frac{\text{FP}}{\text{N}}
@@ -698,7 +708,7 @@ En este capítulo se presentan los resultados obtenidos durante el entrenamiento
 
 Para cada una de las arquitecturas consideradas autocodificador clásico (AE), autocodificador disperso (SAE) y autocodificador contractivo (CAE) se entrenan tres variantes (A, B y C), que comparten exactamente la misma configuración e hiperparámetros y difieren únicamente en el conjunto de entrenamiento utilizado.\\
 
-Las configuraciones finales empleadas para cada arquitectura surgen de un proceso de \emph{grid search}, en el cual se exploraron distintas combinaciones de cantidad de capas, de neuronas y tasas de aprendizaje. La selección de los hiperparámetros óptimos se basó en el desempeño sobre el conjunto de \textbf{validación}, priorizando las métricas de \emph{Recall}, \emph{F1\_score} y AUC. Posteriormente, los modelos seleccionados fueron entrenados con los hiperparámetros con mejores métricas y fueron evaluados sobre el conjunto de prueba, cuyos resultados son los expuestos en este capítulo. La Tabla~\ref{tab:hiperparametros_modelos} resume los hiperparámetros utilizados para cada una de las arquitecturas finales:
+Las configuraciones finales empleadas para cada arquitectura surgen de un proceso de \emph{grid search}, en el cual se exploraron distintas combinaciones de cantidad de capas, de neuronas y tasas de aprendizaje (lr por sus siglas en inglés de \emph{Learning Rate}). La selección de los hiperparámetros óptimos se basó en el desempeño sobre el conjunto de \textbf{validación}, priorizando las métricas de \emph{Recall}, $\emph{F1}_{\emph{score}}$ y AUC. Posteriormente, los modelos seleccionados fueron entrenados con los hiperparámetros con mejores métricas y fueron evaluados sobre el conjunto de prueba, cuyos resultados son los expuestos en este capítulo. La Tabla~\ref{tab:hiperparametros_modelos} resume los hiperparámetros utilizados para cada una de las arquitecturas finales:
 \begin{table}[H]
 	\centering
 	\caption{Hiperparámetros de entrenamiento para cada modelo.}
@@ -717,6 +727,7 @@ Las configuraciones finales empleadas para cada arquitectura surgen de un proces
 	\end{tabular}
 	\label{tab:hiperparametros_modelos}
 \end{table}
+\noindent
 en todos los modelos se utiliza \textbf{MSE} como función de pérdida, \textbf{Adam} como optimizador y una \textbf{paciencia} para el \emph{Early Stop} de 50 épocas.
 
 Para cada uno de los modelos entrenados se calcula el umbral 
@@ -777,7 +788,7 @@ Con el umbral computado para cada modelo se obtuvieron las métricas de la Tabla
 		\textbf{\emph{Recall}} &
 		\textbf{\emph{Specificity}} &
 		\textbf{\emph{Balanced Accuracy}} &
-		\textbf{\emph{F1\_Score}} \\
+		\textbf{$\emph{F1}_{\emph{score}}$} \\
 		\midrule
 		AE (A)  & 0.3772 & 0.3772 & 1.0 & 0.0 & 0.5 & 0.5478 \\
 		AE (B)  & 0.3772 & 0.3772 & 1.0 & 0.0 & 0.5 & 0.5478 \\
