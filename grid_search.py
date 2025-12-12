@@ -24,7 +24,7 @@ input_size = x_train.shape[1]
 
 # =================== HIPERPARÁMETROS ===================
 
-modelos = [Autoencoder, SAE, CAE]
+modelos = [CAE] # [Autoencoder, SAE, CAE]
 tasas_de_aprendizaje = [0.001, 0.0001]
 capas_posibles = [
     [input_size, 32, 16, 8, 4, 2],
@@ -46,7 +46,7 @@ capas_posibles = [
 
 BATCH_SIZE = 16
 EPOCHS = 200
-PATIENCE_EARLY_STOPPING = 50
+PATIENCE_EARLY_STOPPING = 20
 
 historial = []
 threshold_names = ["MeanStd", "P95", "Youden"]

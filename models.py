@@ -205,25 +205,6 @@ class Autoencoder(BaseAutoencoder):
     
     def compute_loss(self, batch_input: torch.Tensor, output: torch.Tensor) -> torch.Tensor:
         return self.criterion(output, batch_input)
-    
-class Autoencoder2(BaseAutoencoder):
-    def __init__(self, dims: list[int], activation=nn.GELU):
-        super(Autoencoder2, self).__init__(dims, activation)
-
-    def forward(self, input):
-        return self.decoder(self.encoder(input))
-    
-    def predict(self, input: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.forward, input, device)
-    
-    def encode(self, input: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.encoder, input, device)
-
-    def decode(self, input: np.ndarray, device="cpu") -> np.ndarray:
-        return self.propagate(self.decoder, input, device)
-    
-    def compute_loss(self, batch_input: torch.Tensor, output: torch.Tensor) -> torch.Tensor:
-        return F.mse_loss(output, batch_input, reduction="mean")
 
 class SAE(BaseAutoencoder):
     def __init__(self, dims: list[int], activation=nn.GELU, rho: float = 0.05, lambda_sparse: float = 0.1):
@@ -332,3 +313,23 @@ class CAE(BaseAutoencoder):
             contractive_pen = torch.tensor(0.0, device=batch_input.device)
 
         return mse + self.lambda_c * contractive_pen
+    
+    def _train_epoch(self, loader: DataLoader, optimizer: optim.Optimizer, device: str) -> float:
+        self.train()
+        total_loss = 0.0
+        
+        for (batch_input,) in loader:
+            batch_input = batch_input.to(device)
+            optimizer.zero_grad()
+
+            batch_input.requires_grad_(True) 
+
+            output = self(batch_input)
+            loss = self.compute_loss(batch_input, output)
+
+            loss.backward()
+            optimizer.step()
+
+            total_loss += loss.item() * batch_input.size(0)
+            
+        return total_loss / len(loader.dataset)

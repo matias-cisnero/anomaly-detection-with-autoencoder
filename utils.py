@@ -137,12 +137,12 @@ def calculate_metrics(TP: int, FN: int, TN: int, FP: int) -> dict:
     f1_score = (2 * TP) / (2 * TP + FP + FN) if (2 * TP + FP + FN) > 0 else 0
 
     return {
-        "accuracy": round(float(accuracy), 4),
-        "precision": round(float(precision), 4),
-        "recall": round(float(recall), 4),
-        "specificity": round(float(specificity), 4),
-        "balanced_accuracy": round(float(balanced_accuracy), 4),
-        "f1_score": round(float(f1_score), 4)
+        "accuracy": round(float(accuracy), 3),
+        "precision": round(float(precision), 3),
+        "recall": round(float(recall), 3),
+        "specificity": round(float(specificity), 3),
+        "balanced_accuracy": round(float(balanced_accuracy), 3),
+        "f1_score": round(float(f1_score), 3)
     }
 
 def calculate_auc(error_norm: np.ndarray, error_anom: np.ndarray) -> float:

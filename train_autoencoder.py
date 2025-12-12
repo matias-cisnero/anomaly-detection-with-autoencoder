@@ -24,7 +24,7 @@ LR = 0.001
 BATCH_SIZE = 16
 EPOCHS = 200
 VERBOSE = 2
-PATIENCE_EARLY_STOPPING = 50
+PATIENCE_EARLY_STOPPING = 20
 SAVE_MODEL = True
 METRIC_TYPE = "MSE"
 MODEL = CAE
@@ -32,7 +32,7 @@ MODEL = CAE
 for i, train_set in enumerate(train_sets):
     x_train, y_train = train_set
     
-    modelo = MODEL([x_train.shape[1], 64]).to(device)  
+    modelo = MODEL([x_train.shape[1], 32, 16]).to(device)  
     if i == 0: modelo.summary()
 
     modelo.fit(x_train=x_train, x_val=x_val_norm, device=device, lr=LR, batch_size=BATCH_SIZE, num_epochs=EPOCHS,
