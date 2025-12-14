@@ -1,0 +1,966 @@
+\documentclass{beamer}
+
+\usetheme{Madrid} % Singapore, Madrid, Ilmenau, CambridgeUS
+\setbeamertemplate{navigation symbols}{}
+
+% --- Colores personalizados ---
+\definecolor{unahurverde}{HTML}{005C5C}
+\definecolor{unahurgris}{HTML}{EAEAEA}
+\setbeamercolor{structure}{fg=unahurverde}
+\setbeamercolor{frametitle}{bg=unahurverde, fg=white}
+\setbeamercolor{title}{fg=unahurverde}
+\setbeamercolor{block title}{bg=unahurverde, fg=white}
+\setbeamercolor{block body}{bg=unahurgris, fg=black}
+
+% --- Logo en esquina superior derecha ---
+\addtobeamertemplate{frametitle}{}{%
+	\begin{textblock*}{3cm}(11.88cm,0.12cm)
+		\includegraphics[height=0.7cm]{../figures/logo_unahur.png}
+	\end{textblock*}
+}
+
+\setbeamertemplate{caption}[numbered]
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{ragged2e}
+\usepackage[table]{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+%\usepackage{enumitem}
+\usepackage[absolute,overlay]{textpos} % Necesario para el logo
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{calc}
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.95}
+\definecolor{verdecelda}{HTML}{B7CBA6}
+\definecolor{rojocelda}{HTML}{FF9999}
+\definecolor{lightgray}{gray}{0.6}
+
+\definecolor{codebg}{rgb}{0.95,0.97,0.98}      % fondo celeste muy suave
+\definecolor{codecomment}{rgb}{0.42,0.55,0.34}  % verde oliva suave y cursiva
+\definecolor{codekeyword}{rgb}{0.0,0.45,0.73}   % azul turquesa
+\definecolor{codestring}{rgb}{0.78,0.36,0.14}   % naranja marrón claro
+\definecolor{codenumber}{rgb}{0.5,0.5,0.5}      % gris numeración
+\definecolor{coderule}{rgb}{0.7,0.8,0.9}       % borde celeste suave
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{codebg},
+	commentstyle=\color{codecomment},
+	keywordstyle=\color{codekeyword}\bfseries,
+	stringstyle=\color{codestring},
+	numberstyle=\tiny\color{codenumber},
+	basicstyle=\ttfamily\footnotesize,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbersep=7pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	inputencoding=utf8,
+	extendedchars=true,
+	frame=single,
+	rulecolor=\color{coderule},
+	numbers=none,
+	xleftmargin=10pt,
+	literate={π}{{$\pi$}}1 {θ}{{$\theta$}}1 {μ}{{$\mu$}}1 {β}{{$\beta$}}1 {η}{{$\eta$}}1 {δ}{{$\delta$}}1 {Δ}{{$\Delta$}}1
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ζ}{{$\zeta$}}1
+}
+
+\lstset{style=mystyle}
+
+\lstset{
+	language=Python,
+	emph={self}, emphstyle=\color{purple}\bfseries,
+}
+
+\newcommand{\comentario}[1]{\textbf{\textcolor{red}{#1}}}
+
+\title{Detección de Anomalías - Autocodificadores}
+\author{Matías Cisnero}
+\date{Diciembre 2025}
+
+\begin{document}
+
+\begin{frame}
+	\centering
+	\includegraphics[width=0.25\textwidth]{../figures/UNAHUR.png}
+	\vfill
+	{\huge \textbf{Detección de Anomalías Utilizando Autocodificadores}}\\[0.4cm]
+	Autor: Matías Cisnero\\
+	Tutora: Dra. M. Juliana Gambini\\
+	\vfill
+	{\small Diciembre 2025}
+	{\small Universidad Nacional de Hurlingham}
+\end{frame}
+
+\begin{frame}{Contenido}
+	\tableofcontents
+\end{frame}
+
+\section{Introducción}
+
+\begin{frame}
+	\begin{center}
+		\textcolor{unahurverde}{\textbf{Introducción}}
+	\end{center}
+	\centering
+
+\end{frame}
+
+\begin{frame}{Introducción}
+	\justifying
+	\begin{block}{}
+		\small
+		\justifying
+		La \textbf{detección de anomalías} es un campo fundamental dentro del análisis de datos, cuyo objetivo principal es la identificación de patrones que no se ajustan a un comportamiento que coincide con el de la mayoría de los registros.
+	\end{block}
+	
+	\begin{block}{}
+		\small
+		\justifying
+		En el contexto de los datos de salud, una anomalía puede representar un error de medición, o una indicación temprana de una condición médica patológica, como el cáncer de mama.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Motivación}
+	\small
+	\justifying
+	\begin{block}{}
+		Con la motivación de facilitar la detección de enfermedades como el \textbf{cáncer de mama}, se considera que:
+		\begin{itemize}
+			\item Los casos \textbf{benignos} generan datos médicos que siguen cierta distribución esperada.
+			\item Los casos \textbf{malignos} generan registros atípicos respecto a esa distribución.
+		\end{itemize}
+		
+		Esta idea guía el diseño de un \textbf{autocodificador} que aprenda la distribución de datos benignos y permita detectar desviaciones respecto a su distribución.
+	\end{block}
+	\vspace{0.25cm}
+	
+	\begin{block}{}
+		\small
+		\justifying
+		Este tipo de modelos podría asistir a profesionales de la salud en la detección temprana de pacientes en riesgo. Utilizando el método como una herramienta y no como un intento de reemplazo del profesional.
+	\end{block}
+	
+\end{frame}
+
+
+\section{Conjunto de datos}
+
+\begin{frame}
+	\begin{center}
+		\textcolor{unahurverde}{\textbf{Conjunto de datos:}}
+	\end{center}
+	\centering
+	
+	Obtención, atributos y distribución.
+\end{frame}
+
+\begin{frame}{Obtención del conjunto de datos}
+	\small
+	\justifying
+	\begin{block}{}
+		\justifying
+		Se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual se obtuvo de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original publicado por Wolberg et al. \cite{breast_cancer_wisconsin}.
+	\end{block}
+	
+	\begin{block}{}
+		\justifying
+		El conjunto de datos está compuesto por \textbf{569 registros} de muestras citológicas y \textbf{32 atributos}, de los cuales:
+		
+		\begin{itemize}
+			\item 30 corresponden a características numéricas derivadas del análisis de imágenes digitalizadas, correspondientes a aspiraciones con aguja fina de masas mamarias.
+			\item Las 2 características restantes son categóricas, \emph{ID}, el cual es solo un metadato que no se utiliza para el entrenamiento del modelo y el \textbf{diagnóstico} que puede ser benigno o maligno.
+		\end{itemize}
+	\end{block}
+	Las muestras incluidas en el conjunto de datos fueron recolectadas entre enero de 1989 y noviembre de 1991.
+\end{frame}
+
+\begin{frame}{Obtención de muestras}
+	\small
+	\begin{columns}[c]
+		% ---- Columna izquierda: texto ----
+		\column{0.58\textwidth}
+		\justifying
+		Las \textbf{muestras citológicas} se refieren a grupos celulares obtenidas de las masas mamarias mediante la técnica de aspiración con aguja fina (FNA), que es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de la masa mamaria con una aguja de pequeño calibre, tal como se observa en la Figura~\ref{fig:fna}.
+		
+		%Esta técnica, ampliamente usada en el diagnóstico de tumores mamarios, permite recolectar células para su posterior análisis citológico, evitando métodos quirúrgicos más invasivos. Su uso en el estudio del cáncer de mama se remonta a la década de 1930 y ha demostrado poseer una elevada precisión diagnóstica cuando es ejecutada e interpretada por un patólogo especializado.
+		
+		% ---- Columna derecha: imagen ----
+		\column{0.38\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\linewidth]{../figures/fna}
+			\caption{Proceso de FNA (tomado de \cite{clevelandclinicFNA})}
+			\label{fig:fna}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Atributos}
+	\small
+	\justifying
+	
+	\begin{block}{}
+		Los atributos numéricos del conjunto de datos describen propiedades morfológicas de los núcleos celulares extraídas a partir de las imágenes digitalizadas de las muestras citológicas. Estas características, definidas en el trabajo original de Street et al.~\cite{Street1993NuclearFE}, capturan información relacionada con el tamaño, la forma, la textura y la simetría de las células, aspectos relevantes para la diferenciación entre casos benignos y malignos.
+	\end{block}
+		\vspace{0.2cm}
+		
+	\begin{block}{}
+		A partir de diez características base, se calculan tres medidas estadísticas para cada una: la \textbf{media}, el \textbf{error estándar} y el \textbf{peor valor}, definido como la media de los tres valores más grandes de la característica. De este modo, se obtienen los \textbf{30 atributos numéricos} utilizados.
+	\end{block}
+	
+\end{frame}
+
+
+\begin{frame}{Distribución}
+	\small
+	\justifying
+	Analizando el conjunto de datos se observan las cantidades de casos benignos y malignos con las que se cuentan. Esto se visualiza en la Tabla~\ref{tab:diagnosis}.
+	\begin{table}[H]
+		\centering
+		\caption{Distribución de la variable objetivo \emph{diagnosis}}
+		\begin{tabular}{lcc}
+			\toprule
+			\textbf{Valor} & \textbf{Porcentaje (\%)} & \textbf{Cantidad de registros} \\
+			\midrule
+			B (Benigno) & 62.74 & 357 \\
+			M (Maligno) & 37.26 & 212 \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:diagnosis}
+	\end{table}
+	
+\end{frame}
+
+\begin{frame}{División del conjunto (1)}
+	\small
+	\justifying
+	\begin{block}{}
+		Para realizar el entrenamiento del modelo se divide el conjunto de datos en 3 subconjuntos: entrenamiento, validación y prueba. Tal como se muestra en el paso \textbf{(1)} de la Figura~\ref{fig:proporciones}.
+		\begin{itemize}
+			\item Entrenamiento: se utiliza para entrenar al modelo.
+			\item Validación: su función es evitar un sobreajuste (\emph{overfitting}) en el modelo.
+			\item Prueba: sirve para realizar las evaluaciones finales del modelo.
+		\end{itemize}
+	\end{block}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.3\linewidth]{../figures/proporciones}
+		\caption{Esquema de la división del conjunto de datos.}
+		\label{fig:proporciones}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Estandarización}
+	\begin{block}{}
+		Cada uno de los subconjuntos utilizados, ya sean de entrenamiento, validación o prueba, se encuentran estandarizados. Este método transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas del modelo tengan una escala comparable. Este proceso se define formalmente en la Ecuación~\ref{eq:estandarizacion}.
+	\end{block}
+	\begin{equation}
+		z = \frac{x - \mu}{\sigma}
+		\label{eq:estandarizacion}
+	\end{equation}
+	donde $x$ corresponde al dato original y tanto $\mu$ como $\sigma$, a la media y la desviación estándar de esa variable, respectivamente.
+	
+	\begin{block}{}
+		La estandarización también contribuye a mitigar posibles problemas de \emph{overflow} en las activaciones del autocodificador, los cuales pueden surgir cuando el modelo recibe valores excesivamente grandes.
+	\end{block}
+\end{frame}
+
+\begin{frame}{División del conjunto (2)}
+	\small
+	\justifying
+	
+	\begin{block}{}
+		Luego, con el objetivo de evaluar la robustez del autocodificador al tener presentes anomalías durante el entrenamiento, se construyen los subconjuntos de entrenamiento \textbf{A}, \textbf{B} y \textbf{C}.
+	\end{block}
+	
+	\begin{block}{}
+		Esta división se visualiza como el paso \textbf{(2)} de la Figura~\ref{fig:proporciones}. Los valores se presentan en la Tabla~\ref{tab:proporciones_conjunto}.
+	\end{block}
+
+	\centering
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{ccccc}
+			\toprule
+			\textbf{ID} & \textbf{Anómalos (\%)} & \textbf{Normales (\%)} & \textbf{Cant. Anómalos} & \textbf{Cant. Normales} \\
+			\midrule
+			A & 0\%  & 100\% & 0  & 214 \\
+			B & 10\% & 90\%  & 21 & 193 \\
+			C & 25\% & 75\%  & 53 & 161 \\
+			\bottomrule
+		\end{tabular}
+		\caption{Subconjuntos derivados del subconjunto de entrenamiento para evaluar la resistencia del autocodificador ante diferentes proporciones de anomalías.}
+		\label{tab:proporciones_conjunto}
+	\end{table}
+\end{frame}
+
+\section{Autocodificadores para detección de anomalías}
+
+\begin{frame}
+	\begin{center}
+		\textcolor{unahurverde}{\textbf{Autocodificadores para detección de anomalías:}}
+	\end{center}
+	\centering
+	
+	Fundamentos y aplicación.
+\end{frame}
+
+\begin{frame}{¿Qué es un autocodificador?}
+	\begin{columns}[c]
+		% --- Columna izquierda: texto ---
+		\column{0.5\textwidth}
+		\begin{block}{}
+			\justifying
+			\footnotesize
+			\begin{itemize}
+				\item Un \textbf{autocodificador} (\emph{autoencoder}) es un tipo de perceptrón multicapa.
+				\item Su característica principal es que la dimensión de la entrada es igual que la de salida (tamaño $D$).
+				\item La red tiene una arquitectura simétrica con una o más capas ocultas (en número impar), con una capa central denominada \textbf{capa latente}.
+				\item Generalmente, la capa latente tiene dimensión $K$, con $K < D$, lo que implica una \textbf{compresión} de la información.
+			\end{itemize}
+		\end{block}
+		\vfill
+		
+		% --- Columna derecha: imagen ---
+		\column{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../figures/arquitectura.png}
+		\vfill
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Autocodificador: codificador y decodificador}
+	\small
+	El autocodificador tiene dos partes principales:
+	
+	\begin{columns}[T]
+		
+		\column{0.48\textwidth}
+		\begin{block}{}
+			\begin{itemize}
+				\item \textbf{Codificador} (\emph{Encoder}): transforma la entrada $x^{(u)} \in \mathbb{R}^D$ en la representación comprimida $z^{(u)} \in \mathbb{R}^K$ en la capa latente.
+			\end{itemize}
+		\end{block}
+		
+		\column{0.48\textwidth}
+		\begin{block}{}
+			\begin{itemize}
+				\item \textbf{Decodificador} (\emph{Decoder}): reconstruye la entrada a partir de la representación latente $z^{(u)}$, obteniendo la reconstrucción $\hat{x}^{(u)}$.
+			\end{itemize}
+		\end{block}
+		
+	\end{columns}
+	\vspace{0.3cm}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{../figures/encoder_decoder.png}
+		\caption{Ejemplo de un autocodificador, donde se codifica y decodifica una imagen (tomado de \cite{bank2020autoencoders}).}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}{Variantes del autocodificador}
+	\small
+	\justifying
+	
+	\begin{block}{}
+		Si bien el autocodificador clásico permite reducir la dimensionalidad, generando así una compresión de los datos; existen variantes que imponen restricciones adicionales sobre la representación latente, para evitar que el modelo aprenda la función identidad y forzar la extracción de características más robustas.
+	\end{block}
+
+	\vspace{0.5cm}
+	
+	\centering
+	\begin{tikzpicture}[
+		every node/.style={
+			draw,
+			rounded corners,
+			align=center,
+			text width=5.0cm,
+			minimum height=1.0cm
+		},
+		arrow/.style={->, thick}
+		]
+		
+		% Nodo central
+		\node (ae) [
+		text width=3.0cm
+		] {Autocodificador\\(AE, \emph{Autoencoder})};
+		
+		% Nodos laterales
+		\node (sae) at (-3,-2)
+		{Autocodificador disperso\\(SAE, \emph{Sparse Autoencoder})};
+		
+		\node (cae) at (3,-2)
+		{Autocodificador contractivo\\(CAE, \emph{Contractive Autoencoder})};
+		
+		% Referencias (sin caja)
+		\node[draw=none, text width=3cm, align=center]
+		at ($(sae.south)+(0,-0.4)$)
+		{\footnotesize Ng et al. \cite{ng2011sparse}};
+		
+		\node[draw=none, text width=3cm, align=center]
+		at ($(cae.south)+(0,-0.4)$)
+		{\footnotesize Rifai et al. \cite{rifai2011contracting}};
+		
+		% Flechas
+		\draw[arrow] (ae) -- (sae);
+		\draw[arrow] (ae) -- (cae);
+		
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Variantes del autocodificador}
+	\justifying
+	\small
+	\begin{block}{\emph{Sparse Autoencoder} (SAE)}
+		Impone una restricción de \textbf{dispersión} en la capa latente, forzando a que la mayoría de las neuronas permanezcan inactivas para cada entrada, lo que favorece la extracción de características más discriminativas.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{block}{\emph{Contractive Autoencoder} (CAE)}
+		Impone una restricción \textbf{contractiva} sobre la función de codificación, haciendo que la representación latente sea robusta frente a pequeñas perturbaciones en la entrada.
+	\end{block}
+	
+\end{frame}
+
+\begin{frame}{Uso para detección de anomalías: datos normales}
+	\small
+	\justifying
+	
+	\begin{block}{}
+		La detección de anomalías con autocodificadores se basa en el \textbf{error de reconstrucción} de la entrada. Un modelo entrenado únicamente con datos normales aprende su distribución y es capaz de reconstruirlos con bajo error.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{../figures/normal}
+		\caption{Reconstrucción de una entrada normal. El error de reconstrucción es bajo y cumple $\|\hat{x}^{(u)} - x^{(u)}\| < \epsilon$.}
+		\label{fig:normal}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}{Uso para detección de anomalías: datos anómalos}
+	\small
+	\justifying
+	
+	\begin{block}{}
+		En cambio, cuando la entrada corresponde a un dato atípico, el autocodificador no logra reconstruirla correctamente, produciendo un error elevado.
+	\end{block}
+	
+	\vspace{0.3cm}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{../figures/anomaly}
+		\caption{Reconstrucción de una entrada anómala. El error de reconstrucción es alto y cumple $\|\hat{t}^{(u)} - t^{(u)}\| > \epsilon$.}
+		\label{fig:anomaly}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	
+	\begin{block}{}
+		De este modo, el \textbf{error de reconstrucción} puede utilizarse como una métrica para la detección de anomalías, comparándolo con un umbral $\epsilon$ definido previamente.
+	\end{block}
+\end{frame}
+
+
+\section{Resultados}
+
+\begin{frame}
+	\begin{center}
+		\textcolor{unahurverde}{\textbf{Resultados}}
+	\end{center}
+	\centering
+
+\end{frame}
+
+\begin{frame}{Entrenamiento de los modelos}
+	\small
+	\justifying
+	
+	\begin{block}{}
+		Para el entrenamiento de los modelos se definieron sus configuraciones mediante un proceso de \emph{grid search}, en el cual se seleccionaron aquellas combinaciones que presentaron mejor desempeño en el conjunto de \textbf{validación}, priorizando las métricas de \emph{Recall}, $\text{\emph{F1}}_{\text{\emph{score}}}$ y AUC.
+	\end{block}
+	
+	\vspace{0.2cm}
+	
+	\begin{table}
+		\centering
+		\caption{Arquitecturas finales utilizadas en cada modelo.}
+		\begin{tabular}{lc}
+			\toprule
+			\textbf{Modelo} & \textbf{Dimensiones de capas} \\
+			\midrule
+			AE  & [30, 32, 16, 8, 4, 2] \\
+			SAE & [30, 64] \\
+			CAE & [30, 32, 16] \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\begin{block}{}
+		Todos los modelos fueron entrenados utilizando \textbf{MSE} como función de pérdida y el optimizador \textbf{Adam}, con una tasa de aprendizaje $\text{lr}=0.001$, un \textbf{batch size} de 16 y \emph{early stopping} con una paciencia de 20 épocas, hasta un máximo de 200 épocas.
+	\end{block}
+\end{frame}
+
+
+
+\begin{frame}
+	\begin{block}{}
+		A continuación se muestran los errores de reconstrucción obtenidos con el autocodificador clásico en los conjuntos de datos A, B y C.
+	\end{block}
+	
+	\begin{block}{}
+		En los histogramas se pueden observar donde se posicionan los distintos umbrales en la clasificación.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{../figures/hist_error_recons_A}
+		\caption{Distribución del error de reconstrucción para el autocodificador A.}
+		\label{fig:hist_error_recons_A}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{../figures/hist_error_recons_B}
+		\caption{Distribución del error de reconstrucción para el autocodificador B.}
+		\label{fig:hist_error_recons_B}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{../figures/hist_error_recons_C}
+		\caption{Distribución del error de reconstrucción para el autocodificador C.}
+		\label{fig:hist_error_recons_C}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Umbral utilizado en la clasificación}
+	\justifying
+	\small
+	\begin{block}{}
+		Con los umbrales y errores de reconstrucción computados, se realizan las clasificaciones para calcular los valores de la matriz de confusión y con ellos las métricas.
+	\end{block}
+	
+	\begin{block}{}
+		En todos los casos se utiliza el umbral calculado a partir del \textbf{Índice de Youden}, debido a su capacidad para maximizar las métricas de \emph{Recall} y \emph{Specificity}.
+	\end{block}
+\end{frame}
+
+%\begin{frame}{Matrices de confusión}
+%	\justifying
+%	\small
+%	Matrices de confusión para los autocodificadores clásicos A, B y C.
+%	
+%	\begin{columns}[T,onlytextwidth]
+%		\column{0.33\textwidth}
+%		\begin{figure}
+%			\centering
+%			\includegraphics[width=\linewidth]{../figures/matriz_conf_A.png}
+%			\caption{Modelo A}
+%			\label{fig:matriz_conf_A}
+%		\end{figure}
+%		
+%		\column{0.33\textwidth}
+%		\begin{figure}
+%			\centering
+%			\includegraphics[width=\linewidth]{../figures/matriz_conf_B.png}
+%			\caption{Modelo B}
+%			\label{fig:matriz_conf_B}
+%		\end{figure}
+%		
+%		\column{0.33\textwidth}
+%		\begin{figure}
+%			\centering
+%			\includegraphics[width=\linewidth]{../figures/matriz_conf_C.png}
+%			\caption{Modelo C}
+%			\label{fig:matriz_conf_C}
+%		\end{figure}
+%	\end{columns}
+%\end{frame}
+
+\begin{frame}
+	\justifying
+	\small
+%	\begin{block}{}
+%		Con la matriz de confusión realizada para cada modelo se calculan las métricas para cada modelo entrenado con los subconjuntos A, B y C.
+%	\end{block}
+	
+	\begin{block}{}
+		Se calculan las métricas para cada modelo entrenado con los subconjuntos A, B y C.
+	\end{block}
+	
+	\scriptsize
+	
+	\begin{table}[H]
+		\centering
+		\caption{Métricas de rendimiento para cada modelo entrenado con los subconjuntos A, B y C.}
+		\resizebox{\textwidth}{!}{
+			\begin{tabular}{lcccccc}
+				\toprule
+				\textbf{Modelo} &
+				\textbf{\emph{Accuracy}} &
+				\textbf{\emph{Precision}} &
+				\textbf{\emph{Recall}} &
+				\textbf{\emph{Specificity}} &
+				\textbf{\emph{Balanced Accuracy}} &
+				\textbf{F1\textsubscript{score}} \\
+				\midrule
+				AE (A)  & 0.860 & 0.771 & 0.881 & 0.847 & 0.864 & 0.822 \\
+				AE (B)  & 0.746 & 0.618 & 0.810 & 0.708 & 0.759 & 0.701 \\
+				AE (C)  & 0.632 & 0.500 & 0.619 & 0.639 & 0.629 & 0.553 \\
+				\midrule
+				SAE (A) & 0.939 & 0.973 & 0.857 & 0.986 & 0.922 & 0.911 \\
+				SAE (B) & 0.754 & 0.652 & 0.714 & 0.778 & 0.746 & 0.682 \\
+				SAE (C) & 0.640 & 0.538 & 0.167 & 0.917 & 0.542 & 0.255 \\
+				\midrule
+				CAE (A) & 0.930 & 0.886 & 0.929 & 0.931 & 0.930 & 0.907 \\
+				CAE (B) & 0.798 & 0.757 & 0.667 & 0.875 & 0.771 & 0.709 \\
+				CAE (C) & 0.693 & 0.566 & 0.714 & 0.681 & 0.697 & 0.632 \\
+				\bottomrule
+			\end{tabular}
+		}
+		\label{tab:metricas_modelos}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Observaciones de las métricas}
+	\justifying
+	\small
+	\begin{block}{}
+		Se observa un buen rendimiento general para los modelos entrenados con el conjunto A (0\% de anomalías). Destaca el modelo \textbf{SAE (A)} por sus buenas métricas generales y el modelo \textbf{CAE (A)} por su alto valor de \emph{Recall}.
+	\end{block}
+	\begin{block}{}
+		También se visualiza como bajan los valores de las métricas a medida que aumenta el porcentaje de anomalías en el entrenamiento. Aunque el modelo \textbf{CAE} demuestra mayor robustez ante este hecho.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Interpretación de las métricas}
+	\justifying
+	\small
+	\begin{block}{}
+		El valor de \emph{Recall} de 0.929 del modelo \textbf{CAE (A)} indica que el 92.9\% de los pacientes con tumores malignos es clasificado correctamente como anómalo, lo que implica una baja proporción de falsos negativos.
+	\end{block}
+	\begin{block}{}
+		En problemas de detección de anomalías aplicados al ámbito médico, un alto valor de \emph{Recall} resulta especialmente relevante, ya que minimizar los falsos negativos reduce el riesgo de no detectar casos patológicos que requieren atención clínica.
+	\end{block}
+\end{frame}
+
+
+\begin{frame}{Curva ROC y AUC}
+	\justifying
+	\small
+	\begin{block}{}
+		A continuación se presentan los gráficos de las curvas ROC para todos los modelos, agrupando las curvas según el conjunto de entrenamiento. Esto con el fin de comparar la robustez de cada modelo a la contaminación de los datos.
+	\end{block}
+	
+	\begin{block}{}
+		La curva ROC y el AUC permiten evaluar la capacidad discriminativa de los modelos independientemente del umbral $\epsilon$ utilizado.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Curva ROC – Conjunto A}
+	\centering
+	\begin{figure}
+		\includegraphics[width=0.55\textwidth]{../figures/roc_A.png}
+		\caption{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto A (0\% de anomalías).}
+		\label{fig:autoencoder_roc_auc_A}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Curva ROC – Conjunto B}
+	\centering
+	\begin{figure}
+		\includegraphics[width=0.55\textwidth]{../figures/roc_B.png}
+		\caption{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto B (10\% de anomalías).}
+		\label{fig:autoencoder_roc_auc_B}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Curva ROC – Conjunto C}
+	\centering
+	\begin{figure}
+		\includegraphics[width=0.55\textwidth]{../figures/roc_C.png}
+		\caption{Curvas ROC y AUC obtenidos para los modelos AE, SAE y CAE entrenados con el Conjunto C (25\% de anomalías).}
+		\label{fig:autoencoder_roc_auc_C}
+	\end{figure}
+\end{frame}
+
+
+\section{Conclusiones}
+
+\begin{frame}
+	\begin{center}
+		\textcolor{unahurverde}{\textbf{Conclusiones}}
+	\end{center}
+	\centering
+	
+\end{frame}
+
+\begin{frame}{Mejores modelos}
+	\justifying
+	\small
+	\begin{block}{}
+		Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} junto a su robustez ante la presencia de anomalías al CAE. Por otra parte, el autocodificador clásico presenta un resultado aceptable en las métricas, teniendo mayor robustez al ruido que el SAE pero sin destacar en ninguna métrica.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Observación sobre el sesgo}
+	\justifying
+	\small
+	\begin{block}{}
+		Si bien los modelos evaluados presentan resultados satisfactorios, hay que tener en cuenta que las características de las muestras del conjunto de datos corresponden a pacientes de los hospitales y clínicas de la universidad de Wisconsin, estado de EE.UU.
+	\end{block}
+	
+	\begin{block}{}
+		El modelo puede no funcionar satisfactoriamente en pacientes no pertenecientes a esa población. Es decir, tiene un sesgo correspondiente a la región.
+	\end{block}
+\end{frame}
+
+\section*{Repositorio}
+
+\begin{frame}{Repositorio de Github}
+	\justifying
+	El Proyecto Integrador está disponibles en el siguiente repositorio de Github:
+	
+	\vspace{0.5cm}
+	\centering
+	\href{https://github.com/matias-cisnero/procesamiento_imagenes}{\textcolor{unahurverde}{\textbf{https://github.com/matias-cisnero/anomaly-detection-with-autoencoder}}}
+\end{frame}
+
+\section*{Bibliografía}
+
+\begin{frame}[allowframebreaks]{Referencias}
+	\tiny
+	\bibliographystyle{plain}
+	\bibliography{../References}
+\end{frame}
+
+\begin{frame}{}
+	\centering
+	{\huge ¡Gracias!}\\
+	\vspace{1cm}
+	\includegraphics[width=0.2\textwidth]{../figures/UNAHUR.png}
+\end{frame}
+
+
+\appendix
+
+
+\begin{frame}[plain]
+	\centering
+	\Huge \textcolor{unahurverde}{\textbf{Apéndice}}
+\end{frame}
+
+\begin{frame}{AED: Matriz de Correlación}
+	\justifying
+	\small
+	\begin{columns}
+		\column{0.6\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../figures/matriz_corr.png}
+		
+		\column{0.38\textwidth}
+		\begin{block}{Observaciones}
+			\footnotesize
+			\begin{itemize}
+				\item Se observan fuertes correlaciones lineales entre atributos geométricos relacionados (Área, Perímetro, Radio).
+				\item Relaciones inversas leves entre medidas de tamaño y la dimensión fractal.
+			\end{itemize}
+		\end{block}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{AED: Distribución de características}
+	\justifying
+	\small
+	Comparación de distribuciones entre clases (Benigno/Maligno).
+	\vspace{0.3cm}
+	
+	\centering
+	\includegraphics[width=0.8\linewidth]{../figures/boxplot_mean}
+	
+	\begin{block}{}
+		\footnotesize
+		\centering
+		El \textbf{Área Media} presenta la distinción más clara, mientras que la \textbf{Dimensión Fractal} muestra una gran superposición.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Funciones de Activación: GELU vs ReLU}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\small
+		\textbf{GELU (Gaussian Error Linear Unit):}
+		\begin{equation*}
+			\operatorname{GELU}(x) = 0.5x(1 + \tanh(\sqrt{2/\pi}(x + 0.044715x^3)))
+		\end{equation*}
+		
+		\vspace{0.2cm}
+		\begin{block}{Ventajas sobre ReLU}
+			\footnotesize
+			\begin{itemize}
+				\item Es suave cerca de 0.
+				\item Evita el problema de las "neuronas muertas".
+				\item Formulación probabilística.
+			\end{itemize}
+		\end{block}
+		
+		\column{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../figures/relu_gelu}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Función de Costo: Sparse Autoencoder (SAE)}
+	\small
+	\justifying
+	El SAE añade un término de penalización basado en la \textbf{Divergencia Kullback-Leibler (KL)} para forzar la inactividad de las neuronas.
+	
+	\begin{block}{Función de Pérdida}
+		\begin{equation*}
+			\mathcal{L}_{\text{sparse}} = \underbrace{\text{MSE}(X, \hat{X})}_{\text{Reconstrucción}} + \beta \sum_{j=1}^{H} \operatorname{KL}(\rho \,\|\, \hat{\rho}_j)
+		\end{equation*}
+	\end{block}
+	
+	Donde la divergencia KL se define como:
+	\begin{equation*}
+		\operatorname{KL}(\rho \,\|\, \hat{\rho}_j) = \rho \log\frac{\rho}{\hat{\rho}_j} + (1 - \rho) \log\frac{1-\rho}{1-\hat{\rho}_j}
+	\end{equation*}
+	
+	\footnotesize
+	\begin{itemize}
+		\item $\rho$: Parámetro de dispersión deseado (ej. 0.05).
+		\item $\hat{\rho}_j$: Activación promedio real de la neurona $j$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Cálculo de la activación promedio ($\hat{\rho}_j$)}
+	\small
+	\justifying
+	Para el término de dispersión (KL) en el SAE, es necesario calcular la activación promedio real de cada neurona oculta $j$ sobre el conjunto de datos (o un \emph{batch}).
+	
+	\begin{block}{Activación Promedio}
+		\begin{equation*}
+			\hat{\rho}_j = \frac{1}{N} \sum_{u=1}^{N} a_j^{(u)}
+		\end{equation*}
+	\end{block}
+	
+	\footnotesize
+	Donde $N$ es el número de ejemplos y $a_j^{(u)}$ es la activación de la neurona $j$ para el ejemplo $x^{(u)}$, dada por la función de activación aplicada a la suma ponderada de entradas y sesgo:
+	
+	\begin{equation*}
+		a_j^{(u)} = g\left( \sum_{k=1}^{D} w_{jk} \, x_k^{(u)} \right)
+	\end{equation*}
+\end{frame}
+
+\begin{frame}{Función de Costo: Contractive Autoencoder (CAE)}
+	\small
+	\justifying
+	El CAE penaliza la sensibilidad del codificador a pequeñas variaciones en la entrada utilizando la norma de Frobenius de la matriz Jacobiana.
+	
+	\begin{block}{Función de Pérdida}
+		\begin{equation*}
+			\mathcal{L}_{\text{CAE}} = \underbrace{\text{MSE}(X, \hat{X})}_{\text{Reconstrucción}} + \lambda \sum_{u=1}^{N} \| J_f(x^{(u)}) \|_{F}^{2}
+		\end{equation*}
+	\end{block}
+	
+	\begin{itemize}
+		\item $J_f(x^{(u)})$: Jacobiano de la función de codificación.
+		\item Esto fuerza al modelo a aprender un mapeo suave (contractivo), ignorando variaciones irrelevantes (ruido).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Atributos del Conjunto de Datos}
+	\small
+	\justifying
+	El conjunto consta de \textbf{30 atributos numéricos}. Estos se derivan de 10 características base calculadas a partir de las imágenes digitalizadas de FNA.
+	
+	\vspace{0.2cm}
+	
+	\centering
+	\resizebox{0.85\textwidth}{!}{
+		\begin{tabular}{c l l}
+			\toprule
+			\textbf{No.} & \textbf{Característica} & \textbf{Descripción} \\
+			\midrule
+			1 & Radio & Media de distancias centro-perímetro. \\
+			2 & Textura & Desviación estándar de escala de grises. \\
+			3 & Perímetro & Medida del contorno del núcleo. \\
+			4 & Área & Superficie del núcleo. \\
+			5 & Suavidad & Variación local en longitudes del radio. \\
+			6 & Compacidad & $\text{Perímetro}^2 / \text{área} - 1.0$. \\
+			7 & Concavidad & Severidad de las porciones cóncavas. \\
+			8 & Puntos Cóncavos & Número de porciones cóncavas. \\
+			9 & Simetría & Nivel de simetría del núcleo. \\
+			10 & Dimensión Fractal & Aproximación a la "línea de costa" - 1. \\
+			\bottomrule
+		\end{tabular}
+	}
+	
+	\vspace{0.3cm}
+	\begin{block}{}
+		\footnotesize
+		Para cada una de estas 10 características, se calculan 3 medidas: \textbf{Media} (Mean), \textbf{Error Estándar} (SE) y \textbf{Peor Valor} (Worst), resultando en los 30 atributos totales.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Comparativa de métodos para el umbral $\epsilon$}
+	\justifying
+	\small
+	Se evaluaron distintos métodos para definir el umbral de corte $\epsilon$. Se seleccionó el \textbf{Índice de Youden} por maximizar conjuntamente \emph{Recall} y \emph{Specificity}.
+	
+	\vspace{0.3cm}
+	
+	\centering
+	\resizebox{0.9\textwidth}{!}{
+		\begin{tabular}{lcccc}
+			\toprule
+			\textbf{Modelo} & \textbf{Media + 2$\sigma$} & \textbf{Percentil 95} & \textbf{Youden (Elegido)} \\
+			\midrule
+			AE (A)  & 0.665 & 0.657 & \textbf{0.446} \\
+			SAE (A) & 0.356 & 0.334 & \textbf{0.762} \\
+			CAE (A) & 0.095 & 0.052 & \textbf{0.037} \\
+			\bottomrule
+		\end{tabular}
+	}
+	
+	\vspace{0.3cm}
+	\begin{block}{}
+		\footnotesize
+		\begin{itemize}
+			\item \textbf{Media/Percentil:} Dependen solo de la distribución de los datos normales.
+			\item \textbf{Youden:} Optimiza el punto de corte en la curva ROC ($J = \text{Sensibilidad} + \text{Especificidad} - 1$).
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\end{document}

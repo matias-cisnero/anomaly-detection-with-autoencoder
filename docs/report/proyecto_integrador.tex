@@ -153,9 +153,6 @@ El presente informe aborda la detección de anomalías en datos biomédicos util
 
 Los resultados, visualizados a través de tablas, figuras e histogramas muestran que, tal como dicta en la teoría, los datos anómalos presentan en la mayoría de casos un mayor error de reconstrucción y los modelos entrenados para tal clasificación muestran una buena capacidad discriminativa. Destacando al modelo \emph{sparse autoencoder} por sus métricas generales y al \emph{contractive autoencoder} por su mínimo valor de falsos positivos. El umbral utilizado para clasificar estos datos como normales o anomalías según su eror de reconstrucción, se calcula utilizando el índice de Youden.
 
-% ANTIGUO
-%Los resultados muestran que, aunque los datos anómalos presentan un mayor error de reconstrucción, los modelos no alcanzaron un desempeño adecuado como clasificadores. Esto indica que la limitación principal no reside en las arquitecturas empleadas, sino en el criterio de decisión para transformar el error de reconstrucción en una etiqueta binaria. En consecuencia, se resalta la necesidad de explorar métodos más robustos y automáticos para la elección del umbral, fundamentales para lograr un sistema funcional en aplicaciones biomédicas.
-
 \chapter{Introducción}
 
 La detección de anomalías es un campo fundamental dentro del análisis de datos, cuyo objetivo principal es la identificación de patrones que no se ajustan a un comportamiento que coincide con el de la mayoría de los registros. En el contexto de los datos de salud, una anomalía puede representar un error de medición, o una indicación temprana de una condición médica patológica, como el cáncer de mama.\\
@@ -202,11 +199,11 @@ Por otra parte, el método empleado para la detección de anomalías es el \text
 
 \section{Conjunto de datos y AED}
 
-Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual obtuve de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original publicado por Wolberg et al. \cite{breast_cancer_wisconsin}. Este conjunto de datos es ampliamente utilizado en tareas de clasificación y análisis de anomalías en el ámbito biomédico. Antes de aplicar cualquier técnica de modelado, se realiza un análisis exploratorio de datos (AED) con el objetivo de comprender la distribución de las características, detectar posibles valores atípicos y observar la relación entre las variables de las muestras obtenidas.\\
+Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual se obtuvo de la plataforma Kaggle \cite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original publicado por Wolberg et al. \cite{breast_cancer_wisconsin}. Este conjunto de datos es ampliamente utilizado en tareas de clasificación y análisis de anomalías en el ámbito biomédico. Antes de aplicar cualquier técnica de modelado, se realiza un análisis exploratorio de datos (AED) con el objetivo de comprender la distribución de las características, detectar posibles valores atípicos y observar la relación entre las variables de las muestras obtenidas.\\
 
 El conjunto de datos está compuesto por 569 registros de muestras citológicas y 32 atributos, de los cuales 30 corresponden a características numéricas derivadas del análisis de imágenes digitalizadas, correspondientes a aspiraciones con aguja fina de masas mamarias. Las 2 características restantes son categóricas, \emph{ID}, el cual es solo un metadato que no se utiliza para el entrenamiento del modelo y el \textbf{diagnóstico} que puede ser benigno o maligno. Las muestras incluidas en el conjunto de datos fueron recolectadas entre enero de 1989 y noviembre de 1991.\\
 
-Las \textbf{muestras citológicas} se refieren a grupos celulares obtenidas de las masas mamarias mediante la técnica de aspiración con aguja fina (FNA), que es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de la masa mamaria con una aguja de pequeño calibre. Esta técnica, ampliamente empleada en el diagnóstico de tumores mamarios, permite recolectar células para su posterior análisis citológico, evitando métodos quirúrgicos más invasivos. Su uso en el estudio del cáncer de mama se remonta a la década de 1930 y ha demostrado poseer una elevada precisión diagnóstica cuando es ejecutada e interpretada por un patólogo especializado.
+Las \textbf{muestras citológicas} se refieren a grupos celulares obtenidas de las masas mamarias mediante la técnica de aspiración con aguja fina (FNA), que es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de la masa mamaria con una aguja de pequeño calibre. Esta técnica, ampliamente usada en el diagnóstico de tumores mamarios, permite recolectar células para su posterior análisis citológico, evitando métodos quirúrgicos más invasivos. Su uso en el estudio del cáncer de mama se remonta a la década de 1930 y ha demostrado poseer una elevada precisión diagnóstica cuando es ejecutada e interpretada por un patólogo especializado.
 
 La FNA posibilita examinar características celulares y arquitectónicas del tejido aspirado, así como obtener material apto para tinciones citológicas que contribuyen a la detección de alteraciones malignas. Debido a su eficacia, simplicidad y bajo riesgo, la técnica se ha consolidado como una herramienta fundamental en la evaluación citológica de lesiones mamarias \cite{diamantis2009fine}.\\
 
@@ -803,29 +800,29 @@ Una vez definido el umbral para cada modelo, se analiza la distribución del err
 	\label{fig:hist_error_recons_C}
 \end{figure}
 
-Por su capacidad discriminatoria en todos los conjuntos se utiliza el $\epsilon$ calculado con el índice de Youden. A partir del mismo, se construyen las matrices de confusión del autocodificador clásico para los modelos A, B y C correspondientes a las Figuras~\ref{fig:matriz_conf_A}, \ref{fig:matriz_conf_B} y \ref{fig:matriz_conf_C}. Cabe destacar que no se muestran las frecuencias absolutas, sino relativas.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_A.png}
-	\caption{Matriz de confusión para el modelo A expresada en valores relativos.}
-	\label{fig:matriz_conf_A}
-\end{figure}
+%Por su capacidad discriminatoria en todos los conjuntos se utiliza el $\epsilon$ calculado con el índice de Youden. A partir del mismo, se construyen las matrices de confusión del autocodificador clásico para los modelos A, B y C correspondientes a las Figuras~\ref{fig:matriz_conf_A}, \ref{fig:matriz_conf_B} y \ref{fig:matriz_conf_C}. Cabe destacar que no se muestran las frecuencias absolutas, sino relativas.
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_A.png}
+%	\caption{Matriz de confusión para el modelo A expresada en valores relativos.}
+%	\label{fig:matriz_conf_A}
+%\end{figure}
+%
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_B.png}
+%	\caption{Matriz de confusión para el modelo B expresada en valores relativos.}
+%	\label{fig:matriz_conf_B}
+%\end{figure}
+%
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_C.png}
+%	\caption{Matriz de confusión para el modelo C expresada en valores relativos.}
+%	\label{fig:matriz_conf_C}
+%\end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_B.png}
-	\caption{Matriz de confusión para el modelo B expresada en valores relativos.}
-	\label{fig:matriz_conf_B}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{../figures/matriz_conf_C.png}
-	\caption{Matriz de confusión para el modelo C expresada en valores relativos.}
-	\label{fig:matriz_conf_C}
-\end{figure}
-
-Las métricas obtenidas en base al umbral computado para cada modelo, se muestran en la Tabla~\ref{tab:metricas_modelos}.
+Por su capacidad discriminatoria en todos los conjuntos se utiliza el $\epsilon$ calculado con el índice de Youden. A partir del mismo, se calculan las métricas para cada modelo, se muestran en la Tabla~\ref{tab:metricas_modelos}.
 \begin{table}[H]
 	\centering
 	\caption{Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C.}
@@ -857,7 +854,7 @@ Las métricas obtenidas en base al umbral computado para cada modelo, se muestra
 \noindent
 donde se observa que el mayor \emph{Recall} lo posee el modelo \textbf{CAE (A)} y el modelo \textbf{SAE (A)} cuenta con el mayor $\emph{F1}_{\emph{score}}$, \emph{Precision} y \emph{Specificity}. También se visualiza el decrecimiento de las métricas al aumentar las anomalías en el entrenamiento de los modelos, mayormente en el modelo SAE.\\
 
-Finalmente, con el objetivo de evaluar la capacidad discriminativa de cada arquitectura frente a instancias anómalas independientemente del umbral $\epsilon$ seleccionado, se calculan las curvas ROC y sus correspondientes valores de AUC para todos los modelos entrenados. Para facilitar la comparación, los modelos se agrupan según el conjunto de entrenamiento utilizado (A, B y C), lo que permite analizar cómo varía el rendimiento ante distintos niveles de contaminación en el entrenamiento. Los resultados se presentan en las Figuras~\ref{fig:autoencoder_roc_auc_A}, \ref{fig:autoencoder_roc_auc_B} y \ref{fig:autoencoder_roc_auc_C}. Si bien el autocodificador clásico no tiene el mejor desempeño en escenarios sin anomalías, muestra una mayor robustez cuando el conjunto de entrenamiento sí las contiene.
+Finalmente, con el objetivo de evaluar la capacidad discriminativa de cada arquitectura frente a instancias anómalas independientemente del umbral $\epsilon$ seleccionado, se calculan las curvas ROC y sus correspondientes valores de AUC para todos los modelos entrenados. Para facilitar la comparación, los modelos se agrupan según el conjunto de entrenamiento utilizado (A, B y C), lo que permite analizar cómo varía el rendimiento ante distintos niveles de contaminación en el entrenamiento. Los resultados se presentan en las Figuras~\ref{fig:autoencoder_roc_auc_A}, \ref{fig:autoencoder_roc_auc_B} y \ref{fig:autoencoder_roc_auc_C}. Donde se observa que el \emph{contractive autoencoder} tiene una mayor robustez que el resto de los modelos al entrenarse con anomalías. %Si bien el autocodificador clásico no tiene el mejor desempeño en escenarios sin anomalías, muestra una mayor robustez cuando el conjunto de entrenamiento sí las contiene.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{../figures/roc_A.png}
@@ -883,7 +880,9 @@ Finalmente, con el objetivo de evaluar la capacidad discriminativa de cada arqui
 
 El presente trabajo exploró el uso de autocodificadores (\emph{Autoencoders}) para la detección de anomalías, aplicados sobre un conjunto de datos clínicos tras un proceso de análisis exploratorio y preprocesamiento. Se estudiaron tres variantes del modelo: clásico, \emph{sparse} y \emph{contractive} con el objetivo de evaluar cómo las diferencias en las arquitecturas afectan la capacidad del modelo para identificar patrones propios de los registros normales y distinguirlos de las anomalías.\\
 
-Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} al CAE. Por otra parte, el autoencoder clásico destaca frente al resto por su robustez ante la presencia de anomalías en el conjunto de entrenamiento. También, se destaca la importancia de la pureza de los datos a la hora de entrenar detectores de anomalías destinados a aplicaciones reales, debido a las implicaciones que tienen en los modelos al estar presentes.\\
+Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} junto a su robustez ante la presencia de anomalías al CAE. Por otra parte, el autoencoder clásico presenta un resultado aceptable en las métricas, teniendo mayor robustez al ruido que el SAE pero sin destacar en ninguna métrica.
+
+También, se destaca la importancia de la pureza de los datos a la hora de entrenar detectores de anomalías destinados a aplicaciones reales, debido a las implicaciones que tienen en los modelos al estar presentes.\\
 
 En relación a la capacidad discriminativa de los modelos, se enfatiza la importancia de la selección del umbral $epsilon$, donde su elección puede afectar totalmente las métricas obtenidas para cada modelo, siendo un mejor indicativo de su capacidad  para distinguir anomalías el valor de AUC.
 
