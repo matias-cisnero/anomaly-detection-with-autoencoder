@@ -195,7 +195,7 @@
 		% ---- Columna izquierda: texto ----
 		\column{0.58\textwidth}
 		\justifying
-		Las \textbf{muestras citológicas} se refieren a grupos celulares obtenidas de las masas mamarias mediante la técnica de aspiración con aguja fina (FNA), que es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de la masa mamaria con una aguja de pequeño calibre, tal como se observa en la Figura~\ref{fig:fna}.
+		Las \textbf{muestras citológicas} se refieren a muestras celulares obtenidas de las masas mamarias mediante la técnica de aspiración con aguja fina (FNA), que es un procedimiento poco invasivo utilizado para obtener material celular mediante la punción de la masa mamaria con una aguja de pequeño calibre, tal como se observa en la Figura~\ref{fig:fna}.
 		
 		%Esta técnica, ampliamente usada en el diagnóstico de tumores mamarios, permite recolectar células para su posterior análisis citológico, evitando métodos quirúrgicos más invasivos. Su uso en el estudio del cáncer de mama se remonta a la década de 1930 y ha demostrado poseer una elevada precisión diagnóstica cuando es ejecutada e interpretada por un patólogo especializado.
 		
@@ -220,7 +220,7 @@
 		\vspace{0.2cm}
 		
 	\begin{block}{}
-		A partir de diez características base, se calculan tres medidas estadísticas para cada una: la \textbf{media}, el \textbf{error estándar} y el \textbf{peor valor}, definido como la media de los tres valores más grandes de la característica. De este modo, se obtienen los \textbf{30 atributos numéricos} utilizados.
+		A partir de estas diez características base, se calculan tres medidas estadísticas para cada una: la \textbf{media}, el \textbf{error estándar} y el \textbf{peor valor}, definido como la media de los tres valores más grandes de la característica. De este modo, se obtienen los \textbf{30 atributos numéricos} utilizados.
 	\end{block}
 	
 \end{frame}
@@ -244,6 +244,14 @@
 		\label{tab:diagnosis}
 	\end{table}
 	
+\end{frame}
+
+\begin{frame}{Limpieza de datos}
+	\small
+	\justifying
+	\begin{block}{}
+		Cabe mencionar que el conjunto de datos no cuenta con registros que tengan atributos faltantes.
+	\end{block}
 \end{frame}
 
 \begin{frame}{División del conjunto (1)}
@@ -480,10 +488,20 @@
 	\vspace{0.2cm}
 	
 	\begin{block}{}
-		De este modo, el \textbf{error de reconstrucción} puede utilizarse como una métrica para la detección de anomalías, comparándolo con un umbral $\epsilon$ definido previamente.
+		De este modo, el \textbf{error de reconstrucción} puede utilizarse como una métrica para la detección de anomalías, comparándolo con un umbral $\epsilon$.
 	\end{block}
 \end{frame}
 
+\begin{frame}{Umbral $\epsilon$}
+	\begin{block}{}
+		El umbral $\epsilon$ deriva del error de reconstrucción del conjunto de validación. Para calcularlo, se definen tres estrategias:
+		\begin{itemize}
+			\item Utilizar la media más $q$ veces el desvío estándar.
+			\item Utilizar el percentil 95.
+			\item Utilizar el umbral designado por el Índice de Youden.
+		\end{itemize}
+	\end{block}
+\end{frame}
 
 \section{Resultados}
 
@@ -520,7 +538,7 @@
 	\end{table}
 	
 	\begin{block}{}
-		Todos los modelos fueron entrenados utilizando \textbf{MSE} como función de pérdida y el optimizador \textbf{Adam}, con una tasa de aprendizaje $\text{lr}=0.001$, un \textbf{batch size} de 16 y \emph{early stopping} con una paciencia de 20 épocas, hasta un máximo de 200 épocas.
+		Todos los modelos fueron entrenados utilizando \textbf{MSE} como función de pérdida, \textbf{Adam} como optimizador, con una tasa de aprendizaje $\text{lr}=0.001$, un \textbf{batch size} de 16 y \emph{early stopping} con una paciencia de 20 épocas, hasta un máximo de 200 épocas.
 	\end{block}
 \end{frame}
 
@@ -528,7 +546,7 @@
 
 \begin{frame}
 	\begin{block}{}
-		A continuación se muestran los errores de reconstrucción obtenidos con el autocodificador clásico en los conjuntos de datos A, B y C.
+		A continuación se muestran los errores de reconstrucción correspondientes al conjunto de validación, obtenidos con el autocodificador clásico entrenado con los conjuntos de datos A, B y C.
 	\end{block}
 	
 	\begin{block}{}
@@ -667,7 +685,7 @@
 	\justifying
 	\small
 	\begin{block}{}
-		El valor de \emph{Recall} de 0.929 del modelo \textbf{CAE (A)} indica que el 92.9\% de los pacientes con tumores malignos es clasificado correctamente como anómalo, lo que implica una baja proporción de falsos negativos.
+		El valor de \emph{Recall} de 0.929 del modelo \textbf{CAE (A)} indica que el 92.9\% de los pacientes con tumores malignos son clasificados correctamente como tal, lo que implica una baja proporción de falsos negativos.
 	\end{block}
 	\begin{block}{}
 		En problemas de detección de anomalías aplicados al ámbito médico, un alto valor de \emph{Recall} resulta especialmente relevante, ya que minimizar los falsos negativos reduce el riesgo de no detectar casos patológicos que requieren atención clínica.
@@ -899,6 +917,35 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Jacobiano y Frobenius}
+	\small
+	\justifying
+	El término de penalización se construye a partir de la sensibilidad del codificador y una medida de magnitud matricial.
+	
+	\begin{block}{}
+		Define la sensibilidad de la función de codificación $f$ respecto a los datos de entrada. Si la capa latente tiene dimensión $K$ y la entrada $D$:
+		\begin{equation*}
+			J_f(x^{(u)}) = 
+			\frac{\partial f(x^{(u)})}{\partial x^{(u)}} 
+			\in \mathbb{R}^{K \times D}
+		\end{equation*}
+	\end{block}
+	
+	\begin{block}{}
+		Se calcula sumando los cuadrados de todos los elementos de la matriz. Para una matriz genérica $A \in \mathbb{R}^{m \times n}$:
+		\begin{equation*}
+			\|A\|_{F}^{2}
+			=
+			\sum_{i=1}^{m}
+			\sum_{j=1}^{n}
+			A_{ij}^{2}
+		\end{equation*}
+	\end{block}
+	
+	\footnotesize
+	\textit{Interpretación:} Al minimizar la norma de Frobenius del Jacobiano, forzamos a que las derivadas parciales sean cercanas a cero, lo que implica que la representación latente no cambie drásticamente ante pequeñas perturbaciones en la entrada.
+\end{frame}
+
 \begin{frame}{Atributos del Conjunto de Datos}
 	\small
 	\justifying
@@ -961,6 +1008,41 @@
 			\item \textbf{Youden:} Optimiza el punto de corte en la curva ROC ($J = \text{Sensibilidad} + \text{Especificidad} - 1$).
 		\end{itemize}
 	\end{block}
+\end{frame}
+
+\begin{frame}{Definición de Métricas de Evaluación}
+	\small
+	\justifying
+	Resumen de las fórmulas utilizadas para calcular las métricas de desempeño a partir de la matriz de confusión (TP, TN, FP, FN).
+	
+	\vspace{0.3cm}
+	
+	\begin{columns}[T]
+
+		\column{0.48\textwidth}
+		\begin{block}{}
+			\footnotesize
+			\begin{align*}
+				\textbf{Accuracy} &= \frac{\text{TP} + \text{TN}}{\text{Total}} \\[1em]
+				\textbf{Precision} &= \frac{\text{TP}}{\text{TP} + \text{FP}} \\[1em]
+				\textbf{Recall (TPR)} &= \frac{\text{TP}}{\text{TP} + \text{FN}} \\[1em]
+				\textbf{Specificity} &= \frac{\text{TN}}{\text{TN} + \text{FP}}
+			\end{align*}
+		\end{block}
+		
+		\column{0.48\textwidth}
+		\begin{block}{}
+			\footnotesize
+			\begin{align*}
+				\textbf{FPR} &= \frac{\text{FP}}{\text{TN} + \text{FP}} = 1 - \text{Spec.} \\[1em]
+				\textbf{Bal. Accuracy} &= \frac{\text{Recall} + \text{Specificity}}{2} \\[1em]
+				\textbf{F1}_{\textbf{score}} &= \frac{2 \cdot \text{TP}}{2 \cdot \text{TP} + \text{FP} + \text{FN}}
+			\end{align*}
+		\end{block}
+	\end{columns}
+	
+	\vspace{0.2cm}
+	\centering
 \end{frame}
 
 \end{document}
