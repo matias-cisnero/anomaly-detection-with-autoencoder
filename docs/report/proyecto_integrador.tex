@@ -185,7 +185,7 @@ Finalmente, los autores Nawaz et al. \cite{10418130} realizan una revisión de l
 
 \chapter{Materiales y Métodos}
 
-En este capítulo se describe el conjunto de datos utilizado, de donde se obtuvo y un análisis exploratorio al mismo, con el propósito de observar las diversas relaciones y distribuciones de las variables.
+En este capítulo se describe el conjunto de datos utilizado, de dónde se obtuvo y un análisis exploratorio al mismo, con el propósito de observar las diversas relaciones y distribuciones de las variables.
 
 Por otra parte, el método empleado para la detección de anomalías es el \textbf{Autocodificador (\emph{Autoencoder})}. Un autocodificador es un tipo de red neuronal artificial diseñada para aprender una representación codificada de un conjunto de datos. La arquitectura se compone de dos partes principales: el \textbf{Codificador (\emph{Encoder})} y el \textbf{Decodificador (\emph{Decoder})}. El funcionamiento general de esta arquitectura puede observarse en la Figura~\ref{fig:encoder_decoder}.
 
@@ -231,7 +231,8 @@ Las diez características base del conjunto de datos fueron obtenidas mediante l
 	\caption{Descripción de las diez características base extraídas de las imágenes digitalizadas de FNA.}
 	\label{tab:caracteristicas_base}
 \end{table}
-para cada una de estas diez características se calculan tres medidas distintas, lo que completa los 30 atributos finales del conjunto de datos:
+\noindent
+Para cada una de estas diez características se calculan tres medidas distintas, lo que completa los 30 atributos finales del conjunto de datos:
 \begin{enumerate}
 	\item La \textbf{media} de la característica.
 	\item El \textbf{error estándar} (\emph{Standard Error}, SE) de la característica.
@@ -254,7 +255,8 @@ Tras el análisis general de los atributos, se examina la \textbf{distribución 
 	\end{tabular}
 	\label{tab:diagnosis}
 \end{table}
-esta distribución revela un leve desbalance entre ambas categorías, algo esperable para este trabajo, donde se espera detectar una anomalía, es decir, un diagnóstico maligno.\\
+\noindent
+Esta distribución revela un leve desbalance entre ambas categorías, algo esperable para este trabajo, donde se espera detectar una anomalía, es decir, un diagnóstico maligno.\\
 
 Para examinar la \textbf{distribución de las características} en función de la naturaleza del registro (normal o anómalo), se genera un gráfico de caja múltiple (\emph{boxplot}) para las variables seleccionadas. Esta visualización, mostrada en la Figura~\ref{fig:boxplot_mean}, es crucial para identificar diferencias en la dispersión y tendencia central, así como la presencia de \textbf{valores atípicos} en cada grupo. Al comparar las distribuciones, se observa que el \emph{Area Mean} (área promedio) presenta la distinción más clara entre los datos normales y anómalos. En contraste, el \emph{Fractal Dimension Mean} (dimensión fractal promedio) muestra una superposición significativa entre las categorías, y las diferencias son más sutiles para el \emph{Simmetry Mean} (simetría promedio).
 \begin{figure}[h]
@@ -264,7 +266,7 @@ Para examinar la \textbf{distribución de las características} en función de l
 	\label{fig:boxplot_mean}
 \end{figure}
 
-Una vez analizada la distribución de las variables individualmente, se procede a calcular la matriz de correlación $\Sigma$, la cual mide el grado de relación entre cada par de atributos del conjunto de datos. Este valor está acotado entre -1 y 1, donde 1 indica una relación lineal perfecta, -1 una relación lineal inversa perfecta y 0 denota que no existe una relación lineal entre los atributos. La matriz de correlación se define en la Ecuación~\ref{eq:matriz_correlaciones} para cada par de atributos $(X_i, X_j) \in \mathbf{X}$.
+Una vez analizada la distribución de las variables individualmente, se procede a calcular la matriz de correlación $\Sigma$, la cual mide el grado de relación entre cada par de atributos del conjunto de datos. Este valor está acotado entre -1 y 1, donde 1 indica una relación lineal perfecta, -1 una relación lineal inversa perfecta y 0 denota que no existe una relación lineal entre los atributos. La matriz de correlación se define en la Ecuación~\ref{eq:matriz_correlaciones} para cada par de atributos $(X_i, X_j)$ del conjunto de datos $\mathbf{X}$, el cual contiene $N$ ejemplos y $D$ atributos, $\mathbf{X} \in \mathbb{R}^{N \times D}$.
 \begin{equation}
 	\Sigma =
 	\begin{pmatrix}
@@ -273,29 +275,29 @@ Una vez analizada la distribución de las variables individualmente, se procede 
 		\vdots & \vdots & \ddots & \vdots \\
 		\operatorname{Corr}(X_d, X_1) & \operatorname{Corr}(X_d, X_2) & \cdots & \operatorname{Corr}(X_d, X_d)
 	\end{pmatrix}
-	\in \mathbb{R}^{d \times d}
+	\in \mathbb{R}^{d \times d}.
 	\label{eq:matriz_correlaciones}
 \end{equation}
-donde la correlación entre dos atributos $\operatorname{Corr}(X_1, X_2)$ se muestra en la Ecuación~\ref{eq:correlacion}.
+Donde la correlación entre dos atributos $\operatorname{Corr}(X_1, X_2)$ se muestra en la Ecuación~\ref{eq:correlacion}.
 \begin{equation}
 	\operatorname{Corr}(X_i, X_j)
 	=
-	\frac{\operatorname{Cov}(X_i, X_j)}{s_{x_i}\, s_{x_j}}
+	\frac{\operatorname{Cov}(X_i, X_j)}{s_{x_i}\, s_{x_j}},
 	\label{eq:correlacion}
 \end{equation}
 y $\operatorname{Cov}(X_i, X_j)$ representa la covarianza entre$X_i$ y $X_j$, mientras que $s_{x_i}$ y $s_{x_j}$ son sus desviaciones estándar. Finalmente, la covarianza utilizada en ese cálculo se expresa en la Ecuación~\ref{eq:covarianza}, que mide la existencia de asociación lineal entre los dos atributos.
 \begin{equation}
-	\operatorname{Cov}(X_i, X_j) = \frac{1}{n} \sum_{t=1}^{n} (x_{ti} - \bar{x}_i)(x_{tj} - \bar{x}_j)
+	\operatorname{Cov}(X_i, X_j) = \frac{1}{n} \sum_{t=1}^{n} (x_{ti} - \bar{x}_i)(x_{tj} - \bar{x}_j),
 	\label{eq:covarianza}
 \end{equation}
 donde $\bar{x}_i$ es la media muestral del atributo $X_i$, definida como:
 \begin{equation}
-	\bar{x}_i = \frac{1}{n} \sum_{t=1}^{n} x_{ti}
+	\bar{x}_i = \frac{1}{n} \sum_{t=1}^{n} x_{ti},
 	\label{eq:media_muestral}
 \end{equation}
 y $s_{x_i}$ es el desvío estándar muestral asociado a $X_i$, dado por:
 \begin{equation}
-	s_{x_i} = \sqrt{\frac{1}{n-1} \sum_{t=1}^{n} (x_{ti} - \bar{x}_i)^2}
+	s_{x_i} = \sqrt{\frac{1}{n-1} \sum_{t=1}^{n} (x_{ti} - \bar{x}_i)^2}.
 	\label{eq:desvio_muestral}
 \end{equation}
 
@@ -327,7 +329,7 @@ El subconjunto de validación se utiliza con dos propósitos principales: evitar
 
 Luego, se aplica una estandarización a todos los atributos de cada subconjunto de manera independiente. Este método transforma las variables para que tengan una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno, asegurando que todas las entradas del modelo tengan una escala comparable. Esta estandarización también contribuye a mitigar posibles problemas de \emph{overflow} en las activaciones del autocodificador, los cuales pueden surgir cuando el modelo recibe valores excesivamente grandes. Este proceso se define formalmente en la Ecuación~\ref{eq:estandarizacion}.
 \begin{equation}
-	z = \frac{x - \mu}{\sigma}
+	z = \frac{x - \mu}{\sigma},
 	\label{eq:estandarizacion}
 \end{equation}
 donde $x$ corresponde al dato original y tanto $\mu$ como $\sigma$, a la media y la desviación estándar de esa variable, respectivamente.
@@ -380,18 +382,18 @@ Para formalizar este proceso, considérese un conjunto de entrenamiento:
 \begin{equation}
 	\mathbf{X} = \{x^{(1)}, x^{(2)}, \ldots, x^{(N)}\}, 
 	\qquad x^{(u)} \in \mathbb{R}^D,
-	\qquad u \in 1 \dots N,
+	\qquad u \in 1, \dots ,N,
 \end{equation}
 donde cada ejemplo puede escribirse como:
 \begin{equation}
 	x^{(u)} = (x^{(u)}_1, x^{(u)}_2, \ldots, x^{(u)}_D),
-	\qquad u \in 1 \dots N,
+	\qquad u \in 1, \dots ,N,
 \end{equation}
 y el conjunto de salidas deseadas se define como:
 \begin{equation}
 	\hat{x}^{(u)} = x^{(u)},
 \end{equation}
-donde $\hat{x}^{(u)}$ es la salida generada por el modelo y la salida esperada es la propia entrada $x^{(u)}$. Lo que implica que, aunque típicamente se lo describe como un modelo no supervisado por no requerir etiquetas externas, el aprendizaje es \textbf{supervisado}, pues la red debe aprender a reproducir su propia entrada.\\
+en la cual $\hat{x}^{(u)}$ es la salida generada por el modelo y la salida esperada es la propia entrada $x^{(u)}$. Lo que implica que, aunque típicamente se lo describe como un modelo no supervisado por no requerir etiquetas externas, el aprendizaje es \textbf{supervisado}, pues la red debe aprender a reproducir su propia entrada.\\
 
 En este esquema, el \textbf{codificador} proyecta el vector de entrada $x^{(u)}$ a una representación comprimida $z^{(u)} \in\mathbb{R}^K$, donde $K < D$, a través de una transformación no lineal:
 \begin{equation}
@@ -425,13 +427,13 @@ En este trabajo, la función de activación utilizada en todas las capas ocultas
 La función $\operatorname{GELU}(x)$ está definida por:
 \begin{equation}
 	\operatorname{GELU}(x) =
-	0.5\,x\left(1 + \tanh\!\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715x^{3}\right)\right)\right)
+	0.5\,x\left(1 + \tanh\!\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715x^{3}\right)\right)\right).
 	\label{eq:gelu}
 \end{equation}
 
 La función $\operatorname{ReLU}(x)$ se define como:
 \begin{equation}
-	\operatorname{ReLU}(x) = \max(0, x)
+	\operatorname{ReLU}(x) = \max(0, x).
 	\label{eq:relu}
 \end{equation}
 
@@ -454,7 +456,7 @@ la función identidad y para forzarlo a capturar características más robustas 
 útiles de los datos.\\
 
 El \textbf{Autocodificador Disperso (SAE)} \cite{ng2011sparse} impone una 
-restricción de \textbf{dispersión} (sparsity) sobre la capa oculta con $j \ldots H$ unidades o neuronas. En este caso, el objetivo no es necesariamente reducir la dimensión ($K$ puede ser menor o incluso mayor que $D$), sino asegurar que la mayoría de las neuronas en la capa latente  permanezcan \textbf{inactivas} (con activación cercana a cero) para cada ejemplo $x^{(u)}$. Esta dispersión fuerza al modelo a utilizar diferentes subconjuntos de neuronas para representar distintas entradas, lo que previene el sobre ajuste y favorece la extracción de características más discriminativas.\\
+restricción de \textbf{dispersión} (sparsity) sobre la capa oculta con $j, \ldots ,H$ unidades o neuronas. En este caso, el objetivo no es necesariamente reducir la dimensión ($K$ puede ser menor o incluso mayor que $D$), sino asegurar que la mayoría de las neuronas en la capa latente  permanezcan \textbf{inactivas} (con activación cercana a cero) para cada ejemplo $x^{(u)}$. Esta dispersión fuerza al modelo a utilizar diferentes subconjuntos de neuronas para representar distintas entradas, lo que previene el sobre ajuste y favorece la extracción de características más discriminativas.\\
 
 La función de costo total del SAE se denota como $\mathcal{L}_{\text{sparse}}(W,b)$ y está
 compuesta por el término de reconstrucción $\mathcal{L}(W,b)$ más un término de penalización de dispersión:
@@ -475,13 +477,13 @@ donde $W$ denota el conjunto de \textbf{matrices de pesos} de todas las capas de
 	\rho \log\left(\frac{\rho}{\hat{\rho}_j}\right)
 	+
 	(1 - \rho) \log\left(\frac{1-\rho}{1-\hat{\rho}_j}\right)
-	\right]
+	\right],
 	\label{eq:kullback-leibler}
 \end{equation}
 y $\hat{\rho}_j$ se calcula como:
 \begin{equation}
 	\hat{\rho}_j =
-	\frac{1}{m} \sum_{u=1}^{N} a_j^{(u)}
+	\frac{1}{N} \sum_{u=1}^{N} a_j^{(u)},
 	\label{eq:activacion_promedio}
 \end{equation}
 esta penalización tiene la propiedad de ser cero si $\hat{\rho}_j = \rho$, y aumentar a medida que $\hat{\rho}_j$ se aleja de $\rho$. Al minimizar esta función, el SAE es obligado a tener representaciones latentes dispersas, debido a que la mayoría de las activaciones de las unidades se acercan a 0.\\
@@ -514,15 +516,14 @@ Con esta definición, la función de costo total del CAE es:
 	+
 	\lambda 
 	\sum_{u=1}^{N}
-	\left\| J_f\!\left(x^{(u)}\right) \right\|_{F}^{2},
+	\left\| J_f\!\left(x^{(u)}\right) \right\|_{F}^{2}.
 	\label{eq:loss_cae}
 \end{equation}
-
-donde $\mathcal{L}(W,b)$ es el error de reconstrucción (por ejemplo, MSE) 
+Donde $\mathcal{L}(W,b)$ es el error de reconstrucción (por ejemplo, MSE) 
 y $\lambda > 0$ controla el peso del término contractivo.\\
 
 Al minimizar $\mathcal{L}_{\text{CAE}}(W,b)$, el codificador aprende un mapeo 
-$x^{(u)} \mapsto Z^{(u)}$ que es \textbf{suave, estable y resistente al ruido}, 
+$x^{(u)} \mapsto z^{(u)}$ que es \textbf{suave, estable y resistente al ruido}, 
 haciéndose insensible a variaciones irrelevantes y destacando las características realmente importantes.\\
 
 %===================================================================
@@ -543,11 +544,11 @@ Con esta definición, el modelo se entrena exclusivamente utilizando el subconju
 	= \bigl\{\, x^{(u)} \in \mathbf{X} \;\big|\; y^{(u)} = 0 \,\bigr\}.
 	\label{eq:subconjunto_normal}
 \end{equation}
-es decir, masas tumorales benignas. Al aprender a reconstruir correctamente este tipo de patrones, cuando el modelo recibe un nuevo dato $t$ perteneciente a un conjunto $\mathbf{T}$ con la misma distribución que $\mathbf{X}$, se espera que el error de reconstrucción $\lVert \hat{t} - t \rVert$ sea pequeño.\\
+Es decir, masas tumorales benignas. Al aprender a reconstruir correctamente este tipo de patrones, cuando el modelo recibe un nuevo dato $t$ perteneciente a un conjunto $\mathbf{T}$ con la misma distribución que $\mathbf{X}$, se espera que el error de reconstrucción $\lVert \hat{t} - t \rVert$ sea pequeño.\\
 
 En contraste, si se presenta un dato atípico $t^{*}$, correspondiente a un diagnóstico maligno, el modelo no logra reconstruirlo con la misma fidelidad, generando así un error significativamente mayor. Este comportamiento permite establecer un criterio simple y efectivo para la detección de anomalías: un dato se clasifica como anómalo si su error de reconstrucción supera un umbral $\epsilon$ predefinido. El criterio se expresa formalmente en la Ecuación~\ref{eq:dif_reconstruccion}:
 \begin{equation}
-	\lVert \hat{t}^{*} - t^{*}  \rVert > \epsilon
+	\lVert \hat{t}^{*} - t^{*}  \rVert > \epsilon,
 	\label{eq:dif_reconstruccion}
 \end{equation}
 donde $\hat{t}^{*}$ es la reconstrucción producida por la red a partir del dato $t^{*}$. Si la desigualdad se cumple, el dato se considera \textbf{anómalo}; de lo contrario, se clasifica como \textbf{normal}.\\
@@ -562,7 +563,7 @@ El valor del umbral $\epsilon$ se determinó de manera empírica utilizando el c
 	e = \left( e^{(1)}, \dots, e^{(N_{\text{benigno}})} \right),
 	\label{eq:error_reconstruccion}
 \end{equation}
-donde $x^{(u)}$ corresponde a cada muestra del subconjunto $\mathbf{X}_{\text{benigno}}$ de validación, $\hat{x}^{(u)}$ a su respectiva reconstrucción generada por el modelo y $e$ al vector que contiene los erroreres de reconstrucción de todos los ejemplos normales. Este vector permite caracterizar el comportamiento esperado de la red frente a datos no anómalos, facilitando la identificación de aquellos casos cuyo error de reconstrucción excede significativamente lo aprendido durante el entrenamiento.\\
+donde $x^{(u)}$ corresponde a cada muestra del subconjunto $\mathbf{X}_{\text{benigno}}$ de validación, $\hat{x}^{(u)}$ a su respectiva reconstrucción generada por el modelo, $e$ al vector que contiene los errores de reconstrucción de todos los ejemplos normales y $N_{\text{benigno}}$ a la cantidad de ejemplos del conjunto $\mathbf{X}_{\text{benigno}}$. Este vector permite caracterizar el comportamiento esperado de la red frente a datos no anómalos, facilitando la identificación de aquellos casos cuyo error de reconstrucción excede significativamente lo aprendido durante el entrenamiento.\\
 
 Se definen tres estrategias para calcular el umbral $\epsilon$. La primera consiste en calcularlo como la media del error $e$ más $q$ veces su desvío estándar. Esta definición se muestra en la Ecuación~\ref{eq:epsilon_media_q_std}.
 \begin{equation}
@@ -581,7 +582,7 @@ En este caso se utiliza el percentil 95 ($P_{95\%}$), el cual separa al $95\%$ d
 	\label{eq:epsilon_p95}
 \end{equation}
 
-La tercer y última estrategia empleada para calcular el umbral $\epsilon$, se basa en utilizar el \textbf{índice de Youden}, un criterio basado en el desempeño del clasificador para cada posible valor de umbral $\nu$. Sea $R_{\nu}$ el \emph{recall} y $S_{\nu}$ la \emph{specificity} obtenidas al evaluar el modelo con dicho umbral. El índice de Youden maximiza simultáneamente ambas métricas. Se define en la Ecuación~\ref{eq:epsilon_youden}.
+La tercera y última estrategia empleada para calcular el umbral $\epsilon$, se basa en utilizar el \textbf{índice de Youden}, un criterio basado en el desempeño del clasificador para cada posible valor de umbral $\nu$. Sea $R_{\nu}$ el \emph{recall} y $S_{\nu}$ la \emph{specificity} obtenidas al evaluar el modelo con dicho umbral. El índice de Youden maximiza simultáneamente ambas métricas. Se define en la Ecuación~\ref{eq:epsilon_youden}.
 \begin{equation}
 	\epsilon
 	= \arg\max_{\nu} \left\{ R_{\nu} + S_{\nu} - 1 \right\}.
@@ -594,13 +595,13 @@ Para evaluar rigurosamente el desempeño del autocodificador en la tarea de dete
 
 A partir de esta regla se construye la matriz de confusión, desde la cual se obtienen métricas clásicas de evaluación como la exactitud, la sensibilidad y la especificidad. Asimismo, se emplean herramientas adicionales basadas en la variación del umbral, como la curva ROC y el área bajo dicha curva (AUC) que permiten caracterizar el rendimiento global del modelo sin depender de un valor fijo de $\epsilon$, proporcionando una visión más completa de su capacidad discriminativa en términos del error de reconstrucción.\\
 
-Para obtener un criterio de decisión utilizamos el umbral $\epsilon$ definido en la Ecuación~\ref{eq:epsilon}, a partir del cual, cada instancia se clasifica como \textbf{normal} o \textbf{anómala} según si su error de reconstrucción $\lVert \hat{t} - t \rVert$ supera o no el umbral $\epsilon$, tal como se muestra en la Ecuación~\ref{eq:criterio}.
+Para obtener un criterio de decisión utilizamos el umbral $\epsilon$ definido en las Ecuaciones~\ref{eq:epsilon_media_q_std}, \ref{eq:epsilon_p95}, \ref{eq:epsilon_youden}, a partir del cual, cada instancia se clasifica como \textbf{normal} o \textbf{anómala} según si su error de reconstrucción $\lVert \hat{t} - t \rVert$ supera o no el umbral $\epsilon$, tal como se muestra en la Ecuación~\ref{eq:criterio}.
 \begin{equation}
 	\hat{y} =
 	\begin{cases}
 		0, & \text{si } \lVert \hat{t} - t \rVert \le \epsilon \\[4pt]
 		1, & \text{si } \lVert \hat{t} - t \rVert > \epsilon
-	\end{cases}
+	\end{cases}.
 	\label{eq:criterio}
 \end{equation}
 
@@ -645,7 +646,7 @@ La \textbf{exactitud} (\emph{Accuracy}) cuantifica la proporción total de predi
 \begin{equation}
 	\text{Accuracy} =
 	\frac{\text{TP} + \text{TN}}
-	{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
+	{\text{TP} + \text{FP} + \text{TN} + \text{FN}}.
 	\label{eq:accuracy}
 \end{equation}\\
 
@@ -653,7 +654,7 @@ La precisión (\emph{Precision}) indica qué proporción de las predicciones pos
 \begin{equation}
 	\text{Precision} =
 	\frac{\text{TP}}
-	{\text{TP} + \text{FP}}
+	{\text{TP} + \text{FP}}.
 	\label{eq:precision}
 \end{equation}\\
 
@@ -661,7 +662,7 @@ La sensibilidad (\emph{Recall}) mide la capacidad del modelo para identificar co
 \begin{equation}
 	\text{Recall} =
 	\frac{\text{TP}}
-	{\text{TP} + \text{FN}}
+	{\text{TP} + \text{FN}}.
 	\label{eq:recall}
 \end{equation}\\
 
@@ -669,14 +670,14 @@ La especificidad (\emph{Specificity}) evalúa la proporción de casos negativos 
 \begin{equation}
 	\text{Specificity} =
 	\frac{\text{TN}}
-	{\text{TN} + \text{FP}}
+	{\text{TN} + \text{FP}}.
 	\label{eq:specificity}
 \end{equation}\\
 
 La exactitud balanceada (\emph{Balanced Accuracy}), mostrada en la Ecuación~\ref{eq:balanced-accuracy}, combina sensibilidad y especificidad para obtener una medida equilibrada del rendimiento.
 \begin{equation}
 	\text{Balanced Accuracy} =
-	\frac{\text{Recall} + \text{Specificity}}{2}
+	\frac{\text{Recall} + \text{Specificity}}{2}.
 	\label{eq:balanced-accuracy}
 \end{equation}\\
 
@@ -687,7 +688,7 @@ El \emph{F1-Score} combina las medidas de \emph{Precision} y \emph{Recall} para 
 	{\text{Precision} + \text{Recall}}
 	=
 	\frac{2\,\text{TP}}
-	{2\,\text{TP} + \text{FP} + \text{FN}}
+	{2\,\text{TP} + \text{FP} + \text{FN}}.
 	\label{eq:f1-score}
 \end{equation}
 
@@ -701,7 +702,7 @@ Las métricas presentadas hasta ahora (\emph{Accuracy}, \emph{Precision}, \emph{
 La \textbf{Curva ROC} es una representación gráfica que resume el comportamiento del clasificador al comparar la proporción de verdaderos positivos contra la proporción de falsos positivos para distintos valores de umbral $\epsilon$. Para construirla, se utiliza en el eje vertical $y$ la \textbf{Tasa de Verdaderos Positivos} (o por sus siglas en inglés TPR de \emph{True Positive Rate}), una medida que cuantifica qué tan eficaz es el modelo para detectar correctamente las anomalías presentes en los datos. Esta tasa se define en la Ecuación~\ref{eq:tpr}.
 \begin{equation}
 	\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}}
-	= \frac{\text{TP}}{\text{P}}
+	= \frac{\text{TP}}{\text{P}}.
 	\label{eq:tpr}
 \end{equation}
 
@@ -709,7 +710,7 @@ De forma análoga, el eje horizontal $x$ de la curva utiliza la \textbf{Tasa de 
 \begin{equation}
 	\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}}
 	= \frac{\text{FP}}{\text{N}}
-	= 1 - \text{Specificity}
+	= 1 - \text{Specificity}.
 	\label{eq:fpr}
 \end{equation}
 
@@ -745,7 +746,7 @@ Las configuraciones finales empleadas para cada arquitectura surgen de un proces
 	\label{tab:hiperparametros_modelos}
 \end{table}
 \noindent
-en todos los modelos se utiliza \textbf{MSE} como función de pérdida, \textbf{Adam} como optimizador y una \textbf{paciencia} para el \emph{Early Stop} de 20 épocas.
+En todos los modelos se utiliza \textbf{MSE} como función de pérdida, \textbf{Adam} como optimizador y una \textbf{paciencia} para el \emph{Early Stop} de 20 épocas.
 
 Para cada uno de los modelos entrenados se calculan los diversos umbrales 
 $\epsilon$, que permiten distinguir entre instancias normales y anómalas a partir del error de reconstrucción. Los umbrales se obtienen utilizando únicamente el conjunto de validación, siguiendo los criterios definidos en las Ecuaciones~\ref{eq:epsilon_media_q_std}, \ref{eq:epsilon_p95} y \ref{eq:epsilon_youden}. Los umbrales empleados por cada modelo se muestran en la Tabla~\ref{tab:epsilons_modelos}.
@@ -852,7 +853,7 @@ Por su capacidad discriminatoria en todos los conjuntos se utiliza el $\epsilon$
 	\label{tab:metricas_modelos}
 \end{table}
 \noindent
-donde se observa que el mayor \emph{Recall} lo posee el modelo \textbf{CAE (A)} y el modelo \textbf{SAE (A)} cuenta con el mayor $\emph{F1}_{\emph{score}}$, \emph{Precision} y \emph{Specificity}. También se visualiza el decrecimiento de las métricas al aumentar las anomalías en el entrenamiento de los modelos, mayormente en el modelo SAE.\\
+Donde se observa que el mayor \emph{Recall} lo posee el modelo \textbf{CAE (A)} y el modelo \textbf{SAE (A)} cuenta con el mayor $\emph{F1}_{\emph{score}}$, \emph{Precision} y \emph{Specificity}. También se visualiza el decrecimiento de las métricas al aumentar las anomalías en el entrenamiento de los modelos, mayormente en el modelo SAE.\\
 
 Finalmente, con el objetivo de evaluar la capacidad discriminativa de cada arquitectura frente a instancias anómalas independientemente del umbral $\epsilon$ seleccionado, se calculan las curvas ROC y sus correspondientes valores de AUC para todos los modelos entrenados. Para facilitar la comparación, los modelos se agrupan según el conjunto de entrenamiento utilizado (A, B y C), lo que permite analizar cómo varía el rendimiento ante distintos niveles de contaminación en el entrenamiento. Los resultados se presentan en las Figuras~\ref{fig:autoencoder_roc_auc_A}, \ref{fig:autoencoder_roc_auc_B} y \ref{fig:autoencoder_roc_auc_C}. Donde se observa que el \emph{contractive autoencoder} tiene una mayor robustez que el resto de los modelos al entrenarse con anomalías. %Si bien el autocodificador clásico no tiene el mejor desempeño en escenarios sin anomalías, muestra una mayor robustez cuando el conjunto de entrenamiento sí las contiene.
 \begin{figure}[H]
@@ -884,9 +885,9 @@ Los resultados experimentales muestran una buena capacidad discriminativa de los
 
 También, se destaca la importancia de la pureza de los datos a la hora de entrenar detectores de anomalías destinados a aplicaciones reales, debido a las implicaciones que tienen en los modelos al estar presentes.\\
 
-En relación a la capacidad discriminativa de los modelos, se enfatiza la importancia de la selección del umbral $epsilon$, donde su elección puede afectar totalmente las métricas obtenidas para cada modelo, siendo un mejor indicativo de su capacidad  para distinguir anomalías el valor de AUC.
+En relación a la capacidad discriminativa de los modelos, se enfatiza la importancia de la selección del umbral $\epsilon$, donde su elección puede afectar totalmente las métricas obtenidas para cada modelo, siendo un mejor indicativo de su capacidad  para distinguir anomalías el valor de AUC.
 
-Dentro de las opciones para calcular el umbral $epsilon$, se destaca el índice de Youden, debido a su capacidad para maximizar las métricas de \emph{Recall} y \emph{Specificity}, aunque cada umbral puede priorizar distintas métricas.\\
+Dentro de las opciones para calcular el umbral $\epsilon$, se destaca el índice de Youden, debido a su capacidad para maximizar las métricas de \emph{Recall} y \emph{Specificity}, aunque cada umbral puede priorizar distintas métricas.\\
 
 Aunque los resultados alcanzados son satisfactorios, quedan abiertas múltiples lineas de investigación, como la aplicación de nuevos enfoques para la detección de anomalías o el estudio en distintos tipos de datos (como imágenes o series de tiempo), siguiendo las bases planteadas en este trabajo.
 
