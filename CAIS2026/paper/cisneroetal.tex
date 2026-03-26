@@ -1,0 +1,99 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.21 of 2022/01/12
+%
+\documentclass{llncs}
+%
+\usepackage[T1]{fontenc}
+% T1 fonts will be used to generate the final print and online PDFs,
+% so please use T1 fonts in your manuscript whenever possible.
+% Other font encondings may result in incorrect characters.
+%
+\usepackage{graphicx}
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following two lines
+% to display URLs in blue roman font according to Springer's eBook style:
+%\usepackage{color}
+%\renewcommand\UrlFont{\color{blue}\rmfamily}
+%\urlstyle{rm}
+%
+
+\usepackage[style=apa]{biblatex} % <- AGREGAR ESTA LÍNEA
+\addbibresource{thebiblio.bib} % <- AGREGAR ESTA LÍNEA
+\begin{document}
+%
+% ENGLISH VERSION
+\title{Anomaly Detection in biomedical data by means of Autoencoders}
+
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Matías Cisnero\inst{1} \and
+Juliana Gambini\inst{1,2}\orcidID{0000-0002-4534-1402}}
+%
+\authorrunning{F. Author et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{LIDEC, Universidad Nacional de Hurlingham, Pcia. de Buenos Aires, Argentina
+\email{juliana.gambini@unahur.edu.ar} \and
+CPSI, Universidad Tecnológica Nacional, Regional Buenos Aires}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+The abstract should briefly summarize the contents of the paper in
+150--250 words. This is the English version of the abstract that 
+provides a comprehensive overview of the research conducted, 
+the methodology used, and the main findings obtained.
+
+% keywords in lowercase
+\keywords{Anomaly detection\and Biomedical Data\and Autoencoders}
+\end{abstract}
+
+% SPANISH VERSION
+% Clear the previous title info and set Spanish version
+
+% Spanish title and abstract
+\begin{center}
+\vspace{1cm}
+{\Large \bfseries\boldmath Título de la contribución}
+
+\vspace{0.5cm}
+\end{center}
+
+\begin{abstract}
+El resumen debe resumir brevemente el contenido del artículo en
+150-250 palabras. Esta es la versión en español del resumen que
+proporciona una visión general completa de la investigación realizada,
+la metodología utilizada y los principales hallazgos obtenidos.
+
+% palabras clave en minúsculas
+\keywords{primera palabra clave\and segunda palabra clave\and otra palabra clave}
+\end{abstract}
+
+
+\vspace{0.5cm}
+\setcounter{page}{1}
+
+%
+\section{Introducción}
+
+Motivación, hipótesis y estado del arte
+
+\section{Materiales y Métodos}
+\subsection{Conjunto de datos}
+\subsection{Autoencoders}
+\section{Resultados}
+\section{Conclusiones y trabajos futuros}
+
+%
+% ---- Bibliography ----
+%
+
+\printbibliography
+
+\end{document}

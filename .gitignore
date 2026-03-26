@@ -1,10 +1,12 @@
-\__pycache__
-\anomaly-env
-\models
-\results
-\documentos
-\figures
-\.vscode
+__pycache__/
+anomaly-env/
+.venv/
+models/
+results/
+documentos/
+figures/
+.vscode/
+template/
 
 autoencoder_anomalias.ipynb
 
@@ -25,3 +27,4 @@ EjemploTesis.tex
 *.blg
 *.bbl
 *.lof
+*.eps
