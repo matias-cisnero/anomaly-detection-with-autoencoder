@@ -20,6 +20,11 @@
 %\urlstyle{rm}
 %
 
+% 
+\usepackage{amsmath}
+\usepackage{booktabs}
+%
+
 \usepackage[style=apa]{biblatex} % <- AGREGAR ESTA LÍNEA
 \addbibresource{thebiblio.bib} % <- AGREGAR ESTA LÍNEA
 \begin{document}
@@ -45,13 +50,26 @@ CPSI, Universidad Tecnológica Nacional, Regional Buenos Aires}
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-The abstract should briefly summarize the contents of the paper in
-150--250 words. This is the English version of the abstract that 
-provides a comprehensive overview of the research conducted, 
-the methodology used, and the main findings obtained.
+This line of research addresses the detection of anomalies in biomedical data using the Autoencoder method.
+
+Autoencoders are artificial neural networks with a symmetrical architecture in which the input layer is the same as output layer. 
+This method reduces the dimension of original data and then reconstructs it. The reconstruction error is the key point of this research.
+
+The hypothesis of this work is that patients who present a large reconstruction error (greater than a threshold) can be classified as anomalous, which can help the medical professional to detect diseases.
+
+With this objective, the Autoencoder method is implemented
+and trained with different proportions of data from healthy and sick patients. Several architectures are used to optimize the parameters.
+
+Three variants are evaluated: the classic autoencoder, the sparse autoencoder, and the contractive autoencoder.
+The threshold used to classify these data as normal or anomalies based on their reconstruction error is computed using the Youden index.
+
+In this case, the methods are tested using the
+Breast Cancer Wisconsin (Diagnostic) dataset, which has samples from patients with benign and malignant patterns obtained by fine-needle aspiration (FNA).
+
+The results are encouraging, but further research is needed to obtain more conclusive results.
 
 % keywords in lowercase
-\keywords{Anomaly detection\and Biomedical Data\and Autoencoders}
+\keywords{anomaly detection\and biomedical data\and autoencoders}
 \end{abstract}
 
 % SPANISH VERSION
@@ -60,19 +78,33 @@ the methodology used, and the main findings obtained.
 % Spanish title and abstract
 \begin{center}
 \vspace{1cm}
-{\Large \bfseries\boldmath Título de la contribución}
+{\Large \bfseries\boldmath Detección de Anomalías en datos biomédicos utilizando Autoencoders}
 
 \vspace{0.5cm}
 \end{center}
 
 \begin{abstract}
-El resumen debe resumir brevemente el contenido del artículo en
-150-250 palabras. Esta es la versión en español del resumen que
-proporciona una visión general completa de la investigación realizada,
-la metodología utilizada y los principales hallazgos obtenidos.
+La presente línea de investigación aborda la detección de anomalías en datos biomédicos utilizando el método Autoencoder.
+
+Los Autoencoders son redes neuronales artificiales que poseen una arquitectura simétrica, en la que la capa de entrada es exactamente igual a la de salida. Este método reduce la dimensión de los datos originales para luego reconstruirlos. El error de reconstrucción es la pieza clave de esta investigación. 
+
+La hipótesis de este trabajo es que los pacientes  que presenten un error de reconstrucción grande (mayor que un umbral), pueden ser clasificados como anómalos, lo cual puede ayudar al profesional médico a detectar enfermedades.  
+
+Con este objetivo, se implementa el método Autoencoder
+y se entrena con distintas proporciones de datos de pacientes sanos y enfermos. Se utilizan diferentes arquitecturas para optimizar los parámetros. 
+
+Se evalúan tres variantes: el autoencoder clásico, el
+\emph{sparse} autoencoder y el \emph{contractive} autoencoder.
+El umbral utilizado para clasificar estos datos como normales o anomalías según su
+error de reconstrucción, se calcula utilizando el índice de Youden.
+
+En este caso, los métodos se prueban utilizando el conjunto de datos
+Breast Cancer Wisconsin (Diagnostic), que posee muestras de pacientes con patrones benignos y malignos obtenidas mediante punción con aguja fina (FNA). 
+
+Los resultados son alentadores pero es necesario profundizar la investigación para obtener resultados más contundentes. 
 
 % palabras clave en minúsculas
-\keywords{primera palabra clave\and segunda palabra clave\and otra palabra clave}
+\keywords{detección de anomalías\and datos biomédicos\and autoencoders}
 \end{abstract}
 
 
@@ -82,13 +114,99 @@ la metodología utilizada y los principales hallazgos obtenidos.
 %
 \section{Introducción}
 
-Motivación, hipótesis y estado del arte
+[ME FALTA ESTO MÁS QUE NADA]\\
+
+% Motivación
+
+El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna. Los métodos tradicionales de análisis suelen pasar desapercibidos patrones sutiles en las muestras.
+
+mediante métodos no tradicionales como las redes neuronales permite detectar patrones sutiles que normalmente pasan desapercibidos. Los Autoencoders, un tipo de redes neuronales, son un buen candidato para esta tarea al estar diseñados para aprender representaciones compactas con las características más relevantes de los datos, permitiendo distinguir entre anomalías y datos normales.
+
+Este tipo de modelos podría servir como herramienta de asistencia para profesionales de la salud.
+
+% Hipótesis
+
+
+
+% Estado del arte
+
+Con el pasar del tiempo se desarrollaron múltiples variantes de los Autoencoders, las principales fueron evaluadas por los autores Neloy y Turgeon. Los mismos comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en 11 arquitecturas variantes de Autoencoders. Demostrando una mayor capacidad para detección de anomalías los modelos IWAE, $\beta$-VAE y adVAE. 
+
 
 \section{Materiales y Métodos}
+
 \subsection{Conjunto de datos}
-\subsection{Autoencoders}
+
+[CREO QUE DEBO RESUMIRLO UN POCO MÁS]\\
+
+Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual se obtuvo de la plataforma Kaggle \parencite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original publicado por Wolberg et al. \parencite{breast_cancer_wisconsin}.
+
+El conjunto de datos está compuesto por 569 registros de muestras citológicas con 357 de estas etiquetadas como benignas (B) y 212 como malignas (M), los atributos corresponden a características numéricas derivadas del análisis de imágenes digitalizadas, correspondientes a aspiraciones con aguja fina de masas mamarias. Las muestras incluidas en el conjunto de datos fueron recolectadas entre enero de 1989 y noviembre de 1991.\\
+
+Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división inicial del conjunto de datos en tres subcojuntos: entrenamiento con el 60\% de las muestras, validación con el 20\% y prueba con el 20\% restante, todos con la misma proporción de clases. 
+
+A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos con distintas proporciones de anomalías e igual tamaño. Esto tiene el objetivo de permitir evaluar que tanto afecta a los modelos distinta cantidad de contaminación en los datos de entrenamiento.
+
+Todos los subconjuntos se estandarizan utilizando la media y el desvío estándar del subconjunto de entrenamiento original.
+
+\subsection{Descripción de los métodos}
+
+[FALTA ACLARAR LO DE LA RECONSTRUCCIÓN]\\
+
+\subsubsection{Autoencoders}
+
+El método empleado en este trabajo es el Autoencoder, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por poseer la misma dimensión tanto en la entrada como en la salida. Su objetivo es aprender una representación comprimida que permita reconstruir los datos originales.
+
+La arquitectura de un Autoencoder se compone de dos partes principales: el \emph{encoder}, que transforma los datos de entrada en una representación de menor dimensionalidad, y el \emph{decoder}, que intenta reconstruir la entrada original a partir de dicha representación compacta. Entre ambos se encuentra la capa latente, donde se almacena la representación interna de menor dimensión. 
+
+También se utilizan dos variantes del Autoencoder, el \emph{Sparse Autoencoder (SAE)} y \emph{Contractive Autoencoder (CAE)}, los cuales imponen restricciones adicionales sobre la capa latente. El SAE permite obtener representaciones dispersas en la capa latente y CAE representaciones robustas y suaves.
+
+\subsubsection{Métricas de evaluación}
+
+Para evaluar rigurosamente el desempeño del autocodificador en la tarea de detección de anomalías, se analizan diversas métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$. Dado que este valor actúa como cuantificador directo de qué tan bien el modelo reproduce cada instancia, es posible utilizarlo como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$, donde se considera anomalía si lo supera, o normal en el caso contrario.
+
+A partir de esta regla se construye la matriz de confusión, desde la cual se obtienen métricas clásicas de evaluación como la exactitud, la sensibilidad y la especificidad. Asimismo, se emplean herramientas adicionales basadas en la variación del umbral, como la curva ROC y el área bajo dicha curva (AUC) que permiten caracterizar el rendimiento global del modelo sin depender de un valor fijo de $\epsilon$, proporcionando una visión más completa de su capacidad discriminativa en términos del error de reconstrucción.
+
 \section{Resultados}
+
+Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se observa que el mayor \emph{Recall} lo posee el modelo \textbf{CAE (A)} y el modelo \textbf{SAE (A)} cuenta con el mayor $\emph{F1}_{\emph{score}}$, \emph{Precision} y \emph{Specificity}. También se visualiza el decrecimiento de las métricas al aumentar las anomalías en el entrenamiento de los modelos, mayormente en el modelo SAE.
+
+\begin{table}%[H]
+	\centering
+	\caption{Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C.}
+	\begin{tabular}{lcccccc}
+		\toprule
+		\textbf{Modelo} &
+		\textbf{\emph{Accuracy}} &
+		\textbf{\emph{Precision}} &
+		\textbf{\emph{Recall}} &
+		\textbf{\emph{Specificity}} &
+		\textbf{\emph{Balanced Accuracy}} &
+		\textbf{$\emph{F1}_{\emph{score}}$} \\
+		\midrule
+		AE (A)  & 0.860 & 0.771 & 0.881 & 0.847 & 0.864 & 0.822 \\
+		AE (B)  & 0.746 & 0.618 & 0.810 & 0.708 & 0.759 & 0.701 \\
+		AE (C)  & 0.632 & 0.500 & 0.619 & 0.639 & 0.629 & 0.553 \\
+		\midrule
+		SAE (A) & 0.939 & 0.973 & 0.857 & 0.986 & 0.922 & 0.911 \\
+		SAE (B) & 0.754 & 0.652 & 0.714 & 0.778 & 0.746 & 0.682 \\
+		SAE (C) & 0.640 & 0.538 & 0.167 & 0.917 & 0.542 & 0.255 \\
+		\midrule
+		CAE (A) & 0.930 & 0.886 & 0.929 & 0.931 & 0.930 & 0.907 \\
+		CAE (B) & 0.798 & 0.757 & 0.667 & 0.875 & 0.771 & 0.709 \\
+		CAE (C) & 0.693 & 0.566 & 0.714 & 0.681 & 0.697 & 0.632 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:metricas_modelos}
+\end{table}
+
 \section{Conclusiones y trabajos futuros}
+
+Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} junto a su robustez ante la presencia de anomalías al CAE. Por otra parte, el autoencoder clásico presenta un resultado aceptable en las métricas, teniendo mayor robustez al ruido que el SAE pero sin destacar en ninguna métrica.
+
+
+Aunque los resultados alcanzados son satisfactorios, quedan abiertas múltiples lineas de investigación, como la aplicación de nuevos enfoques para la detección de anomalías o el estudio en distintos tipos de datos (como imágenes o series de tiempo), siguiendo las bases planteadas en este trabajo.
+
 
 %
 % ---- Bibliography ----
