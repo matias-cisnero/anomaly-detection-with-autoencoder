@@ -137,35 +137,29 @@ Con el pasar del tiempo se desarrollaron múltiples variantes de los Autoencoder
 
 \subsection{Conjunto de datos}
 
-[CREO QUE DEBO RESUMIRLO UN POCO MÁS]\\
+Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}. El cual está compuesto por 569 registros de muestras citológicas con 357 de estas etiquetadas como benignas (B) y 212 como malignas (M), los atributos corresponden a características numéricas derivadas del análisis de imágenes digitalizadas obtenidas mediante FNA.
 
-Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}, el cual se obtuvo de la plataforma Kaggle \parencite{kaggle_breast_cancer_wisconsin}, que es una copia del dataset original publicado por Wolberg et al. \parencite{breast_cancer_wisconsin}.
+Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división inicial del conjunto de datos en tres subcojuntos: entrenamiento con el 60\% de las muestras, validación con el 20\% y prueba con el 20\% restante. 
 
-El conjunto de datos está compuesto por 569 registros de muestras citológicas con 357 de estas etiquetadas como benignas (B) y 212 como malignas (M), los atributos corresponden a características numéricas derivadas del análisis de imágenes digitalizadas, correspondientes a aspiraciones con aguja fina de masas mamarias. Las muestras incluidas en el conjunto de datos fueron recolectadas entre enero de 1989 y noviembre de 1991.\\
-
-Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división inicial del conjunto de datos en tres subcojuntos: entrenamiento con el 60\% de las muestras, validación con el 20\% y prueba con el 20\% restante, todos con la misma proporción de clases. 
-
-A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos con distintas proporciones de anomalías e igual tamaño. Esto tiene el objetivo de permitir evaluar que tanto afecta a los modelos distinta cantidad de contaminación en los datos de entrenamiento.
+A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos con distintas proporciones de anomalías e igual tamaño: el subcojunto A con 0\% de anomalías, B con 10\% y C con 25\%.
 
 Todos los subconjuntos se estandarizan utilizando la media y el desvío estándar del subconjunto de entrenamiento original.
 
 \subsection{Descripción de los métodos}
 
-[FALTA ACLARAR LO DE LA RECONSTRUCCIÓN]\\
-
 \subsubsection{Autoencoders}
 
-El método empleado en este trabajo es el Autoencoder, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por poseer la misma dimensión tanto en la entrada como en la salida. Su objetivo es aprender una representación comprimida que permita reconstruir los datos originales.
+El método empleado en este trabajo es el Autoencoder, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por poseer la misma dimensión tanto en la entrada como en la salida.
 
-La arquitectura de un Autoencoder se compone de dos partes principales: el \emph{encoder}, que transforma los datos de entrada en una representación de menor dimensionalidad, y el \emph{decoder}, que intenta reconstruir la entrada original a partir de dicha representación compacta. Entre ambos se encuentra la capa latente, donde se almacena la representación interna de menor dimensión. 
+La arquitectura de un Autoencoder se compone de dos partes principales: el \emph{encoder}, que transforma los datos de entrada en una representación de menor dimensionalidad, y el \emph{decoder}, que intenta reconstruir la entrada original a partir de dicha representación compacta.
 
-También se utilizan dos variantes del Autoencoder, el \emph{Sparse Autoencoder (SAE)} y \emph{Contractive Autoencoder (CAE)}, los cuales imponen restricciones adicionales sobre la capa latente. El SAE permite obtener representaciones dispersas en la capa latente y CAE representaciones robustas y suaves.
+También se utilizan dos variantes del Autoencoder, el \emph{Sparse Autoencoder (SAE)} y \emph{Contractive Autoencoder (CAE)}, los cuales imponen restricciones adicionales sobre la capa latente.
 
 \subsubsection{Métricas de evaluación}
 
-Para evaluar rigurosamente el desempeño del autocodificador en la tarea de detección de anomalías, se analizan diversas métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$. Dado que este valor actúa como cuantificador directo de qué tan bien el modelo reproduce cada instancia, es posible utilizarlo como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$, donde se considera anomalía si lo supera, o normal en el caso contrario.
+Para evaluar el desempeño del autocodificador en la tarea de detección de anomalías, se analizan métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$. Este valor se utiliza como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$, donde se considera anomalía si lo supera.
 
-A partir de esta regla se construye la matriz de confusión, desde la cual se obtienen métricas clásicas de evaluación como la exactitud, la sensibilidad y la especificidad. Asimismo, se emplean herramientas adicionales basadas en la variación del umbral, como la curva ROC y el área bajo dicha curva (AUC) que permiten caracterizar el rendimiento global del modelo sin depender de un valor fijo de $\epsilon$, proporcionando una visión más completa de su capacidad discriminativa en términos del error de reconstrucción.
+A partir de esta regla se construye la matriz de confusión, desde la cual se obtienen métricas como la exactitud, la sensibilidad y la especificidad, entre otras. Asimismo, se emplean la curva ROC y el área bajo dicha curva (AUC) para caracterizar el rendimiento del modelo sin depender de un valor fijo de $\epsilon$.
 
 \section{Resultados}
 
@@ -173,7 +167,7 @@ Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se ob
 
 \begin{table}%[H]
 	\centering
-	\caption{Métricas de rendimiento para cada modelo entrenado con los conjuntos A, B y C.}
+	\caption{Métricas para cada modelo entrenado con los subconjuntos A, B y C.}
 	\begin{tabular}{lcccccc}
 		\toprule
 		\textbf{Modelo} &
