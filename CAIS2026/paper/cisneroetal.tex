@@ -111,27 +111,25 @@ Los resultados son alentadores pero es necesario profundizar la investigación p
 \vspace{0.5cm}
 \setcounter{page}{1}
 
-%
 \section{Introducción}
 
-[ME FALTA ESTO MÁS QUE NADA]\\
+\subsubsection{Motivación}
 
-% Motivación
+El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna.
 
-El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna. Los métodos tradicionales de análisis suelen pasar desapercibidos patrones sutiles en las muestras.
-
-mediante métodos no tradicionales como las redes neuronales permite detectar patrones sutiles que normalmente pasan desapercibidos. Los Autoencoders, un tipo de redes neuronales, son un buen candidato para esta tarea al estar diseñados para aprender representaciones compactas con las características más relevantes de los datos, permitiendo distinguir entre anomalías y datos normales.
+Mediante métodos no tradicionales como las redes neuronales es posible detectar patrones sutiles que normalmente pasan desapercibidos. Los Autoencoders son un buen candidato para esta tarea al permitir capturar las características más importante de los registros y así distinguir entre anomalías y datos normales.
 
 Este tipo de modelos podría servir como herramienta de asistencia para profesionales de la salud.
 
-% Hipótesis
+\subsubsection{Hipótesis}
 
+Este trabajo se basa en la hipótesis de que al entrenar el Autoencoder unicamente con datos normales, los registros anómalos (malignos) tendrán un mayor error de reconstrucción $\lVert \hat{t} - t \rVert$ en comparación con los normales (benignos). Este umbral de decisión se calcula con el índice de Youden.
 
+\subsubsection{Estado del arte}
 
-% Estado del arte
+Se desarrollaron múltiples variantes de los Autoencoders, evaluadas por los autores Neloy y Turgeon. Los cuales comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en 11 arquitecturas. Demostrando una mayor capacidad para detección de anomalías los modelos IWAE, $\beta$-VAE y adVAE.
 
-Con el pasar del tiempo se desarrollaron múltiples variantes de los Autoencoders, las principales fueron evaluadas por los autores Neloy y Turgeon. Los mismos comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en 11 arquitecturas variantes de Autoencoders. Demostrando una mayor capacidad para detección de anomalías los modelos IWAE, $\beta$-VAE y adVAE. 
-
+Otras propuestas como la de Nawaz et al. incluyen a los \emph{Ensemble of Autoencoders} como alternativa más robusta al uso de un solo modelo.
 
 \section{Materiales y Métodos}
 
@@ -139,11 +137,11 @@ Con el pasar del tiempo se desarrollaron múltiples variantes de los Autoencoder
 
 Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}. El cual está compuesto por 569 registros de muestras citológicas con 357 de estas etiquetadas como benignas (B) y 212 como malignas (M), los atributos corresponden a características numéricas derivadas del análisis de imágenes digitalizadas obtenidas mediante FNA.
 
-Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división inicial del conjunto de datos en tres subcojuntos: entrenamiento con el 60\% de las muestras, validación con el 20\% y prueba con el 20\% restante. 
+Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división del conjunto en entrenamiento (60\%), validación (20\%) y prueba (20\%).
 
-A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos con distintas proporciones de anomalías e igual tamaño: el subcojunto A con 0\% de anomalías, B con 10\% y C con 25\%.
+A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos de igual tamaño con distintas proporciones de anomalías: A con 0\%, B con 10\% y C con 25\%.
 
-Todos los subconjuntos se estandarizan utilizando la media y el desvío estándar del subconjunto de entrenamiento original.
+Todos los subconjuntos se estandarizan utilizando la media y el desvío estándar del subconjunto de entrenamiento.
 
 \subsection{Descripción de los métodos}
 
@@ -157,11 +155,41 @@ También se utilizan dos variantes del Autoencoder, el \emph{Sparse Autoencoder 
 
 \subsubsection{Métricas de evaluación}
 
-Para evaluar el desempeño del autocodificador en la tarea de detección de anomalías, se analizan métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$. Este valor se utiliza como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$, donde se considera anomalía si lo supera.
+Para evaluar el desempeño del autocodificador en la tarea de detección de anomalías, se analizan métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$. Este valor se utiliza como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$, calculado con el índice de Youden. El registro se considera anomalía si lo supera.
 
-A partir de esta regla se construye la matriz de confusión, desde la cual se obtienen métricas como la exactitud, la sensibilidad y la especificidad, entre otras. Asimismo, se emplean la curva ROC y el área bajo dicha curva (AUC) para caracterizar el rendimiento del modelo sin depender de un valor fijo de $\epsilon$.
+\begin{equation}
+	\hat{y} =
+	\begin{cases}
+		0, & \text{si } \lVert \hat{t} - t \rVert \le \epsilon \\[4pt]
+		1, & \text{si } \lVert \hat{t} - t \rVert > \epsilon
+	\end{cases}.
+	\label{eq:criterio}
+\end{equation}
+
+A partir de esta regla se construye la matriz de confusión, y se calculan las métricas de exactitud, sensibilidad y especificidad, entre otras. Asimismo, se emplean la curva ROC y el área bajo dicha curva (AUC) para caracterizar el rendimiento del modelo sin depender de un valor de umbral fijo.
 
 \section{Resultados}
+
+Las configuraciones de cada modelo surgen de un proceso de \emph{grid search}. Obteniendo los hiperparámetros de la Tabla~\ref{tab:hiperparametros_modelos}.
+
+\begin{table}
+	\centering
+	\caption{Hiperparámetros de entrenamiento para cada modelo.}
+	\begin{tabular}{lcccc}
+		\toprule
+		\textbf{Modelo} &
+		\textbf{Dimensiones de capas} &
+		\textbf{\emph{lr}} &
+		\textbf{\emph{Batch size}} &
+		\textbf{Épocas} \\
+		\midrule
+		AE  & [30, 32, 16, 8, 4, 2] & 0.001 & 16 & 200 \\
+		SAE & [30, 64] & 0.001 & 16 & 200 \\
+		CAE & [30, 32, 16] & 0.001 & 16 & 200 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:hiperparametros_modelos}
+\end{table}
 
 Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se observa que el mayor \emph{Recall} lo posee el modelo \textbf{CAE (A)} y el modelo \textbf{SAE (A)} cuenta con el mayor $\emph{F1}_{\emph{score}}$, \emph{Precision} y \emph{Specificity}. También se visualiza el decrecimiento de las métricas al aumentar las anomalías en el entrenamiento de los modelos, mayormente en el modelo SAE.
 
