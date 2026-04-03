@@ -44,7 +44,7 @@ Juliana Gambini\inst{1,2}\orcidID{0000-0002-4534-1402}}
 % If there are more than two authors, 'et al.' is used.
 %
 \institute{LIDEC, Universidad Nacional de Hurlingham, Pcia. de Buenos Aires, Argentina
-\email{juliana.gambini@unahur.edu.ar} \and
+\email{matiasnicolas.cisnero@estudiantes.unahur.edu.ar, juliana.gambini@unahur.edu.ar} \and
 CPSI, Universidad Tecnológica Nacional, Regional Buenos Aires}
 %
 \maketitle              % typeset the header of the contribution
@@ -127,9 +127,15 @@ Este trabajo se basa en la hipótesis de que al entrenar el Autoencoder unicamen
 
 \subsubsection{Estado del arte}
 
-Se desarrollaron múltiples variantes de los Autoencoders, evaluadas por los autores Neloy y Turgeon. Los cuales comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en 11 arquitecturas. Demostrando una mayor capacidad para detección de anomalías los modelos IWAE, $\beta$-VAE y adVAE.
+Se desarrollaron múltiples variantes de los Autoencoders, evaluadas por los autores Neloy y Turgeon~\parencite{Acomprehensivestudyofautoencodersforanomalydetection}. Los cuales comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en 11 arquitecturas. Demostrando una mayor capacidad para detección de anomalías los modelos Algunas de las arquitecturas utilizadas son Denosing
+Autoencoder, Sparse Autoencoder, Contractive Autoencoder y Variational Autoencoder junto a algunas de
+sus variantes (SAE, VQ-VAE, $\beta$-VAE).
+Por otra parte, los autores Bouman y Heskes~\parencite{DBLP:journals/corr/abs-2501-13864}, cuestionan la capacidad de los autocodficadores
+para detectar anomalías mediante el error de reconstrucción. Los autores afirman
+que las anomalías lejanas a los datos normales pueden ser reconstruidas perfectamente, denotando una
+falta de fiabilidad en los modelos.
 
-Otras propuestas como la de Nawaz et al. incluyen a los \emph{Ensemble of Autoencoders} como alternativa más robusta al uso de un solo modelo.
+Otras propuestas como la de Nawaz et al.~\parencite{Ensembleofautoencodersforanomaly} incluyen a los \emph{Ensemble of Autoencoders} como alternativa más robusta al uso de un solo modelo.
 
 \section{Materiales y Métodos}
 
