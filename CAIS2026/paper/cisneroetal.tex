@@ -115,15 +115,15 @@ Los resultados son alentadores pero es necesario profundizar la investigación p
 
 \subsubsection{Motivación}
 
-El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna.
+El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna y el análisis de datos puede permitir detectar patrones que colaboren con el personal de salud en el diagnóstico preciso de algunas enfermedades. 
 
-Mediante métodos no tradicionales como las redes neuronales es posible detectar patrones sutiles que normalmente pasan desapercibidos. Los Autoencoders son un buen candidato para esta tarea al permitir capturar las características más importante de los registros y así distinguir entre anomalías y datos normales.
+El método de redes neuronales utiliza aprendizaje supervisado y permite detectar patrones  que pueden  pasar desapercibidos cuando se utilizan otros métodos de aprendizaje automático.
 
-Este tipo de modelos podría servir como herramienta de asistencia para profesionales de la salud.
+Los Autoencoders son un tipo de redes neuronales, que constituyen un buen candidato para esta tarea porque están diseñados para aprender representaciones compactas con las características más relevantes de los datos, permitiendo distinguir entre anomalías y datos normales.
 
 \subsubsection{Hipótesis}
 
-Este trabajo se basa en la hipótesis de que al entrenar el Autoencoder unicamente con datos normales, los registros anómalos (malignos) tendrán un mayor error de reconstrucción $\lVert \hat{t} - t \rVert$ en comparación con los normales (benignos). Este umbral de decisión se calcula con el índice de Youden.
+Este trabajo se basa en la hipótesis de que al entrenar el Autoencoder unicamente con datos normales, los registros anómalos (malignos) tendrán un mayor error de reconstrucción $\lVert \hat{t} - t \rVert$ en comparación con los normales (benignos). Para decidir cuál es mínimo error de reconstrucción para el cual se decide que los datos provienen de una anomalía es necesario utilizar un umbral. Este umbral de decisión se calcula con el índice de Youden.
 
 \subsubsection{Estado del arte}
 
