@@ -150,7 +150,7 @@ Los resultados son alentadores pero es necesario profundizar la investigación p
 
 El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna. El análisis de datos permite detectar patrones, realizar clasificaciones o regresiones que pueden colaborar con el personal de salud en el diagnóstico preciso de algunas enfermedades. 
 
-El método de redes neuronales artificiales utiliza aprendizaje supervisado y realizar clasificaciones o regresiones con una destacada eficiencia. 
+El método de redes neuronales artificiales utiliza aprendizaje supervisado y realiza clasificaciones o regresiones con una destacada eficiencia. 
 
 Los Autoencoders son un tipo de redes neuronales, que constituyen un buen candidato para esta tarea porque están diseñados para aprender representaciones compactas con las características más relevantes de los datos, permitiendo distinguir entre registros anómalos y normales.
 
@@ -167,11 +167,9 @@ sus variantes (SAE, VQ-VAE, $\beta$-VAE).
 Otras propuestas como la de Nawaz et al.~\parencite{Ensembleofautoencodersforanomaly} incluyen a los \emph{Ensemble of Autoencoders} como una alternativa muy robusta porque combina varios modelos.
 
 Sin embargo, los autores Bouman y Heskes~\parencite{DBLP:journals/corr/abs-2501-13864}, cuestionan la capacidad de los autocodficadores
-para detectar anomalías mediante el error de reconstrucción. Los autores afirman que las anomalías lejanas a los datos normales pueden ser reconstruidas perfectamente, denotando una
-falta de fiabilidad en los modelos.
+para detectar anomalías mediante el error de reconstrucción. Los autores afirman que las anomalías lejanas a los datos normales pueden ser reconstruidas perfectamente, denotando una falta de fiabilidad en los modelos.
 
-En este trabajo analizamos la capacidad de tres autiencoders diferentes para detectar anomalías en un conjunto de datos de mujeres. Algunos registros corresponden a personas enfermas y otros no. Si bien es necesario seguir trabajando, podemos observar que 
-los resultados son alentadores. 
+En este trabajo analizamos la capacidad de tres Autoencoders diferentes para detectar anomalías en un conjunto de datos de mujeres. Algunos registros corresponden a personas enfermas y otros no. Si bien es necesario seguir trabajando, podemos observar que los resultados son alentadores. 
 
 
 \section{Materiales y Métodos}
@@ -217,7 +215,7 @@ La arquitectura de un Autoencoder se compone de tres partes principales: el \emp
 				\foreach \i [evaluate={\y=\N/2-\i+0.5; \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
 					
 					% NODES
-					\node[node \n,outer sep=0.6] (N\lay-\i) at (\x,\y) {};
+					\node[node \n, minimum size=15pt, inner sep=1pt, outer sep=0.3] (N\lay-\i) at (\x,\y) {};
 					
 					% CONNECTIONS
 					\ifnum\lay>1 % connect to previous layer
@@ -237,7 +235,7 @@ La arquitectura de un Autoencoder se compone de tres partes principales: el \emp
 			
 		\end{tikzpicture}
 	\end{center}
-	\caption{Arquitectura de un autoencoder}
+	\caption{Arquitectura de un Autoencoder}
 	\label{autoencoder}
 \end{figure}
 
@@ -312,7 +310,7 @@ Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se ob
 Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} junto a su robustez ante la presencia de anomalías al CAE. %Por otra parte, el autoencoder clásico presenta un resultado aceptable en las métricas, teniendo mayor robustez al ruido que el SAE pero sin destacar en ninguna métrica.
 
 
-Aunque los resultados alcanzados son satisfactorios, es necesario  aplicar de nuevos enfoques para la detección de anomalías o el estudio en distintos conjuntos de datos, siguiendo las bases planteadas en este trabajo.
+Aunque los resultados alcanzados son satisfactorios, es necesario aplicar nuevos enfoques para la detección de anomalías o el estudio en distintos conjuntos de datos, siguiendo las bases planteadas en este trabajo.
 
 
 %
