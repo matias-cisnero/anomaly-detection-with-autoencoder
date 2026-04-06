@@ -27,6 +27,39 @@
 
 \usepackage[style=apa]{biblatex} % <- AGREGAR ESTA LÍNEA
 \addbibresource{thebiblio.bib} % <- AGREGAR ESTA LÍNEA
+
+\usepackage{tikz}
+\usepackage{listofitems}
+
+\usetikzlibrary{arrows.meta} % for arrow size
+\usepackage[outline]{contour} % glow around text
+\contourlength{1.4pt}
+\tikzset{>=latex} % for LaTeX arrow head
+\colorlet{myred}{red!80!black}
+\colorlet{myviolet}{magenta!80!black}
+\colorlet{myblue}{blue!80!black}
+\colorlet{mygreen}{green!60!black}
+\colorlet{myorange}{orange!70!red!60!black}
+\colorlet{mydarkred}{red!30!black}
+\colorlet{mydarkblue}{blue!40!black}
+\colorlet{mydarkgreen}{green!30!black}
+\tikzstyle{node}=[thick,circle,draw=myblue,minimum size=22,inner sep=0.5,outer sep=0.6]
+\tikzstyle{node in}=[node,green!20!black,draw=mygreen!30!black,fill=mygreen!25]
+\tikzstyle{node hidden}=[node,blue!20!black,draw=myblue!30!black,fill=myblue!20]
+\tikzstyle{node convol}=[node,orange!20!black,draw=myorange!30!black,fill=myorange!20]
+\tikzstyle{node out}=[node,red!20!black,draw=myred!30!black,fill=myred!20]
+\tikzstyle{connect}=[thick,mydarkblue] %,line cap=round
+\tikzstyle{connect arrow}=[-{Latex[length=4,width=3.5]},thick,mydarkblue,shorten <=0.5,shorten >=1]
+\tikzset{ % node styles, numbered for easy mapping with \nstyle
+	node 1/.style={node in},
+	node 2/.style={node hidden},
+	node 3/.style={node out},
+}
+\def\nstyle{int(\lay<\Nnodlen?min(2,\lay):3)} % map layer number onto 1, 2, or 3
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
 \begin{document}
 %
 % ENGLISH VERSION
@@ -113,35 +146,39 @@ Los resultados son alentadores pero es necesario profundizar la investigación p
 
 \section{Introducción}
 
-\subsubsection{Motivación}
+%\subsubsection{Motivación}
 
-El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna y el análisis de datos puede permitir detectar patrones que colaboren con el personal de salud en el diagnóstico preciso de algunas enfermedades. 
+El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna. El análisis de datos permite detectar patrones, realizar clasificaciones o regresiones que pueden colaborar con el personal de salud en el diagnóstico preciso de algunas enfermedades. 
 
-El método de redes neuronales utiliza aprendizaje supervisado y permite detectar patrones  que pueden  pasar desapercibidos cuando se utilizan otros métodos de aprendizaje automático.
+El método de redes neuronales artificiales utiliza aprendizaje supervisado y realizar clasificaciones o regresiones con una destacada eficiencia. 
 
-Los Autoencoders son un tipo de redes neuronales, que constituyen un buen candidato para esta tarea porque están diseñados para aprender representaciones compactas con las características más relevantes de los datos, permitiendo distinguir entre anomalías y datos normales.
+Los Autoencoders son un tipo de redes neuronales, que constituyen un buen candidato para esta tarea porque están diseñados para aprender representaciones compactas con las características más relevantes de los datos, permitiendo distinguir entre registros anómalos y normales.
 
-\subsubsection{Hipótesis}
+%\subsubsection{Hipótesis}
 
-Este trabajo se basa en la hipótesis de que al entrenar el Autoencoder unicamente con datos normales, los registros anómalos (malignos) tendrán un mayor error de reconstrucción $\lVert \hat{t} - t \rVert$ en comparación con los normales (benignos). Para decidir cuál es mínimo error de reconstrucción para el cual se decide que los datos provienen de una anomalía es necesario utilizar un umbral. Este umbral de decisión se calcula con el índice de Youden.
+Este trabajo se basa en la hipótesis de que al entrenar el Autoencoder únicamente con datos normales, los registros anómalos (malignos) tendrán un mayor error de reconstrucción en comparación con los normales (benignos). Para decidir cuál es mínimo error de reconstrucción para el cual se decide que los datos provienen de una anomalía es necesario utilizar un umbral. Este umbral de decisión se calcula con el índice de Youden~\parencite{Indexforratingdiagnostictests}.
 
-\subsubsection{Estado del arte}
+%\subsubsection{Estado del arte}
 
-Se desarrollaron múltiples variantes de los Autoencoders, evaluadas por los autores Neloy y Turgeon~\parencite{Acomprehensivestudyofautoencodersforanomalydetection}. Los cuales comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en 11 arquitecturas. Demostrando una mayor capacidad para detección de anomalías los modelos Algunas de las arquitecturas utilizadas son Denosing
+Se han desarrollado múltiples variantes de los Autoencoders, evaluadas por los autores Neloy y Turgeon~\parencite{Acomprehensivestudyofautoencodersforanomalydetection}. Los cuales comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en $11$ arquitecturas.  Algunas de las arquitecturas utilizadas son Denosing
 Autoencoder, Sparse Autoencoder, Contractive Autoencoder y Variational Autoencoder junto a algunas de
 sus variantes (SAE, VQ-VAE, $\beta$-VAE).
-Por otra parte, los autores Bouman y Heskes~\parencite{DBLP:journals/corr/abs-2501-13864}, cuestionan la capacidad de los autocodficadores
-para detectar anomalías mediante el error de reconstrucción. Los autores afirman
-que las anomalías lejanas a los datos normales pueden ser reconstruidas perfectamente, denotando una
+
+Otras propuestas como la de Nawaz et al.~\parencite{Ensembleofautoencodersforanomaly} incluyen a los \emph{Ensemble of Autoencoders} como una alternativa muy robusta porque combina varios modelos.
+
+Sin embargo, los autores Bouman y Heskes~\parencite{DBLP:journals/corr/abs-2501-13864}, cuestionan la capacidad de los autocodficadores
+para detectar anomalías mediante el error de reconstrucción. Los autores afirman que las anomalías lejanas a los datos normales pueden ser reconstruidas perfectamente, denotando una
 falta de fiabilidad en los modelos.
 
-Otras propuestas como la de Nawaz et al.~\parencite{Ensembleofautoencodersforanomaly} incluyen a los \emph{Ensemble of Autoencoders} como alternativa más robusta al uso de un solo modelo.
+En este trabajo analizamos la capacidad de tres autiencoders diferentes para detectar anomalías en un conjunto de datos de mujeres. Algunos registros corresponden a personas enfermas y otros no. Si bien es necesario seguir trabajando, podemos observar que 
+los resultados son alentadores. 
+
 
 \section{Materiales y Métodos}
 
 \subsection{Conjunto de datos}
 
-Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}. El cual está compuesto por 569 registros de muestras citológicas con 357 de estas etiquetadas como benignas (B) y 212 como malignas (M), los atributos corresponden a características numéricas derivadas del análisis de imágenes digitalizadas obtenidas mediante FNA.
+Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}~\parencite{kaggle_breast_cancer_wisconsin}. El cual está compuesto por $569$ registros de muestras citológicas con $357$ de estas etiquetadas como benignas (B) y $212$ como malignas (M), los atributos corresponden a características numéricas derivadas del análisis citológico mediante FNA.
 
 Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división del conjunto en entrenamiento (60\%), validación (20\%) y prueba (20\%).
 
@@ -149,30 +186,72 @@ A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos d
 
 Todos los subconjuntos se estandarizan utilizando la media y el desvío estándar del subconjunto de entrenamiento.
 
-\subsection{Descripción de los métodos}
+\subsection{Autoencoder y Métricas de evaluación}
 
-\subsubsection{Autoencoders}
+%\subsubsection{Autoencoders}
 
 El método empleado en este trabajo es el Autoencoder, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por poseer la misma dimensión tanto en la entrada como en la salida.
 
-La arquitectura de un Autoencoder se compone de dos partes principales: el \emph{encoder}, que transforma los datos de entrada en una representación de menor dimensionalidad, y el \emph{decoder}, que intenta reconstruir la entrada original a partir de dicha representación compacta.
+La arquitectura de un Autoencoder se compone de tres partes principales: el \emph{encoder}, que transforma los datos de entrada en una representación de menor dimensionalidad, la capa del medio, denominada ¨capa latente¨ y el \emph{decoder}, que intenta reconstruir la entrada original a partir de la representación compacta. La Figura~\ref{autoencoder} muestra la estructura de esta red neuronal. 
+
+\begin{figure}[h]
+	\begin{center}
+		\begin{tikzpicture}[x=1.2cm,y=0.6cm]
+			\large
+			\message{^^JNeural network without arrows}
+			\readlist\Nnod{5,4,3,2,3,4,5} % array of number of nodes per layer
+			
+			% TRAPEZIA
+			\node[above,align=center,myblue!60!black] at (3,2.4) {encoder};
+			\node[above,align=center,myblue!60!black] at (5,2.4) {decoder};
+			\draw[myorange!40,fill=myorange,fill opacity=0.02,rounded corners=2]
+			(1.6,-2.7) --++ (0,5.4) --++ (2.8,-1.2) --++ (0,-3) -- cycle;
+			\draw[myviolet!40,fill=myviolet,fill opacity=0.02,rounded corners=2]
+			(6.4,-2.7) --++ (0,5.4) --++ (-2.8,-1.2) --++ (0,-3) -- cycle;
+			
+			\message{^^J  Layer}
+			\foreachitem \N \in \Nnod{ % loop over layers
+				\def\lay{\Ncnt} % alias of index of current layer
+				\pgfmathsetmacro\prev{int(\Ncnt-1)} % number of previous layer
+				\message{\lay,}
+				\foreach \i [evaluate={\y=\N/2-\i+0.5; \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
+					
+					% NODES
+					\node[node \n,outer sep=0.6] (N\lay-\i) at (\x,\y) {};
+					
+					% CONNECTIONS
+					\ifnum\lay>1 % connect to previous layer
+					\foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
+						\draw[connect,white,line width=1.2] (N\prev-\j) -- (N\lay-\i);
+						\draw[connect] (N\prev-\j) -- (N\lay-\i);
+						%\draw[connect] (N\prev-\j.0) -- (N\lay-\i.180); % connect to left
+					}
+					\fi % else: nothing to connect first layer
+					
+				}
+			}
+			
+			% LABELS
+			\node[above=2,align=center,mygreen!60!black] at (N1-1.90) {entrada};
+			\node[above=2,align=center,myred!60!black] at (N\Nnodlen-1.90) {salida};
+			
+		\end{tikzpicture}
+	\end{center}
+	\caption{Arquitectura de un autoencoder}
+	\label{autoencoder}
+\end{figure}
 
 También se utilizan dos variantes del Autoencoder, el \emph{Sparse Autoencoder (SAE)} y \emph{Contractive Autoencoder (CAE)}, los cuales imponen restricciones adicionales sobre la capa latente.
 
-\subsubsection{Métricas de evaluación}
+%\subsection{Métricas de evaluación}
 
-Para evaluar el desempeño del autocodificador en la tarea de detección de anomalías, se analizan métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$. Este valor se utiliza como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$, calculado con el índice de Youden. El registro se considera anomalía si lo supera.
+Para evaluar el desempeño del autocodificador en la tarea de detección de anomalías, se analizan métricas derivadas del error de reconstrucción $\lVert \hat{t} - t \rVert$, donde $t$ es un registro tomado del conjunto de datos y $ \hat{t}$ es el estimado. Este valor se utiliza como criterio de decisión para distinguir entre casos normales y anómalos mediante un umbral $\epsilon$, calculado con el índice de Youden. El registro se considera anomalía si el error de reconstrucción supera el umbral.
+%Entonces, para evaluar el método consideramos la siguiente regla de decisión: 
+%$\hat{y} = 0$, si $\lVert \hat{t} - t \rVert \le \epsilon$, 
+%$  \hat{y} =	1$,  si  $\lVert \hat{t} - t \rVert > \epsilon$.
 
-\begin{equation}
-	\hat{y} =
-	\begin{cases}
-		0, & \text{si } \lVert \hat{t} - t \rVert \le \epsilon \\[4pt]
-		1, & \text{si } \lVert \hat{t} - t \rVert > \epsilon
-	\end{cases}.
-	\label{eq:criterio}
-\end{equation}
 
-A partir de esta regla se construye la matriz de confusión, y se calculan las métricas de exactitud, sensibilidad y especificidad, entre otras. Asimismo, se emplean la curva ROC y el área bajo dicha curva (AUC) para caracterizar el rendimiento del modelo sin depender de un valor de umbral fijo.
+A partir de esta regla se construye la matriz de confusión, y se calculan las métricas de exactitud, sensibilidad y especificidad, entre otras. Asímismo, se emplean la curva ROC y el área bajo la curva (AUC) para caracterizar el rendimiento del modelo.
 
 \section{Resultados}
 
@@ -197,7 +276,7 @@ Las configuraciones de cada modelo surgen de un proceso de \emph{grid search}. O
 	\label{tab:hiperparametros_modelos}
 \end{table}
 
-Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se observa que el mayor \emph{Recall} lo posee el modelo \textbf{CAE (A)} y el modelo \textbf{SAE (A)} cuenta con el mayor $\emph{F1}_{\emph{score}}$, \emph{Precision} y \emph{Specificity}. También se visualiza el decrecimiento de las métricas al aumentar las anomalías en el entrenamiento de los modelos, mayormente en el modelo SAE.
+Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se observa que el mayor valor de  \emph{Recall} lo posee el modelo \textbf{CAE (A)} y el modelo \textbf{SAE (A)} cuenta con el mayor valor de  $\emph{F1}_{\emph{score}}$, \emph{Precision} y \emph{Specificity}. También se visualiza el decrecimiento de las métricas al aumentar las anomalías en el entrenamiento de los modelos, especialmente en el modelo SAE.
 
 \begin{table}%[H]
 	\centering
@@ -230,16 +309,18 @@ Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se ob
 
 \section{Conclusiones y trabajos futuros}
 
-Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} junto a su robustez ante la presencia de anomalías al CAE. Por otra parte, el autoencoder clásico presenta un resultado aceptable en las métricas, teniendo mayor robustez al ruido que el SAE pero sin destacar en ninguna métrica.
+Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} junto a su robustez ante la presencia de anomalías al CAE. %Por otra parte, el autoencoder clásico presenta un resultado aceptable en las métricas, teniendo mayor robustez al ruido que el SAE pero sin destacar en ninguna métrica.
 
 
-Aunque los resultados alcanzados son satisfactorios, quedan abiertas múltiples lineas de investigación, como la aplicación de nuevos enfoques para la detección de anomalías o el estudio en distintos tipos de datos (como imágenes o series de tiempo), siguiendo las bases planteadas en este trabajo.
+Aunque los resultados alcanzados son satisfactorios, es necesario  aplicar de nuevos enfoques para la detección de anomalías o el estudio en distintos conjuntos de datos, siguiendo las bases planteadas en este trabajo.
 
 
 %
 % ---- Bibliography ----
 %
+\begin{sloppypar}
+	\printbibliography[title={Referencias}]
+\end{sloppypar}
 
-\printbibliography
 
 \end{document}
