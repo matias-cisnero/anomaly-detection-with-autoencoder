@@ -3075,7 +3075,9 @@
     <bcf:citekey order="2" intorder="1">Acomprehensivestudyofautoencodersforanomalydetection</bcf:citekey>
     <bcf:citekey order="3" intorder="1">Ensembleofautoencodersforanomaly</bcf:citekey>
     <bcf:citekey order="4" intorder="1">DBLP:journals/corr/abs-2501-13864</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">kaggle_breast_cancer_wisconsin</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">autoencodersforclinicaldataanalysis</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">life13102093</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">kaggle_breast_cancer_wisconsin</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="apa">

@@ -169,8 +169,9 @@ Otras propuestas como la de Nawaz et al.~\parencite{Ensembleofautoencodersforano
 Sin embargo, los autores Bouman y Heskes~\parencite{DBLP:journals/corr/abs-2501-13864}, cuestionan la capacidad de los autocodficadores
 para detectar anomalías mediante el error de reconstrucción. Los autores afirman que las anomalías lejanas a los datos normales pueden ser reconstruidas perfectamente, denotando una falta de fiabilidad en los modelos.
 
-En este trabajo analizamos la capacidad de tres Autoencoders diferentes para detectar anomalías en un conjunto de datos de mujeres. Algunos registros corresponden a personas enfermas y otros no. Si bien es necesario seguir trabajando, podemos observar que los resultados son alentadores. 
+Finalmente, las propuestas de Tekgöz y Topuz~\parencite{autoencodersforclinicaldataanalysis} y de Reshan et al.~\parencite{life13102093} muestran trabajos recientes utilizando el mismo conjunto de datos que se utiliza en este trabajo. En el primero, se utiliza el Autoencoder para reducir la dimensionalidad de los datos. En el segundo, se utilizan tecnicas de \emph{ensemble machine learning} (EML), logrando excelentes resultados, con un accuracy de $0.9989$ y un AUC de $1$ en el mejor modelo.
 
+En este trabajo analizamos la capacidad de tres Autoencoders diferentes para detectar anomalías en un conjunto de datos de mujeres, comparando sus resultados al entrenarlos con distintas proporciones de anomalías. Algunos registros corresponden a personas enfermas y otros no. Si bien es necesario seguir trabajando, podemos observar que los resultados son alentadores. 
 
 \section{Materiales y Métodos}
 
