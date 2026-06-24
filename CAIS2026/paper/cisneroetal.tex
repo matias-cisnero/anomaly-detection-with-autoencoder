@@ -83,17 +83,14 @@ CPSI, Universidad Tecnológica Nacional, Regional Buenos Aires}
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-This line of research addresses the detection of anomalies in biomedical data using the Autoencoder method.
-
-Autoencoders are artificial neural networks with a symmetrical architecture in which the input layer is the same as output layer. 
+This line of research addresses the detection of anomalies in biomedical data using  Autoencoders, which are artificial neural networks with a symmetrical architecture in which the input layer is the same as output layer. 
 This method reduces the dimension of original data and then reconstructs it. The reconstruction error is the key point of this research.
 
 The hypothesis of this work is that patients who present a large reconstruction error (greater than a threshold) can be classified as anomalous, which can help the medical professional to detect diseases.
-
 With this objective, the Autoencoder method is implemented
 and trained with different proportions of data from healthy and sick patients. Several architectures are used to optimize the parameters.
 
-Three variants are evaluated: the classic autoencoder, the sparse autoencoder, and the contractive autoencoder.
+%Three variants are evaluated: the classic autoencoder, the sparse autoencoder, and the contractive autoencoder.
 The threshold used to classify these data as normal or anomalies based on their reconstruction error is computed using the Youden index.
 
 In this case, the methods are tested using the
@@ -117,17 +114,14 @@ The results are encouraging, but further research is needed to obtain more concl
 \end{center}
 
 \begin{abstract}
-La presente línea de investigación aborda la detección de anomalías en datos biomédicos utilizando el método Autoencoder.
-
-Los Autoencoders son redes neuronales artificiales que poseen una arquitectura simétrica, en la que la capa de entrada es exactamente igual a la de salida. Este método reduce la dimensión de los datos originales para luego reconstruirlos. El error de reconstrucción es la pieza clave de esta investigación. 
+La presente línea de investigación aborda la detección de anomalías en datos biomédicos utilizando Autoencoders, los cuales son redes neuronales artificiales que poseen una arquitectura simétrica, en la que la capa de entrada es exactamente igual a la de salida. Este método reduce la dimensión de los datos originales para luego reconstruirlos. El error de reconstrucción es la pieza clave de esta investigación. 
 
 La hipótesis de este trabajo es que los pacientes  que presenten un error de reconstrucción grande (mayor que un umbral), pueden ser clasificados como anómalos, lo cual puede ayudar al profesional médico a detectar enfermedades.  
-
 Con este objetivo, se implementa el método Autoencoder
 y se entrena con distintas proporciones de datos de pacientes sanos y enfermos. Se utilizan diferentes arquitecturas para optimizar los parámetros. 
 
-Se evalúan tres variantes: el autoencoder clásico, el
-\emph{sparse} autoencoder y el \emph{contractive} autoencoder.
+%Se evalúan tres variantes: el autoencoder clásico, el
+%\emph{sparse} autoencoder y el \emph{contractive} autoencoder.
 El umbral utilizado para clasificar estos datos como normales o anomalías según su
 error de reconstrucción, se calcula utilizando el índice de Youden.
 
@@ -148,19 +142,19 @@ Los resultados son alentadores pero es necesario profundizar la investigación p
 
 %\subsubsection{Motivación}
 
-El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna. El análisis de datos permite detectar patrones, realizar clasificaciones o regresiones que pueden colaborar con el personal de salud en el diagnóstico preciso de algunas enfermedades. 
+El diagnóstico temprano de enfermedades como el cáncer de mama es una tarea prioritaria en la medicina moderna. El análisis de datos permite detectar patrones, realizar clasificaciones o regresiones que pueden colaborar con el personal de salud en el diagnóstico preciso de  enfermedades. 
 
-El método de redes neuronales artificiales utiliza aprendizaje supervisado y realiza clasificaciones o regresiones con una destacada eficiencia. 
+%El método de redes neuronales artificiales utiliza aprendizaje supervisado y realiza clasificaciones o regresiones con una destacada eficiencia. 
 
-Los Autoencoders son un tipo de redes neuronales, que constituyen un buen candidato para esta tarea porque están diseñados para aprender representaciones compactas con las características más relevantes de los datos, permitiendo distinguir entre registros anómalos y normales.
+Los Autoencoders son redes neuronales diseñados para aprender representaciones con las características más relevantes de los datos, permitiendo distinguir entre registros anómalos y normales.
 
 %\subsubsection{Hipótesis}
 
-Este trabajo se basa en la hipótesis de que al entrenar el Autoencoder únicamente con datos normales, los registros anómalos (malignos) tendrán un mayor error de reconstrucción en comparación con los normales (benignos). Para decidir cuál es mínimo error de reconstrucción para el cual se decide que los datos provienen de una anomalía es necesario utilizar un umbral. Este umbral de decisión se calcula con el índice de Youden~\parencite{Indexforratingdiagnostictests}.
+Este trabajo se basa en la hipótesis de que si se entrena un Autoencoder con datos normales, los registros anómalos (malignos) tendrán un mayor error de reconstrucción en comparación con los normales (benignos). Para decidir cuál es mínimo error de reconstrucción para el cual se considera que los datos provienen de una anomalía es necesario utilizar un umbral. Este umbral de decisión se calcula con el índice de Youden~\parencite{Indexforratingdiagnostictests}.
 
 %\subsubsection{Estado del arte}
 
-Se han desarrollado múltiples variantes de los Autoencoders, evaluadas por los autores Neloy y Turgeon~\parencite{Acomprehensivestudyofautoencodersforanomalydetection}. Los cuales comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en $11$ arquitecturas.  Algunas de las arquitecturas utilizadas son Denosing
+Se han desarrollado múltiples variantes de Autoencoders, evaluadas por los autores Neloy y Turgeon~\parencite{Acomprehensivestudyofautoencodersforanomalydetection}. Los cuales comparan la capacidad de reconstrucción, generación de muestras, visualización del espacio latente y precisión en clasificación de datos anómalos en $11$ arquitecturas.  Algunas de las cuales son Denosing
 Autoencoder, Sparse Autoencoder, Contractive Autoencoder y Variational Autoencoder junto a algunas de
 sus variantes (SAE, VQ-VAE, $\beta$-VAE).
 
@@ -171,31 +165,28 @@ para detectar anomalías mediante el error de reconstrucción. Los autores afirm
 
 Finalmente, las propuestas de Tekgöz y Topuz~\parencite{autoencodersforclinicaldataanalysis} y de Reshan et al.~\parencite{life13102093} muestran trabajos recientes utilizando el mismo conjunto de datos que se utiliza en este trabajo. En el primero, se utiliza el Autoencoder para reducir la dimensionalidad de los datos. En el segundo, se utilizan técnicas de \emph{ensemble machine learning} (EML), logrando excelentes resultados, con un accuracy de $0.9989$ y un AUC de $1$ en el mejor modelo.
 
-En este trabajo analizamos la capacidad de tres Autoencoders diferentes para detectar anomalías en un conjunto de datos de mujeres, comparando sus resultados al entrenarlos con distintas proporciones de anomalías. Algunos registros corresponden a personas enfermas y otros no. Si bien es necesario seguir trabajando, podemos observar que los resultados son alentadores. 
+En este trabajo analizamos la capacidad de tres Autoencoders diferentes para detectar anomalías en un conjunto de datos de pacientes, comparando sus resultados al entrenarlos con distintas proporciones de anomalías. Algunos registros corresponden a personas enfermas y otros no. Si bien es necesario seguir trabajando, podemos observar que los resultados son alentadores. 
 
 \section{Materiales y Métodos}
 
-\subsection{Conjunto de datos}
+%\subsection{Conjunto de datos}
 
-Para la realización de este trabajo, se utiliza el conjunto de datos \emph{Breast Cancer Wisconsin (Diagnostic) Data Set}~\parencite{kaggle_breast_cancer_wisconsin}. El cual está compuesto por $569$ registros de muestras citológicas con $357$ de estas etiquetadas como benignas (B) y $212$ como malignas (M), los atributos corresponden a características numéricas derivadas del análisis citológico mediante FNA.
+Para la realización de este trabajo, se utiliza el conjunto de datos ~\parencite{kaggle_breast_cancer_wisconsin}. El cual está compuesto por $569$ registros de muestras citológicas con $357$ de éstas etiquetadas como benignas (B) y $212$ como malignas (M), los atributos corresponden a características numéricas derivadas del análisis citológico mediante FNA.
 
-Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división del conjunto en entrenamiento (60\%), validación (20\%) y prueba (20\%).
 
-A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos de igual tamaño con distintas proporciones de anomalías: A con 0\%, B con 10\% y C con 25\%.
 
-Todos los subconjuntos se estandarizan utilizando la media y el desvío estándar del subconjunto de entrenamiento.
+%Todos los subconjuntos se estandarizan utilizando la media y el desvío estándar del subconjunto de entrenamiento.
 
-\subsection{Autoencoder y Métricas de evaluación}
+%\subsection{Autoencoder y Métricas de evaluación}
 
 %\subsubsection{Autoencoders}
 
 El método empleado en este trabajo es el Autoencoder, un tipo de perceptrón multicapa caracterizado por su estructura simétrica respecto a la capa latente y por poseer la misma dimensión tanto en la entrada como en la salida.
-
 La arquitectura de un Autoencoder se compone de tres partes principales: el \emph{encoder}, que transforma los datos de entrada en una representación de menor dimensionalidad, la capa del medio, denominada ¨capa latente¨ y el \emph{decoder}, que intenta reconstruir la entrada original a partir de la representación compacta. La Figura~\ref{autoencoder} muestra la estructura de esta red neuronal. 
 
 \begin{figure}[h]
 	\begin{center}
-		\begin{tikzpicture}[x=1.2cm,y=0.6cm]
+		\begin{tikzpicture}[x=1.2cm,y=0.5cm]
 			\large
 			\message{^^JNeural network without arrows}
 			\readlist\Nnod{5,4,3,2,3,4,5} % array of number of nodes per layer
@@ -236,7 +227,7 @@ La arquitectura de un Autoencoder se compone de tres partes principales: el \emp
 			
 		\end{tikzpicture}
 	\end{center}
-	\caption{Arquitectura de un Autoencoder}
+	\caption{Arquitectura de un Autoencoder.}
 	\label{autoencoder}
 \end{figure}
 
@@ -249,6 +240,9 @@ Para evaluar el desempeño del autocodificador en la tarea de detección de anom
 %$\hat{y} = 0$, si $\lVert \hat{t} - t \rVert \le \epsilon$, 
 %$  \hat{y} =	1$,  si  $\lVert \hat{t} - t \rVert > \epsilon$.
 
+Para analizar la robustez del Autoencoder frente a distintos niveles de contaminación en los datos, se realiza una división del conjunto en entrenamiento (60\%), validación (20\%) y prueba (20\%).
+
+A partir del subconjunto de entrenamiento, se generan tres nuevos subconjuntos de igual tamaño con distintas proporciones de anomalías: A con 0\%, B con 10\% y C con 25\%.
 
 A partir de esta regla se construye la matriz de confusión, y se calculan las métricas de exactitud, sensibilidad y especificidad, entre otras. Asímismo, se emplean la curva ROC y el área bajo la curva (AUC) para caracterizar el rendimiento del modelo.
 
@@ -311,7 +305,7 @@ Los resultados se visualizan en la Tabla~\ref{tab:metricas_modelos}. Donde se ob
 Los resultados experimentales muestran una buena capacidad discriminativa de los modelos, destacando por sus métricas generales al SAE y por su \emph{Recall} junto a su robustez ante la presencia de anomalías al CAE. %Por otra parte, el autoencoder clásico presenta un resultado aceptable en las métricas, teniendo mayor robustez al ruido que el SAE pero sin destacar en ninguna métrica.
 
 
-Como trabajo futuro planeamos realizar una comparación exhaustiva entre los resultados obtenidos en este trabajo y los resultados de otras metodologías ya existentes.
+Como trabajo futuro planeamos realizar una comparación exhaustiva entre el algoritmo utilizado  en este trabajo y otras metodologías ya existentes aplicadas a este mismo conjunto de datos.
 
 %
 % ---- Bibliography ----
